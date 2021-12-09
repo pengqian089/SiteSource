@@ -1,0 +1,35 @@
+﻿.barrage {
+    width: 550px;
+    height: 35px;
+    line-height: 35px;
+    border: 2px solid #5291d0;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-size: 15px;
+    padding-left: 10px
+}
+.barrage-color {
+    height: 35px;
+    padding: 0 2px 2px 2px;
+    vertical-align: bottom;
+    outline: none;
+    border: 2px solid #5291d0;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+}
+.danmu:focus, .danmu-color:focus {
+    border-color: #2d6fb1;
+}
+.barrage-send {
+    height: 35px;
+    margin-left: 15px;
+    width: 70px;
+    background-color: #20c3d0;
+    border: 1px solid #2ad462;
+    border-radius: 3px;
+    color: #694747;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+}

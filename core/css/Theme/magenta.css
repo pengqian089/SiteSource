@@ -1,0 +1,186 @@
+﻿.blog-nav {
+    background-color: #eb2f96;
+    border-bottom: none;
+    box-shadow: -1px 2px 2px 1px #c41d7f
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #ffd6e7
+}
+
+.layui-elem-quote {
+    border-left-color: #eb2f96 !important;
+}
+
+.handel > ul > li > a:hover {
+    color: #eb2f96
+}
+
+.content-detail .more a {
+    color: #f759ab
+}
+
+/*begin 分页*/
+.laypage-main, .laypage-main * {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top
+}
+
+.laypage-main {
+    margin: 30px 0;
+    border: 1px solid #eb2f96;
+    border-right: none;
+    border-bottom: none;
+    font-size: 0
+}
+
+.laypage-main * {
+    margin: -1px;
+    padding: 0 20px;
+    line-height: 36px;
+    border-right: 1px solid #eb2f96;
+    border-bottom: 1px solid #eb2f96;
+    font-size: 14px
+}
+
+.laypage-main .laypage-curr {
+    background-color: #eb2f96;
+    color: #fff
+}
+
+/*end 分页*/
+
+
+.layui-btn {
+    background-color: #eb2f96
+}
+
+.blog-nav .blog-navicon {
+    color: #fff;
+    border: 1px solid #eb2f96;
+}
+
+.blog-nav .blog-navicon:hover {
+    border: 1px solid #bb0650
+}
+
+.blog-footer {
+    border-top: 1px solid #eb2f96;
+    background: #eb2f96;
+    color: #d3d2d2
+}
+
+.blog-footer a {
+    color: #d2d2d2
+}
+
+.blog-footer a:hover {
+    color: #fbfbfb
+}
+
+.article > .article-footer a {
+    color: #eb2f96
+}
+
+.article-category > .article-category-title {
+    border-bottom: 1px solid #eb2f96;
+}
+
+@media (min-width: 992px) {
+    .article-category a:hover {
+        border: 1px solid #eb2f96;
+        background: inherit;
+        color: #eb2f96;
+    }
+}
+
+.blog-module-ul li .fa {
+    color: #eb2f96
+}
+
+.article:hover {
+    border-left: 5px solid #eb2f96;
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #eb2f96;
+}
+
+.article-detail-content > .introduction {
+    border-left: 5px solid #ff85c0;
+    color: #9498a2
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #eb2f96;
+}
+
+.article-category a.tag-this {
+    border: 1px solid #eb2f96;
+    color: #eb2f96
+}
+
+.layim-chat-mine .layim-chat-text {
+    background-color: #eb2f96 !important;
+    color: #fff !important
+}
+
+.layim-chat-send span {
+    background-color: #eb2f96 !important;
+    color: #fff !important;
+}
+
+.layim-chat-send span:hover {
+    background-color: #9e1068 !important
+}
+
+.layim-chat-send span:active {
+    background-color: #9e1068 !important
+}
+
+.layui-layim-tab li.layim-this:after {
+    background-color: #eb2f96 !important
+}
+
+.layim-chat-send .layim-send-set {
+    border-left-color: #9e1068 !important;
+}
+.layim-chat-mine .layim-chat-text:after {
+    border-top-color: #eb2f96 !important;
+}
+
+.layui-row .game-card {
+    background-color: #eb2f96;
+    box-shadow: 2px 2px 4px 1px #ffadd2;
+    color: #fff;
+}
+
+#nprogress .bar {
+    background: #f9f0ff;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #f9f0ff, 0 0 5px #f9f0ff;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #f9f0ff;
+    border-left-color: #f9f0ff;
+}
+
+.achievements .item {
+    background-color: #eb2f96;
+    color: #ffffff;
+    margin: 7px 0 7px 0;
+    padding: 5px 0 5px 5px;
+    box-shadow: 2px 2px 4px 1px #ffadd2
+}
+.article>.article-right>.article-title a:hover {
+    color: #eb2f96
+}
+
+::selection {
+    background: #fff0f6;
+    color: #520339;
+}

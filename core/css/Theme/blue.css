@@ -1,0 +1,187 @@
+﻿.blog-nav {
+    background-color: #1890ff; /*item 6*/
+    border-bottom: none;
+    box-shadow: -1px 2px 2px 1px #69c0ff /*item 4*/
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #bae7ff /*item 2*/
+}
+
+.layui-elem-quote {
+    border-left-color: #1890ff !important;
+}
+
+.handel > ul > li > a:hover {
+    color: #1890ff
+}
+
+.content-detail .more a {
+    color: #69c0ff /*item 4*/
+}
+
+/*begin 分页*/
+.laypage-main, .laypage-main * {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top
+}
+
+.laypage-main {
+    margin: 30px 0;
+    border: 1px solid #1890ff;
+    border-right: none;
+    border-bottom: none;
+    font-size: 0
+}
+
+.laypage-main * {
+    margin: -1px;
+    padding: 0 20px;
+    line-height: 36px;
+    border-right: 1px solid #1890ff;
+    border-bottom: 1px solid #1890ff;
+    font-size: 14px
+}
+
+.laypage-main .laypage-curr {
+    background-color: #1890ff;
+    color: #fff
+}
+
+/*end 分页*/
+
+
+.layui-btn {
+    background-color: #1890ff
+}
+
+.blog-nav .blog-navicon {
+    color: #fff;
+    border: 1px solid #1890ff;
+}
+
+.blog-nav .blog-navicon:hover {
+    border: 1px solid #096dd9 /*item 7*/
+}
+
+.blog-footer {
+    border-top: 1px solid #1890ff;
+    background: #1890ff;
+    color: #d3d2d2
+}
+
+.blog-footer a {
+    color: #d2d2d2
+}
+
+.blog-footer a:hover {
+    color: #fbfbfb
+}
+
+.article > .article-footer a {
+    color: #1890ff
+}
+
+.article-category > .article-category-title {
+    border-bottom: 1px solid #1890ff;
+}
+
+@media (min-width: 992px) {
+    .article-category a:hover {
+        border: 1px solid #1890ff;
+        background: inherit;
+        color: #1890ff;
+    }
+}
+
+.blog-module-ul li .fa {
+    color: #1890ff
+}
+
+.article:hover {
+    border-left: 5px solid #1890ff;
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #1890ff;
+}
+
+.article-detail-content > .introduction {
+    border-left: 5px solid #40a9ff; /*item 5*/
+    color: #9498a2
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #1890ff;
+}
+
+.article-category a.tag-this {
+    border: 1px solid #1890ff;
+    color: #1890ff
+}
+
+.layim-chat-mine .layim-chat-text {
+    background-color: #1890ff !important;
+    color: #fff !important
+}
+
+.layim-chat-send span {
+    background-color: #1890ff !important;
+    color: #fff !important;
+}
+
+.layim-chat-send span:hover {
+    background-color: #096dd9 !important  /*item 7*/
+}
+
+.layim-chat-send span:active {
+    background-color: #096dd9 !important /*item 7*/
+}
+
+.layim-chat-send .layim-send-set {
+    border-left-color: #096dd9 !important; /*item 7*/
+}
+
+.layui-layim-tab li.layim-this:after {
+    background-color: #1890ff !important
+}
+
+.layim-chat-mine .layim-chat-text:after {
+    border-top-color: #1890ff !important;
+}
+
+.layui-row .game-card {
+    background-color: #1890ff;
+    box-shadow: 2px 2px 4px 1px #ff7875; /*item 4*/
+    color: #fff;
+}
+
+#nprogress .bar {
+    background: #e6f7ff; /*item 1*/
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #f9f0ff, 0 0 5px #e6f7ff; /*item 1*/
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #e6f7ff; /*item 1*/
+    border-left-color: #e6f7ff; /*item 1*/
+}
+
+.achievements .item {
+    background-color: #1890ff;
+    color: #ffffff;
+    margin: 7px 0 7px 0;
+    padding: 5px 0 5px 5px;
+    box-shadow: 2px 2px 4px 1px #91d5ff /*item3*/
+}
+.article>.article-right>.article-title a:hover {
+    color: #1890ff
+}
+
+::selection {
+    background: #e6f7ff; /*item 1*/
+    color: #0050b3; /*item 8*/
+}

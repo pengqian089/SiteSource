@@ -1,0 +1,187 @@
+﻿.blog-nav {
+    background-color: #13c2c2; /*item 6*/
+    border-bottom: none;
+    box-shadow: -1px 2px 2px 1px #5cdbd3 /*item 4*/
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #b5f5ec /*item 2*/
+}
+
+.layui-elem-quote {
+    border-left-color: #13c2c2 !important;
+}
+
+.handel > ul > li > a:hover {
+    color: #13c2c2
+}
+
+.content-detail .more a {
+    color: #5cdbd3 /*item 4*/
+}
+
+/*begin 分页*/
+.laypage-main, .laypage-main * {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top
+}
+
+.laypage-main {
+    margin: 30px 0;
+    border: 1px solid #13c2c2;
+    border-right: none;
+    border-bottom: none;
+    font-size: 0
+}
+
+.laypage-main * {
+    margin: -1px;
+    padding: 0 20px;
+    line-height: 36px;
+    border-right: 1px solid #13c2c2;
+    border-bottom: 1px solid #13c2c2;
+    font-size: 14px
+}
+
+.laypage-main .laypage-curr {
+    background-color: #13c2c2;
+    color: #fff
+}
+
+/*end 分页*/
+
+
+.layui-btn {
+    background-color: #13c2c2
+}
+
+.blog-nav .blog-navicon {
+    color: #fff;
+    border: 1px solid #13c2c2;
+}
+
+.blog-nav .blog-navicon:hover {
+    border: 1px solid #08979c /*item 7*/
+}
+
+.blog-footer {
+    border-top: 1px solid #13c2c2;
+    background: #13c2c2;
+    color: #d3d2d2
+}
+
+.blog-footer a {
+    color: #d2d2d2
+}
+
+.blog-footer a:hover {
+    color: #fbfbfb
+}
+
+.article > .article-footer a {
+    color: #13c2c2
+}
+
+.article-category > .article-category-title {
+    border-bottom: 1px solid #13c2c2;
+}
+
+@media (min-width: 992px) {
+    .article-category a:hover {
+        border: 1px solid #13c2c2;
+        background: inherit;
+        color: #13c2c2;
+    }
+}
+
+.blog-module-ul li .fa {
+    color: #13c2c2
+}
+
+.article:hover {
+    border-left: 5px solid #13c2c2;
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #13c2c2;
+}
+
+.article-detail-content > .introduction {
+    border-left: 5px solid #36cfc9; /*item 5*/
+    color: #9498a2
+}
+
+.blog-module > .blog-module-title {
+    border-bottom: 1px solid #13c2c2;
+}
+
+.article-category a.tag-this {
+    border: 1px solid #13c2c2;
+    color: #13c2c2
+}
+
+.layim-chat-mine .layim-chat-text {
+    background-color: #13c2c2 !important;
+    color: #fff !important
+}
+
+.layim-chat-send span {
+    background-color: #13c2c2 !important;
+    color: #fff !important;
+}
+
+.layim-chat-send span:hover {
+    background-color: #08979c !important  /*item 7*/
+}
+
+.layim-chat-send span:active {
+    background-color: #08979c !important /*item 7*/
+}
+
+.layim-chat-send .layim-send-set {
+    border-left-color: #08979c !important; /*item 7*/
+}
+
+.layui-layim-tab li.layim-this:after {
+    background-color: #13c2c2 !important
+}
+
+.layim-chat-mine .layim-chat-text:after {
+    border-top-color: #13c2c2 !important;
+}
+
+.layui-row .game-card {
+    background-color: #13c2c2;
+    box-shadow: 2px 2px 4px 1px #ff7875; /*item 4*/
+    color: #fff;
+}
+
+#nprogress .bar {
+    background: #e6fffb; /*item 1*/
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #f9f0ff, 0 0 5px #e6fffb; /*item 1*/
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #e6fffb; /*item 1*/
+    border-left-color: #e6fffb; /*item 1*/
+}
+
+.achievements .item {
+    background-color: #13c2c2;
+    color: #ffffff;
+    margin: 7px 0 7px 0;
+    padding: 5px 0 5px 5px;
+    box-shadow: 2px 2px 4px 1px #87e8de /*item3*/
+}
+.article>.article-right>.article-title a:hover {
+    color: #13c2c2
+}
+
+::selection {
+    background: #e6fffb; /*item 1*/
+    color: #006d75; /*item 8*/
+}
