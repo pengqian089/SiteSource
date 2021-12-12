@@ -6,21 +6,28 @@ html {
 body {
     background: #eee;
     color: #444;
-    cursor: url(/images/normal.cur), auto;
+    /* cursor: url(../images/normal.cur), auto; */
     overflow-x: hidden;
+    background: url("https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg") no-repeat fixed;
+    background-size: cover;
 }
 
+/*
 a, button {
-    cursor: url(/images/ayuda.cur), auto !important;
+    cursor: url(../images/ayuda.cur), auto !important;
 }
 
 p {
-    cursor: url(/images/texto.cur), auto;
+    cursor: url(../images/texto.cur), auto;
 }
 
 input[type="text"], textarea {
-    cursor: url(/images/texto.cur), auto;
-}
+    cursor: url(../images/texto.cur), auto;
+} */
+
+
+
+
 
 .hide {
     display: none;
@@ -1909,12 +1916,15 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 
 .aplayer .aplayer-lrc p {
     font-size: 16px !important;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 19.2px !important;
+    color:#000;
+    text-shadow: 0 0 #000;
 }
 
 .aplayer .aplayer-lrc p.aplayer-lrc-current {
     color: #FF1493;
+    text-shadow: 0 0 black;
 }
 
 /*account begin*/
@@ -2266,6 +2276,9 @@ body .warning .layui-layer-title {
 }
 
 /* video end */
+
+
+
 
 
 /* 小屏幕（平板，大于等于 768px） */
@@ -2968,10 +2981,111 @@ body .warning .layui-layer-title {
 }
 
 @media (prefers-color-scheme: dark) {
+
+    html, body, input, textarea, select, button {
+        border-color: #776f62;
+        color: #e5e0d8;
+    }
+
+    body {
+        background: url(https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg) no-repeat fixed;
+        background-size: cover;
+    }
+
+    .blog-main>.home-tips {
+        background-image: initial;
+        background-color: rgba(36, 37, 37, 0.5);
+    }
+
+    .article {
+        background-image: initial;
+        background-color: rgba(36, 37, 37, 0.5);
+        border-left-color: rgb(58, 61, 61);
+        color: rgb(199, 192, 181);
+    }
+
+    a, body {
+        color: rgb(189, 181, 170);
+    }
+
+    .article>.article-footer {
+        color: #a9a8a6;
+    }
+
+    .article>.article-footer a {
+        color: rgb(232, 89, 156);
+    }
+
+    .layui-elem-quote {
+        border-left-color: rgb(177, 26, 100) !important;
+    }
+
+    .sitemap {
+        background-image: initial;
+        background-color: rgba(36, 37, 37, 0.5);
+    }
+
+    .shadow {
+        box-shadow: rgb(13 13 13 / 10%) 0px 2px 10px 0px;
+    }
+
+    .search-keywords * {
+        background-color: rgba(36, 37, 37, 0.5);
+    }
+
+    .layui-elem-quote.sitemap * {
+        color: rgb(229, 224, 216) !important;
+    }
+
+    @media (min-width: 992px) {
+        .search-submit>.search-btn {
+            background-image: initial;
+            background-color: rgba(36, 37, 37, 0.5);
+            border-color: rgb(66, 69, 69);
+        }
+
+        .search-submit>.search-btn:hover {
+            border-color: rgb(70, 73, 73);
+        }
+
+    }
+
+    .layui-badge-rim,
+    .layui-border,
+    .layui-colla-content,
+    .layui-colla-item,
+    .layui-collapse,
+    .layui-elem-field,
+    .layui-form-pane .layui-form-item[pane],
+    .layui-form-pane .layui-form-label,
+    .layui-input,
+    .layui-layedit,
+    .layui-layedit-tool,
+    .layui-panel,
+    .layui-quote-nm,
+    .layui-select,
+    .layui-tab-bar,
+    .layui-tab-card,
+    .layui-tab-title,
+    .layui-tab-title .layui-this::after,
+    .layui-textarea {
+        border-color: rgb(63, 65, 65);
+    }
+
+    .layui-input:hover, .layui-textarea:hover, .layui-input:focus, .layui-textarea:focus {
+        border-color: rgb(63, 65, 65) !important;
+    }
+
+    .aplayer .aplayer-lrc p{
+        color:#fff
+    }
+
     .layui-layer-ico {
-        background: url(/images/dark-icons.png) no-repeat;
+        background: url(../images/dark-icons.png) no-repeat;
         background-color: #555
     }
+
+
 
     .article>.article-right>.article-title a:visited {
         color: #999;

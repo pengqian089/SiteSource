@@ -1,4 +1,20 @@
-﻿const WebApiBaseAddress = document.head.querySelector("meta[name=web-api-base-address]").content;
+﻿let dpzOption = {
+    /**
+     * webapi地址
+     */
+    webApiBaseAddress: document.head.querySelector("meta[name=web-api-base-address]").content,
+    /**
+     * 是否为 dark模式
+     */
+    isDark: false
+};
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    dpzOption.isDark = true;
+}
+
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    //...
+}
 layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
     function () {
         let element =
@@ -68,10 +84,15 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             const rect = canvas.getBoundingClientRect();
             canvas.width = rect.width;
             canvas.height = rect.height;
-
+            
             const raindropFx = new RaindropFX({
                 canvas: canvas,
-                background: "https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg",
+                background: 
+                    dpzOption.isDark 
+                        ? 
+                        "https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg" 
+                        : 
+                        "https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg",
             });
 
             window.onresize = () => {
@@ -807,11 +828,11 @@ function pjaxCompleteInit() {
         await start();
     });
 
-    DarkReader.auto({
-        brightness: 100,
-        contrast: 90,
-        sepia: 10
-    });
+    // DarkReader.auto({
+    //     brightness: 100,
+    //     contrast: 90,
+    //     sepia: 10
+    // });
 })();
 
 function showNotify(option) {
@@ -1060,15 +1081,15 @@ function initVideoPlayer() {
     if (player != null) {
         player.style.marginBottom = "15px";
         $.ajax({
-            url: `${WebApiBaseAddress}/api/Video`, 
+            url: `${dpzOption.webApiBaseAddress}/api/Video`,
             type: "get",
-            crossDomain:true,
-            headers:{
+            crossDomain: true,
+            headers: {
                 "accept": "application/json",
-                "Access-Control-Allow-Origin":"*"
+                "Access-Control-Allow-Origin": "*"
             },
-            xhrFields:{
-                "Access-Control-Allow-Origin":"*"
+            xhrFields: {
+                "Access-Control-Allow-Origin": "*"
             }
         })
             .done(function (result) {
