@@ -12,9 +12,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     dpzOption.isDark = true;
 }
 
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    //...
-}
 layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
     function () {
         let element =
