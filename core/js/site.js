@@ -1092,41 +1092,39 @@ function initVideoPlayer() {
                 "Access-Control-Allow-Origin": "*"
             }
         })
-            .done(function (result) {
-                let index = Math.floor(Math.random() * result.length);
-                if (player.id === playerId) {
-                    new DPlayer({
-                        container: document.getElementById('video-player'),
-                        danmaku: {
-                            api: "/history/chat/",
-                            id: result[index]["id"],
-                            maximum: 2000,
-                            token: "tokendemo",
-                            user: "阿胖",
-                            bottom: "15%"
-                        },
-                        theme: "#bb0662",
-                        video: {
-                            url: result[index]["m3u8"],
-                            type: 'hls',
-                        },
+        .done(function (result) {
+            let index = Math.floor(Math.random() * result.length);
+            if (player.id === playerId) {
+                new DPlayer({
+                    container: document.getElementById('video-player'),
+                    danmaku: {
+                        api: "/history/chat/",
+                        id: result[index]["id"],
+                        maximum: 2000,
+                        token: "tokendemo",
+                        user: "阿胖",
+                        bottom: "15%"
+                    },
+                    //theme: "#bb0662",
+                    video: {
+                        url: result[index]["m3u8"],
+                        type: 'hls',
+                    },
+                });
+            } else if (player.id === mPlayerId) {
+                if (Hls.isSupported()) {
+                    let video = document.createElement("video");
+                    video.controls = true;
+                    video.style.width = "100%";
+                    video.style.height = "100%";
+                    player.appendChild(video);
+                    let hls = new Hls();
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                        hls.loadSource(result[index]["m3u8"]);
                     });
-                } else if (player.id === mPlayerId) {
-                    if (Hls.isSupported()) {
-                        let video = document.createElement("video");
-                        video.controls = true;
-                        video.style.width = "100%";
-                        video.style.height = "100%";
-                        player.appendChild(video);
-                        let hls = new Hls();
-                        hls.attachMedia(video);
-                        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-                            hls.loadSource(result[index]["m3u8"]);
-                        });
-                    }
                 }
-            });
-
-
+            }
+        });
     }
 }
