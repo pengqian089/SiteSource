@@ -1,0 +1,115 @@
+@media (prefers-color-scheme: dark) {
+
+    html, body, input, textarea, select, button {
+        border-color: #776f62;
+        color: #e5e0d8;
+    }
+
+    html, body, input, textarea, select, button {
+        background-color: #242525;
+    }
+
+    .layui-nav .layui-nav-item a:hover, .layui-nav .layui-this a {
+        color: rgba(229, 224, 216, 0.7)
+    }
+
+    .layui-layer {
+        background-color: rgb(36, 37, 37) !important;
+        box-shadow: rgb(13 13 13 / 30%) 1px 1px 50px !important;
+    }
+
+    .layui-layer-title {
+        border-bottom-color: rgb(62, 65, 65) !important;
+        color: rgb(199, 192, 181) !important;
+    }
+
+    .layui-layer-btn .layui-layer-btn0 {
+        border-color: rgb(23, 100, 157) !important;
+        background-color: rgb(24, 109, 171) !important;
+        color: rgb(229, 224, 216) !important;
+    }
+
+    .layui-layer-btn a {
+        border-color: rgb(67, 70, 70) !important;
+        background-color: rgb(36, 37, 37) !important;
+        color: rgb(199, 192, 181) !important;
+        text-decoration-color: initial !important;
+    }
+
+    .fly-panel {
+        background-color: rgb(36, 37, 37);
+        box-shadow: rgb(13 13 13 / 5%) 0px 1px 2px 0px;
+    }
+
+    .layui-tab-title .layui-this {
+        color: rgb(229, 224, 216);
+    }
+
+    .layui-tab-title .layui-this::after {
+        border-bottom-color: rgb(58, 61, 61);
+    }
+
+    .layui-form-pane .layui-form-label {
+        background-color: rgb(38, 39, 39);
+    }
+
+    .avatar-add {
+        background-color: rgb(41, 43, 43);
+    }
+
+    .layui-card-header {
+        border-bottom-color: rgb(61, 63, 63);
+        color: rgb(199, 192, 181);
+    }
+
+    .layui-form-select dl {
+        border-color: rgb(70, 73, 73);
+        background-color: rgb(36, 37, 37);
+        box-shadow: rgb(13 13 13 / 12%) 0px 2px 4px;
+    }
+
+    .layui-form-select dl dd:hover {
+        background-color: rgb(62, 68, 68);
+    }
+
+    .layui-badge-rim,
+    .layui-border,
+    .layui-colla-content,
+    .layui-colla-item,
+    .layui-collapse,
+    .layui-elem-field,
+    .layui-form-pane .layui-form-item[pane],
+    .layui-form-pane .layui-form-label,
+    .layui-input,
+    .layui-layedit,
+    .layui-layedit-tool,
+    .layui-panel,
+    .layui-quote-nm,
+    .layui-select,
+    .layui-tab-bar,
+    .layui-tab-card,
+    .layui-tab-title,
+    .layui-tab-title .layui-this::after,
+    .layui-textarea {
+        border-color: rgb(63, 65, 65);
+    }
+
+    .layui-input:hover, .layui-textarea:hover, .layui-input:focus, .layui-textarea:focus {
+        border-color: rgb(63, 65, 65) !important;
+    }
+
+    .layui-input, .layui-select, .layui-textarea {
+        background-color: rgb(36, 37, 37);
+    }
+
+    .layui-layer-ico {
+        background: url(../images/dark-icons.png) no-repeat;
+        background-color: #555
+    }
+
+    .layui-btn-disabled, .layui-btn-disabled:active, .layui-btn-disabled:hover {
+        border-color: rgb(63, 65, 65) !important;
+        background-color: rgb(38, 39, 39) !important;
+        color: rgb(203, 196, 185) !important;
+    }
+}

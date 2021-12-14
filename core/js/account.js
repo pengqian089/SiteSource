@@ -103,6 +103,13 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
     });
 
     if (typeof (editormd) !== "undefined") {
+        let editorDefaultConfig = {};
+        for (let item in editormd.defaults) {
+            if (editormd.defaults.hasOwnProperty(item)) {
+                editorDefaultConfig[item] = editormd.defaults[item];
+            }
+        }
+
         let footerEditor = null;
         let friendshipEditor = null;
         element.on('tab(accountTab)', function (data) {
@@ -110,42 +117,54 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
             $("#footer-submit").addClass("layui-btn-disabled").attr("disabled", "disabled");
             $("#friendship-submit").addClass("layui-btn-disabled").attr("disabled", "disabled");
             if (data.index === 5) {
-                footerEditor = editormd("footer-editor",
-                    {
-                        width: "100%",
-                        height: "450px",
-                        watch: false,
-                        toolbar: false,
-                        codeFold: true,
-                        searchReplace: true,
-                        placeholder: "请输入页脚内容",
-                        value: $("#footer-content").val(),
-                        theme: "default",
-                        mode: "text/html",
-                        path: "/lib/editor.md/lib/",
-                        onload: function () {
-                            $("#footer-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
+                let setting = {
+                    width: "100%",
+                    height: "450px",
+                    watch: false,
+                    toolbar: false,
+                    codeFold: true,
+                    searchReplace: true,
+                    placeholder: "请输入页脚内容",
+                    value: $("#footer-content").val(),
+                    theme: "default",
+                    mode: "text/html",
+                    path: "/lib/editor.md/lib/",
+                    onload: function () {
+                        $("#footer-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
+                        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                            this.setTheme("dark");
+                            this.setEditorTheme("blackboard");
+                            this.setPreviewTheme("dark");
                         }
-                    });
+                    }
+                };
+                let option = $.extend(true, {}, editorDefaultConfig, setting);
+                footerEditor = editormd("footer-editor", option);
             } else if (data.index === 6) {
                 //友情连接
-                friendshipEditor = editormd("friendship-editor",
-                    {
-                        width: "100%",
-                        height: "450px",
-                        watch: false,
-                        toolbar: false,
-                        codeFold: true,
-                        searchReplace: true,
-                        placeholder: "请输入友情链接",
-                        value: $("#friendship-content").val(),
-                        theme: "default",
-                        mode: "text/html",
-                        path: "/lib/editor.md/lib/",
-                        onload: function () {
-                            $("#friendship-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
+                let setting = {
+                    width: "100%",
+                    height: "450px",
+                    watch: false,
+                    toolbar: false,
+                    codeFold: true,
+                    searchReplace: true,
+                    placeholder: "请输入友情链接",
+                    value: $("#friendship-content").val(),
+                    theme: "default",
+                    mode: "text/html",
+                    path: "/lib/editor.md/lib/",
+                    onload: function () {
+                        $("#friendship-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
+                        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                            this.setTheme("dark");
+                            this.setEditorTheme("blackboard");
+                            this.setPreviewTheme("dark");
                         }
-                    });
+                    }
+                };
+                let option = $.extend(true, {}, editorDefaultConfig, setting);
+                friendshipEditor = editormd("friendship-editor", option);
             }
         });
         $(document).delegate("#footer-submit", "click", function () {

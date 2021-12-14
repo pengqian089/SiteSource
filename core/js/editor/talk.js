@@ -6,14 +6,17 @@ layui.use(["table", "form", "layer"], function () {
         htmlDecode: "script,iframe|on*",
         width: "99%",
         height: $(document).height() - 20 - 38,
-        theme: "dark",
         saveHTMLToTextarea: true,
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "/Talk/Upload",
         path: "/lib/editor.md/lib/",
         onload: function () {
-
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                this.setTheme("dark");
+                this.setEditorTheme("blackboard");
+                this.setPreviewTheme("dark");
+            }
         },
         toolbarIcons: function () {
             return [
@@ -180,10 +183,4 @@ layui.use(["table", "form", "layer"], function () {
             layer.close(index);
         });
     });
-});
-
-DarkReader.auto({
-    brightness: 100,
-    contrast: 90,
-    sepia: 10
 });
