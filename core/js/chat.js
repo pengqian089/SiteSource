@@ -1,5 +1,5 @@
 ﻿const layimOption = {
-    CDNBaseAddress = document.head.querySelector("meta[name=cdn-base-address]").content;
+    CDNBaseAddress : document.head.querySelector("meta[name=cdn-base-address]").content
 };
 layui.config({
     layimPath: `${layimOption.CDNBaseAddress}/lib/layim/`,
