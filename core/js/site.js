@@ -55,26 +55,28 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         flow.lazyimg();
         let lazyLoadInstance = new LazyLoad({});
 
-        //雨滴背景
-        try {
-            const canvas = document.querySelector("#can-back-round");
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-            
-            const raindropFx = new RaindropFX({
-                canvas: canvas,
-                background: 
-                    dpzOption.isDark?"https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg":"https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg",
-            });
-
-            window.onresize = () => {
+        if (layui.device().mobile === false) {
+            //雨滴背景
+            try {
+                const canvas = document.querySelector("#can-back-round");
                 const rect = canvas.getBoundingClientRect();
-                raindropFx.resize(rect.width, rect.height);
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            
+                const raindropFx = new RaindropFX({
+                    canvas: canvas,
+                    background:
+                        dpzOption.isDark ? "https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg" : "https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg",
+                });
+
+                window.onresize = () => {
+                    const rect = canvas.getBoundingClientRect();
+                    raindropFx.resize(rect.width, rect.height);
+                }
+                raindropFx.start();
+            } catch (e) {
+                console.log(e);
             }
-            raindropFx.start();
-        } catch(e) {
-            console.log(e);
         }
         
         // $.ajax({url: "/Home/Wallpaper"}).done(function (result) {

@@ -1,21 +1,24 @@
-﻿layui.config({
-    layimPath: "/lib/layim/",
-    layimAssetsPath: "/lib/layim/layim-assets/",    
+﻿const layimOption = {
+    CDNBaseAddress = document.head.querySelector("meta[name=cdn-base-address]").content;
+};
+layui.config({
+    layimPath: `${layimOption.CDNBaseAddress}/lib/layim/`,
+    layimAssetsPath: `${layimOption.CDNBaseAddress}/lib/layim/layim-assets/`,
 }).extend({
     layim: layui.cache.layimPath + 'layim'
 }).use(["layim", "layer"], function () {
     var layim = layui.layim,
         layer = layui.layer;
-    var robotConnection = new signalR.HubConnectionBuilder().withUrl("/robotChat").withAutomaticReconnect().build();
+    // var robotConnection = new signalR.HubConnectionBuilder().withUrl("/robotChat").withAutomaticReconnect().build();
     var chatConnection = new signalR.HubConnectionBuilder().withUrl("/chathub").withAutomaticReconnect().build();
     chatConnection.start().catch(function (err) {
         return console.error(err.toString());
     });
-    robotConnection.start().then(function () {
-        console.log("robot connection");
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
+    // robotConnection.start().then(function () {
+    //     console.log("robot connection");
+    // }).catch(function (err) {
+    //     return console.error(err.toString());
+    // });
     layim.config({
         title: "聊天室",
         copyright: true,
@@ -69,17 +72,18 @@
                 console.info(res);
             });
         });
-    robotConnection.on("Question", function (res) {
-        //layim.getMessage(res);
-    });
-    robotConnection.on("Answer", function (res) {
-        layim.getMessage(res);
-        //layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
-    });
-    robotConnection.on("SystemError", function (res) {
-        layer.alert(res);
-    });
+    // robotConnection.on("Question", function (res) {
+    //     //layim.getMessage(res);
+    // });
+    // robotConnection.on("Answer", function (res) {
+    //     layim.getMessage(res);
+    //     //layim.setChatStatus('<span style="color:#FF5722;">在线</span>');
+    // });
+    // robotConnection.on("SystemError", function (res) {
+    //     layer.alert(res);
+    // });
     chatConnection.on("ReceiveMessage", function (res) {
+        res["timestamp"] = res["timestamp"] * 1000;
         layim.getMessage(res);
     });
     chatConnection.on("System", function (res) {
@@ -99,9 +103,9 @@
         //     layim.setChatStatus('<span style="color:#FF5722;">对方正在输入。。。</span>');
         // }
         if (data.to.id === "kefu") {
-            robotConnection.invoke("SendMessage", data.mine.content).catch(function (err) {
-                return console.error(err.toString());
-            });
+            // robotConnection.invoke("SendMessage", data.mine.content).catch(function (err) {
+            //     return console.error(err.toString());
+            // });
         } else if (data.to.type === "friend") {
             chatConnection.invoke("SendMessageToUser", data.to.id, data.mine.content).catch(function (err) {
                 return console.error(err.toString());

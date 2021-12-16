@@ -5131,4 +5131,100 @@ header h1 {
     .layui-carousel {
         background-color: rgb(39, 41, 40);
     }
+
+    /* layim start */
+    body .layui-layim-min {
+        border-color: rgb(69, 72, 71) !important;
+    }
+
+    .layui-layim-remark:focus, .layui-layim-remark:hover {
+        border-color: rgb(143 132 117) !important;
+        color: #e5e0d8 !important;
+        background-color: rgb(36, 37, 37) !important;
+    }
+
+    body .layui-layim, body .layui-layim-chat {
+        border-color: rgba(143, 132, 117, 0.05) !important;
+        background-color: rgb(40, 42, 42) !important;
+        color: rgb(199, 192, 181) !important;
+    }
+
+    .layui-layim-tab li {
+        color: rgba(229, 224, 216, 0.6) !important;
+    }
+
+    .layim-tab-content {
+        background-color: rgba(36, 37, 37, 0.9) !important;
+    }
+
+    .layui-layim-tool {
+        background-color: rgb(40, 42, 42) !important;
+    }
+
+    .layui-layim-search input {
+        border-color: initial !important;
+        background-color: rgb(54, 56, 56) !important;
+    }
+
+    .layui-layim-search label {
+        color: rgb(199, 192, 181) !important;
+    }
+
+    .layui-layim-tool li:active {
+        background-color: rgb(51, 53, 53) !important;
+    }
+
+    .layui-layim-skin li {
+        background-color: rgb(40, 42, 42) !important;
+    }
+
+    body .layui-layim-chat .layui-layer-title {
+        border-bottom-color: initial !important;
+        background-color: rgba(41, 42, 42, 0.7) !important;
+    }
+
+    .layim-chat-other span {
+        color: rgb(189, 181, 170) !important;
+    }
+
+    .layim-chat {
+        background-color: rgba(36, 37, 37, 0.9) !important;
+    }
+
+    .layui-layer-setwin .layui-layer-min cite {
+        background-color: #fff !important;
+    }
+
+    .layim-chat-footer {
+        border-top-color: rgb(62, 64, 64) !important;
+    }
+
+    .layim-chat-list {
+        background-color: rgb(55, 58, 58) !important;
+    }
+
+    .layim-chat-list li.layim-this {
+        background-color: rgb(42, 43, 44) !important;
+    }
+
+    .layim-chat-list li:hover {
+        background-color: rgb(51, 53, 53) !important;
+    }
+
+    .layui-layim-members ul {
+        border-color: rgb(69, 72, 71) !important;
+        background-color: rgba(36, 37, 37, 0.9) !important;
+        box-shadow: none !important;
+    }
+
+    .layim-chat-text {
+        background-color: rgb(51, 53, 53) !important;
+        color: rgb(199, 192, 181) !important;
+    }
+
+    .layim-chat-text::after {
+        border-color: rgb(51, 53, 53) transparent transparent !important;
+    }
+
+    /* layim end */
 }
