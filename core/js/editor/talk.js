@@ -1,6 +1,7 @@
 ﻿var closeOrSuccess = 0; // default close value is 0,success values is 1;
 layui.use(["table", "form", "layer"], function () {
-    let layer = layui.layer, mediaRecorder = null, audioChunks = [],recordIndex = -1;
+    let layer = layui.layer, mediaRecorder = null, audioChunks = [], recordIndex = -1;
+    const cdnBaseAddress = document.head.querySelector("meta[name=cdn-base-address]").content;
     let parentIndex = parent.layer.getFrameIndex(window.name);
     let editor = editormd("editor", {
         htmlDecode: "script,iframe|on*",
@@ -10,7 +11,7 @@ layui.use(["table", "form", "layer"], function () {
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "/Talk/Upload",
-        path: "/lib/editor.md/lib/",
+        path: `${cdnBaseAddress}/lib/editor.md/lib/`,
         onload: function () {
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 this.setTheme("dark");

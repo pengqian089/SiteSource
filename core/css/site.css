@@ -5099,6 +5099,58 @@ header h1 {
         background-color: rgb(48, 50, 50) !important;
     }
 
+    .gm-menu, .table-wrap {
+        --gm-font-size: 12px;
+        --darkreader-text--gm-color: #a9a093;
+        --darkreader-border--gm-color: #6f685c;
+        --darkreader-text--gm-color-high: #e5e0d8;
+        --darkreader-bg--gm-color-active: #1765ae;
+        --darkreader-text--gm-color-active: #409fe7;
+        --darkreader-border--gm-border: 1px solid #e8e8e8;
+        --darkreader-border--gm-border-high: 1px solid #ccc;
+        --darkreader-border--gm-border-active: 1px solid #aacbe1;
+        --darkreader-bg--gm-bg: #242525;
+        --darkreader-bg--gm-bg-odd: #272827;
+        --darkreader-bg--gm-bg-high: #2a2c2c;
+        --darkreader-bg--gm-remind-bg: #555959;
+        --darkreader-border--gm-remind-bg: #6f685c;
+        --darkreader-text--gm-remind-color: #e1dcd4;
+        --darkreader-text--gm-remind-icon-color: #a7cbe4;
+    }
+
+    .gm-menu {
+        color: var(--darkreader-text--gm-color-high) !important;
+        box-shadow: rgb(63 65 65) 0px 0px 5px !important;
+        background: var(--darkreader-bg--gm-bg) !important;
+        border: var(--darkreader-border--gm-border-high) !important;
+    }
+
+    .gm-menu .menu-line {
+        background-image: initial !important;
+        background-color: rgb(48, 50, 50) !important;
+        box-shadow: rgb(63 65 65) 0px 0px 5px !important;
+    }
+
+    .gm-menu [menu-action] {
+        display: block !important;
+        height: 28px !important;
+        position: relative !important;
+        padding: 5px 20px !important;
+        cursor: default !important;
+        line-height: 18px !important;
+    }
+
+    .gm-menu [menu-action]:hover {
+        background-image: initial !important;
+        background-color: rgb(98, 102, 103) !important;
+        color: rgb(229, 224, 216) !important;
+    }
+
+    .gm-menu [menu-action].disabled {
+        color: rgb(199, 192, 181) !important;
+        background: var(--darkreader-bg--gm-bg) !important;
+    }
+
     /* grid manage end */
 
     input, textarea, select, button {

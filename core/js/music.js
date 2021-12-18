@@ -1,8 +1,9 @@
-﻿$(function(){
+﻿$(function () {
+    let cdnBaseAddress = $("meta[name=cdn-base-address]").attr("content");
     if(typeof(Amplitude) === "undefined") {
         $.when(
-            $.getScript("/lib/amplitudejs/amplitude.min.js"),
-            $.getScript("/lib/amplitudejs/visualizations/michaelbromley.js"),
+            $.getScript(`${cdnBaseAddress}/lib/amplitudejs/amplitude.min.js`),
+            $.getScript(`${cdnBaseAddress}/lib/amplitudejs/visualizations/michaelbromley.js`),
             $.Deferred(function (deferred) {
                 $(deferred.resolve);
             })
@@ -12,6 +13,10 @@
     }else{
         musicInit();
     }
+
+    $(document).on("pjax:send", function () {
+        Amplitude?.stop()
+    });
 });
 
 function musicInit() {
@@ -26,7 +31,7 @@ function musicInit() {
         lycElement = document.getElementsByClassName("meta-lyrics")[0],
         lyricsItems = new Map();
     if (localStorage["music-volume"] === undefined) {
-        localStorage["music-volume"] = volumeElement.value;
+        localStorage["music-volume"] = volumeElement.value; 
     } else {
         volume = parseInt(localStorage["music-volume"]);
         volumeElement.value = isNaN(volume) ? 50 : volume;
@@ -120,7 +125,9 @@ function musicInit() {
         for (let item of liElements) {
             item.classList.remove("active");
         }
-        liElements[lineNo].classList.add("active");
+        if (liElements.length > 0) {
+            liElements[lineNo].classList.add("active");
+        }
         if (lineNo > preLine) {
             document.querySelectorAll(".meta-lyrics ul")[0].style.transform = `translateY(-${((lineNo - preLine + 2) * lineHeight)}px)`;
         }

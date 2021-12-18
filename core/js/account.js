@@ -112,6 +112,7 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
 
         let footerEditor = null;
         let friendshipEditor = null;
+        const cdnBaseAddress = document.head.querySelector("meta[name=cdn-base-address]").content;
         element.on('tab(accountTab)', function (data) {
             //页脚内容
             $("#footer-submit").addClass("layui-btn-disabled").attr("disabled", "disabled");
@@ -128,7 +129,7 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
                     value: $("#footer-content").val(),
                     theme: "default",
                     mode: "text/html",
-                    path: "/lib/editor.md/lib/",
+                    path: `${cdnBaseAddress}/lib/editor.md/lib/`,
                     onload: function () {
                         $("#footer-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
                         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -153,7 +154,7 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
                     value: $("#friendship-content").val(),
                     theme: "default",
                     mode: "text/html",
-                    path: "/lib/editor.md/lib/",
+                    path: `${cdnBaseAddress}/lib/editor.md/lib/`,
                     onload: function () {
                         $("#friendship-submit").removeClass("layui-btn-disabled").removeAttr("disabled");
                         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
