@@ -5285,4 +5285,10 @@ header h1 {
         background-color: rgba(36, 37, 37, 0.5);
         box-shadow: rgb(103 108 109) 3px 4px 5px;
     }
+
+    @media(max-width: 768px) {
+        .article>.article-right>.article-title a {
+            color: #ff98c3;
+        }
+    }
 }
