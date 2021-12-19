@@ -5290,5 +5290,9 @@ header h1 {
         .article>.article-right>.article-title a {
             color: #ff98c3;
         }
+
+        .article>.article-right>.article-title a:hover {
+            color: #ff98c3;
+        }
     }
 }
