@@ -4,6 +4,10 @@
      */
     webApiBaseAddress: document.head.querySelector("meta[name=web-api-base-address]").content,
     /**
+     * cdn地址
+     */
+    CDNBaseAddress : document.head.querySelector("meta[name=cdn-base-address]").content,
+    /**
      * 是否为 dark模式
      */
     isDark: false
@@ -66,7 +70,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 const raindropFx = new RaindropFX({
                     canvas: canvas,
                     background:
-                        dpzOption.isDark ? "https://cdn.jsdelivr.net/gh/pengqian089/SiteSource@latest/images/core-backg-dark.jpeg" : "https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg",
+                        dpzOption.isDark ? `${dpzOption.CDNBaseAddress}/../images/core-backg-dark.jpeg` : `${dpzOption.CDNBaseAddress}/../images/background.jpg`,
                 });
 
                 window.onresize = () => {
