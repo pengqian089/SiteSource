@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>雨滴背景</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="backgRound"
+        style="top:0;position: fixed;width: 100vw;height: 100vh;display: flex;justify-content: center;align-items: center;z-index: -1"></canvas>
+    <script src="/core/js/index.js"></script>
+    <script>
+        (async function(){
+            let response = await fetch("https://api.codelife.cc/api/bing?idx=0",{
+                method: 'GET', 
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            response.json().then(data => {
+                console.log("bing wallpaper loaded success.")
+                document.title = data.data.copyright;
+                const canvas = document.querySelector("#backgRound");
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                const raindropFx = new RaindropFX({
+                    canvas: canvas,
+                    background: data.data.fullSrc,
+                });
+                window.onresize = () => {
+                    const rect = canvas.getBoundingClientRect();
+                    raindropFx.resize(rect.width, rect.height);
+                }
+                raindropFx.start();
+            });
+        })();       
+    </script>
+</body>
+
+</html>
