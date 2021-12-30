@@ -190,7 +190,7 @@ code {
     font-size: 30px;
     color: white;
     font-weight: bold;
-    font-family: KaiTi;
+    font-family: 'Liu Jian Mao Cao', cursive,KaiTi;
     display: inline-block;
     z-index: 10;
 }
