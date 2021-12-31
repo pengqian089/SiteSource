@@ -1114,7 +1114,6 @@ function initVideoPlayer() {
 async function initFetchContent() {
     let fetchContents = document.querySelectorAll("[data-request]");
     for (let item of fetchContents) {
-        console.log(item.dataset.request);
         let response = await fetch(item.dataset.request, {
             method: 'GET'
         });
