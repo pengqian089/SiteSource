@@ -193,6 +193,9 @@ code {
     font-family: 'Liu Jian Mao Cao', cursive,KaiTi;
     display: inline-block;
     z-index: 10;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .blog-nav .blog-logo img {
@@ -4479,6 +4482,7 @@ header h1 {
 
 /* fira code end */
 
+/*noinspection ALL*/
 @media (prefers-color-scheme: dark) {
 
     html, body, input, textarea, select, button {
