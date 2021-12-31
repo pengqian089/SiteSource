@@ -19,20 +19,20 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
     function () {
         let element =
-            layui.element,
+                layui.element,
             layer = layui.layer,
             carousel = layui.carousel,
             flow = layui.flow,
             util = layui.util;
         util.fixbar({
             bar1: "&#xe64a;",
-            css: { bottom: 55 },
+            css: {bottom: 55},
             click: function (type) {
                 //console.log(type);
                 if (type === "bar1") {
                     let index = layer.load();
                     console.log(event);
-                    $.ajax({ url: "/Home/TodayWallpaper" })
+                    $.ajax({url: "/Home/TodayWallpaper"})
                         .done(function (result) {
                             let items = [];
                             for (let item of result) {
@@ -52,7 +52,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                                     let thumbnail = document.querySelectorAll(".layui-fixbar [lay-type=bar1]")[index];
                                     let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                                     let rect = thumbnail.getBoundingClientRect();
-                                    return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                                    return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
                                 }
                             };
                             let gallery = new PhotoSwipe(document.getElementById("gallery"), PhotoSwipeUI_Default, items, options);
@@ -97,13 +97,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         //
         // });
 
-        $.ajax({ url: "/account/GetUserInfo" })
+        $.ajax({url: "/account/GetUserInfo"})
             .done(function (result) {
                 if (result.success) {
                     $(".blog-user")
                         .attr("href", "/account")
                         .find("img")
-                        .attr({ "src": `${result.data.avatar}?width=40&height=40`, "title": result.data.name });
+                        .attr({"src": `${result.data.avatar}?width=40&height=40`, "title": result.data.name});
                 }
             }).fail(ajaxFail);
 
@@ -181,13 +181,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             let index = layer.load(1);
             $.ajax({
                 url: "/Talk/Like",
-                data: { id: that.data("likeid") },
+                data: {id: that.data("likeid")},
                 type: "post"
             }).done(function (result) {
                 if (result.success) {
                     that.find("[data-number]").text(result.data);
                 } else {
-                    layer.msg(result.msg, { icon: 2, anim: 6 });
+                    layer.msg(result.msg, {icon: 2, anim: 6});
                 }
             }).always(function () {
                 layer.close(index);
@@ -210,7 +210,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             let index = layer.load(1);
             $.ajax({
                 url: "/Talk/GetComments",
-                data: { id: that.data("commentId") },
+                data: {id: that.data("commentId")},
                 type: "get"
             }).done(function (result, status, xhr) {
                 that.find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
@@ -249,12 +249,12 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     type: form.getAttribute("method")
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
+                        layer.msg(result.msg, {icon: 2, anim: 6});
                     } else {
                         let i = layer.load(1);
                         $.ajax({
                             url: "/Talk/GetComments",
-                            data: { id: talkId },
+                            data: {id: talkId},
                             type: "get"
                         }).done(function (res, status, xhr) {
                             $(`[data-comment-id=${talkId}]`).find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
@@ -288,7 +288,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 });
             });
 
-        
+
         let viewImages = ".article.shadow .article-left img,#talk-list>ul>li .content-detail .content img,.article-detail-content img,#cd-timeline .content img";
         //图片查看
         $(document).delegate(viewImages, "click", function () {
@@ -315,7 +315,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                         let thumbnail = document.querySelectorAll(viewImages)[index];
                         let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                         let rect = thumbnail.getBoundingClientRect();
-                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                        return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
                     }
                 };
                 let gallery = new PhotoSwipe(document.getElementById("gallery"), PhotoSwipeUI_Default, items, options);
@@ -352,10 +352,10 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
+                        layer.msg(result.msg, {icon: 2, anim: 6});
                     } else {
                         $("textarea").val("");
-                        $.pjax({ url: loadPage, container: '#blog-comment', scrollTo: false });
+                        $.pjax({url: loadPage, container: '#blog-comment', scrollTo: false});
                     }
                 }).always(function () {
                     layer.close(index);
@@ -416,13 +416,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 let loadIndex = layer.load();
                 $.ajax({
                     url: "/topic/deleteTopic",
-                    data: { id: id },
+                    data: {id: id},
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
+                        layer.msg(result.msg, {icon: 2, anim: 6});
                     } else {
-                        $.pjax({ url: location.pathname, container: '.blog-main-left', scrollTo: true });
+                        $.pjax({url: location.pathname, container: '.blog-main-left', scrollTo: true});
                     }
                 }).always(function () {
                     layer.close(loadIndex);
@@ -438,13 +438,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 let loadIndex = layer.load();
                 $.ajax({
                     url: "/topic/deleteComment",
-                    data: { id: id },
+                    data: {id: id},
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
+                        layer.msg(result.msg, {icon: 2, anim: 6});
                     } else {
-                        $.pjax({ url: location.pathname, container: '.blog-body', scrollTo: true });
+                        $.pjax({url: location.pathname, container: '.blog-body', scrollTo: true});
                     }
                 }).always(function () {
                     layer.close(loadIndex);
@@ -453,7 +453,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         });
 
         if (window.scrollY > 0) {
-            $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
+            $(".blog-nav").css({"background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)"});
         }
 
 
@@ -472,7 +472,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             $("#topic-comment-loading").show();
             $.ajax({
                 url: "/topic/commentPage",
-                data: { id: topicId, pageIndex: startPage, pageSize: commentSize, sort: sort },
+                data: {id: topicId, pageIndex: startPage, pageSize: commentSize, sort: sort},
                 type: "get"
             }).done(function (result) {
                 //console.log(`current page index:${startPage},last page index:${totalPage}`);
@@ -509,9 +509,9 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             throttleTimer = setTimeout(function () {
                 // 顶部菜单是否开启高斯模糊
                 if (window.scrollY > 0) {
-                    $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
+                    $(".blog-nav").css({"background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)"});
                 } else if (window.scrollY === 0) {
-                    $(".blog-nav").css({ "background-color": "rgb(57,61,73)", "backdrop-filter": "none" })
+                    $(".blog-nav").css({"background-color": "rgb(57,61,73)", "backdrop-filter": "none"})
                 }
                 // 热榜滚动翻页
                 if ($topicComments.length === 0 || startPage > totalPage) return;
@@ -528,7 +528,7 @@ $(function () {
     $(document).pjax("nav.blog-nav ul.layui-nav>li>a,a[data-pjax]", ".blog-body");
     //文章翻页
     $(document).pjax("#blog-list a,.tags a", ".blog-main-left");
-    $(document).pjax("#articl-comment a", "#blog-comment", { scrollTo: false });
+    $(document).pjax("#articl-comment a", "#blog-comment", {scrollTo: false});
     //碎碎念翻页
     $(document).pjax("#talk-pager a", "#talk-list");
     //今日热榜翻页
@@ -540,7 +540,7 @@ $(function () {
                 $(".tags a").removeClass("tag-this");
                 $(this).addClass("tag-this");
                 let containerSelector = ".blog-main-left";
-                $.pjax.click(event, { container: containerSelector });
+                $.pjax.click(event, {container: containerSelector});
             });
     }
     pjaxCompleteInit();
@@ -634,6 +634,7 @@ function pjaxCompleteInit() {
     generateToc();
     $("time.timeago").timeago();
     initVideoPlayer();
+    initFetchContent();
 }
 
 (function () {
@@ -670,7 +671,7 @@ function pjaxCompleteInit() {
     });
 
     connection.on("pushMessage", function (result) {
-        let option = { title: "小喇叭开始广播辣", content: result.markdown };
+        let option = {title: "小喇叭开始广播辣", content: result.markdown};
         let ntf = showNotify(option);
         if (ntf !== null) {
             //console.info(ntf);
@@ -1101,28 +1102,22 @@ function initVideoPlayer() {
                         user: "阿胖",
                         bottom: "15%"
                     },
-                    //theme: "#bb0662",
                     video: {
                         url: result[index]["m3u8"],
                         type: 'hls',
                     },
                 });
-                // if (player.id === playerId) {
-
-                // } else if (player.id === mPlayerId) {
-                //     if (Hls.isSupported()) {
-                //         let video = document.createElement("video");
-                //         video.controls = true;
-                //         video.style.width = "100%";
-                //         video.style.height = "100%";
-                //         player.appendChild(video);
-                //         let hls = new Hls();
-                //         hls.attachMedia(video);
-                //         hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-                //             hls.loadSource(result[index]["m3u8"]);
-                //         });
-                //     }
-                // }
             });
+    }
+}
+
+async function initFetchContent() {
+    let fetchContents = document.querySelectorAll("[data-request]");
+    for (let item of fetchContents) {
+        console.log(item.dataset.request);
+        let response = await fetch(item.dataset.request, {
+            method: 'GET'
+        });
+        response.text().then(x => item.innerHTML = x);
     }
 }
