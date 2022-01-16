@@ -19,25 +19,25 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
     function () {
         let element =
-                layui.element,
+            layui.element,
             layer = layui.layer,
             carousel = layui.carousel,
             flow = layui.flow,
             util = layui.util;
         util.fixbar({
             bar1: "&#xe64a;",
-            css: {bottom: 55},
+            css: { bottom: 55 },
             click: function (type) {
                 //console.log(type);
                 if (type === "bar1") {
                     let index = layer.load();
                     console.log(event);
-                    $.ajax({url: "/Home/TodayWallpaper"})
+                    $.ajax({ url: "/Home/TodayWallpaper" })
                         .done(function (result) {
                             let items = [];
                             for (let item of result) {
                                 items.push({
-                                    src: item["url"],
+                                    src: item["url"].replaceAll("1920x1080", "UHD"),
                                     w: 1920,
                                     h: 1080,
                                     title: item["copyRight"]
@@ -52,7 +52,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                                     let thumbnail = document.querySelectorAll(".layui-fixbar [lay-type=bar1]")[index];
                                     let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                                     let rect = thumbnail.getBoundingClientRect();
-                                    return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                                    return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
                                 }
                             };
                             let gallery = new PhotoSwipe(document.getElementById("gallery"), PhotoSwipeUI_Default, items, options);
@@ -97,13 +97,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         //
         // });
 
-        $.ajax({url: "/account/GetUserInfo"})
+        $.ajax({ url: "/account/GetUserInfo" })
             .done(function (result) {
                 if (result.success) {
                     $(".blog-user")
                         .attr("href", "/account")
                         .find("img")
-                        .attr({"src": `${result.data.avatar}?width=40&height=40`, "title": result.data.name});
+                        .attr({ "src": `${result.data.avatar}?width=40&height=40`, "title": result.data.name });
                 }
             }).fail(ajaxFail);
 
@@ -123,7 +123,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
 
         //侧边导航开关点击事件
         $(document).delegate(".blog-navicon", "click", function () {
-            var sear = new RegExp("layui-hide");
+            let sear = new RegExp("layui-hide");
             if (sear.test($(".blog-nav-left").attr("class"))) {
                 leftIn();
             } else {
@@ -181,13 +181,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             let index = layer.load(1);
             $.ajax({
                 url: "/Talk/Like",
-                data: {id: that.data("likeid")},
+                data: { id: that.data("likeid") },
                 type: "post"
             }).done(function (result) {
                 if (result.success) {
                     that.find("[data-number]").text(result.data);
                 } else {
-                    layer.msg(result.msg, {icon: 2, anim: 6});
+                    layer.msg(result.msg, { icon: 2, anim: 6 });
                 }
             }).always(function () {
                 layer.close(index);
@@ -210,12 +210,12 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             let index = layer.load(1);
             $.ajax({
                 url: "/Talk/GetComments",
-                data: {id: that.data("commentId")},
+                data: { id: that.data("commentId") },
                 type: "get"
             }).done(function (result, status, xhr) {
                 that.find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
                 comments.html(result);
-                registerHljsCode();
+                lightCode();
                 comments.show();
             }).always(function () {
                 layer.close(index);
@@ -249,12 +249,12 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     type: form.getAttribute("method")
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, {icon: 2, anim: 6});
+                        layer.msg(result.msg, { icon: 2, anim: 6 });
                     } else {
                         let i = layer.load(1);
                         $.ajax({
                             url: "/Talk/GetComments",
-                            data: {id: talkId},
+                            data: { id: talkId },
                             type: "get"
                         }).done(function (res, status, xhr) {
                             $(`[data-comment-id=${talkId}]`).find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
@@ -270,6 +270,9 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
 
         });
 
+        /**
+         * 碎碎念翻页
+         */
         $(document).delegate("#comment-pager a[href]",
             "click",
             function (e) {
@@ -282,7 +285,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     type: "get"
                 }).done(function (res) {
                     that.parents(".comment-parent").find(".comments[data-talk-id]").html(res);
-                    registerHljsCode();
+                    lightCode();
                 }).always(function () {
                     layer.close(i);
                 });
@@ -315,7 +318,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                         let thumbnail = document.querySelectorAll(viewImages)[index];
                         let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                         let rect = thumbnail.getBoundingClientRect();
-                        return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
                     }
                 };
                 let gallery = new PhotoSwipe(document.getElementById("gallery"), PhotoSwipeUI_Default, items, options);
@@ -352,10 +355,10 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, {icon: 2, anim: 6});
+                        layer.msg(result.msg, { icon: 2, anim: 6 });
                     } else {
                         $("textarea").val("");
-                        $.pjax({url: loadPage, container: '#blog-comment', scrollTo: false});
+                        $.pjax({ url: loadPage, container: '#blog-comment', scrollTo: false });
                     }
                 }).always(function () {
                     layer.close(index);
@@ -416,13 +419,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 let loadIndex = layer.load();
                 $.ajax({
                     url: "/topic/deleteTopic",
-                    data: {id: id},
+                    data: { id: id },
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, {icon: 2, anim: 6});
+                        layer.msg(result.msg, { icon: 2, anim: 6 });
                     } else {
-                        $.pjax({url: location.pathname, container: '.blog-main-left', scrollTo: true});
+                        $.pjax({ url: location.pathname, container: '.blog-main-left', scrollTo: true });
                     }
                 }).always(function () {
                     layer.close(loadIndex);
@@ -438,13 +441,13 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 let loadIndex = layer.load();
                 $.ajax({
                     url: "/topic/deleteComment",
-                    data: {id: id},
+                    data: { id: id },
                     type: "post"
                 }).done(function (result) {
                     if (!result.success) {
-                        layer.msg(result.msg, {icon: 2, anim: 6});
+                        layer.msg(result.msg, { icon: 2, anim: 6 });
                     } else {
-                        $.pjax({url: location.pathname, container: '.blog-body', scrollTo: true});
+                        $.pjax({ url: location.pathname, container: '.blog-body', scrollTo: true });
                     }
                 }).always(function () {
                     layer.close(loadIndex);
@@ -453,7 +456,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         });
 
         if (window.scrollY > 0) {
-            $(".blog-nav").css({"background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)"});
+            $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
         }
 
 
@@ -472,7 +475,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             $("#topic-comment-loading").show();
             $.ajax({
                 url: "/topic/commentPage",
-                data: {id: topicId, pageIndex: startPage, pageSize: commentSize, sort: sort},
+                data: { id: topicId, pageIndex: startPage, pageSize: commentSize, sort: sort },
                 type: "get"
             }).done(function (result) {
                 //console.log(`current page index:${startPage},last page index:${totalPage}`);
@@ -481,7 +484,8 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 $("#topic-comments").append($nextResult);
                 $nextResult.find("time.timeago").timeago();
                 $nextResult.find("pre code").each(function (index, element) {
-                    hljs.highlightElement(element);
+                    //hljs.highlightElement(element);
+                    Prism.highlightElement(block);
                 });
                 topicHideMore($nextResult.find(".article-detail-content.topic"));
                 lazyLoadInstance.update();
@@ -509,9 +513,9 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             throttleTimer = setTimeout(function () {
                 // 顶部菜单是否开启高斯模糊
                 if (window.scrollY > 0) {
-                    $(".blog-nav").css({"background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)"});
+                    $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
                 } else if (window.scrollY === 0) {
-                    $(".blog-nav").css({"background-color": "rgb(57,61,73)", "backdrop-filter": "none"})
+                    $(".blog-nav").css({ "background-color": "rgb(57,61,73)", "backdrop-filter": "none" })
                 }
                 // 热榜滚动翻页
                 if ($topicComments.length === 0 || startPage > totalPage) return;
@@ -528,7 +532,7 @@ $(function () {
     $(document).pjax("nav.blog-nav ul.layui-nav>li>a,a[data-pjax]", ".blog-body");
     //文章翻页
     $(document).pjax("#blog-list a,.tags a", ".blog-main-left");
-    $(document).pjax("#articl-comment a", "#blog-comment", {scrollTo: false});
+    $(document).pjax("#articl-comment a", "#blog-comment", { scrollTo: false });
     //碎碎念翻页
     $(document).pjax("#talk-pager a", "#talk-list");
     //今日热榜翻页
@@ -540,7 +544,7 @@ $(function () {
                 $(".tags a").removeClass("tag-this");
                 $(this).addClass("tag-this");
                 let containerSelector = ".blog-main-left";
-                $.pjax.click(event, {container: containerSelector});
+                $.pjax.click(event, { container: containerSelector });
             });
     }
     pjaxCompleteInit();
@@ -606,11 +610,81 @@ function categoryOut() {
     $(".article-category").addClass("categoryOut");
 }
 
-function registerHljsCode() {
+/**
+ * 高亮显示代码块
+ */
+function lightCode() {
     document.querySelectorAll("pre code").forEach((block) => {
-        hljs.highlightElement(block);
+        //hljs.highlightElement(block);
+        Prism.highlightElement(block);
+    });
+    codeBlockTools();
+}
+
+/**
+ * 代码块工具栏
+ */
+function codeBlockTools() {
+    $('pre[class*=language-]').wrap('<div class="code-area" style="position: relative"></div>');
+
+    // 代码收缩
+    let $codeExpand = $('<i class="fa fa-angle-up fa-fw code-expand" aria-hidden="true" title="折叠"></i>');
+    $('.code-area').prepend($codeExpand);
+    $('.code-expand').on('click', function () {
+        if ($(this).parent().hasClass('code-closed')) {
+            $(this).siblings('pre').find('code').show();
+            $(this).parent().removeClass('code-closed');
+        } else {
+            $(this).siblings('pre').find('code').hide();
+            $(this).parent().addClass('code-closed');
+        }
+    });
+
+    // 复制
+    let $copyIcon = $('<i class="fa fa-copy fa-fw code_copy" title="复制代码" aria-hidden="true"></i>')
+    let $notice = $('<div class="codecopy_notice"></div>')
+    $('.code-area').prepend($copyIcon)
+    $('.code-area').prepend($notice)
+    // “复制成功”字出现
+    function copy(text, ctx) {
+        if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+            try {
+                document.execCommand('copy') // Security exception may be thrown by some browsers.
+                layer.msg("复制成功");
+            } catch (ex) {
+                layer.msg("复制失败");
+                return false;
+            }
+        } else {
+            layer.msg("浏览器不支持");
+        }
+    }
+    // 复制
+    $('.code-area .fa-copy').on('click', function () {
+        let selection = window.getSelection()
+        let range = document.createRange()
+        range.selectNodeContents($(this).siblings('pre').find('code')[0])
+        selection.removeAllRanges()
+        selection.addRange(range)
+        let text = selection.toString()
+        copy(text, this)
+        selection.removeAllRanges()
+    });
+
+    let $highlightLang = $('<div class="code_lang" title="代码语言"></div>');
+    $('pre').before($highlightLang);
+    $('pre').each(function () {
+        let codeLanguage = $(this).attr('class');
+        if (!codeLanguage) {
+            return true;
+        };
+        let langName = codeLanguage.replace("line-numbers", "").trim().replace("language-", "").trim();
+        $(this).siblings(".code_lang").text(langName);
     });
 }
+(function () {
+    codeBlockTools();
+})();
 
 function generateToc() {
     let toc = $(".js-toc");
@@ -629,8 +703,11 @@ function generateToc() {
     });
 }
 
+/**
+ * pjax 请求完成
+*/
 function pjaxCompleteInit() {
-    registerHljsCode();
+    lightCode();
     generateToc();
     $("time.timeago").timeago();
     initVideoPlayer();
@@ -671,7 +748,7 @@ function pjaxCompleteInit() {
     });
 
     connection.on("pushMessage", function (result) {
-        let option = {title: "小喇叭开始广播辣", content: result.markdown};
+        let option = { title: "小喇叭开始广播辣", content: result.markdown };
         let ntf = showNotify(option);
         if (ntf !== null) {
             //console.info(ntf);
@@ -1072,42 +1149,34 @@ function ajaxFail(xhr, textStatus, errorThrown) {
     }
 }
 
-function initVideoPlayer() {
+async function initVideoPlayer() {
     const playerId = "video-player";
     const mPlayerId = "m-video-player";
     const player = document.getElementById(playerId) || document.getElementById(mPlayerId);
     if (player != null) {
         player.style.marginBottom = "15px";
-        $.ajax({
-            url: `${dpzOption.webApiBaseAddress}/api/Video`,
-            type: "get",
-            crossDomain: true,
-            headers: {
-                "accept": "application/json",
-                "Access-Control-Allow-Origin": "*"
+        let response = await fetch(`${dpzOption.webApiBaseAddress}/api/Video`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors'
+        });
+        let data = await response.json();
+        let index = Math.floor(Math.random() * data.length);
+        new DPlayer({
+            container: document.getElementById(player.id),
+            danmaku: {
+                api: "/history/chat/",
+                id: data[index]["id"],
+                maximum: 2000,
+                token: "tokendemo",
+                user: "阿胖",
+                bottom: "15%"
             },
-            xhrFields: {
-                "Access-Control-Allow-Origin": "*"
-            }
-        })
-            .done(function (result) {
-                let index = Math.floor(Math.random() * result.length);
-                new DPlayer({
-                    container: document.getElementById(player.id),
-                    danmaku: {
-                        api: "/history/chat/",
-                        id: result[index]["id"],
-                        maximum: 2000,
-                        token: "tokendemo",
-                        user: "阿胖",
-                        bottom: "15%"
-                    },
-                    video: {
-                        url: result[index]["m3u8"],
-                        type: 'hls',
-                    },
-                });
-            });
+            video: {
+                url: data[index]["m3u8"],
+                type: 'hls',
+            },
+        });
     }
 }
 

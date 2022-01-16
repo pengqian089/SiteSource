@@ -3,6 +3,16 @@ html {
     background-color: transparent;
 }
 
+@font-face {
+    font-family: "cascadia-code";
+    src: url("../../fonts/cascadia-code/woff2/CascadiaCode.woff2") format('woff2'),
+        url("../../fonts/cascadia-code/ttf/CascadiaCode.ttf") format('truetype');
+}
+
+body, .aplayer {
+    font-family: "cascadia-code";
+}
+
 body {
     background: #eee;
     color: #444;
@@ -27,7 +37,9 @@ input[type="text"], textarea {
 
 
 
-
+.blog-module.shadow ul>li a:hover {
+    color: #000;
+}
 
 .hide {
     display: none;
@@ -55,7 +67,7 @@ input[type="text"], textarea {
     margin-top: 15px;
     width: 100%;
     position: relative;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 
 .blog-main>.home-tips {
@@ -93,7 +105,7 @@ input[type="text"], textarea {
 }
 
 code {
-    font-family: "Fira Code", "YaHei Consolas Hybrid", Consolas, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, monospace, monospace;
+    font-family: "Fira Code", "cascadia-code", Consolas, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, monospace, monospace !important;
 }
 
 
@@ -190,7 +202,7 @@ code {
     font-size: 30px;
     color: white;
     font-weight: bold;
-    font-family: 'Liu Jian Mao Cao', cursive,KaiTi;
+    font-family: 'Liu Jian Mao Cao', cursive, KaiTi;
     display: inline-block;
     z-index: 10;
     white-space: nowrap;
@@ -1465,21 +1477,8 @@ a .pos {
     line-height: 1.6;
 }
 
-.article-detail-content :not(pre)>code {
-    margin-left: 5px;
-    margin-right: 4px;
-    border: 1px solid #ddd;
-    padding: 3px;
-    border-radius: 3px;
-    font-size: 14px;
-    margin: 0;
-    line-height: 1.6;
-    color: #c7254e;
-    background: #f6f6f6;
-}
-
 .article-detail-content pre>code {
-    padding: 10px;
+    /* padding: 10px; */
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -2981,11 +2980,10 @@ body .warning .layui-layer-title {
     word-wrap: normal;
     line-height: 1.5;
     background: #272822;
-    padding: .1em;
+    padding: 0.1em;
     border-radius: .3em;
     white-space: normal;
     margin: 0 5px;
-    padding: 0 2px;
 }
 
 /* music start */
@@ -5303,4 +5301,105 @@ header h1 {
     .layui-tab-brief>.layui-tab-title .layui-this {
         color: #ff0082;
     }
+
+    .article>.article-right>.article-title a:hover {
+        color: #ff1f91;
+    }
+
+    .article>.article-right>.article-title a:active {
+        color: #fc0a85;
+    }
+
+    .blog-module.shadow ul>li a:hover {
+        color: #e4e3e3;
+    }
 }
+
+
+
+/* code tools start */
+.code-area::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+}
+
+.code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 25px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+}
+
+.codecopy_notice {
+    position: absolute;
+    top: 0.7rem;
+    right: 6px;
+    z-index: 1;
+    filter: invert(50%);
+    opacity: 0;
+}
+
+.code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 46px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: "cascadia-code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+}
+
+.code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    filter: invert(50%);
+    padding: 7px;
+    z-index: 999 !important;
+    cursor: pointer;
+    transition: all .3s;
+    transform: rotate(0deg);
+}
+
+.code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all .3s;
+}
+
+.code-closed pre::before {
+    height: 0;
+}
+
+pre {
+    padding: 2rem 1rem 1rem 3rem !important
+}
+
+code {
+    padding: 1px 5px;
+    margin-top: 13px !important;
+    font-size: 0.91rem;
+}
+
+pre>code {
+    padding: 0;
+    display: inline-block;
+}
+
+.code_lang::selection {
+    color: #000
+}
+
+/* code tools end */

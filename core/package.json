@@ -1,0 +1,19 @@
+{
+  "name": "core",
+  "private": true,
+  "version": "1.0.0",
+  "description": "+ `./core/lib/layui/css/layui.min.css`\r + `./core/lib/aplayer/APlayer.min.css`\r + `./core/css/site.min.css`\r + `./core/css/nprogress.min.css`\r + `./core/font-awesome/css/font-awesome.min.css`\r + `./core/css/code-style.min.css`\r + `./core/lib/tocbot/tocbot.min.css`\r + `./core/lib/sakura-js/sakura.min.css`\r + `./core/lib/photoswipe/photoswipe.min.css`\r + `./core/lib/photoswipe/default-skin/default-skin.min.css`\r + `./fonts/chinese-font.css`",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@microsoft/signalr": "^6.0.1"
+  }
+}
