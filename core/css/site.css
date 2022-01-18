@@ -932,15 +932,18 @@ ul.layui-fixbar>li {
 }
 
 .blogerinfo-nickname {
-    font-size: 32px;
+    font-size: 25px;
     font-weight: bold;
     margin: 0 0 15px 0;
 }
 
 .blogerinfo-introduce {
-    margin: 15px auto;
-    font-size: 18px;
-    width: 90%;
+    margin: 10px auto;
+    font-size: 16px;
+    text-align: left;
+    text-indent: 2em;
+    font-family: "Long Cang";
+    color: #000;
 }
 
 .blogerinfo-location {
@@ -1490,14 +1493,18 @@ a .pos {
     width: 100%;
     overflow: auto;
     word-break: normal;
-    word-break: keep-all
+    word-break: keep-all;
+    max-width: 100%;
 }
 
 .article-detail-content table th {
-    font-weight: 700
+    font-weight: 600
 }
 
-.article-detail-content table td, .content-detail .content table th {
+.article-detail-content table td,
+.article-detail-content table th,
+.content-detail .content table td,
+.content-detail .content table th {
     padding: 6px 13px;
     border: 1px solid #ddd
 }
@@ -1824,7 +1831,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     list-style-type: none;
     border-top: 1px solid #e1e4e8;
     box-sizing: border-box;
-    height: 38px;
+    min-height: 38px;
     padding: 8px 16px;
 }
 
@@ -1861,7 +1868,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    display: block;
+    display: inline-block;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -4480,6 +4487,33 @@ header h1 {
 
 /* fira code end */
 
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item input[type=checkbox] {
+    margin: 0 .2em .25em -1.6em;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.article-detail-content blockquote {
+    padding: 0 1em;
+    border-left: 0.25em solid #5a8ad3;
+    background: #f6f6f7;
+    padding: 7px;
+    font-style: italic;
+}
+
+.article-detail-content blockquote p {
+    margin: 0;
+}
+
+.article-detail-content blockquote p:not(:first-child) {
+    margin-top: 16px;
+}
+
 /*noinspection ALL*/
 @media (prefers-color-scheme: dark) {
 
@@ -5313,6 +5347,36 @@ header h1 {
     .blog-module.shadow ul>li a:hover {
         color: #e4e3e3;
     }
+
+    /* markdown table start */
+    .article-detail-content table tr {
+        background-color: #0d1117;
+        border-top: 1px solid #21262d;
+    }
+
+    .article-detail-content table tr:nth-child(2n) {
+        background-color: #161b22;
+    }
+
+    .article-detail-content table th, .article-detail-content table td {
+        padding: 6px 13px;
+        border: 1px solid #30363d;
+    }
+
+    /* markdown table end */
+
+    .article-detail-content blockquote {
+        padding: 0 1em;
+        color: #8b949e;
+        border-left: 0.25em solid #30363d;
+        background: #0d1117;
+        padding: 7px;
+        font-style: italic;
+    }
+
+    .blogerinfo-introduce{
+        color:#fff;
+    }
 }
 
 
@@ -5383,8 +5447,11 @@ header h1 {
     height: 0;
 }
 
-pre {
-    padding: 2rem 1rem 1rem 3rem !important
+pre[class*=language] {
+    /* padding: 2rem 1rem 1rem 3rem !important; */
+    padding-top: 2rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 1rem !important;
 }
 
 code {

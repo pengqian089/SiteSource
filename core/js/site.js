@@ -633,9 +633,11 @@ function codeBlockTools() {
     $('.code-expand').on('click', function () {
         if ($(this).parent().hasClass('code-closed')) {
             $(this).siblings('pre').find('code').show();
+            $(this).siblings('pre').find('.line-highlight').show();
             $(this).parent().removeClass('code-closed');
         } else {
             $(this).siblings('pre').find('code').hide();
+            $(this).siblings('pre').find('.line-highlight').hide();
             $(this).parent().addClass('code-closed');
         }
     });
@@ -645,7 +647,6 @@ function codeBlockTools() {
     let $notice = $('<div class="codecopy_notice"></div>')
     $('.code-area').prepend($copyIcon)
     $('.code-area').prepend($notice)
-    // “复制成功”字出现
     function copy(text, ctx) {
         if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
             try {
@@ -671,15 +672,24 @@ function codeBlockTools() {
         selection.removeAllRanges()
     });
 
+    // 显示代码语言
     let $highlightLang = $('<div class="code_lang" title="代码语言"></div>');
     $('pre').before($highlightLang);
     $('pre').each(function () {
-        let codeLanguage = $(this).attr('class');
-        if (!codeLanguage) {
-            return true;
-        };
-        let langName = codeLanguage.replace("line-numbers", "").trim().replace("language-", "").trim();
-        $(this).siblings(".code_lang").text(langName);
+        // let codeLanguage = $(this).attr('class');
+        // if (!codeLanguage) {
+        //     return true;
+        // };
+        let classes = $(this).prop("class").split(/\s+/);
+        for (let item of classes) {
+            if (item.startsWith("language")) {
+                let languageName = item.replace("language-", "").trim();
+                $(this).siblings(".code_lang").text(languageName);
+                break;
+            }
+        }
+        //let langName = codeLanguage.replace("line-numbers", "").trim().replace("language-", "").trim();
+        
     });
 }
 (function () {
