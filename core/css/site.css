@@ -1912,7 +1912,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 
 .code-box .box-rows pre {
-    font-weight: bold
+    /* font-weight: bold */
 }
 
 .aplayer .aplayer-lrc {
