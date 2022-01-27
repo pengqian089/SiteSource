@@ -1,0 +1,176 @@
+.friends-container {
+    backdrop-filter: blur(100px);
+}
+
+.friends-container .tag-title {
+    margin-bottom: 10px;
+    color: #3C4858;
+    font-size: 1.75rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.friends-container .friend-items {
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around
+}
+
+.friends-container .friend-item {
+    display: inline-block;
+    width: 100%;
+    height: 150px;
+    margin: 7px 0;
+    padding: 6px;
+}
+
+.friends-container .friend-card {
+    border-radius: 3px;
+    transform: scale(1);
+    transform: translateZ(0);
+}
+
+.friends-container .friend-item a.link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.friends-container .item-link-icon {
+    float: left;
+    margin-right: 5px;
+}
+
+.friends-container .item-link-icon img {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    transition: filter 375ms ease-in 0.2s, transform 0.3s;
+}
+
+.friends-container .friend-item.friend-card:hover .item-link-icon img {
+    transform: rotate(360deg);
+}
+
+.friends-container .item-link-text {
+    width: 100%;
+    overflow: hidden;
+}
+
+.friends-container .item-link-name {
+    color: #fff;
+    font-size: 1.2rem;
+    max-width: 100%;
+    border-bottom: 2px solid #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+
+.friends-container .item-link-desc {
+    color: #fff;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.friends-container .friend-card:hover:nth-child(10n) {
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-1) {
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-2) {
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-3) {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-4) {
+    background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-5) {
+    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-6) {
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-7) {
+    background-image: linear-gradient(to top, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-8) {
+    background-image: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);
+    transition: transform 0.3s ease-out;
+}
+
+.friends-container .friend-card:hover:nth-child(10n-9) {
+    background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
+    transition: transform 0.3s ease-out;
+}
+
+
+@media screen and (min-width: 768px) {
+    .friends-container .friend-item {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .friends-container .friend-item {
+        width: 48%;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .friends-container .friend-item {
+        width: 31%;
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .friends-container {
+        background-color: rgba(36, 37, 37, 0.5);
+    }
+
+    .friends-container .tag-title {
+        color: rgb(199, 192, 181);
+    }
+
+    .friends-container .friend-card {
+        background: #000;
+    }
+
+    .friends-container .item-link-name {
+        color: rgb(199, 192, 181);
+        border-bottom-color: rgb(199, 192, 181);
+    }
+
+    .friends-container .item-link-desc {
+        color: rgb(199, 192, 181);
+    }
+
+    .friends-container .friend-card:hover .item-link-name, .friends-container .friend-card:hover .item-link-desc {
+        color: #fff;
+    }
+}

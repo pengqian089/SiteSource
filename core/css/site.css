@@ -2269,10 +2269,6 @@ body .warning .layui-layer-title {
 
 /* video end */
 
-
-
-
-
 /* 小屏幕（平板，大于等于 768px） */
 @media (min-width: 768px) {
     .blog-container {
@@ -2622,6 +2618,14 @@ body .warning .layui-layer-title {
         font-size: 14px;
         display: block;
         margin-top: 10px;
+    }
+
+    .code-box .box-rows .row .desc {
+        display: none;
+    }
+
+    .code-box .box-rows .row .time {
+        display: none;
     }
 }
 
@@ -4514,6 +4518,7 @@ header h1 {
     margin-top: 16px;
 }
 
+
 /*noinspection ALL*/
 @media (prefers-color-scheme: dark) {
 
@@ -5374,9 +5379,9 @@ header h1 {
         font-style: italic;
     }
 
-    .blogerinfo-introduce{
-        color:#fff;
-    }
+    .blogerinfo-introduce {
+        color: #fff;
+    }    
 }
 
 
