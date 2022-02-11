@@ -4877,6 +4877,14 @@ header h1 {
         text-decoration-color: initial;
     }
 
+    .code-box .box-rows .row:last-child {
+        border-bottom: 1px solid rgb(65, 68, 68);
+    }
+
+    .code-box .box-rows .row:last-of-type {
+        border-bottom: 1px solid rgb(65, 68, 68);
+    }
+
     .cd-timeline-content {
         background-image: initial;
         background-color: rgba(36, 37, 37, 0.5);
@@ -5381,7 +5389,7 @@ header h1 {
 
     .blogerinfo-introduce {
         color: #fff;
-    }    
+    }
 }
 
 
