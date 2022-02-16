@@ -5483,3 +5483,7 @@ pre>code {
 }
 
 /* code tools end */
+
+.d-shadow {
+    box-shadow: 0 1px 8px #a6a6a6;
+}

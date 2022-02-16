@@ -24,6 +24,7 @@
     height: 150px;
     margin: 7px 0;
     padding: 6px;
+    flex-shrink: 0;
 }
 
 .friends-container .friend-card {

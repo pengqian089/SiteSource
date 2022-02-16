@@ -525,7 +525,99 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
 
             }, throttleDelay);
         }
-    });
+
+        $(document).delegate(".comments-area .load-more button", "click", function () {
+            let $area = $(this).parents(".comments-area");
+            let $loadMore = $(this).parent();
+            let src = $(this).parent().data("loadingIco");
+            $loadMore.html(`<img src="${src}" class="comment-loading" alt="loading"/>`);
+            let pageIndex = parseInt($(this).data("pageIndex"));
+            let pageSize = parseInt($(this).data("pageSize"));
+            let count = parseInt($(this).data("itemCount"));
+            let pageCount = parseInt($(this).data("pageCount"));
+            let node = $(this).data("node");
+            let relation = $(this).data("relation");
+            $.ajax({
+                url: `/comments/page/${node}/${relation}`,
+                type: "get",
+                data: { pageIndex: pageIndex + 1, pageSize: pageSize }
+            }).done(function (result) {
+                //let nextPage = $(result).find(".comments-area").html();
+                $area.append(result);
+                $loadMore.remove();
+            }).fail(ajaxFail);
+        });
+
+        $(document).delegate("form.comment-form :input:not(textarea)", "keydown", function (e) { 
+            return e.key != "Enter";
+        });
+
+        $(document).delegate("form.comment-form", "submit", function () {
+            event.preventDefault();
+            let data = new FormData(this);
+            let $that = $(this);
+            $(this)
+                .find("button.layui-btn.layui-btn-sm")
+                .addClass("layui-btn-disabled")
+                .attr("disabled", "disabled")
+                .html(`<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop layui-font-12"></i> 发送`);
+            //console.log(data);
+            //return;
+            $.ajax({
+                url: $that.attr("action"),
+                processData: false,
+                contentType: false,
+                data: data,
+                type: "post"
+            }).done(function (result) {
+                if (result.hasOwnProperty("success") && result["success"] === false) {
+                    layer.msg(result.msg, { icon: 2, anim: 6 });
+                } else {
+                    debugger;
+                    //let comments = $(result).find(".comments-area").html();
+                    let $form = $that.clone();
+                    let $area = $that.parents().find(".comments-area:first");
+                    $that.parents().find(".comments-area").html(result);
+                    $that.remove();
+
+                    $form.find("textarea").val("");
+                    $form
+                        .find("button.layui-btn.layui-btn-sm")
+                        .removeClass("layui-btn-disabled")
+                        .removeAttr("disabled")
+                        .html("发送");
+                    $form.find("input[name=replyId]").val("");                    
+                    $form.find(".comment-btn-close").hide();
+                    $form.find(".comment-btn-close").unbind("click");
+                    $area.before($form);
+                }
+            }).always(function () {
+                $that
+                    .find("button.layui-btn.layui-btn-sm")
+                    .removeClass("layui-btn-disabled")
+                    .removeAttr("disabled")
+                    .html("发送");
+            });
+        });
+
+        $(document).delegate(".comments-area blockquote.comment-item button.btn-reply", "click", function () { 
+            //debugger;
+            let $form = $(this).parents().find("form.comment-form");
+            let $formClone = $form.clone();
+            $form.remove();
+            let $that = $(this);
+            $formClone.find("input[name=replyId]").val($(this).data("replyId"));
+            $formClone.find(".comment-btn-close").show();
+            $formClone.find(".comment-btn-close").bind("click", function () {
+                $formClone.find("input[name=replyId]").val("");
+                $that.parents(".comments-area").before($formClone);
+                $(this).hide();
+                $(this).unbind("click");
+            });
+            $(this).parents("blockquote.comment-item:first").find(".detail > .comment-content:first").after($formClone);
+        });
+    }
+);
 
 $(function () {
     $.pjax.defaults.timeout = 20000;
@@ -689,7 +781,7 @@ function codeBlockTools() {
             }
         }
         //let langName = codeLanguage.replace("line-numbers", "").trim().replace("language-", "").trim();
-        
+
     });
 }
 (function () {
