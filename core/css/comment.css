@@ -66,6 +66,15 @@
     color: #666;
 }
 
+.comment-head .identity {
+    display: inline-block;
+    font-size: 0.6em;
+    padding: 0 0.3em;
+    border-radius: 3px;
+    background: #3498db;
+    color: #fff;
+}
+
 .comment-head .timeago {
     margin-right: 0.875em;
     color: #999;
@@ -164,7 +173,7 @@
 }
 
 .comment-form-editor {
-    width: calc(100% - 1em);
+    width: calc(100% - 1.5em);
     min-height: 8.75em;
     margin: 0.75em 0.5em;
     /* border-radius: 0.5em; */
@@ -228,6 +237,13 @@
     background: transparent;
     line-height: 1;
     cursor: pointer;
+}
+
+.comment-count {
+    padding: .375em;
+    font-weight: bold;
+    font-size: 1.25em;
+    text-align: left;
 }
 
 @media (max-width: 580px) {
@@ -301,6 +317,11 @@
 
     .comment-form-editor:focus {
         background: rgb(28, 30, 31);
+    }
+
+    .comment-head .identity {
+        background: #1d6fa5;
+        color: #e8e6e3;
     }
 }
 

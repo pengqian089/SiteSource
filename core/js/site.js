@@ -209,11 +209,11 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
             let index = layer.load(1);
             $.ajax({
-                url: "/Talk/GetComments",
-                data: { id: that.data("commentId") },
+                url: "/comments/Mumble/" + that.data("commentId"),
+                //data: { id: that.data("commentId") },
                 type: "get"
             }).done(function (result, status, xhr) {
-                that.find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
+                that.find("[data-comment-count]").text(xhr.getResponseHeader("commentCount"));
                 comments.html(result);
                 lightCode();
                 comments.show();
@@ -526,25 +526,30 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             }, throttleDelay);
         }
 
+        // 评论查看更多
         $(document).delegate(".comments-area .load-more button", "click", function () {
             let $area = $(this).parents(".comments-area");
             let $loadMore = $(this).parent();
+            let $commentCount = $(this).parents().find(".comment-count span")
             let src = $(this).parent().data("loadingIco");
             $loadMore.html(`<img src="${src}" class="comment-loading" alt="loading"/>`);
             let pageIndex = parseInt($(this).data("pageIndex"));
             let pageSize = parseInt($(this).data("pageSize"));
-            let count = parseInt($(this).data("itemCount"));
-            let pageCount = parseInt($(this).data("pageCount"));
-            let node = $(this).data("node");
-            let relation = $(this).data("relation");
+            // let count = parseInt($(this).data("itemCount"));
+            // let pageCount = parseInt($(this).data("pageCount"));
+            // let node = $(this).data("node");
+            // let relation = $(this).data("relation");
+            let request = $(this).data("pageRequest");
+            let $that = $(this);
             $.ajax({
-                url: `/comments/page/${node}/${relation}`,
+                url: request,
                 type: "get",
                 data: { pageIndex: pageIndex + 1, pageSize: pageSize }
-            }).done(function (result) {
+            }).done(function (result,_,xhr) {
                 //let nextPage = $(result).find(".comments-area").html();
                 $area.append(result);
                 $loadMore.remove();
+                $commentCount.text(xhr.getResponseHeader("commentCount"));
             }).fail(ajaxFail);
         });
 
@@ -552,10 +557,12 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             return e.key != "Enter";
         });
 
+        // 提交评论
         $(document).delegate("form.comment-form", "submit", function () {
             event.preventDefault();
             let data = new FormData(this);
             let $that = $(this);
+            let $commentCount = $(this).parents().find(".comment-count span");
             $(this)
                 .find("button.layui-btn.layui-btn-sm")
                 .addClass("layui-btn-disabled")
@@ -569,11 +576,11 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 contentType: false,
                 data: data,
                 type: "post"
-            }).done(function (result) {
+            }).done(function (result,_,xhr) {
                 if (result.hasOwnProperty("success") && result["success"] === false) {
                     layer.msg(result.msg, { icon: 2, anim: 6 });
                 } else {
-                    debugger;
+                    //debugger;
                     //let comments = $(result).find(".comments-area").html();
                     let $form = $that.clone();
                     let $area = $that.parents().find(".comments-area:first");
@@ -590,6 +597,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     $form.find(".comment-btn-close").hide();
                     $form.find(".comment-btn-close").unbind("click");
                     $area.before($form);
+                    $commentCount.text(xhr.getResponseHeader("commentCount"));
                 }
             }).always(function () {
                 $that
