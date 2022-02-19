@@ -265,6 +265,15 @@
     display: block;
 }
 
+.comment-count .refresh{
+    border-color: initial;
+    background-image: initial;
+    background-color: transparent;
+    float: right;
+    cursor: pointer;
+    border: none;
+}
+
 @media (prefers-color-scheme: dark) {
     .comments-area {
         background: rgba(36, 37, 37, 0.5);

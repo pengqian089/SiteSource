@@ -545,7 +545,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 url: request,
                 type: "get",
                 data: { pageIndex: pageIndex + 1, pageSize: pageSize }
-            }).done(function (result,_,xhr) {
+            }).done(function (result, _, xhr) {
                 //let nextPage = $(result).find(".comments-area").html();
                 $area.append(result);
                 $loadMore.remove();
@@ -553,7 +553,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             }).fail(ajaxFail);
         });
 
-        $(document).delegate("form.comment-form :input:not(textarea)", "keydown", function (e) { 
+        $(document).delegate("form.comment-form :input:not(textarea)", "keydown", function (e) {
             return e.key != "Enter";
         });
 
@@ -576,7 +576,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 contentType: false,
                 data: data,
                 type: "post"
-            }).done(function (result,_,xhr) {
+            }).done(function (result, _, xhr) {
                 if (result.hasOwnProperty("success") && result["success"] === false) {
                     layer.msg(result.msg, { icon: 2, anim: 6 });
                 } else {
@@ -593,7 +593,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                         .removeClass("layui-btn-disabled")
                         .removeAttr("disabled")
                         .html("发送");
-                    $form.find("input[name=replyId]").val("");                    
+                    $form.find("input[name=replyId]").val("");
                     $form.find(".comment-btn-close").hide();
                     $form.find(".comment-btn-close").unbind("click");
                     $area.before($form);
@@ -608,7 +608,48 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
         });
 
-        $(document).delegate(".comments-area blockquote.comment-item button.btn-reply", "click", function () { 
+        // 刷新评论
+        $(document).delegate(".comment-count button.refresh", "click", function () {
+            let $area = $(this).parents().find(".comments-area");
+            let request = $(this).data("refresh") + "?t=" + new Date().getTime();
+            let $commentCount = $(this).parent().find("span");
+            let index = layer.load();
+            $.ajax({
+                url: request,
+                type: "get"
+            }).done(function (result, _, xhr) {
+                $area.html(result);
+                $commentCount.text(xhr.getResponseHeader("commentCount"));
+            }).fail(ajaxFail).always(function () {
+                layer.close(index);
+            });
+        });
+
+        // 添加网络图片
+        $(document).delegate(".footer-action-item[data-image]", "click", function () {
+            let $editor = $(this).parents().find("textarea.comment-form-editor");
+            layer.prompt({
+                title: "请输入网络图片地址",
+            }, function (value, index) {
+                let url;
+                try {
+                    url = new URL(value);
+                } catch {
+                    layer.msg("请输入正确的地址嗷~");
+                    return;
+                }
+                if (url.protocol !== "https:") {
+                    layer.msg("使用https协议的网络图片嗷~");
+                    return;
+                }
+                let markdownImg = `![](${url.toString()})`;
+                $editor.val($editor.val() + "\r\n" + markdownImg);
+                layer.close(index);
+            });
+        });
+
+        // 回复按钮事件
+        $(document).delegate(".comments-area blockquote.comment-item button.btn-reply", "click", function () {
             //debugger;
             let $form = $(this).parents().find("form.comment-form");
             let $formClone = $form.clone();

@@ -5411,6 +5411,11 @@ header h1 {
     .is-active-link::before {
         background-color: rgb(82, 145, 54);
     }
+
+    .layui-layer-prompt .layui-layer-input {
+        border-color: rgb(55, 60, 62) !important;
+        color: rgb(200, 195, 188) !important;
+    }
 }
 
 
