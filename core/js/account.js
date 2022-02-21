@@ -366,8 +366,8 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
                 useFold: true,
                 fixed: "left",
                 bottomTemplate: function (row) {                    
-                    let light = hljs.highlight(row["markdown"], {language: "markdown"});
-                    return `<pre style="padding: 5px; max-height: 600px;overflow-y: auto;width: 100%;margin-bottom: 15px;white-space: pre-wrap;font-weight: bold">${light.value}</>`;
+                    let light = Prism.highlight(row["markdown"], Prism.languages.markdown, 'markdown');
+                    return `<pre style="padding: 5px; max-height: 600px;overflow-y: auto;width: 100%;margin-bottom: 15px;white-space: pre-wrap;font-weight: bold">${light}</>`;
                     //return row["markdown"];
                 }
             },
@@ -726,8 +726,8 @@ layui.use(["table", "form", "upload", "layer", "element"], function () {
                 fixed: "left",
                 bottomTemplate: function (row) {
                     if (row["content"] === null) return "";
-                    let light = hljs.highlight(row["content"], {language: "markdown"});
-                    return `<pre style="padding: 5px; max-height: 600px;overflow-y: auto;width: 100%;margin-bottom: 15px;white-space: pre-wrap;font-weight: bold">${light.value}</pre>`;
+                    let light = Prism.highlight(row["content"], Prism.languages.markdown, 'markdown');
+                    return `<pre style="padding: 5px; max-height: 600px;overflow-y: auto;width: 100%;margin-bottom: 15px;white-space: pre-wrap;font-weight: bold">${light}</pre>`;
                 }
             },
             cellHover: function (row, _, collIndex) {

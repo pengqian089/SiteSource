@@ -209,7 +209,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
             let index = layer.load(1);
             $.ajax({
-                url: "/comments/Mumble/" + that.data("commentId"),
+                url: "/Comment/Mumble/" + that.data("commentId"),
                 //data: { id: that.data("commentId") },
                 type: "get"
             }).done(function (result, status, xhr) {
@@ -217,6 +217,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 comments.html(result);
                 lightCode();
                 comments.show();
+                that.parents(".comment-parent").find("time.timeago").relativeTime();
             }).always(function () {
                 layer.close(index);
             });
@@ -482,7 +483,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 startPage++;
                 let $nextResult = $(result);
                 $("#topic-comments").append($nextResult);
-                $nextResult.find("time.timeago").timeago();
+                $nextResult.find("time.timeago").relativeTime();
                 $nextResult.find("pre code").each(function (index, element) {
                     //hljs.highlightElement(element);
                     Prism.highlightElement(block);
@@ -550,6 +551,8 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 $area.append(result);
                 $loadMore.remove();
                 $commentCount.text(xhr.getResponseHeader("commentCount"));
+                $("time.timeago").relativeTime();
+                lightCode();
             }).fail(ajaxFail);
         });
 
@@ -598,6 +601,8 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     $form.find(".comment-btn-close").unbind("click");
                     $area.before($form);
                     $commentCount.text(xhr.getResponseHeader("commentCount"));
+                    $("time.timeago").relativeTime();
+                    lightCode();
                 }
             }).always(function () {
                 $that
@@ -620,6 +625,8 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             }).done(function (result, _, xhr) {
                 $area.html(result);
                 $commentCount.text(xhr.getResponseHeader("commentCount"));
+                $("time.timeago").relativeTime();
+                lightCode();
             }).fail(ajaxFail).always(function () {
                 layer.close(index);
             });
@@ -860,12 +867,13 @@ function generateToc() {
 function pjaxCompleteInit() {
     lightCode();
     generateToc();
-    $("time.timeago").timeago();
+    $("time.timeago").relativeTime();
     initVideoPlayer();
     initFetchContent();
 }
 
 (function () {
+    moment.locale("zh-cn");
 
     const ap = new APlayer({
         container: document.getElementById("aplayer"),
@@ -1337,6 +1345,24 @@ async function initFetchContent() {
         let response = await fetch(item.dataset.request, {
             method: 'GET'
         });
-        response.text().then(x => item.innerHTML = x);
+        response.text().then(x => {
+            item.innerHTML = x;
+            $("time.timeago").relativeTime();
+            lightCode();
+        });
     }
 }
+
+
+
+(function ($) {    
+    $.fn.relativeTime = function () {
+        this.each(function (index) { 
+            let datetime = $(this).attr("datetime");
+            let text = $(this).text();
+            let str = moment(datetime, "YYYY/MM/DD HH:mm:ss").fromNow();
+            $(this).text(str).attr("title",text);
+        });        
+    }
+
+})(jQuery);
