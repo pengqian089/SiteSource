@@ -28,6 +28,7 @@
     flex: 1;
     padding-bottom: .5em;
     border-bottom: 1px dashed #a1a1a1;
+    width:0;
 }
 
 .comment-item:last-child .detail {
@@ -340,4 +341,9 @@
 
 .comment-content ul,.comment-content ol {
     padding-left: 2em;
+    margin:1em 0;
+}
+
+.comment-content p,.comment-content ol li,.comment-content ul li{
+    line-height:1.3em;
 }
