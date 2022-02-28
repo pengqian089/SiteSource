@@ -691,6 +691,18 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
 );
 
 $(function () {
+    $.fn.relativeTime = function () {
+        this.each(function (index) {
+            let status = $(this).data("timeStatus");
+            if (typeof (status) === "undefined") {
+                let datetime = $(this).attr("datetime");
+                let text = $(this).text();
+                let str = moment(datetime, "YYYY/MM/DD HH:mm:ss").fromNow();
+                $(this).text(str).attr("title", text).data("timeStatus", "loaded");
+            }
+        });
+    }
+
     $.pjax.defaults.timeout = 20000;
     $(document).pjax("nav.blog-nav ul.layui-nav>li>a,a[data-pjax]", ".blog-body");
     //文章翻页
@@ -1368,18 +1380,19 @@ async function initFetchContent() {
     }
 }
 
+// function initFetchContent(){
+//     let $contents = $("[data-request]");
+//     $contents.each(function(){
+//         let $that = $(this);
+//         $.ajax({
+//             url:$(this).data("request"),
+//             type:"get"
+//         }).done(function(result){
+//             $that.html(result);
+//             $("time.timeago").relativeTime();
+//             lightCode();
+//         });
+//     });
+// }
 
-(function ($) {
-    $.fn.relativeTime = function () {
-        this.each(function (index) {
-            let status = $(this).data("timeStatus");
-            if (typeof (status) === "undefined") {
-                let datetime = $(this).attr("datetime");
-                let text = $(this).text();
-                let str = moment(datetime, "YYYY/MM/DD HH:mm:ss").fromNow();
-                $(this).text(str).attr("title", text).data("timeStatus", "loaded");
-            }
-        });
-    }
 
-})(jQuery);
