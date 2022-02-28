@@ -14,7 +14,8 @@ $path = $location.Path
     "./core/lib/photoswipe/default-skin/default-skin.css",
     "./fonts/chinese-font.css",
     "./core/css/friends.css",
-    "./core/css/comment.css"
+    "./core/css/comment.css",
+    "./core/css/steam.css"
 
 foreach($item in $cssPaths){
     #$newCssPath = $item.Replace("./", "").Replace("/", "\");

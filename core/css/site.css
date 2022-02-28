@@ -678,122 +678,6 @@ code {
 
 /*评论与留言END*/
 
-
-/* Steam begin */
-.layui-row .game-card {
-    height: 160px;
-    background-color: rgba(187, 6, 80, .5);
-    backdrop-filter: blur(100px);
-    box-shadow: 2px 2px 4px 1px #c7254e;
-    color: #fff;
-    position: relative;
-}
-
-.layui-row .game-card:hover {
-    transform: scale(1.03);
-    transition: all 0.3s ease 0s;
-    -webkit-transform: scale(1.03);
-    -webkit-transform: all 0.3s ease 0s;
-}
-
-.game-card img {
-    width: 100%;
-    height: auto;
-    max-height: 110px;
-}
-
-.game-card .game-name {
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-.game-card .game-time {
-    position: absolute;
-    bottom: 5px;
-    text-align: center;
-    display: block;
-    width: 100%;
-}
-
-.game-card .game-info {
-    display: none;
-    text-align: center;
-    margin-top: 1.2em;
-    font-weight: bold;
-}
-
-.game-info a {
-    color: #63e9ff;
-    font-size: 1.8em;
-}
-
-.game-info a:hover {
-    color: #6bcada
-}
-
-.layui-row .game-card:hover .game-info {
-    display: block;
-}
-
-.layui-row .game-card:hover .game-name, .layui-row .game-card:hover .game-time {
-    display: none;
-}
-
-.achievements .layui-colla-item.unlock, .achievements .layui-colla-item.unlock .layui-colla-title {
-    background-color: #e5fffa;
-}
-
-.achievements .layui-colla-item.lock-hide, .achievements .layui-colla-item.lock-hide .layui-colla-title {
-    background-color: #fffad9;
-}
-
-.achievements .layui-colla-item.lock, .achievements .layui-colla-item.lock .layui-colla-title {
-    background-color: #e08e28;
-}
-
-.achievements .item {
-    width: 100%;
-    min-height: 64px;
-    background-color: #bb0650;
-    color: #fff;
-    margin: 7px 0 7px 0;
-    padding: 5px 0 5px 5px;
-    box-shadow: 2px 2px 4px 1px #c7254e;
-}
-
-.achievements .item:hover {
-    transform: scale(1.03);
-    transition: all 0.3s ease 0s;
-    -webkit-transform: scale(1.03);
-    -webkit-transform: all 0.3s ease 0s;
-}
-
-.achievements .item img {
-    width: 64px;
-    height: 64px;
-}
-
-.achievements .item .game-info {
-    padding-left: 15px;
-}
-
-.achievements .item .game-name {
-    font-weight: bold;
-    font-size: 1.2em
-}
-
-.achievements .item .un-lock {
-    line-height: 64px;
-}
-
-.achievements .item .desc {
-    color: #c4e6e6
-}
-
-/* Steam end */
-
 /* 补充 */
 .carousel img {
     width: 100%;
@@ -5389,7 +5273,7 @@ header h1 {
     }
 
     .blogerinfo-introduce {
-        color: #fff;
+        color: #c7c7c7;
     }
 
     .layui-elem-quote.sitemap a:hover {

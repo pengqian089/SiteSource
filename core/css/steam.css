@@ -1,0 +1,204 @@
+.steam-games {
+    background: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(100px);
+    padding: 2px;
+}
+
+.game-card {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    background: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(20px);
+}
+
+.game-card:last-child {
+    margin-bottom: 0;
+}
+
+.game-card .game-achievements {
+    padding: 1em;
+    margin-top: 0.5em;
+    background: hsl(0deg 0% 45% / 10%);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.game-content {
+    display: flex;
+}
+
+.game-content>img {
+    width: 184px;
+    max-width: 33%;
+    margin-right: 0.5em;
+}
+
+.game-content .game-info {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex: 1;
+}
+
+.game-info .game-name {
+    margin-top: 8px;
+    flex: 1;
+    font-size: 1.2em;
+}
+
+.game-info .game-time {
+    text-align: right;
+    font-size: 0.5em
+}
+
+.achievement-summary {
+    white-space: nowrap;
+    height: 100%;
+}
+
+.achievement-icons {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 180px;
+}
+
+.achievement-icons .achievement-icon-item {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.achievement-icon-item:first-child {
+    margin: 0;
+}
+
+
+.achievement-icons .achievement-icon-item, .achievement-icon-item img {
+    width: 32px;
+    height: 32px;
+}
+
+.achievement-progress {
+    display: inline-block;
+    padding: 1px;
+    width: 145px;
+    border-radius: 5px;
+    background-color: rgba(187, 6, 98, 0.3);
+    border: 1px solid rgb(187 6 98);
+    box-shadow: 1px 1px 1px rgb(255 255 255 / 10%)
+}
+
+.achievement-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgb(187, 6, 98);
+    background: linear-gradient(180deg, rgba(187, 6, 98, .3) 0%, rgba(116 2 60 / 93%) 80%);
+}
+
+.achievements .layui-colla-item.unlock, .achievements .layui-colla-item.unlock .layui-colla-title {
+    background-color: #e5fffa;
+}
+
+.achievements .layui-colla-item.lock-hide, .achievements .layui-colla-item.lock-hide .layui-colla-title {
+    background-color: #fffad9;
+}
+
+.achievements .layui-colla-item.lock, .achievements .layui-colla-item.lock .layui-colla-title {
+    background-color: #e08e28;
+}
+
+.achievements .item {
+    width: 100%;
+    min-height: 64px;
+    background-color: #bb0650;
+    color: #fff;
+    margin: 7px 0 7px 0;
+    padding: 5px 0 5px 5px;
+    box-shadow: 2px 2px 4px 1px #c7254e;
+}
+
+.achievements .item:hover {
+    transform: scale(1.03);
+    transition: all 0.3s ease 0s;
+    -webkit-transform: scale(1.03);
+    -webkit-transform: all 0.3s ease 0s;
+}
+
+.achievements .item img {
+    width: 64px;
+    height: 64px;
+}
+
+.achievements .item .game-info {
+    padding-left: 15px;
+}
+
+.achievements .item .game-name {
+    font-weight: bold;
+    font-size: 1.2em
+}
+
+.achievements .item .un-lock {
+    line-height: 64px;
+}
+
+.achievements .item .desc {
+    color: #c4e6e6
+}
+
+.loading-summary a, .game-name a {
+    color: #bb0662;
+}
+
+.loading-summary a:hover, .game-name a:hover {
+    text-decoration: underline;
+    color: #91054c;
+}
+
+@media screen and (max-width: 640px) {
+    .achievement-icons {
+        max-width: 106px;
+    }
+
+    .achievement-summary {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .steam-games {
+        background: rgba(36, 37, 37, 0.5);
+    }
+
+    .game-card {
+        background: rgba(24, 33, 39, 0.5);
+        backdrop-filter: blur(20px);
+    }
+
+    .game-card .game-achievements {
+        background: rgba(34, 35, 48, 0.93);
+    }
+
+    .loading-summary a, .game-name a {
+        color: #ff0082;
+    }
+
+    .loading-summary a:hover, .game-name a:hover {
+        text-decoration: underline;
+        color: #e70277;
+    }
+
+    .achievement-progress {
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        box-shadow: 1px 1px 1px rgb(255 255 255 / 10%);
+    }
+
+    .achievement-progress-bar {
+        background-color: #364359;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(43, 45, 68, .93) 80%);
+    }
+}

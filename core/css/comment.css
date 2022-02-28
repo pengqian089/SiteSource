@@ -28,7 +28,7 @@
     flex: 1;
     padding-bottom: .5em;
     border-bottom: 1px dashed #a1a1a1;
-    width:0;
+    width: 0;
 }
 
 .comment-item:last-child .detail {
@@ -266,7 +266,7 @@
     display: block;
 }
 
-.comment-count .refresh{
+.comment-count .refresh {
     border-color: initial;
     background-image: initial;
     background-color: transparent;
@@ -339,11 +339,11 @@
     max-width: 100%;
 }
 
-.comment-content ul,.comment-content ol {
+.comment-content ul, .comment-content ol {
     padding-left: 2em;
-    margin:1em 0;
+    margin: 1em 0;
 }
 
-.comment-content p,.comment-content ol li,.comment-content ul li{
-    line-height:1.3em;
+.comment-content p, .comment-content ol li, .comment-content ul li {
+    line-height: 1.3em;
 }

@@ -672,6 +672,21 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
             $(this).parents("blockquote.comment-item:first").find(".detail > .comment-content:first").after($formClone);
         });
+
+        // steam 查看统计
+        $(document).delegate(".loading-summary a[data-summary]","click",function(){
+            let request = $(this).data("summary");
+            let $that = $(this);
+            let $achievements = $(this).parents(".game-achievements");
+            $(this).parent().next().show();
+            $(this).parent().remove();
+            $.ajax({
+                url:request,
+                type:"get"
+            }).done(function(result){
+                $achievements.html(result);
+            });
+        });
     }
 );
 
@@ -1354,15 +1369,17 @@ async function initFetchContent() {
 }
 
 
-
-(function ($) {    
+(function ($) {
     $.fn.relativeTime = function () {
-        this.each(function (index) { 
-            let datetime = $(this).attr("datetime");
-            let text = $(this).text();
-            let str = moment(datetime, "YYYY/MM/DD HH:mm:ss").fromNow();
-            $(this).text(str).attr("title",text);
-        });        
+        this.each(function (index) {
+            let status = $(this).data("timeStatus");
+            if (typeof (status) === "undefined") {
+                let datetime = $(this).attr("datetime");
+                let text = $(this).text();
+                let str = moment(datetime, "YYYY/MM/DD HH:mm:ss").fromNow();
+                $(this).text(str).attr("title", text).data("timeStatus", "loaded");
+            }
+        });
     }
 
 })(jQuery);
