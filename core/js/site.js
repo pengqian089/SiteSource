@@ -155,8 +155,15 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         $(document).on("pjax:send", function () {
             NProgress.start();
         });
+
+        let titleValue = "";
         $(document).on("pjax:complete", function (event, xhr) {
-            document.title = Base64.decode(xhr.getResponseHeader("title"));
+            titleValue = xhr.getResponseHeader("title")
+            if(titleValue === "" || titleValue === null){
+                document.title = "（；´д｀）ゞ标题不见啦 - 叫我阿胖";
+            }else{
+                document.title = Base64.decode(titleValue);
+            }            
             element.render();
             categoryOut();
             leftOut();
