@@ -196,5 +196,12 @@
                 }
             },
         });
+
+        $("[name=fileType]").click(function(){
+            let type = $(this).val();            
+            let href = $("#download-cv").attr("href");
+            let selectedHref = href.substring(0, href.lastIndexOf(".") + 1) + type;
+            $("#download-cv").attr("href",selectedHref);
+        });
     });
 })(jQuery);

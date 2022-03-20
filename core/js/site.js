@@ -78,7 +78,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 const raindropFx = new RaindropFX({
                     canvas: canvas,
                     background:
-                        dpzOption.isDark ? `${dpzOption.CDNBaseAddress}/../images/core-backg-dark.jpeg` : `${dpzOption.CDNBaseAddress}/../images/background.jpg`,
+                        dpzOption.isDark ? `${dpzOption.CDNBaseAddress}/../images/core-background2.jpeg` : `${dpzOption.CDNBaseAddress}/../images/background.jpg`,
                 });
 
                 window.onresize = () => {

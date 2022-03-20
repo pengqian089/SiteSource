@@ -2727,3 +2727,11 @@ blockquote {
     line-height: 1;
     border: none
 }
+
+.cv-file-type {
+    margin: 2em;
+}
+
+.right-part ol{
+    margin-left: 2em;
+}
