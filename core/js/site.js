@@ -572,14 +572,12 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             event.preventDefault();
             let data = new FormData(this);
             let $that = $(this);
-            let $commentCount = $(this).parents().find(".comment-count span");
+            let $commentCount = $(this).parents(".comment-block").find(".comment-count span");
             $(this)
                 .find("button.layui-btn.layui-btn-sm")
                 .addClass("layui-btn-disabled")
                 .attr("disabled", "disabled")
                 .html(`<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop layui-font-12"></i> 发送`);
-            //console.log(data);
-            //return;
             $.ajax({
                 url: $that.attr("action"),
                 processData: false,
@@ -590,11 +588,10 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 if (result.hasOwnProperty("success") && result["success"] === false) {
                     layer.msg(result.msg, { icon: 2, anim: 6 });
                 } else {
-                    //debugger;
-                    //let comments = $(result).find(".comments-area").html();
                     let $form = $that.clone();
-                    let $area = $that.parents().find(".comments-area:first");
-                    $that.parents().find(".comments-area").html(result);
+                    let $commentBlock = $that.parents(".comment-block");
+                    let $area = $commentBlock.find(".comments-area:first");
+                    $commentBlock.find(".comments-area").html(result);
                     $that.remove();
 
                     $form.find("textarea").val("");
@@ -622,7 +619,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
 
         // 刷新评论
         $(document).delegate(".comment-count button.refresh", "click", function () {
-            let $area = $(this).parents().find(".comments-area");
+            let $area = $(this).parents(".comment-block").find(".comments-area");
             let request = $(this).data("refresh") + "?t=" + new Date().getTime();
             let $commentCount = $(this).parent().find("span");
             let index = layer.load();
@@ -665,7 +662,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
         // 回复按钮事件
         $(document).delegate(".comments-area blockquote.comment-item button.btn-reply", "click", function () {
             //debugger;
-            let $form = $(this).parents().find("form.comment-form");
+            let $form = $(this).parents(".comment-block").find("form.comment-form");
             let $formClone = $form.clone();
             $form.remove();
             let $that = $(this);
@@ -677,7 +674,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 $(this).hide();
                 $(this).unbind("click");
             });
-            $(this).parents("blockquote.comment-item:first").find(".detail > .comment-content:first").after($formClone);
+            $(this).parents(".comment-block blockquote.comment-item:first").find(".detail > .comment-content:first").after($formClone);
         });
 
         // steam 查看统计
@@ -1059,19 +1056,19 @@ function pjaxCompleteInit() {
         console.info(result);
     });
 
-    // setTimeout(function () {
-    //     updateRunTime();
-    // }, 5000);
+    setTimeout(function () {
+        updateRunTime();
+    }, 1000);
 
-    // function updateRunTime() {
-    //     connection.invoke("getRunTime");
-    // }
+    function updateRunTime() {
+        connection.invoke("getRunTime");
+    }
 
     connection.on("ReceiveRunTime", function (msg) {
         let runTime = $("#runTime");
         if (runTime.length > 0) {
             runTime.text("运行时间 " + msg);
-            //setTimeout(updateRunTime, 5000);
+            setTimeout(updateRunTime, 1000);
         }
     });
 
