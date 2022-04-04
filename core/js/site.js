@@ -691,6 +691,16 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 $achievements.html(result);
             });
         });
+
+        $(document).delegate("[data-tips]", "touchend", function () {
+            let tips = $(this).data("tips");
+            layer.tips(tips,this,{tips:3});
+        });
+
+        $(document).delegate("time.timeago", "touchend", function () {
+            let title = $(this).attr("title");
+            layer.tips(title,this,{tips:3});
+        });
     }
 );
 

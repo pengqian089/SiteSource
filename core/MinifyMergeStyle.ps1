@@ -5,6 +5,7 @@ $path = $location.Path
     "./core/lib/layui/css/layui.css",
     "./core/lib/aplayer/APlayer.min.css",
     "./core/css/site.css",
+    "./core/css/site-dark.css",
     "./core/css/nprogress.min.css",
     "./core/font-awesome/css/font-awesome.css",
     "./library/prism/prism.css",
