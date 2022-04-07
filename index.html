@@ -212,7 +212,7 @@
     <script src="/core/js/index.js"></script>
     <script>
         (async function () {
-            let response = await fetch("https://api.codelife.cc/api/bing?idx=0", {
+            let response = await fetch("https://api.dpangzi.com/api/Community/wallpaper", {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -221,14 +221,15 @@
             });
             response.json().then(data => {
                 console.log("bing wallpaper loaded success.")
-                document.title = data.data.copyright;
+                let wallpaper = data[0];
+                document.title = wallpaper.copyRight;
                 const canvas = document.querySelector("#backgRound");
                 const rect = canvas.getBoundingClientRect();
                 canvas.width = rect.width;
                 canvas.height = rect.height;
                 const raindropFx = new RaindropFX({
                     canvas: canvas,
-                    background: data.data.fullSrc,
+                    background: wallpaper.url,
                 });
                 window.onresize = () => {
                     const rect = canvas.getBoundingClientRect();
