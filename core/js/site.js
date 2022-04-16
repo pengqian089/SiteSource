@@ -103,7 +103,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     $(".blog-user")
                         .attr("href", "/account")
                         .find("img")
-                        .attr({ "src": `${result.data.avatar}?width=40&height=40`, "title": result.data.name });
+                        .attr({ "src": `${result.data.avatar}?width=400&height=400`, "title": result.data.name });
                 }
             }).fail(ajaxFail);
 
@@ -201,19 +201,24 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
         });
 
-        //碎碎念回复
+        // 展开碎碎念回复
         $(document).delegate("[data-comment-id]", "click", function () {
             let that = $(this);
-            let comments = that.parents("div.comment-parent").find("div.comments[data-talk-id]");
-            if (comments.find("form").length > 0) {
-                comments.hide(100, function () {
-                    comments.html("");
-                });
-                return;
-            }
-            $("div.comment-parent div.comments[data-talk-id] div.comment-container").hide(function () {
+            let comments = that.parents("div.mumble-item").find("div.mumble-comment[data-talk-id]");
+            // if (comments.find("form").length > 0) {
+            //     comments.hide(100, function () {
+            //         comments.html("");
+            //     });
+            //     return;
+            // }
+            comments.hide("fast",function () {
                 $(this).html("");
             });
+            if (that.parent().hasClass("mumble-active")) {
+                that.parent().removeClass('mumble-active');
+                return;
+            }
+            that.parent().addClass("mumble-active");
             let index = layer.load(1);
             $.ajax({
                 url: "/Comment/Mumble/" + that.data("commentId"),
@@ -230,77 +235,8 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
         });
 
-        //碎碎念提交评论
-        $(document).delegate("button[data-btn-comment]", "click", function (e) {
-            let form = $(this).parents("form")[0];
-            let data = new FormData(form);
-            let that = $(this);
-            if ($("#loginStatus").val() === "no-login") {
-                showCaptcha(that.data("scene"), function (result) {
-                    data.append("ticket", result.ticket);
-                    data.append("randstr", result.randstr);
-                    data.append("scene", result.bizState);
-                    submitComment();
-                });
-                return;
-            }
-            submitComment();
 
-            function submitComment() {
-                let index = layer.load(1);
-                let talkId = that.data("btnComment");
-                $.ajax({
-                    processData: false,
-                    contentType: false,
-                    url: form.getAttribute("action"),
-                    data: data,
-                    type: form.getAttribute("method")
-                }).done(function (result) {
-                    if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
-                    } else {
-                        let i = layer.load(1);
-                        $.ajax({
-                            url: "/Talk/GetComments",
-                            data: { id: talkId },
-                            type: "get"
-                        }).done(function (res, status, xhr) {
-                            $(`[data-comment-id=${talkId}]`).find("[data-comment-count]").text(xhr.getResponseHeader("itemCount"));
-                            that.parents(".comment-parent").find(".comments[data-talk-id]").html(res);
-                        }).always(function () {
-                            layer.close(i);
-                        });
-                    }
-                }).always(function () {
-                    layer.close(index);
-                });
-            }
-
-        });
-
-        /**
-         * 碎碎念翻页
-         */
-        $(document).delegate("#comment-pager a[href]",
-            "click",
-            function (e) {
-                e.preventDefault();
-                let that = $(this);
-                let url = $(this).attr("href");
-                let i = layer.load(1);
-                $.ajax({
-                    url: url,
-                    type: "get"
-                }).done(function (res) {
-                    that.parents(".comment-parent").find(".comments[data-talk-id]").html(res);
-                    lightCode();
-                }).always(function () {
-                    layer.close(i);
-                });
-            });
-
-
-        let viewImages = ".article.shadow .article-left img,#talk-list>ul>li .content-detail .content img,.article-detail-content img,#cd-timeline .content img";
+        let viewImages = ".article.shadow .article-left img,.mumble-list .mumble-item .mumble-content img,.article-detail-content img,#cd-timeline .content img";
         //图片查看
         $(document).delegate(viewImages, "click", function () {
             let index = layer.load(1);
@@ -334,47 +270,21 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             }).finally(() => layer.close(index));
         });
 
-
-        //文章评论
-        $(document).delegate("form.layui-form[data-load-page]", "submit", function (e) {
-            e.preventDefault();
-            let formData = new FormData(this);
-            let loadPage = $(this).data("loadPage");
-            let that = $(this);
-            if ($(this).data("login") === "no-login") {
-                showCaptcha(that.data("scene"), function (result) {
-                    formData.append("ticket", result.ticket);
-                    formData.append("randstr", result.randstr);
-                    formData.append("scene", result.bizState);
-                    articleComment();
-                });
-                return;
-            }
-
-            articleComment();
-
-            function articleComment() {
-                let index = layer.load(1);
-                $.ajax({
-                    url: "/article/comment",
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    type: "post"
-                }).done(function (result) {
-                    if (!result.success) {
-                        layer.msg(result.msg, { icon: 2, anim: 6 });
-                    } else {
-                        $("textarea").val("");
-                        $.pjax({ url: loadPage, container: '#blog-comment', scrollTo: false });
-                    }
-                }).always(function () {
-                    layer.close(index);
-                });
+        // 碎碎念查看更多
+        $(document).delegate(".mumble-more a", "click", function () {
+            let more = $(this).parents(".mumble-more");
+            let content = $(this).parents(".mumble-item").find(".mumble-content");
+            if (!more.hasClass("mumble-pack-up")) {
+                more.addClass("mumble-pack-up");
+                content.removeClass("mumble-hide-sub");
+                $(this).html("收起<i class=\"layui-icon layui-icon-up\">");
+            } else {
+                more.removeClass("mumble-pack-up");
+                content.addClass("mumble-hide-sub");
+                $(this).html("查看更多<i class=\"layui-icon layui-icon-down\">");
             }
         });
 
-        //查看更多
         $(document).delegate(".content-detail .more a", "click", function () {
             let more = $(this).parents(".more");
             let content = $(this).parents(".content-detail").find(".content");
@@ -723,7 +633,7 @@ $(function () {
     $(document).pjax("#blog-list a,.tags a", ".blog-main-left");
     $(document).pjax("#articl-comment a", "#blog-comment", { scrollTo: false });
     //碎碎念翻页
-    $(document).pjax("#talk-pager a", "#talk-list");
+    $(document).pjax("#talk-pager a", ".mumble-list");
     //今日热榜翻页
     $(document).pjax("#topic-list a", ".blog-main-left");
     $(document).pjax(".code-box .box-rows .row .header a", ".code-box .box-rows");

@@ -1,0 +1,170 @@
+/**
+* 碎碎念
+*/
+
+.mumble-list {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.mumble-list>.mumble-item {
+    background-color: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(100px);
+    margin: 15px 0 10px 0;
+    padding: 1.2em;
+    padding-bottom: 0;
+    border-radius: 5px;
+    box-shadow: 3px 4px 5px #808080;
+}
+
+.mumble-item-user {
+    display: flex;
+}
+
+.mumble-item-user .mumble-avatar {
+    margin-right: 10px;
+}
+
+.mumble-item-user .mumble-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.mumble-info .mumble-nickname {
+    margin: 5px 0 6px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.mumble-info .mumble-time {
+    font-size: 0.6em;
+}
+
+.mumble-item .mumble-content {
+    padding: 6px 0 6px 60px;
+
+}
+
+.mumble-interactive {
+    box-sizing: border-box;
+}
+
+.mumble-interactive-actions {
+    display: flex;
+    padding-left: 60px;
+    height: 3em;
+}
+
+.mumble-action-detail {
+    margin-right: 3em;
+    line-height: 3em;
+}
+
+.mumble-action-detail a:hover, .mumble-action-detail a:active {
+    color: rgb(253, 79, 96);
+    text-decoration: underline;
+}
+
+.mumble-action-comment {
+    margin-right: 3em;
+    line-height: 3em;
+}
+
+.mumble-action-like {
+    line-height: 3em;
+}
+
+.mumble-action-comment a:hover, .mumble-action-comment a:active {
+    color: rgb(253, 79, 96);
+}
+
+.mumble-action-like a:hover, .mumble-action-like a:active {
+    color: rgb(253, 79, 96);
+}
+
+.mumble-comment {
+    border-top: 1px solid #f2f2f5;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.mumble-active {
+    color: rgb(253, 79, 96);
+    border-bottom: 1px solid rgb(155, 2, 16);
+}
+
+.mumble-active a {
+    color: rgb(253, 79, 96);
+}
+
+.mumble-more {
+    width: 100%;
+    background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0) 0%, #fff 70%);
+    padding-bottom: 51px;
+    margin-bottom: 8px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding-top: 160px;
+    bottom: 1px;
+    margin-top: -200px;
+}
+
+.mumble-hide-sub {
+    max-height: 300px;
+    overflow-y: hidden;
+}
+
+.mumble-more a {
+    color: #d666a4;
+}
+
+.mumble-pack-up {
+    margin: 0;
+    padding: 0;
+    background-image: none !important;
+}
+
+.mumble-detail {
+    border-bottom: none;
+    background-color: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(100px);
+    margin: 15px 0 10px 0;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 3px 4px 5px #808080;
+}
+
+@media screen and (max-width: 640px) {
+    .mumble-item .mumble-content {
+        padding: 0.5em 0;
+    }
+
+    .mumble-interactive-actions {
+        padding-left: 0;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .mumble-list>.mumble-item {
+        border-bottom-color: initial;
+        background-color: rgba(36, 37, 37, 0.5);
+        box-shadow: rgb(103 108 109) 3px 4px 5px;
+        list-style-image: initial;
+    }
+
+    .mumble-comment {
+        border-color: #737373;
+    }
+
+    .mumble-more {
+        background-image: linear-gradient(-180deg, rgba(36, 37, 37, 0) 0%, rgb(36, 37, 37) 70%);
+    }
+
+    .mumble-detail {
+        border-bottom-color: initial;
+        background-color: rgba(36, 37, 37, 0.5);
+        box-shadow: rgb(103 108 109) 3px 4px 5px;
+    }
+}
