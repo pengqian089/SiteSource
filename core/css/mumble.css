@@ -7,12 +7,15 @@
     margin-bottom: 10px;
 }
 
+.mumble-item{
+    padding: 1.2em;
+    padding-bottom: 0;
+}
+
 .mumble-list>.mumble-item {
     background-color: rgba(255, 255, 255, .5);
     backdrop-filter: blur(100px);
     margin: 15px 0 10px 0;
-    padding: 1.2em;
-    padding-bottom: 0;
     border-radius: 5px;
     box-shadow: 3px 4px 5px #808080;
 }
@@ -35,10 +38,16 @@
     margin: 5px 0 6px;
     font-size: 1em;
     font-weight: bold;
+    color: #1985ab;
+}
+
+.mumble-info .mumble-nickname .identity {
+    font-weight: normal;
 }
 
 .mumble-info .mumble-time {
     font-size: 0.6em;
+    color: #0091cc;
 }
 
 .mumble-item .mumble-content {
@@ -166,5 +175,13 @@
         border-bottom-color: initial;
         background-color: rgba(36, 37, 37, 0.5);
         box-shadow: rgb(103 108 109) 3px 4px 5px;
+    }
+
+    .mumble-info .mumble-nickname {
+        color: #ff4141
+    }
+
+    .mumble-info .mumble-time {
+        color: #ff8484;
     }
 }

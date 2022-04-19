@@ -67,7 +67,7 @@
     color: #666;
 }
 
-.comment-head .identity {
+.identity {
     display: inline-block;
     font-size: 0.6em;
     padding: 0 0.3em;
@@ -329,7 +329,7 @@
         background: rgb(28, 30, 31);
     }
 
-    .comment-head .identity {
+    .identity {
         background: #1d6fa5;
         color: #e8e6e3;
     }

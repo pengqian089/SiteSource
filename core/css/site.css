@@ -789,6 +789,14 @@ html {
     scrollbar-color: #969696 #58595c;
 }
 
+.aplayer-list ol::-webkit-scrollbar-thumb {
+    background: #969696 !important;
+}
+
+.aplayer-list ol::-webkit-scrollbar-thumb:hover {
+    background: #58595c !important;
+}
+
 
 .laypage-main,
 .laypage-main * {
@@ -1026,6 +1034,7 @@ ul.layui-fixbar>li {
     text-align: center;
     line-height: 30px;
 }
+
 /*碎碎念存留 end*/
 
 pre.prettyprint {
@@ -3861,6 +3870,12 @@ header h1 {
     background: #f6f6f7;
     padding: 7px;
     font-style: italic;
+}
+
+.article-detail-content.cnBeta>p {
+    text-align: justify;
+    text-justify: inter-ideograph;
+    text-indent: 2em;
 }
 
 .article-detail-content blockquote p {
