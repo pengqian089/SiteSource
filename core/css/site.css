@@ -1631,8 +1631,15 @@ body .warning .layui-layer-title {
 
 /* video end */
 
+@media screen and (max-width:640px) {
+    body {
+        background: #fff
+    }
+}
+
 /* 小屏幕（平板，大于等于 768px） */
 @media (min-width: 768px) {
+
     .blog-container {
         width: 738px;
         margin: 0 auto;

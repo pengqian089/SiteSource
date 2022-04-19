@@ -919,4 +919,10 @@
     html {
         scrollbar-color: #434953 #202020;
     }
+
+    @media screen and (max-width:640px) {
+        body {
+            background: #000
+        }
+    }
 }
