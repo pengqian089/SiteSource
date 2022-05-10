@@ -103,7 +103,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                     $(".blog-user")
                         .attr("href", "/account")
                         .find("img")
-                        .attr({ "src": `${result.data.avatar}?width=400&height=400`, "title": result.data.name });
+                        .attr({ "src": `${result.data.avatar}`, "title": result.data.name });
                 }
             }).fail(ajaxFail);
 
