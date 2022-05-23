@@ -212,8 +212,8 @@
     }
 
     :not(pre)>code {
-        background-color: rgba(110, 118, 129, 0.4);
-        color: #c9d1d9;
+        background-color: rgb(23 107 40);
+        color: #fff;
     }
 
     .layui-nav-child {

@@ -85,16 +85,16 @@
     padding: 1px;
     width: 145px;
     border-radius: 5px;
-    background-color: rgba(187, 6, 98, 0.3);
-    border: 1px solid rgb(187 6 98);
-    box-shadow: 1px 1px 1px rgb(255 255 255 / 10%)
+    background-color: rgba(242, 234, 234, 0.3);
+    border: 1px solid rgba(157, 126, 126, 0.5);
+    box-shadow: 1px 1px 1px rgb(255 255 255 / 10%);
 }
 
 .achievement-progress-bar {
     height: 8px;
     border-radius: 4px;
-    background-color: rgb(187, 6, 98);
-    background: linear-gradient(180deg, rgba(187, 6, 98, .3) 0%, rgba(116 2 60 / 93%) 80%);
+    background-color: #364359;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(43, 45, 68, .93) 80%);
 }
 
 .achievements .layui-colla-item.unlock, .achievements .layui-colla-item.unlock .layui-colla-title {
@@ -138,7 +138,7 @@
     margin: 0 auto;
 }
 
-.achievements .item .ach-un-lock{
+.achievements .item .ach-un-lock {
     flex: 1;
     text-align: right;
 }
@@ -199,11 +199,11 @@
         align-items: center;
     }
 
-    .achievements .item .ach-icon{
-        margin-right:0;
+    .achievements .item .ach-icon {
+        margin-right: 0;
     }
 
-    .achievements .item .un-lock{
+    .achievements .item .un-lock {
         text-align: center;
     }
 }
