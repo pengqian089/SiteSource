@@ -1,6 +1,6 @@
 .steam-games {
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     padding: 2px;
 }
 

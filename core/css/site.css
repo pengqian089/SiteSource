@@ -55,7 +55,7 @@ input[type="text"], textarea {
 
 .blog-body {
     margin-top: 80px;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
 }
 
 .blog-container {
@@ -73,7 +73,7 @@ input[type="text"], textarea {
 .blog-main>.home-tips {
     padding: 10px 10px;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     font-size: 13px;
     margin-bottom: 15px;
 }
@@ -114,7 +114,7 @@ code {
 /*面包屑导航*/
 .sitemap {
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     margin-top: 79px;
     padding: 5px 15px;
     line-height: normal;
@@ -237,7 +237,7 @@ code {
     border-top: 1px solid #bb0662;
     margin-top: 15px;
     background: rgba(47, 64, 86, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     padding: 5px 0;
     color: #d3d2d2;
 }
@@ -296,7 +296,7 @@ code {
     border-radius: 0;
     border-top: 1px solid #bb0650;
     box-shadow: 0 0 8px #fff;
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     background-color: rgba(57, 61, 73, .5);
 }
 
@@ -383,7 +383,7 @@ code {
     padding: 15px;
     margin-bottom: 10px;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     border-left: 5px solid #fff;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
@@ -482,7 +482,7 @@ code {
     margin-bottom: 10px;
     padding: 15px;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     height: 100%;
 }
 
@@ -511,7 +511,7 @@ code {
     top: 64px;
     right: 0;
     bottom: 0;
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     background-color: rgba(57, 61, 73, .5);
     color: #eee;
     width: 130px;
@@ -812,7 +812,7 @@ html {
     border-bottom: none;
     font-size: 0;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     box-shadow: #bb0662 2px 2px 0px 0px
 }
 
@@ -858,7 +858,7 @@ ul.layui-fixbar>li {
     text-align: center;
     padding: 0 15px;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     margin-bottom: 15px;
 }
 
@@ -931,13 +931,13 @@ ul.layui-fixbar>li {
 
 .search-keywords * {
     background-color: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
 }
 
 /* detail */
 .article-detail {
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     padding: 15px;
     box-shadow: 0 1px 8px #a6a6a6;
     margin-bottom: 15px;
@@ -1148,7 +1148,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 
 .code-box .box-header {
     background-color: rgba(241, 248, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     padding: 16px;
     margin: -1px -1px 0;
     border: 1px solid #c8e1ff;
@@ -1943,7 +1943,7 @@ body .warning .layui-layer-title {
         display: block;
         position: initial;
         background: rgba(255, 255, 255, .5);
-        backdrop-filter: blur(100px);
+        backdrop-filter: blur(25px);
         color: #333;
         width: auto !important;
         font-size: 14px;
@@ -2214,7 +2214,7 @@ body .warning .layui-layer-title {
         width: 100%;
         height: 36px;
         background: rgba(255, 255, 255, .5);
-        backdrop-filter: blur(100px);
+        backdrop-filter: blur(25px);
         cursor: pointer;
         float: right;
         border-radius: 1px;
@@ -3531,7 +3531,7 @@ header h1 {
     position: relative;
     margin-left: 60px;
     background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     border-radius: 0.25em;
     padding: 1em;
     box-shadow: 0 3px 0 rgba(215, 228, 237, .5);

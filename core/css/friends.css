@@ -1,5 +1,5 @@
 .friends-container {
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     margin-bottom: 1em;
     background-color: rgba(255, 255, 255, .5);
 }

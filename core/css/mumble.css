@@ -14,7 +14,7 @@
 
 .mumble-list>.mumble-item {
     background-color: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     margin: 15px 0 10px 0;
     border-radius: 5px;
     box-shadow: 3px 4px 5px #808080;
@@ -138,7 +138,7 @@
 .mumble-detail {
     border-bottom: none;
     background-color: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(25px);
     margin: 15px 0 10px 0;
     padding: 0;
     border-radius: 5px;

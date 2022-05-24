@@ -373,10 +373,6 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             });
         });
 
-        if (window.scrollY > 0) {
-            $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
-        }
-
 
         let $topicComments = $("#topic-comments");
         //let commentCount = parseInt($topicComments.data("count"));
@@ -431,7 +427,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
             throttleTimer = setTimeout(function () {
                 // 顶部菜单是否开启高斯模糊
                 if (window.scrollY > 0) {
-                    $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(100px)" });
+                    $(".blog-nav").css({ "background-color": "rgba(57,61,73,.5)", "backdrop-filter": "blur(25px)" });
                 } else if (window.scrollY === 0) {
                     $(".blog-nav").css({ "background-color": "rgb(57,61,73)", "backdrop-filter": "none" })
                 }
