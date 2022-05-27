@@ -446,6 +446,40 @@
         background-color: rgb(62, 68, 68);
     }
 
+    .layui-form-checkbox, .layui-form-select dl dd.layui-disabled {
+        background-color: rgb(24, 26, 27);
+    }
+
+    .layui-form-checkbox span {
+        background-color: rgb(49, 54, 56);
+        color: rgb(232, 230, 227);
+    }
+
+    .layui-form-checkbox i {
+        border-top-color: rgb(61, 66, 68);
+        border-right-color: rgb(61, 66, 68);
+        border-bottom-color: rgb(61, 66, 68);
+        border-left-color: initial;
+        color: rgb(84 84 84);
+    }
+
+    .layui-form-checked span, .layui-form-checked:hover span {
+        background-color: #c80a6a !important;
+    }
+
+    .layui-form-checked i, .layui-form-checked:hover i {
+        color: #c80a6a !important;
+    }
+
+    .layui-form-checkbox:hover span {
+        background-color: rgb(58, 63, 66);
+    }
+
+    .layui-form-checkbox:hover i {
+        border-color: rgb(65, 71, 73);
+        color: rgb(181 177 172)
+    }
+
     /* grid manage start */
 
     .gm-menu, .table-wrap {

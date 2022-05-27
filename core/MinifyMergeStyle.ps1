@@ -18,7 +18,8 @@ $path = $location.Path
     "./core/css/comment.css",
     "./core/css/steam.css",
     "./core/css/mumble.css",
-    "./core/css/markdown.css"
+    "./core/css/markdown.css",
+    "./core/css/bookmark.css"
 
 foreach($item in $cssPaths){
     #$newCssPath = $item.Replace("./", "").Replace("/", "\");

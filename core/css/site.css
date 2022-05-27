@@ -3994,3 +3994,15 @@ pre>code {
 .d-shadow {
     box-shadow: 0 1px 8px #a6a6a6;
 }
+
+.layui-btn-primary {
+    border-color: #bb0662;
+    background-image: initial;
+    background-color: initial;
+    color: rgb(189, 181, 170);
+}
+
+.layui-btn-primary:hover {
+    color: #fff;
+    border-color: #c80a6a !important;
+}
