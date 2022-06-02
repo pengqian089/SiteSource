@@ -1444,7 +1444,7 @@ async function initVideoPlayer() {
     const playerId = "video-player";
     const mPlayerId = "m-video-player";
     const player = document.getElementById(playerId) || document.getElementById(mPlayerId);
-    if (player != null) {
+    if (player !== null) {
         player.style.marginBottom = "15px";
         let response = await fetch(`${dpzOption.webApiBaseAddress}/api/Video`, {
             method: 'GET',
@@ -1465,6 +1465,26 @@ async function initVideoPlayer() {
             },
             video: {
                 url: data[index]["m3u8"],
+                type: 'hls',
+            },
+        });
+    }
+
+    const video = document.querySelector("[data-video]");
+    if (video !== null) {
+        const data = JSON.parse(video.dataset.video);
+        new DPlayer({
+            container: video,
+            danmaku: {
+                api: "/history/chat/",
+                id: data.id,
+                maximum: 2000,
+                token: "tokendemo",
+                user: "阿胖",
+                bottom: "15%"
+            },
+            video: {
+                url: data.url,
                 type: 'hls',
             },
         });

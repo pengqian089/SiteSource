@@ -1601,32 +1601,44 @@ body .warning .layui-layer-title {
 
 /* video start */
 .dplayer-controller .dplayer-icons .dplayer-toggle input+label {
-    box-shadow: #9a064f 0 0 0 0 inset;
-    border-color: #9a064f;
+    box-shadow: #9a064f 0 0 0 0 inset !important;
+    border-color: #9a064f !important;
 }
 
 .dplayer-controller .dplayer-icons .dplayer-toggle input+label::after {
-    background-image: initial;
-    background-color: #bb0662;
+    background-image: initial !important;
+    background-color: #bb0662 !important;
 }
 
 .dplayer-controller .dplayer-icons .dplayer-toggle input:checked+label {
-    border-color: rgba(187 6 98 .5);
+    border-color: rgba(187 6 98 .5) !important;
 }
 
 .dplayer-controller .dplayer-icons .dplayer-setting .dplayer-setting-danmaku .dplayer-danmaku-bar-wrap .dplayer-danmaku-bar {
-    background-image: initial;
-    background-color: #d71978;
+    background-image: initial !important;
+    background-color: #d71978 !important;
 }
 
 .dplayer-controller .dplayer-icons .dplayer-setting .dplayer-setting-danmaku .dplayer-danmaku-bar-wrap .dplayer-danmaku-bar .dplayer-danmaku-bar-inner {
-    background-image: initial;
-    background-color: #d71978;
+    background-image: initial !important;
+    background-color: #d71978 !important;
 }
 
 .dplayer-controller .dplayer-icons .dplayer-setting .dplayer-setting-danmaku .dplayer-danmaku-bar-wrap .dplayer-danmaku-bar .dplayer-danmaku-bar-inner .dplayer-thumb {
-    background-image: initial;
-    background-color: #bb0662;
+    background-image: initial !important;
+    background-color: #bb0662 !important;
+}
+
+.dplayer-controller .dplayer-icons .dplayer-toggle input:checked+label:before {
+    background: hsl(333deg 100% 51% / 50%) !important;
+}
+
+.dplayer-played, .dplayer-volume-bar-inner {
+    background-color: #d71978 !important;
+}
+
+.dplayer-thumb {
+    background-color: #bb0662 !important;
 }
 
 /* video end */
