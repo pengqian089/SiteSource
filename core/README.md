@@ -1,4 +1,5 @@
 ### 需要合并压缩的css
+
 + `./core/lib/layui/css/layui.min.css`
 + `./core/lib/aplayer/APlayer.min.css`
 + `./core/css/site.min.css`
@@ -12,7 +13,7 @@
 + `./fonts/chinese-font.css`
 + `./core/css/friends.css`
 
-``` powershell
+```powershell
 # 压缩合并css
 cleancss -o ./core/css/global.min.css ./core/lib/layui/css/layui.css ./core/lib/aplayer/Aplayer.min.css ./core/css/site.css ./core/css/nprogress.css ./core/font-awesome/css/font-awesome.css ./library/prism/prism.css ./core/lib/tocbot/tocbot.css ./core/lib/sakura-js/sakura.min.css ./core/lib/photoswipe/photoswipe.css ./core/lib/photoswipe/default-skin/default-skin.css ./fonts/chinese-font.css ./core/css/friends.css --with-rebase
 

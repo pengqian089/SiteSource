@@ -2,11 +2,11 @@
     /**
      * webapi地址
      */
-    webApiBaseAddress: document.head.querySelector("meta[name=web-api-base-address]").content,
+    webApiBaseAddress: document.querySelector("meta[name=web-api-base-address]").content,
     /**
      * cdn地址
      */
-    CDNBaseAddress: document.head.querySelector("meta[name=cdn-base-address]").content,
+    CDNBaseAddress: document.querySelector("meta[name=cdn-base-address]").content,
     /**
      * 是否为 dark模式
      */
@@ -33,6 +33,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 if (type === "bar1") {
                     let index = layer.load();
                     console.log(event);
+                    let thumbnail = event.target || event.srcElement;
                     $.ajax({ url: "/Home/TodayWallpaper" })
                         .done(function (result) {
                             let items = [];
@@ -50,9 +51,9 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                                 showHideOpacity: true,
                                 history: true,
                                 getThumbBoundsFn: function (index) {
-                                    let thumbnail = document.querySelectorAll(".layui-fixbar [lay-type=bar1]")[index];
+                                    //let thumbnail = document.querySelectorAll(".layui-fixbar [lay-type=bar1]")[index];
                                     let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-                                    let rect = thumbnail.getBoundingClientRect();
+                                    let rect = thumbnail.getBoundingClientRect() || { left: 0, top: 0, width: 0 };
                                     return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
                                 }
                             };
@@ -79,7 +80,7 @@ layui.use(["element", "layer", "carousel", "util", "flow", "form", "upload"],
                 const raindropFx = new RaindropFX({
                     canvas: canvas,
                     background:
-                        dpzOption.isDark ? `${dpzOption.CDNBaseAddress}/../images/core-background2.jpeg` : `${dpzOption.CDNBaseAddress}/../images/background.jpg`,
+                        dpzOption.isDark ? `https://cdn.dpangzi.com/wallpaper.jpg` : `${dpzOption.CDNBaseAddress}/../images/background.jpg`,
                 });
 
                 window.onresize = () => {

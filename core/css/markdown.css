@@ -9,7 +9,7 @@
 
 .markdown-body img {
     max-width: 100%;
-    display: block;
+    margin-bottom: 0.5em;
 }
 
 .markdown-body blockquote {
@@ -44,7 +44,7 @@
 
 .markdown-body p, .markdown-body blockquote, .markdown-body li {
     word-break: break-word;
-    white-space: pre-wrap;
+    /* white-space: pre-wrap; */
 }
 
 .markdown-body ol ol, .markdown-body ol ul, .markdown-body ul ol, .markdown-body ul ul {
@@ -118,6 +118,28 @@
     margin-bottom: 1em;
     font-weight: 600;
     line-height: 1.25em;
+}
+
+.markdown-body details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+}
+
+.markdown-body summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+    cursor: pointer;
+}
+
+.markdown-body details[open] {
+    padding: .5em;
+}
+
+.markdown-body details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
 }
 
 @media (prefers-color-scheme: dark) {
