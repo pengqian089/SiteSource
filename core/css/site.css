@@ -3897,6 +3897,10 @@ header h1 {
     text-indent: 2em;
 }
 
+.article-detail-content.cnBeta>p img{
+    display: block;
+}
+
 .article-detail-content blockquote p {
     margin: 0;
 }
