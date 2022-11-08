@@ -2,6 +2,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@microsoft/signalr": "^6.0.5",
+    "@nplayer/danmaku": "^1.0.12",
     "jquery": "^3.6.0",
     "moment": "^2.29.2",
     "nplayer": "^1.0.15"
