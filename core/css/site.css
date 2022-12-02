@@ -1677,6 +1677,7 @@ body .warning .layui-layer-title {
         float: right;
         clear: right;
     }
+
 }
 
 /* 中等屏幕（桌面显示器，大于等于 992px） */
@@ -2007,6 +2008,10 @@ body .warning .layui-layer-title {
 
     .code-box .box-rows .row .time {
         display: none;
+    }
+
+    .prev-next-item {
+        display: none
     }
 }
 
@@ -3897,7 +3902,7 @@ header h1 {
     text-indent: 2em;
 }
 
-.article-detail-content.cnBeta>p img{
+.article-detail-content.cnBeta>p img {
     display: block;
     margin: 0 auto;
 }
