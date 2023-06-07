@@ -5,7 +5,6 @@
     display: flex;
     max-width: 900px;
     -webkit-font-smoothing: antialiased;
-    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     line-height: 1.5;
 }
 
@@ -42,7 +41,7 @@ div#amplitude-left {
 div#amplitude-left img.album-art {
     width: 100%;
     max-height: 449.5px;
-    position:absolute;
+    position: absolute;
     top: 0;
 }
 
@@ -110,6 +109,7 @@ div#amplitude-right div.song div.play-button-container:hover {
 
 div#amplitude-right div.song.amplitude-active-song-container div.song-now-playing-icon-container img.now-playing {
     display: block;
+    user-select: none;
 }
 
 div#amplitude-right div.song.amplitude-active-song-container:hover div.play-button-container {
@@ -129,6 +129,7 @@ div#amplitude-right div.song div.song-meta-data span.song-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: bold;
 }
 
 div#amplitude-right div.song div.song-meta-data span.song-artist {
@@ -169,20 +170,29 @@ div#amplitude-right div.song:after {
     display: table;
     clear: both;
 }
-.song.amplitude-active-song-container{
-    background-color: #b3045d;
+
+.song.amplitude-active-song-container {
+    background-color: #000;
 }
-.song:hover{
-    background-color: #bf0f65;
+
+.song:hover {
+    background-color: #2e2d2e;
 }
-.song.amplitude-active-song-container:hover .play-button-container{
+
+.song:hover .song-title {
+    color: #bfbbbb !important;
+}
+
+.song.amplitude-active-song-container:hover .play-button-container {
     display: none !important;
 }
-.song:hover .play-button-container{
+
+.song:hover .play-button-container {
     display: block !important;
 }
-.song .song-meta-data .song-title:hover,.song .song-meta-data .song-artist:hover,.song .song-duration:hover{
-    color:#fff;
+
+.song .song-meta-data .song-title:hover, .song .song-meta-data .song-artist:hover, .song .song-duration:hover {
+    color: #fff;
 }
 
 
@@ -815,10 +825,13 @@ div#meta-container span.song-name {
     display: block;
     color: #272726;
     font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
 }
 
 div#meta-container div.song-artist-album {
@@ -826,10 +839,13 @@ div#meta-container div.song-artist-album {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
-    font-family: 'Open Sans', sans-serif;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+div#meta-container div.song-artist-album span[data-amplitude-song-info=album]{
+    color: #7b7b7b;
 }
 
 div#meta-container div.song-artist-album span {
@@ -867,23 +883,64 @@ div#large-visualization {
     width: 100%;
     background-color: black;
     visibility: hidden;
-    position:absolute;    
+    position: absolute;
 }
-.meta-lyrics{
+
+.meta-lyrics {
     text-align: center;
     height: 40px;
     overflow-y: hidden;
 }
-.meta-lyrics ul{
+
+.meta-lyrics ul {
     transform: translateY(0);
-    transition: all .5s ease-out;        
+    transition: all .5s ease-out;
 }
-.meta-lyrics ul li{
+
+.meta-lyrics ul li {
     color: #a73b6a;
     list-style: none;
     transition: all .5s ease-out;
     height: 20px;
 }
-.meta-lyrics ul li.active{
-    color:#bb0662
+
+.meta-lyrics ul li.active {
+    color: #bb0662
+}
+
+.song.amplitude-active-song-container .song-title {
+    color: #fff !important;
+}
+
+.song.amplitude-active-song-container .song-artist {
+    color: #39b4f0 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    div#amplitude-left div#player-left-bottom {
+        background-color: rgb(43, 45, 45);
+    }
+
+    div#amplitude-player {
+        background-image: initial;
+        background-color: rgb(36, 37, 37);
+        box-shadow: rgb(13 13 13 / 10%) 0px 2px 12px 8px;
+    }
+
+    div#amplitude-right div.song div.song-meta-data span.song-title {
+        color: rgb(207, 200, 189) !important;
+    }
+
+    .meta-lyrics ul li {
+        color: rgb(192, 109, 141);
+        list-style-image: initial;
+    }
+
+    .meta-lyrics ul li.active {
+        color: rgb(232, 89, 156);
+    }
+
+    div#meta-container span.song-name{
+        color:#a8a8a8;
+    }
 }

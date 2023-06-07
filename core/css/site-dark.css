@@ -231,29 +231,6 @@
         color: rgba(229, 224, 216, 0.8);
     }
 
-    div#amplitude-left div#player-left-bottom {
-        background-color: rgb(43, 45, 45);
-    }
-
-    div#amplitude-player {
-        background-image: initial;
-        background-color: rgb(36, 37, 37);
-        box-shadow: rgb(13 13 13 / 10%) 0px 2px 12px 8px;
-    }
-
-    div#amplitude-right div.song div.song-meta-data span.song-title {
-        color: rgb(207, 200, 189) !important;
-    }
-
-    .meta-lyrics ul li {
-        color: rgb(192, 109, 141);
-        list-style-image: initial;
-    }
-
-    .meta-lyrics ul li.active {
-        color: rgb(232, 89, 156);
-    }
-
     .aplayer {
         background: #393D49 !important;
     }
