@@ -3070,23 +3070,23 @@ audio {
 }
 
 body {
-    cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/crystallize/pointer.cur), auto
+    cursor: url(https://cdn.dpangzi.com/cursor/pointer.cur), auto
 }
 
 a {
-    cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/crystallize/link.cur), auto
+    cursor: url(https://cdn.dpangzi.com/cursor/link.cur), auto
 }
 
 a:active {
-    cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/crystallize/person.cur), alias
+    cursor: url(https://cdn.dpangzi.com/cursor/person.cur), alias
 }
 
 p {
-    cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/crystallize/pointer.cur), auto
+    cursor: url(https://cdn.dpangzi.com/cursor/pointer.cur), auto
 }
 
 .joe_header__above-nav .item {
-    cursor: url(//cdn.jsdelivr.net/gh/qinhua/halo-theme-joe2.0@master/source/cursor/crystallize/link.cur), auto !important
+    cursor: url(https://cdn.dpangzi.com/cursor/link.cur), auto !important
 }
 
 img.lazy {
