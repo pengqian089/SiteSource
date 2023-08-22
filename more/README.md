@@ -1,6 +1,6 @@
 ## https://www.dpangzi.com 静态资源文件
 
-``` powershell
+```powershell
 # 压缩css
 cleancss -o ./more/css/global.min.css ./more/css/index.css --with-rebase
 
@@ -8,3 +8,5 @@ cleancss -o ./more/css/global.min.css ./more/css/index.css --with-rebase
 uglifyjs ./more/js/app.js --source-map "url='app.min.js.map',base='./more/js'" -o ./more/js/app.min.js -c -m
 
 ```
+
+* [ ]
