@@ -1,0 +1,86 @@
+.aplayer .aplayer-lrc {
+    height: 35px !important;
+}
+
+.aplayer .aplayer-lrc p {
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 18px !important;
+    color: #000;
+    text-shadow: 0 0 #000;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+    color: #FF1493;
+    text-shadow: 0 0 black;
+}
+@media (prefers-color-scheme: dark) {
+    .aplayer .aplayer-lrc p {
+        color: #fff
+    }
+
+    .aplayer {
+        background: #393D49 !important;
+    }
+
+    .aplayer-list ol > li.aplayer-list-light {
+        background: #000 !important;
+    }
+
+    .aplayer-list ol > li .aplayer-list-index, .aplayer-list ol > li .aplayer-list-author {
+        color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .aplayer-list ol > li:hover {
+        background-color: #3f3f3f !important;
+    }
+
+    .aplayer-info {
+        background-color: #393D49 !important;
+    }
+
+    .aplayer-miniswitcher .aplayer-icon {
+        background-color: #393D49 !important;
+    }
+
+    .aplayer .aplayer-info .aplayer-music .aplayer-author, .aplayer .aplayer-info .aplayer-music .aplayer-title {
+        color: #e1dddd !important;
+    }
+
+    .aplayer-icon path {
+        fill: #fff !important;
+    }
+
+    .aplayer-icon:hover path {
+        fill: #b5acac !important;
+    }
+
+    .aplayer .aplayer-list ol li {
+        border-top: 1px solid #797979;
+    }
+
+    .aplayer-list-light .aplayer-list-cur {
+        background-color: #bb0662 !important;
+    }
+
+    .aplayer.aplayer-fixed .aplayer-list {
+        border: 1px solid #5d5d5d;
+    }
+
+    .aplayer.aplayer-fixed .aplayer-info {
+        border-top: 1px solid #626262
+    }
+
+    .aplayer-played {
+        background: #bb0662 !important;
+    }
+
+    .aplayer-thumb {
+        background: #bb0662 !important;
+    }
+
+    .aplayer.aplayer-fixed .aplayer-body,
+    .aplayer-pic {
+        background-color: #393D49 !important;
+    }
+}
