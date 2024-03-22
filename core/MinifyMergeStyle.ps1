@@ -3,7 +3,7 @@ $path = $location.Path
 [System.Console]::WriteLine($path)
 [string[]]$cssPaths = 
     "./core/lib/layui/css/layui.css",
-    "./core/lib/aplayer/APlayer.min.css",
+    "./library/music-player/index.css",
     "./core/css/site.css",
     "./core/css/site-dark.css",
     "./core/css/nprogress.min.css",
