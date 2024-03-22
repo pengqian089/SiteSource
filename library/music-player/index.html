@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <link rel="stylesheet" href="index.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div id="music-player"></div>
+<script src="react.production.min.js"></script>
+<script src="react-dom.production.min.js"></script>
+<script src="react-jinke-music-player.min.js"></script>
+<script>
+    let musics = [
+        {
+            "name": "\u8001\u8857",
+            "singer": "\u674E\u8363\u6D69",
+            "musicSrc": "https://cdn.dpangzi.com/music/653e7ce7a77129bed1957abd.ogg",
+            "cover": "https://cdn.dpangzi.com/images/music.png",
+            "lrc": "https://cdn.dpangzi.com/music/lyric/653e7ce7a77129bed1957abd.lrc",
+        },
+        {
+            "name": "\u6696\u98CE",
+            "singer": "\u5468\u4F20\u96C4",
+            "musicSrc": "https://cdn.dpangzi.com/music/653e7c8229265383778466ff.ogg",
+            "cover": "https://cdn.dpangzi.com/images/music.png",
+            "lrc": "https://cdn.dpangzi.com/music/lyric/653e7c8229265383778466ff.lrc",
+            "lyric": '[ti:暖风]\r\n[ar:周传雄]\r\n[al:我的心太乱]\r\n[by:]\r\n[offset:0]\r\n[00:01.06]暖风 - 周传雄\r\n[00:03.15]词：王中言\r\n[00:04.07]曲：周传雄\r\n[00:04.97]编曲：洪敬尧\r\n[00:06.27]\n[00:20.77]你和我不常联络\r\n[00:26.08]\n[00:27.22]也没有彼此要求\r\n[00:32.55]\n[00:33.24]从开始到最终这份情感没变过\r\n[00:39.39]没有谁能够取代这种甜美的相投\r\n[00:45.45]习惯对你说感动\r\n[00:49.20]需要时你在我左右\r\n[00:52.18]两颗心活得自由不担忧时空\r\n[00:59.83]\n[01:01.02]有暖风在心中何必畏惧过寒冬\r\n[01:07.04]不必说什么是拥有你给的我懂\r\n[01:13.36]有暖风梦里头呵护纯真的执着\r\n[01:19.36]爱不休让期望的手从来不落空\r\n[01:25.60]谢谢你陪着我\r\n[01:31.12]\n[02:02.27]有时候我的脆弱\r\n[02:07.46]\n[02:08.35]只在你面前解脱\r\n[02:14.08]\n[02:14.93]而你总是帮助我走出沉沦和迷惑\r\n[02:20.95]像镜子那般清楚照出真实的自我\r\n[02:27.15]最好最坏的结果你都愿张开双手\r\n[02:33.42]完完全全地接受不完美的我\r\n[02:41.47]\n[02:42.38]有暖风在心中何必畏惧过寒冬\r\n[02:48.67]不必说什么是拥有你给的我懂\r\n[02:54.75]有暖风梦里头呵护纯真的执着\r\n[03:00.95]爱不休让期望的手从来不落空\r\n[03:06.97]谢谢你陪着我\r\n[03:13.37]有暖风在心中何必畏惧过寒冬\r\n[03:19.37]不必说什么是拥有你给的我懂\r\n[03:25.41]有暖风梦里头呵护纯真的执着\r\n[03:31.74]爱不休让期望的手从来不落空\r\n[03:37.88]谢谢你陪着我\r\n'
+        },
+        {
+            "name": "\u90FD\u602A\u6211",
+            "singer": "\u5218\u5FB7\u534E",
+            "musicSrc": "https://cdn.dpangzi.com/music/653e7c45a77129bed1957aba.ogg",
+            "cover": "https://cdn.dpangzi.com/images/music.png",
+            "lrc": "https://cdn.dpangzi.com/music/lyric/653e7c45a77129bed1957aba.lrc"
+        },
+        {
+            "name": "\u7F57\u5239\u6D77\u5E02",
+            "singer": "\u5200\u90CE",
+            "musicSrc": "https://cdn.dpangzi.com/music/64e76f22473de4b33d6fcbe1.ogg",
+            "cover": "https://cdn.dpangzi.com/images/music.png",
+            "lrc": "https://cdn.dpangzi.com/music/lyric/64e76f22473de4b33d6fcbe1.lrc"
+        },
+        {
+            "name": "\u5609\u5BBE",
+            "singer": "\u8DEF\u98DE\u6587",
+            "musicSrc": "https://cdn.dpangzi.com/music/64de1d991b2e37335875f768.mp3",
+            "cover": "https://cdn.dpangzi.com/music/cover/64de1d991b2e37335875f768.jpg",
+            "lrc": "https://cdn.dpangzi.com/music/lyric/64de1d991b2e37335875f768.lrc"
+        }];
+    ReactJkMusicPlayer.defaultProps.quietUpdate = true;
+    ReactJkMusicPlayer.defaultProps.locale = "zh_CN";
+    ReactJkMusicPlayer.defaultProps.defaultPosition = {bottom: 0, left: 0};
+    ReactJkMusicPlayer.defaultProps.preload = true;
+    ReactJkMusicPlayer.defaultProps.glassBg = true;
+    //ReactJkMusicPlayer.defaultProps.remember = false;
+    ReactJkMusicPlayer.defaultProps.autoPlay = false;
+    ReactJkMusicPlayer.defaultProps.remove = false;
+    ReactJkMusicPlayer.defaultProps.showMiniProcessBar = true;
+    ReactJkMusicPlayer.defaultProps.showDownload = false;
+    ReactJkMusicPlayer.defaultProps.showLyric = true;
+    ReactJkMusicPlayer.defaultProps.showMediaSession = true;
+    ReactJkMusicPlayer.defaultProps.showDestroy = false;
+    ReactJkMusicPlayer.defaultProps.volumeFade = {fadeIn: 300, fadeOut: 300};
+    // ReactJkMusicPlayer.defaultProps.playIndex = 1;
+    ReactJkMusicPlayer.defaultProps.audioLists = musics;
+    let downloadLyric = false;
+    // ReactJkMusicPlayer.defaultProps.onAudioListsChange = (_,audioInfo,_1) => {
+    //     console.log(audioInfo);
+    // };
+    ReactJkMusicPlayer.defaultProps.onAudioPlay = async (audioInfo) => {
+        debugger;
+        console.log(audioInfo);
+
+        let currentMusic = null;
+        for (const music of musics) {
+            if(audioInfo.musicSrc === music.musicSrc){
+                currentMusic = music;
+                break;
+            }
+        }
+
+        if (downloadLyric === false && currentMusic != null && !currentMusic.lyric) {
+            downloadLyric = true;
+            try {
+                let response = await fetch(audioInfo.lrc);
+                currentMusic.lyric = await response.text();
+                ReactJkMusicPlayer.defaultProps.audioLists = musics;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        downloadLyric = false;
+
+    };
+    ReactDOM.render(
+        React.createElement(ReactJkMusicPlayer),
+        document.getElementById('music-player'),
+    );
+</script>
+</body>
+</html>
