@@ -3119,3 +3119,7 @@ pre>code {
     color: #fff;
     border-color: #c80a6a !important;
 }
+
+.layui-fixbar{
+    z-index: 5 !important;
+}
