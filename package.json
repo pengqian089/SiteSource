@@ -3,6 +3,8 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@microsoft/signalr": "^6.0.5",
     "@nplayer/danmaku": "^1.0.12",
+    "artplayer": "^5.1.1",
+    "artplayer-plugin-danmuku": "^5.0.1",
     "cherry-markdown": "^0.8.8",
     "jquery": "^3.6.0",
     "moment": "^2.29.2",
