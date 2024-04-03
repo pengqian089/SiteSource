@@ -143,7 +143,7 @@ code {
     top: 0;
     background-color: #393D49;
     border-bottom: 1px solid #bb0650;
-    z-index: 1;
+    z-index: 61;
 }
 
 .blog-nav .layui-nav {
