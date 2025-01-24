@@ -383,8 +383,8 @@ code {
 .article {
     padding: 15px;
     margin-bottom: 10px;
-    background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255);
+    /*backdrop-filter: blur(25px);*/
     border-left: 5px solid #fff;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
@@ -937,8 +937,8 @@ ul.layui-fixbar>li {
 
 /* detail */
 .article-detail {
-    background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255);
+    /*backdrop-filter: blur(25px);*/
     padding: 15px;
     box-shadow: 0 1px 8px #a6a6a6;
     margin-bottom: 15px;
