@@ -343,6 +343,7 @@
 
     .code-box .readme-main {
         border-top-color: rgb(65, 68, 68);
+        background: rgba(36, 37, 37);
     }
 
     .cd-timeline-content {
