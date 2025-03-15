@@ -1194,14 +1194,6 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     align-items: flex-end;
 }
 
-.code-box .box-rows .row.warning{
-    background: #d9b713 !important;
-    color: #000 !important;
-    font-weight: bold;
-    display: block;
-    text-align: center
-}
-
 .code-box .box-rows .row:hover {
     background-color: rgba(246, 248, 250, .5);
 }
@@ -3132,4 +3124,12 @@ pre>code {
 
 .layui-fixbar{
     z-index: 5 !important;
+}
+
+.ai-tips-warning{
+    background: #d9b713 !important;
+    color: #000 !important;
+    font-weight: bold;
+    display: block !important;
+    text-align: center
 }
