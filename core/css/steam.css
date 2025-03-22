@@ -97,30 +97,28 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(43, 45, 68, .93) 80%);
 }
 
-.achievements .layui-colla-item.unlock, .achievements .layui-colla-item.unlock .layui-colla-title {
-    background-color: #e5fffa;
-}
-
-.achievements .layui-colla-item.lock-hide, .achievements .layui-colla-item.lock-hide .layui-colla-title {
-    background-color: #fffad9;
-}
-
-.achievements .layui-colla-item.lock, .achievements .layui-colla-item.lock .layui-colla-title {
-    background-color: #e08e28;
+.achievements .layui-colla-content{
+    background-color: rgba(255, 255, 255,.5);
+    backdrop-filter: blur(25px);
 }
 
 .achievements .item {
     width: 100%;
     min-height: 64px;
-    background-color: #bb0650;
-    color: #fff;
+    background-color: rgb(187, 6, 80,.8);
+    backdrop-filter: blur(25px);
+    color: #000;
     margin: 7px 0 7px 0;
     padding: 5px 0 5px 5px;
-    box-shadow: 2px 0 4px 1px #c7254e;
+    box-shadow: 2px 0 4px 1px rgb(187, 6, 80,.5);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.achievements .item>div:last-child{
+    margin-right: 1em;
 }
 
 .achievements .item:hover {
@@ -162,7 +160,7 @@
 }
 
 .achievements .item .desc {
-    color: #c4e6e6
+    color: #000
 }
 
 .loading-summary a, .game-name a {
@@ -206,9 +204,18 @@
     .achievements .item .un-lock {
         text-align: center;
     }
+
+    .achievements .item>div:last-child{
+        margin-right: 0;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
+    .achievements .item {        
+        background-color: rgb(187, 6, 80,.5);
+        color: #fff;        
+    }
+    
     .steam-games {
         background: rgba(36, 37, 37, 0.5);
     }
@@ -238,7 +245,15 @@
     }
 
     .achievement-progress-bar {
-        background-color: #364359;
-        background: linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(43, 45, 68, .93) 80%);
+        background: #364359 linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(43, 45, 68, .93) 80%);
+    }
+
+    .achievements .layui-colla-content{
+        background-color: rgba(36, 37, 37,.5);
+        backdrop-filter: blur(25px);
+    }
+
+    .achievements .item .desc {
+        color: #c4e6e6
     }
 }

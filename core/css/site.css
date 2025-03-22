@@ -717,7 +717,7 @@ code {
 }
 
 div[carousel-item] {
-    background: url('../loaders/hearts.svg') no-repeat center;
+    background: url('../loaders/spinning-circles.svg') no-repeat center #000;
 }
 
 .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
@@ -2019,9 +2019,9 @@ body .warning .layui-layer-title {
         display: none;
     }
 
-    .prev-next-item {
-        display: none
-    }
+    /*.prev-next-item {*/
+    /*    display: none*/
+    /*}*/
 }
 
 /***********************************************动画定义*************************************************/

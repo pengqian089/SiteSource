@@ -2,9 +2,20 @@
 * 碎碎念
 */
 
+.mumble-main{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.mumble-random{
+    width: 29%;
+}
+
 .mumble-list {
     position: relative;
     margin-bottom: 10px;
+    width: 70%;
 }
 
 .mumble-item{
@@ -12,12 +23,33 @@
     padding-bottom: 0;
 }
 
+.mumble-title{
+    border: initial;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: inherit !important;
+}
+
 .mumble-list>.mumble-item {
-    background-color: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(25px);
+    background-color: rgba(255, 255, 255);
+    /*backdrop-filter: blur(25px);*/
     margin: 15px 0 10px 0;
     border-radius: 5px;
     box-shadow: 3px 4px 5px #808080;
+}
+
+.mumble-random>.mumble-item {
+    background-color: rgba(255, 255, 255);
+    margin: 15px 0 10px 0;
+    border-radius: 5px;
+    box-shadow: 3px 4px 5px #808080;
+    padding: 1em;
+    max-width: 100%;
+}
+
+.mumble-random .mumble-time {
+    font-size: 0.8em;
+    color: #0091cc;
 }
 
 .mumble-item-user {
@@ -153,12 +185,27 @@
     .mumble-interactive-actions {
         padding-left: 0;
     }
+
+    .mumble-main{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .mumble-random{
+        width: 100%;
+    }
+
+    .mumble-list {
+        width: 100%;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
-    .mumble-list>.mumble-item {
+    .mumble-list>.mumble-item,.mumble-random>.mumble-item {
         border-bottom-color: initial;
-        background-color: rgba(36, 37, 37, 0.5);
+        background-color: rgba(36, 37, 37);
         box-shadow: rgb(103 108 109) 3px 4px 5px;
         list-style-image: initial;
     }
@@ -182,6 +229,10 @@
     }
 
     .mumble-info .mumble-time {
+        color: #ff8484;
+    }
+
+    .mumble-random .mumble-time {
         color: #ff8484;
     }
 }
