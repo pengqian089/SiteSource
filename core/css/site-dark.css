@@ -27,7 +27,7 @@
 
     .article {
         background-image: initial;
-        background-color: rgba(36, 37, 37, 0.5);
+        background-color: rgba(36, 37, 37);
         border-left-color: rgb(58, 61, 61);
         color: rgb(199, 192, 181);
     }
@@ -150,7 +150,7 @@
 
     .article-detail {
         background-image: initial;
-        background-color: rgba(36, 37, 37, 0.5);
+        background-color: rgba(36, 37, 37);
         box-shadow: rgb(83 86 87) 0px 1px 8px;
     }
 
@@ -343,6 +343,7 @@
 
     .code-box .readme-main {
         border-top-color: rgb(65, 68, 68);
+        background: rgba(36, 37, 37);
     }
 
     .cd-timeline-content {

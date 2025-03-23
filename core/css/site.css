@@ -383,8 +383,8 @@ code {
 .article {
     padding: 15px;
     margin-bottom: 10px;
-    background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255);
+    /*backdrop-filter: blur(25px);*/
     border-left: 5px solid #fff;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
@@ -717,7 +717,7 @@ code {
 }
 
 div[carousel-item] {
-    background: url('../loaders/hearts.svg') no-repeat center;
+    background: url('../loaders/spinning-circles.svg') no-repeat center #000;
 }
 
 .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
@@ -937,8 +937,8 @@ ul.layui-fixbar>li {
 
 /* detail */
 .article-detail {
-    background: rgba(255, 255, 255, .5);
-    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255);
+    /*backdrop-filter: blur(25px);*/
     padding: 15px;
     box-shadow: 0 1px 8px #a6a6a6;
     margin-bottom: 15px;
@@ -1277,6 +1277,8 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 
 .code-box .readme-main {
     border-top: 1px solid #e1e4e8;
+    backdrop-filter: initial;
+    background-color: rgba(255, 255, 255);
 }
 
 .code-box .readme-main .readme-content {
@@ -2017,9 +2019,9 @@ body .warning .layui-layer-title {
         display: none;
     }
 
-    .prev-next-item {
-        display: none
-    }
+    /*.prev-next-item {*/
+    /*    display: none*/
+    /*}*/
 }
 
 /***********************************************动画定义*************************************************/
@@ -3122,4 +3124,12 @@ pre>code {
 
 .layui-fixbar{
     z-index: 5 !important;
+}
+
+.ai-tips-warning{
+    background: #d9b713 !important;
+    color: #000 !important;
+    font-weight: bold;
+    display: block !important;
+    text-align: center
 }
