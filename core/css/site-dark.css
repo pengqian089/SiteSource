@@ -65,6 +65,18 @@
         color: rgb(177, 177, 177) !important;
     }
 
+    .search-empty{
+        text-align:center;
+        font-size:16px;
+        padding:40px 15px;
+        background:rgb(70, 73, 73);
+        margin-bottom:15px;
+    }
+
+    .search-empty .search-kwyword{
+        color: #FF5722;
+    }
+
     @media (min-width: 992px) {
         .search-submit>.search-btn {
             background-image: initial;

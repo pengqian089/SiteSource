@@ -935,6 +935,14 @@ ul.layui-fixbar>li {
     backdrop-filter: blur(25px);
 }
 
+.search-empty{
+    text-align:center;
+    font-size:16px;
+    padding:40px 15px;
+    background:#fff;
+    margin-bottom:15px;
+}
+
 /* detail */
 .article-detail {
     background: rgba(255, 255, 255);
