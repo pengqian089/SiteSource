@@ -9,7 +9,7 @@ $path = $location.Path
     "./core/css/nprogress.min.css",
     "./core/font-awesome/css/font-awesome.css",
     "./library/prism/prism.css",
-    "./core/lib/tocbot/tocbot.css",
+    "./core/lib/tocbot/tocbot_version_2_0.css",
     "./core/lib/sakura-js/sakura.min.css",
     "./core/lib/photoswipe/photoswipe.css",
     "./core/lib/photoswipe/default-skin/default-skin.css",

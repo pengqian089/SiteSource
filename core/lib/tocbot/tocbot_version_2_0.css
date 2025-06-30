@@ -1,0 +1,390 @@
+/* 悬浮目录容器 - 更美观大气的设计 */
+.toc {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    width: 280px;
+    height: calc(100vh - 65px);
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+    backdrop-filter: blur(10px);
+    border-radius: 16px 0 0 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                0 8px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: none;
+    padding: 20px 0;
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%);
+}
+
+/* 暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+    .toc {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+                    0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* 悬浮时的效果 */
+.toc:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 
+                0 10px 20px rgba(0, 0, 0, 0.08);
+    filter: brightness(1.02);
+}
+
+/* 目录列表容器 */
+.toc > .toc-list {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* 目录列表项 */
+.toc > .toc-list li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 目录列表基础样式 */
+.toc-list {
+    margin: 0;
+    padding-left: 0;
+    position: relative;
+}
+
+/* 嵌套列表缩进 */
+.toc-list .toc-list {
+    padding-left: 20px;
+    margin-top: 4px;
+}
+
+/* 目录链接样式 */
+a.toc-link {
+    display: block;
+    color: #64748b;
+    text-decoration: none;
+    padding: 8px 20px 8px 40px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 8px;
+    margin: 2px 10px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* 暗色主题链接颜色 */
+@media (prefers-color-scheme: dark) {
+    a.toc-link {
+        color: #cbd5e1;
+    }
+}
+
+/* 链接悬停效果 */
+a.toc-link:hover {
+    color: #3b82f6;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+    transform: translateX(4px);
+}
+
+/* 链接左侧指示器 */
+.toc-link::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #cbd5e1;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 激活链接样式 */
+.is-active-link {
+    color: #3b82f6 !important;
+    font-weight: 600;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.08));
+    transform: translateX(4px);
+}
+
+/* 激活链接指示器 */
+.is-active-link::before {
+    background: #3b82f6;
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* 激活链接的左侧高亮条 */
+.is-active-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+    border-radius: 0 4px 4px 0;
+}
+
+/* 可折叠容器 */
+.is-collapsible {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 折叠状态 */
+.is-collapsed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* 固定定位状态 */
+.is-position-fixed {
+    position: fixed !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+/* 自定义滚动条样式 */
+.toc::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toc::-webkit-scrollbar-thumb {
+    background: rgba(203, 213, 225, 0.6);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.toc::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.8);
+}
+
+/* 暗色主题滚动条 */
+@media (prefers-color-scheme: dark) {
+    .toc::-webkit-scrollbar-thumb {
+        background: rgba(71, 85, 105, 0.6);
+    }
+    
+    .toc::-webkit-scrollbar-thumb:hover {
+        background: rgba(100, 116, 139, 0.8);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .toc {
+        width: 260px;
+        max-height: 60vh;
+    }
+    
+    a.toc-link {
+        font-size: 13px;
+        padding: 6px 15px 6px 35px;
+    }
+}
+
+/* 移动设备调整 */
+@media (max-width: 480px) {
+    .toc {
+        width: 90vw;
+        max-width: 320px;
+        right: 5vw;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        max-height: 60vh;
+    }
+}
+
+/* 目录切换按钮样式 */
+.toc-icon.menu {
+    position: fixed;
+    top: 65px;
+    right: 0;
+    z-index: 1001;
+    display: none;
+    margin: 4px;
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* 按钮悬停效果 */
+.toc-icon.menu:hover {
+    background: linear-gradient(145deg, rgba(37, 99, 235, 0.95), rgba(29, 78, 216, 0.95));
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4),
+                0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* 按钮激活效果 */
+.toc-icon.menu:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3),
+                0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 隐藏原生checkbox */
+#toc {
+    display: none;
+}
+
+/* 中小屏幕显示切换按钮 */
+@media (max-width: 52em) {
+    .toc-icon.menu {
+        display: inline-block;
+    }
+}
+
+/* 当checkbox选中时显示目录 */
+#toc:checked ~ .toc {
+    transform: translateX(0) !important;
+    box-shadow: 0 0 5px #c8c8c8,
+                0 20px 40px rgba(0, 0, 0, 0.1), 
+                0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* 切换按钮选中状态样式 */
+#toc:checked + .toc-icon.menu {
+    background: linear-gradient(145deg, rgba(220, 38, 127, 0.9), rgba(190, 24, 93, 0.9));
+    box-shadow: 0 6px 16px rgba(220, 38, 127, 0.4),
+                0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+#toc:checked + .toc-icon.menu::after {
+    content: "隐藏";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: inherit;
+    border-radius: inherit;
+}
+
+
+
+/* 过渡效果类 */
+.transition--300 {
+    transition: all 300ms ease-in-out;
+}
+
+/* 大屏幕（桌面端）：直接显示目录，隐藏切换按钮 */
+@media (min-width: 52em) {
+    .toc {
+        transform: translateX(0) !important;
+        animation: none;
+    }
+    
+    .toc-icon {
+        display: none !important;
+    }
+}
+
+/* 优化小屏幕目录位置 */
+@media (max-width: 480px) {
+    .toc-icon.menu {
+        top: 69px;
+        right: 4px;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* 目录标题样式（如果需要的话） */
+.toc-title {
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 20px 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(203, 213, 225, 0.3);
+    text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    .toc-title {
+        color: #f1f5f9;
+        border-bottom-color: rgba(71, 85, 105, 0.3);
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(100%);
+    }
+}
+
+.toc {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 嵌套级别的不同样式 */
+.toc-list .toc-list a.toc-link {
+    font-size: 13px;
+    opacity: 0.8;
+    padding-left: 35px;
+}
+
+.toc-list .toc-list .toc-list a.toc-link {
+    font-size: 12px;
+    opacity: 0.7;
+    padding-left: 30px;
+}
+
+/* 悬浮提示效果 */
+.toc::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.toc:hover::before {
+    opacity: 1;
+}

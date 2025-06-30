@@ -935,6 +935,14 @@ ul.layui-fixbar>li {
     backdrop-filter: blur(25px);
 }
 
+.search-empty{
+    text-align:center;
+    font-size:16px;
+    padding:40px 15px;
+    background:#fff;
+    margin-bottom:15px;
+}
+
 /* detail */
 .article-detail {
     background: rgba(255, 255, 255);
@@ -1057,49 +1065,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     color: #bb0650;
 }
 
-/* 目录样式 */
-.transition--300 {
-    transition: all 300ms ease-in-out
-}
 
-.toc {
-    height: 100%;
-    width: 280px;
-    transform: translateX(0);
-    font-size: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
-}
-
-.toc-icon {
-    position: fixed;
-    top: 65px;
-    right: 0;
-    z-index: 2;
-}
-
-.toc-icon.menu {
-    margin: 4px;
-    background-color: #f4f4f4;
-    border: 1px solid #999;
-    padding: 4px;
-}
-
-#toc:checked~.toc {
-    box-shadow: 0 0 5px #c8c8c8;
-    transform: translateX(0)
-}
-
-.toc {
-    background-color: rgba(255, 255, 255, 0.9);
-    transform: translateX(-100%)
-}
-
-.toc.toc-right {
-    transform: translateX(100%);
-    right: 0;
-    position: fixed;
-    top: 65px
-}
 
 /****Source  Code*****/
 .git-dir {
@@ -2348,22 +2314,7 @@ body .warning .layui-layer-title {
     }
 }
 
-/* 目录样式 */
-@media (min-width: 52em) {
-    .toc {
-        transform: translateX(0)
-    }
 
-    .toc.toc-right {
-        transform: translateX(0);
-        position: fixed;
-        top: 68px
-    }
-
-    .toc-icon {
-        display: none
-    }
-}
 
 @media (min-width: 768px) {
     .code-box .box-rows .row .header {
