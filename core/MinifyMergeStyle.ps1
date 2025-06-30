@@ -19,7 +19,7 @@ $path = $location.Path
     "./core/css/steam.css",
     "./core/css/mumble.css",
     "./core/css/markdown.css",
-    "./core/css/bookmark.css",
+    "./core/css/version_2_0/bookmark_version_2_0.css",
     "./core/css/video.css",
     "./core/css/music.css"
 
