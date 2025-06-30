@@ -301,11 +301,17 @@ a.toc-link:hover {
     transition: all 300ms ease-in-out;
 }
 
-/* 大屏幕（桌面端）：直接显示目录，隐藏切换按钮 */
+/* 大屏幕（桌面端）：悬浮显示目录，隐藏切换按钮 */
 @media (min-width: 52em) {
     .toc {
-        transform: translateX(0) !important;
-        animation: none;
+        top: 50% !important;
+        right: 30px !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        transform: translateY(-50%) !important;
+        border-radius: 16px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        animation: fadeInFloat 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
     .toc-icon {
@@ -353,9 +359,23 @@ a.toc-link:hover {
     }
 }
 
+/* 桌面端悬浮动画 */
+@keyframes fadeInFloat {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+}
+
 .toc {
     animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
 
 /* 嵌套级别的不同样式 */
 .toc-list .toc-list a.toc-link {
