@@ -133,6 +133,73 @@ code {
     color: black !important;
 }
 
+/* 面包屑导航 - 现代化设计（通用样式） */
+.layui-elem-quote.sitemap {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    margin: 1rem auto 1.5rem;
+    max-width: 100%;
+    box-shadow: 
+        0 8px 24px rgba(139, 92, 246, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 面包屑装饰性渐变条 */
+.layui-elem-quote.sitemap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc, #06b6d4, #10b981);
+    opacity: 0.8;
+}
+
+.layui-elem-quote.sitemap:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 12px 32px rgba(139, 92, 246, 0.12),
+        0 6px 16px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.layui-elem-quote.sitemap * {
+    color: #374151 !important;
+    font-weight: 500;
+}
+
+.layui-elem-quote.sitemap a {
+    position: relative;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.layui-elem-quote.sitemap a:hover {
+    color: #8b5cf6 !important;
+    background: rgba(139, 92, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+.layui-elem-quote.sitemap cite {
+    font-style: normal;
+    color: #8b5cf6 !important;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
 /*面包屑导航END*/
 
 /*顶部导航*/

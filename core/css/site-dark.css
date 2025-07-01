@@ -65,6 +65,37 @@
         color: rgb(177, 177, 177) !important;
     }
 
+    /* 面包屑导航 - 现代化设计暗色主题（通用样式） */
+    .layui-elem-quote.sitemap {
+        background: rgba(30, 31, 31, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.3),
+            0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .layui-elem-quote.sitemap:hover {
+        box-shadow: 
+            0 12px 32px rgba(0, 0, 0, 0.4),
+            0 6px 16px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .layui-elem-quote.sitemap * {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .layui-elem-quote.sitemap a:hover {
+        color: #c084fc !important;
+        background: rgba(139, 92, 246, 0.15);
+    }
+
+    .layui-elem-quote.sitemap cite {
+        color: #c084fc !important;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(168, 85, 247, 0.15) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.4);
+    }
+
     .search-empty{
         text-align:center;
         font-size:16px;

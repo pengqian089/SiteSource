@@ -500,19 +500,29 @@
     }
 
     .mumble-item .mumble-content {
-        padding: 0 0 1.2em 0;
+        padding: 0 0 1em 0;
+    }
+    
+    .mumble-interactive {
+        padding-top: 1em;
     }
 
     .mumble-interactive-actions {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row;
+        gap: 6px;
+        justify-content: space-between;
     }
 
     .mumble-action-detail a,
     .mumble-action-comment a,
     .mumble-action-like a {
-        width: 100%;
+        width: auto;
+        flex: 1;
         justify-content: center;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        min-width: 60px;
+        border-radius: 8px;
     }
 
     .mumble-item-user .mumble-avatar img {
@@ -532,6 +542,60 @@
     .mumble-comment {
         margin: 1.5em -1.5em 0 -1.5em;
         padding: 1.5em 1.5em 0 1.5em;
+    }
+}
+
+/* 超小屏幕优化 - 进一步紧凑设计 */
+@media screen and (max-width: 480px) {
+    .mumble-list > .mumble-item {
+        padding: 1.2em;
+        margin-bottom: 1.2em;
+    }
+    
+    .mumble-item .mumble-content {
+        padding: 0 0 0.8em 0;
+    }
+    
+    .mumble-interactive {
+        padding-top: 0.8em;
+    }
+    
+    .mumble-interactive-actions {
+        gap: 4px;
+    }
+
+    .mumble-action-detail a,
+    .mumble-action-comment a,
+    .mumble-action-like a {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        min-width: 50px;
+        border-radius: 6px;
+    }
+    
+    .mumble-item-user {
+        margin-bottom: 1em;
+    }
+    
+    .mumble-item-user .mumble-avatar img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .mumble-info .mumble-nickname {
+        font-size: 0.95rem;
+    }
+    
+    .mumble-info .mumble-time {
+        font-size: 0.75rem;
+    }
+    
+    /* 超小屏幕下的按钮图标与文字间距调整 */
+    .mumble-action-detail a i,
+    .mumble-action-comment a i,
+    .mumble-action-like a i {
+        margin-right: 4px;
+        font-size: 0.85em;
     }
 }
 
@@ -792,5 +856,35 @@
     .mumble-main.performance-mode .mumble-random > .mumble-item {
         /* 性能模式下暗色主题保持背景一致 */
         background: rgba(30, 31, 31, 0.95) !important;
+    }
+}
+
+/* 超小屏幕暗色主题优化 */
+@media screen and (max-width: 480px) and (prefers-color-scheme: dark) {
+    .mumble-action-detail a,
+    .mumble-action-comment a,
+    .mumble-action-like a {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.75);
+    }
+    
+    .mumble-action-detail a:hover,
+    .mumble-action-comment a:hover,
+    .mumble-action-like a:hover {
+        background: rgba(139, 92, 246, 0.15);
+        border-color: rgba(139, 92, 246, 0.3);
+        color: #c084fc;
+    }
+    
+    .mumble-active .mumble-action-detail a,
+    .mumble-active .mumble-action-comment a,
+    .mumble-active .mumble-action-like a,
+    .mumble-action-detail.mumble-active a,
+    .mumble-action-comment.mumble-active a,
+    .mumble-action-like.mumble-active a {
+        background: rgba(139, 92, 246, 0.18);
+        border-color: rgba(139, 92, 246, 0.35);
+        color: #a855f7;
     }
 }
