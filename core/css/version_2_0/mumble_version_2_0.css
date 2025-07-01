@@ -1,11 +1,13 @@
 /* 碎碎念页面样式 2.0 版本 - 更美观、大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
 
 /* 主容器布局 */
 .mumble-main {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 2em;
+    gap: var(--ds-space-8);
     position: relative;
 }
 
@@ -13,7 +15,7 @@
 .mumble-list {
     position: relative;
     width: 68%;
-    margin-bottom: 2em;
+    margin-bottom: var(--ds-space-8);
 }
 
 /* 随机历史碎碎念容器 */
@@ -26,17 +28,14 @@
 
 /* 碎碎念卡片基础样式 */
 .mumble-item {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-    backdrop-filter: blur(40px) saturate(180%);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.08),
-        0 8px 25px rgba(0, 0, 0, 0.04),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    margin: 0 0 2em 0;
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    border-radius: var(--ds-radius-2xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
+    margin: 0 0 var(--ds-space-8) 0;
     padding: 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
     position: relative;
     overflow: hidden;
 }
@@ -48,17 +47,14 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc, #06b6d4);
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400), var(--ds-secondary-500));
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--ds-duration-300) ease;
 }
 
 .mumble-item:hover {
     transform: translateY(-4px);
-    box-shadow: 
-        0 32px 70px rgba(0, 0, 0, 0.12),
-        0 12px 35px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: var(--ds-shadow-2xl);
 }
 
 .mumble-item:hover::before {
@@ -67,44 +63,40 @@
 
 /* 列表中的碎碎念项目 */
 .mumble-list > .mumble-item {
-    padding: 2em;
+    padding: var(--ds-space-8);
 }
 
 /* 随机区域中的碎碎念项目 */
 .mumble-random > .mumble-item {
-    padding: 1.5em;
-    margin-bottom: 1.5em;
+    padding: var(--ds-space-6);
+    margin-bottom: var(--ds-space-6);
     /* 保持与左侧一致的背景样式 */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-    border-radius: 16px;
-    box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.06),
-        0 6px 15px rgba(0, 0, 0, 0.03);
+    background: var(--ds-bg-primary);
+    border-radius: var(--ds-radius-xl);
+    box-shadow: var(--ds-shadow-lg);
 }
 
 .mumble-random > .mumble-item:hover {
     transform: translateY(-2px);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.1),
-        0 8px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--ds-shadow-xl);
 }
 
 /* 标题样式 - 提高优先级确保可见 */
 .mumble-item.mumble-title,
 .mumble-title {
     text-align: center !important;
-    font-weight: 700 !important;
-    font-size: 1.5rem !important;
+    font-weight: var(--ds-font-weight-bold) !important;
+    font-size: var(--ds-font-size-2xl) !important;
     /* 确保文字始终可见，使用渐变色作为fallback */
-    color: #1e293b !important;
-    background: linear-gradient(135deg, #1e293b 0%, #3730a3 50%, #7c3aed 100%) !important;
+    color: var(--ds-text-primary) !important;
+    background: linear-gradient(135deg, var(--ds-primary-800) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%) !important;
     background-clip: text !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
     position: relative;
-    padding: 1.2em 1.5em !important;
+    padding: var(--ds-space-5) var(--ds-space-6) !important;
     margin: 0 !important;
 }
 
@@ -112,8 +104,8 @@
 @supports not (-webkit-background-clip: text) {
     .mumble-item.mumble-title,
     .mumble-title {
-        color: #3730a3 !important;
-        -webkit-text-fill-color: #3730a3 !important;
+        color: var(--ds-primary-600) !important;
+        -webkit-text-fill-color: var(--ds-primary-600) !important;
         background: none !important;
     }
 }
@@ -121,25 +113,25 @@
 .mumble-title::after {
     content: '';
     position: absolute;
-    bottom: 0.5em;
+    bottom: var(--ds-space-2);
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7);
-    border-radius: 2px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500));
+    border-radius: var(--ds-radius-sm);
 }
 
 /* 用户信息区域 */
 .mumble-item-user {
     display: flex;
     align-items: center;
-    margin-bottom: 1.5em;
+    margin-bottom: var(--ds-space-6);
     position: relative;
 }
 
 .mumble-item-user .mumble-avatar {
-    margin-right: 16px;
+    margin-right: var(--ds-space-4);
     position: relative;
 }
 
@@ -150,10 +142,10 @@
     left: -3px;
     right: -3px;
     bottom: -3px;
-    background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc);
-    border-radius: 50%;
+    background: linear-gradient(45deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400));
+    border-radius: var(--ds-radius-full);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--ds-duration-300) ease;
     z-index: -1;
 }
 
@@ -164,21 +156,17 @@
 .mumble-item-user .mumble-avatar img {
     width: 56px;
     height: 56px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.1),
-        0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+    border-radius: var(--ds-radius-full);
+    border: 3px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) ease;
     object-fit: cover;
 }
 
 .mumble-item:hover .mumble-avatar img {
     transform: scale(1.05);
-    border-color: rgba(255, 255, 255, 1);
-    box-shadow: 
-        0 12px 32px rgba(0, 0, 0, 0.15),
-        0 6px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--ds-border-accent);
+    box-shadow: var(--ds-shadow-xl);
 }
 
 /* 用户信息文本 */
@@ -187,54 +175,54 @@
 }
 
 .mumble-info .mumble-nickname {
-    margin: 0 0 8px 0;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1e293b;
-    transition: color 0.3s ease;
+    margin: 0 0 var(--ds-space-2) 0;
+    font-size: var(--ds-font-size-lg);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--ds-text-primary);
+    transition: color var(--ds-duration-300) ease;
 }
 
 .mumble-info .mumble-nickname .identity {
-    font-weight: 400;
-    font-size: 0.875rem;
-    color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.1);
-    padding: 2px 8px;
-    border-radius: 12px;
-    margin-left: 8px;
-    border: 1px solid rgba(139, 92, 246, 0.2);
+    font-weight: var(--ds-font-weight-normal);
+    font-size: var(--ds-font-size-sm);
+    color: var(--ds-primary-600);
+    background: var(--ds-bg-accent);
+    padding: var(--ds-space-1) var(--ds-space-2);
+    border-radius: var(--ds-radius-lg);
+    margin-left: var(--ds-space-2);
+    border: 1px solid var(--ds-border-accent);
 }
 
 .mumble-info .mumble-time {
-    font-size: 0.875rem;
-    color: #64748b;
-    font-weight: 500;
+    font-size: var(--ds-font-size-sm);
+    color: var(--ds-text-muted);
+    font-weight: var(--ds-font-weight-medium);
     opacity: 0.8;
-    transition: all 0.3s ease;
+    transition: all var(--ds-duration-300) ease;
 }
 
 .mumble-item:hover .mumble-info .mumble-time {
-    color: #475569;
+    color: var(--ds-text-secondary);
     opacity: 1;
 }
 
 /* 内容区域 */
 .mumble-item .mumble-content {
-    padding: 0 0 1.5em 0;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #374151;
+    padding: 0 0 var(--ds-space-6) 0;
+    font-size: var(--ds-font-size-base);
+    line-height: var(--ds-line-height-relaxed);
+    color: var(--ds-text-primary);
     position: relative;
 }
 
 .mumble-item .mumble-content p {
-    margin-bottom: 1em;
+    margin-bottom: var(--ds-space-4);
 }
 
 .mumble-item .mumble-content img {
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: var(--ds-radius-lg);
+    box-shadow: var(--ds-shadow-lg);
+    transition: transform var(--ds-duration-300) ease;
 }
 
 .mumble-item .mumble-content img:hover {
@@ -242,32 +230,32 @@
 }
 
 .mumble-item .mumble-content a {
-    color: #8b5cf6;
+    color: var(--ds-primary-600);
     text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    font-weight: var(--ds-font-weight-medium);
+    transition: all var(--ds-duration-200) ease;
     border-bottom: 1px solid transparent;
 }
 
 .mumble-item .mumble-content a:hover {
-    color: #7c3aed;
-    border-bottom-color: #7c3aed;
-    text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
+    color: var(--ds-primary-700);
+    border-bottom-color: var(--ds-primary-700);
+    text-shadow: 0 0 8px var(--ds-shadow-primary);
 }
 
 /* 更多按钮 */
 .mumble-more {
     width: 100%;
     background: linear-gradient(-180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 70%);
-    padding-bottom: 40px;
-    margin-bottom: 8px;
+    padding-bottom: var(--ds-space-10);
+    margin-bottom: var(--ds-space-2);
     text-align: center;
     position: relative;
     z-index: 2;
-    padding-top: 120px;
+    padding-top: var(--ds-space-20);
     bottom: 1px;
-    margin-top: -160px;
-    border-radius: 0 0 20px 20px;
+    margin-top: -var(--ds-space-20);
+    border-radius: 0 0 var(--ds-radius-xl) var(--ds-radius-xl);
 }
 
 .mumble-hide-sub {
@@ -276,25 +264,25 @@
 }
 
 .mumble-more a {
-    color: #8b5cf6;
-    font-weight: 600;
+    color: var(--ds-primary-600);
+    font-weight: var(--ds-font-weight-semibold);
     text-decoration: none;
-    padding: 12px 24px;
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    padding: var(--ds-space-3) var(--ds-space-6);
+    background: var(--ds-bg-accent);
+    border: 1px solid var(--ds-border-accent);
+    border-radius: var(--ds-radius-full);
+    transition: all var(--ds-duration-300) ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--ds-space-2);
 }
 
 .mumble-more a:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.4);
-    color: #7c3aed;
+    background: var(--ds-bg-accent-hover);
+    border-color: var(--ds-border-accent-hover);
+    color: var(--ds-primary-700);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    box-shadow: var(--ds-shadow-lg);
 }
 
 .mumble-pack-up {
@@ -306,8 +294,8 @@
 /* 交互区域 */
 .mumble-interactive {
     box-sizing: border-box;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    padding-top: 1.5em;
+    border-top: 1px solid var(--ds-border-light);
+    padding-top: var(--ds-space-6);
 }
 
 .mumble-interactive-actions {
@@ -316,7 +304,7 @@
     align-items: center;
     padding: 0;
     height: auto;
-    gap: 8px;
+    gap: var(--ds-space-2);
 }
 
 .mumble-action-detail,
@@ -334,15 +322,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    color: #64748b;
+    gap: var(--ds-space-2);
+    padding: var(--ds-space-3) var(--ds-space-4);
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-bg-secondary);
+    border: 1px solid var(--ds-border-light);
+    color: var(--ds-text-muted);
     text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: var(--ds-font-weight-medium);
+    transition: all var(--ds-duration-300) ease;
     min-width: 80px;
     position: relative;
     overflow: hidden;
@@ -352,18 +340,18 @@
 .mumble-action-detail a:hover,
 .mumble-action-comment a:hover,
 .mumble-action-like a:hover {
-    background: rgba(139, 92, 246, 0.1);
-    border-color: rgba(139, 92, 246, 0.3);
-    color: #8b5cf6;
+    background: var(--ds-bg-accent);
+    border-color: var(--ds-border-accent);
+    color: var(--ds-primary-600);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.2);
+    box-shadow: var(--ds-shadow-md);
 }
 
 .mumble-action-detail a:active,
 .mumble-action-comment a:active,
 .mumble-action-like a:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    box-shadow: var(--ds-shadow-sm);
 }
 
 /* 优化的激活状态 - 使用更柔和的视觉效果 */
@@ -373,10 +361,10 @@
 .mumble-action-detail.mumble-active a,
 .mumble-action-comment.mumble-active a,
 .mumble-action-like.mumble-active a {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    color: #8b5cf6;
-    font-weight: 600;
+    background: var(--ds-bg-accent-strong);
+    border: 1px solid var(--ds-border-accent);
+    color: var(--ds-primary-600);
+    font-weight: var(--ds-font-weight-semibold);
     position: relative;
 }
 
@@ -413,61 +401,58 @@
 .mumble-action-detail.mumble-active a:hover,
 .mumble-action-comment.mumble-active a:hover,
 .mumble-action-like.mumble-active a:hover {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%);
-    border-color: rgba(139, 92, 246, 0.5);
-    color: #7c3aed;
+    background: var(--ds-bg-accent-strong-hover);
+    border-color: var(--ds-border-accent-hover);
+    color: var(--ds-primary-700);
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    box-shadow: var(--ds-shadow-lg);
 }
 
 /* 不同按钮的个性化激活样式 */
 .mumble-action-detail.mumble-active a {
-    border-left: 3px solid #06b6d4;
+    border-left: 3px solid var(--ds-secondary-500);
 }
 
 .mumble-action-comment.mumble-active a {
-    border-left: 3px solid #10b981;
+    border-left: 3px solid var(--ds-success-500);
 }
 
 .mumble-action-like.mumble-active a {
-    border-left: 3px solid #f59e0b;
+    border-left: 3px solid var(--ds-warning-500);
 }
 
 /* 评论区域 */
 .mumble-comment {
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    padding: 1.5em 0 0 0;
+    border-top: 1px solid var(--ds-border-light);
+    padding: var(--ds-space-6) 0 0 0;
     text-align: center;
-    margin-top: 1.5em;
-    background: rgba(248, 250, 252, 0.5);
-    border-radius: 0 0 20px 20px;
-    margin: 1.5em -2em 0 -2em;
-    padding: 1.5em 2em 0 2em;
+    margin-top: var(--ds-space-6);
+    background: var(--ds-bg-secondary);
+    border-radius: 0 0 var(--ds-radius-xl) var(--ds-radius-xl);
+    margin: var(--ds-space-6) -var(--ds-space-8) 0 -var(--ds-space-8);
+    padding: var(--ds-space-6) var(--ds-space-8) 0 var(--ds-space-8);
 }
 
 /* 详情页面样式 */
 .mumble-detail {
     border-bottom: none;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-    backdrop-filter: blur(40px) saturate(180%);
-    margin: 0 0 2em 0;
-    padding: 2em;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.08),
-        0 8px 25px rgba(0, 0, 0, 0.04),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    margin: 0 0 var(--ds-space-8) 0;
+    padding: var(--ds-space-8);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
 }
 
 /* 随机区域时间样式 */
 .mumble-random .mumble-time {
-    font-size: 0.8rem;
-    color: #8b5cf6;
-    font-weight: 500;
-    margin-top: 1em;
-    padding-top: 1em;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: var(--ds-font-size-xs);
+    color: var(--ds-primary-600);
+    font-weight: var(--ds-font-weight-medium);
+    margin-top: var(--ds-space-4);
+    padding-top: var(--ds-space-4);
+    border-top: 1px solid var(--ds-border-light);
     opacity: 0.8;
 }
 
@@ -475,7 +460,7 @@
 @media screen and (max-width: 640px) {
     .mumble-main {
         flex-direction: column;
-        gap: 1.5em;
+        gap: var(--ds-space-6);
     }
 
     .mumble-list,
@@ -489,27 +474,27 @@
     }
 
     .mumble-list > .mumble-item {
-        padding: 1.5em;
-        border-radius: 16px;
-        margin-bottom: 1.5em;
+        padding: var(--ds-space-6);
+        border-radius: var(--ds-radius-xl);
+        margin-bottom: var(--ds-space-6);
     }
 
     .mumble-random > .mumble-item {
-        padding: 1.2em;
-        margin-bottom: 1.2em;
+        padding: var(--ds-space-5);
+        margin-bottom: var(--ds-space-5);
     }
 
     .mumble-item .mumble-content {
-        padding: 0 0 1em 0;
+        padding: 0 0 var(--ds-space-4) 0;
     }
     
     .mumble-interactive {
-        padding-top: 1em;
+        padding-top: var(--ds-space-4);
     }
 
     .mumble-interactive-actions {
         flex-direction: row;
-        gap: 6px;
+        gap: var(--ds-space-1);
         justify-content: space-between;
     }
 
@@ -519,10 +504,10 @@
         width: auto;
         flex: 1;
         justify-content: center;
-        padding: 8px 12px;
-        font-size: 0.85rem;
+        padding: var(--ds-space-2) var(--ds-space-3);
+        font-size: var(--ds-font-size-sm);
         min-width: 60px;
-        border-radius: 8px;
+        border-radius: var(--ds-radius-md);
     }
 
     .mumble-item-user .mumble-avatar img {
@@ -535,46 +520,46 @@
     }
 
     .mumble-more {
-        padding-top: 80px;
-        margin-top: -120px;
+        padding-top: var(--ds-space-20);
+        margin-top: -var(--ds-space-30);
     }
 
     .mumble-comment {
-        margin: 1.5em -1.5em 0 -1.5em;
-        padding: 1.5em 1.5em 0 1.5em;
+        margin: var(--ds-space-6) -var(--ds-space-6) 0 -var(--ds-space-6);
+        padding: var(--ds-space-6) var(--ds-space-6) 0 var(--ds-space-6);
     }
 }
 
 /* 超小屏幕优化 - 进一步紧凑设计 */
 @media screen and (max-width: 480px) {
     .mumble-list > .mumble-item {
-        padding: 1.2em;
-        margin-bottom: 1.2em;
+        padding: var(--ds-space-5);
+        margin-bottom: var(--ds-space-5);
     }
     
     .mumble-item .mumble-content {
-        padding: 0 0 0.8em 0;
+        padding: 0 0 var(--ds-space-3) 0;
     }
     
     .mumble-interactive {
-        padding-top: 0.8em;
+        padding-top: var(--ds-space-3);
     }
     
     .mumble-interactive-actions {
-        gap: 4px;
+        gap: var(--ds-space-1);
     }
 
     .mumble-action-detail a,
     .mumble-action-comment a,
     .mumble-action-like a {
-        padding: 6px 8px;
-        font-size: 0.8rem;
+        padding: var(--ds-space-1) var(--ds-space-2);
+        font-size: var(--ds-font-size-xs);
         min-width: 50px;
-        border-radius: 6px;
+        border-radius: var(--ds-radius-sm);
     }
     
     .mumble-item-user {
-        margin-bottom: 1em;
+        margin-bottom: var(--ds-space-4);
     }
     
     .mumble-item-user .mumble-avatar img {
@@ -583,25 +568,25 @@
     }
     
     .mumble-info .mumble-nickname {
-        font-size: 0.95rem;
+        font-size: var(--ds-font-size-sm);
     }
     
     .mumble-info .mumble-time {
-        font-size: 0.75rem;
+        font-size: var(--ds-font-size-xs);
     }
     
     /* 超小屏幕下的按钮图标与文字间距调整 */
     .mumble-action-detail a i,
     .mumble-action-comment a i,
     .mumble-action-like a i {
-        margin-right: 4px;
+        margin-right: var(--ds-space-1);
         font-size: 0.85em;
     }
 }
 
 @media screen and (min-width: 641px) and (max-width: 1024px) {
     .mumble-main {
-        gap: 1.5em;
+        gap: var(--ds-space-6);
     }
     
     .mumble-list {

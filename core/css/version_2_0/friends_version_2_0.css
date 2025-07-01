@@ -1,18 +1,17 @@
 /* 友情链接页面样式 2.0 版本 - 更美观、大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
 
 /* 主容器样式 */
 .friends-container {
-    backdrop-filter: blur(40px) saturate(180%);
-    margin-bottom: 2em;
-    padding: 2em;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        0 32px 64px rgba(0, 0, 0, 0.08),
-        0 16px 32px rgba(0, 0, 0, 0.04),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    margin-bottom: var(--ds-space-8);
+    padding: var(--ds-space-8);
+    background: var(--ds-bg-primary);
+    border-radius: var(--ds-radius-2xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
     position: relative;
     overflow: hidden;
 }
@@ -24,30 +23,27 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc, #06b6d4, #10b981);
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400), var(--ds-secondary-500), var(--ds-success-500));
     opacity: 0.8;
 }
 
 .friends-container:hover {
     transform: translateY(-2px);
-    box-shadow: 
-        0 48px 80px rgba(0, 0, 0, 0.12),
-        0 24px 40px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: var(--ds-shadow-2xl);
 }
 
 /* 标题样式 */
 .friends-container .tag-title {
-    margin-bottom: 2em;
-    color: #1e293b;
-    font-size: 2.25rem;
-    font-weight: 700;
+    margin-bottom: var(--ds-space-8);
+    color: var(--ds-text-primary);
+    font-size: var(--ds-font-size-4xl);
+    font-weight: var(--ds-font-weight-bold);
     text-align: center;
-    background: linear-gradient(135deg, #1e293b 0%, #3730a3 50%, #7c3aed 100%);
+    background: linear-gradient(135deg, var(--ds-primary-800) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: var(--ds-shadow-sm);
     position: relative;
 }
 
@@ -59,8 +55,8 @@
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7);
-    border-radius: 2px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500));
+    border-radius: var(--ds-radius-sm);
 }
 
 /* 友情链接项目容器 */
@@ -68,7 +64,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
+    gap: var(--ds-space-6);
     align-items: stretch;
 }
 
@@ -81,7 +77,7 @@
     margin: 0;
     padding: 0;
     flex-shrink: 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
 }
 
 .friends-container .friend-item:hover {
@@ -90,14 +86,12 @@
 
 /* 友情链接卡片 */
 .friends-container .friend-card {
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-    backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.06),
-        0 4px 16px rgba(0, 0, 0, 0.04);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--ds-radius-xl);
+    background: var(--ds-bg-secondary);
+    backdrop-filter: var(--ds-backdrop-blur-lg) saturate(150%);
+    border: 1px solid var(--ds-border-secondary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
     position: relative;
     overflow: hidden;
     height: 100%;
@@ -110,9 +104,9 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, var(--ds-primary-500), transparent);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--ds-duration-300) ease;
 }
 
 .friends-container .friend-card:hover::before {
@@ -124,16 +118,16 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: var(--ds-space-5);
     text-decoration: none;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+    border-radius: var(--ds-radius-xl);
+    transition: all var(--ds-duration-300) ease;
 }
 
 /* 链接图标容器 */
 .friends-container .item-link-icon {
     flex-shrink: 0;
-    margin-right: 20px;
+    margin-right: var(--ds-space-5);
     position: relative;
 }
 
@@ -144,10 +138,10 @@
     left: -4px;
     right: -4px;
     bottom: -4px;
-    background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc);
-    border-radius: 50%;
+    background: linear-gradient(45deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400));
+    border-radius: var(--ds-radius-full);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--ds-duration-300) ease;
     z-index: -1;
 }
 
@@ -158,21 +152,17 @@
 .friends-container .item-link-icon img {
     width: 88px;
     height: 88px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.1),
-        0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--ds-radius-full);
+    border: 3px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
     object-fit: cover;
 }
 
 .friends-container .friend-item.friend-card:hover .item-link-icon img {
     transform: rotate(360deg) scale(1.05);
-    border-color: rgba(255, 255, 255, 1);
-    box-shadow: 
-        0 12px 32px rgba(0, 0, 0, 0.15),
-        0 6px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--ds-border-accent);
+    box-shadow: var(--ds-shadow-xl);
 }
 
 /* 链接文本容器 */
@@ -187,18 +177,17 @@
 
 /* 链接名称 */
 .friends-container .item-link-name {
-    color: #1e293b;
-    font-size: 1.375rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+    color: var(--ds-text-primary);
+    font-size: var(--ds-font-size-xl);
+    font-weight: var(--ds-font-weight-semibold);
+    margin-bottom: var(--ds-space-2);
     border: none;
     border-bottom: 2px solid transparent;
-    padding-bottom: 4px;
+    padding-bottom: var(--ds-space-1);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
+    transition: all var(--ds-duration-300) ease;
 }
 
 .friends-container .item-link-name::after {
@@ -208,8 +197,8 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7);
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500));
+    transition: width var(--ds-duration-300) ease;
 }
 
 .friends-container .friend-card:hover .item-link-name::after {
@@ -218,8 +207,8 @@
 
 /* 链接描述 */
 .friends-container .item-link-desc {
-    color: #64748b;
-    font-size: 0.95rem;
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-base);
     line-height: 1.5;
     overflow: hidden;
     display: -webkit-box;

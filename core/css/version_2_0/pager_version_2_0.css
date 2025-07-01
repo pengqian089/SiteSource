@@ -1,9 +1,11 @@
 /* 分页组件样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 所有样式使用最高优先级确保覆盖原有样式 */
+/* 引入设计系统 */
+@import '_design_system.css';
 
 /* 分页容器基础样式 */
 .laypage-main {
-    margin: 2.5em 0 !important;
+    margin: var(--ds-space-10) 0 !important;
     padding: 0 !important;
     font-size: 0 !important;
     text-align: center !important;
@@ -13,7 +15,7 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: var(--ds-space-2) !important;
     flex-wrap: wrap !important;
     position: relative !important;
 }
@@ -26,23 +28,20 @@
     justify-content: center !important;
     vertical-align: middle !important;
     margin: 0 !important;
-    padding: 12px 16px !important;
+    padding: var(--ds-space-3) var(--ds-space-4) !important;
     min-width: 44px !important;
     height: 44px !important;
-    line-height: 1.2 !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #64748b !important;
+    line-height: var(--ds-line-height-tight) !important;
+    font-size: var(--ds-font-size-sm) !important;
+    font-weight: var(--ds-font-weight-medium) !important;
+    color: var(--ds-text-secondary) !important;
     text-decoration: none !important;
-    border-radius: 12px !important;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.05),
-        0 2px 6px rgba(0, 0, 0, 0.03),
-        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-radius: var(--ds-radius-lg) !important;
+    background: var(--ds-bg-primary) !important;
+    backdrop-filter: var(--ds-backdrop-blur-xl) saturate(180%) !important;
+    border: 1px solid var(--ds-border-primary) !important;
+    box-shadow: var(--ds-shadow-md) !important;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out) !important;
     cursor: pointer !important;
     position: relative !important;
     overflow: hidden !important;
@@ -51,35 +50,26 @@
 
 /* 悬停效果 */
 .laypage-main *:hover {
-    color: #8b5cf6 !important;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.08) 100%) !important;
-    border-color: rgba(139, 92, 246, 0.3) !important;
+    color: var(--ds-primary-600) !important;
+    background: var(--ds-bg-accent) !important;
+    border-color: var(--ds-border-accent) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 
-        0 8px 24px rgba(139, 92, 246, 0.15),
-        0 4px 12px rgba(139, 92, 246, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    box-shadow: var(--ds-shadow-lg) !important;
 }
 
 /* 激活状态 */
 .laypage-main *:active {
     transform: translateY(0) !important;
-    box-shadow: 
-        0 4px 12px rgba(139, 92, 246, 0.2),
-        0 2px 6px rgba(139, 92, 246, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+    box-shadow: var(--ds-shadow-md) !important;
 }
 
 /* 当前页面样式 */
 .laypage-main .laypage-curr {
-    color: #ffffff !important;
-    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%) !important;
-    border: 1px solid rgba(139, 92, 246, 0.4) !important;
-    box-shadow: 
-        0 8px 24px rgba(139, 92, 246, 0.3),
-        0 4px 12px rgba(139, 92, 246, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-    font-weight: 600 !important;
+    color: var(--ds-text-on-primary) !important;
+    background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%) !important;
+    border: 1px solid var(--ds-border-accent) !important;
+    box-shadow: var(--ds-shadow-lg) !important;
+    font-weight: var(--ds-font-weight-semibold) !important;
     position: relative !important;
     cursor: default !important;
 }

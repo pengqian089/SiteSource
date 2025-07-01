@@ -1,26 +1,22 @@
 /* 书签页面样式 2.0 版本 - 更美观、大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
 
 /* 根容器样式 */
 .bookmark {
-    margin: 2em 1em;
-    padding: 2em;
-    background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
-    backdrop-filter: blur(40px) saturate(180%);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-        0 32px 64px rgba(0, 0, 0, 0.4),
-        0 16px 32px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: var(--ds-space-8) var(--ds-space-4);
+    padding: var(--ds-space-8);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    border-radius: var(--ds-radius-2xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
 }
 
 .bookmark:hover {
     transform: translateY(-2px);
-    box-shadow: 
-        0 48px 80px rgba(0, 0, 0, 0.5),
-        0 24px 40px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: var(--ds-shadow-2xl);
 }
 
 /* 分类标签样式 */
@@ -28,21 +24,21 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 2em;
+    gap: var(--ds-space-3);
+    margin-bottom: var(--ds-space-8);
 }
 
 .bookmark .category {
     position: relative;
-    padding: 16px 28px;
-    background: linear-gradient(135deg, rgba(90, 90, 90, 0.8) 0%, rgba(70, 70, 70, 0.9) 100%);
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
+    padding: var(--ds-space-4) var(--ds-space-6);
+    background: var(--ds-bg-secondary);
+    border-radius: var(--ds-radius-full);
+    border: 1px solid var(--ds-border-secondary);
+    color: var(--ds-text-secondary);
+    font-weight: var(--ds-font-weight-medium);
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    backdrop-filter: var(--ds-backdrop-blur-md);
     overflow: hidden;
 }
 
@@ -53,15 +49,15 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
     transition: left 0.6s;
 }
 
 .bookmark .category:hover {
-    color: #fff;
-    background: linear-gradient(135deg, rgba(110, 110, 110, 0.9) 0%, rgba(90, 90, 90, 1) 100%);
+    color: var(--ds-text-primary);
+    background: var(--ds-bg-accent);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--ds-shadow-lg);
 }
 
 .bookmark .category:hover::before {
@@ -69,55 +65,51 @@
 }
 
 .bookmark .category.active {
-    background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 50%, #7c3aed 100%);
-    color: #fff;
-    box-shadow: 
-        0 8px 25px rgba(168, 85, 247, 0.4),
-        0 4px 12px rgba(168, 85, 247, 0.3);
+    background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%);
+    color: var(--ds-text-on-primary);
+    box-shadow: var(--ds-shadow-lg);
     transform: translateY(-2px);
 }
 
 .bookmark .category.active:hover {
-    background: linear-gradient(135deg, #9333ea 0%, #7c3aed 50%, #6d28d9 100%);
-    box-shadow: 
-        0 12px 35px rgba(168, 85, 247, 0.5),
-        0 6px 15px rgba(168, 85, 247, 0.4);
+    background: linear-gradient(135deg, var(--ds-primary-700) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%);
+    box-shadow: var(--ds-shadow-xl);
 }
 
 /* 搜索框样式 */
 .bookmark .search-box {
     width: 100%;
     position: relative;
-    margin-bottom: 2em;
+    margin-bottom: var(--ds-space-8);
 }
 
 .bookmark .search-box input {
-    font-size: 18px;
+    font-size: var(--ds-font-size-lg);
     width: 100%;
     height: 56px;
-    padding: 0 20px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(20px);
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 400;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 0 var(--ds-space-5);
+    border: 2px solid var(--ds-border-secondary);
+    border-radius: var(--ds-radius-xl);
+    background: var(--ds-bg-secondary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    color: var(--ds-text-primary);
+    font-weight: var(--ds-font-weight-normal);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    box-shadow: var(--ds-shadow-sm);
 }
 
 .bookmark .search-box input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--ds-text-muted);
 }
 
 .bookmark .search-box input:focus {
     outline: none;
-    border-color: #8b5cf6;
-    background: rgba(20, 20, 20, 0.8);
-    color: #fff;
+    border-color: var(--ds-primary-500);
+    background: var(--ds-bg-primary);
+    color: var(--ds-text-primary);
     box-shadow: 
-        0 0 0 3px rgba(139, 92, 246, 0.2),
-        inset 0 2px 8px rgba(0, 0, 0, 0.3);
+        0 0 0 3px rgba(139, 92, 246, 0.15),
+        var(--ds-shadow-md);
     transform: translateY(-1px);
 }
 
@@ -126,27 +118,27 @@
     position: absolute;
     z-index: 10;
     top: 58px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--ds-border-secondary);
     border-top: none;
-    border-radius: 0 0 16px 16px;
-    background: rgba(30, 30, 30, 0.95);
-    backdrop-filter: blur(30px);
+    border-radius: 0 0 var(--ds-radius-xl) var(--ds-radius-xl);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl);
     overflow: hidden;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--ds-shadow-xl);
 }
 
 .bookmark .search-box .search-result ul li {
     list-style: none;
-    font-size: 16px;
+    font-size: var(--ds-font-size-base);
     height: auto;
     min-height: 48px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--ds-border-primary);
     background: transparent;
-    line-height: 1.5;
-    padding: 12px 20px;
+    line-height: var(--ds-line-height-normal);
+    padding: var(--ds-space-3) var(--ds-space-5);
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.8);
-    transition: all 0.2s ease;
+    color: var(--ds-text-secondary);
+    transition: all var(--ds-duration-200) ease;
     display: flex;
     align-items: center;
 }
@@ -157,17 +149,17 @@
 
 .bookmark .search-box .search-result ul li:hover, 
 .bookmark .search-box .search-result ul li.selected {
-    background: rgba(139, 92, 246, 0.2);
-    color: #fff;
+    background: var(--ds-bg-accent);
+    color: var(--ds-text-primary);
     transform: translateX(4px);
 }
 
 /* 书签容器样式 */
 .bookmark .bookmark-container {
     width: 100%;
-    margin-top: 2em;
+    margin-top: var(--ds-space-8);
     column-count: auto;
-    column-gap: 24px;
+    column-gap: var(--ds-space-6);
     column-width: 320px;
 }
 
@@ -175,16 +167,14 @@
 .bookmark-container .bookmark-item {
     padding: 0;
     break-inside: avoid;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-    margin-bottom: 24px;
-    backdrop-filter: blur(20px) saturate(180%);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--ds-bg-secondary);
+    margin-bottom: var(--ds-space-6);
+    backdrop-filter: var(--ds-backdrop-blur-lg) saturate(180%);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-secondary);
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.2),
-        0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    box-shadow: var(--ds-shadow-lg);
     position: relative;
 }
 
@@ -195,58 +185,47 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400));
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--ds-duration-300) ease;
 }
 
 .bookmark-container .bookmark-item:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 8px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: var(--ds-shadow-xl);
+    border-color: var(--ds-border-accent);
 }
 
 .bookmark-container .bookmark-item:hover::before {
     opacity: 1;
 }
 
-/* 书签卡片内容 */
 .bookmark-item .bookmark-card {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
+    height: 100%;
+    position: relative;
 }
 
 .bookmark-card > img {
     width: 100%;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    height: auto;
+    object-fit: cover;
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
 }
 
 .bookmark-card > img:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
-/* 书签信息 */
 .bookmark-info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    margin-bottom: 12px;
+    padding: var(--ds-space-4);
 }
 
 .bookmark .bookmark-icon {
-    width: 36px;
-    height: 36px;
-    margin-right: 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: var(--ds-radius-sm);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
 }
 
 .bookmark .bookmark-icon:hover {
@@ -254,82 +233,71 @@
 }
 
 .bookmark-title {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.9);
+    margin: var(--ds-space-2) 0 0 0;
+    font-size: var(--ds-font-size-base);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--ds-text-primary);
+    line-height: var(--ds-line-height-tight);
 }
 
-/* 链接样式 */
 .bookmark-item a {
-    color: #60a5fa;
+    color: var(--ds-text-primary);
     text-decoration: none;
-    transition: all 0.2s ease;
-    font-weight: 500;
+    transition: color var(--ds-duration-200) ease;
 }
 
 .bookmark-item a:hover {
-    color: #93c5fd;
-    text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+    color: var(--ds-primary-600);
 }
 
-/* 书签操作按钮 */
 .bookmark-action {
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
+    position: absolute;
+    top: var(--ds-space-2);
+    right: var(--ds-space-2);
+    opacity: 0;
+    transition: opacity var(--ds-duration-200) ease;
 }
 
 .bookmark-setting {
-    color: #8b5cf6;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    transition: all 0.2s ease;
-    font-size: 14px;
-    font-weight: 500;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-bg-primary);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-md);
+    transition: all var(--ds-duration-200) var(--ds-easing-out);
 }
 
 .bookmark-setting:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.4);
-    color: #a855f7;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    background: var(--ds-bg-accent);
+    border-color: var(--ds-border-accent);
+    transform: scale(1.1);
 }
 
-/* 表单样式 */
+.bookmark-container .bookmark-item:hover .bookmark-action {
+    opacity: 1;
+}
+
 .bookmark .layui-colla-item.create-form, 
-.bookmark .layui-colla-item.create-form .layui-colla-title {
-    background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
-    backdrop-filter: blur(40px);
-    color: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.bookmark .layui-colla-item.edit-form {
+    background: var(--ds-bg-secondary);
+    border: 1px solid var(--ds-border-secondary);
+    border-radius: var(--ds-radius-lg);
+    margin-bottom: var(--ds-space-4);
 }
 
-/* 按钮样式 */
 .layui-btn-primary {
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    background: var(--ds-bg-secondary);
+    border: 1px solid var(--ds-border-secondary);
+    color: var(--ds-text-secondary);
+    border-radius: var(--ds-radius-md);
+    transition: all var(--ds-duration-200) var(--ds-easing-out);
 }
 
 .layui-btn-primary:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
+    background: var(--ds-bg-accent);
+    border-color: var(--ds-border-accent);
+    color: var(--ds-text-primary);
 }
 
 /* 响应式设计 */
