@@ -8,7 +8,6 @@
     backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
     border-radius: var(--ds-radius-2xl);
     padding: var(--ds-space-8);
-    margin: var(--ds-space-5) auto var(--ds-space-8);
     max-width: 100%;
     box-shadow: var(--ds-shadow-2xl);
     border: 1px solid var(--ds-border-primary);

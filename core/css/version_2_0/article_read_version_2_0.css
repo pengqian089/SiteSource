@@ -17,6 +17,7 @@
     position: relative;
     overflow: hidden;
     transition: all var(--ds-duration-500) var(--ds-easing-out);
+    width: 100%;
 }
 
 .article-detail::before {
@@ -67,6 +68,7 @@
     -webkit-text-fill-color: transparent;
     background-size: 200% 100%;
     animation: title-shimmer 6s ease-in-out infinite;
+    text-shadow: none;
 }
 
 @keyframes title-shimmer {
