@@ -1,0 +1,7 @@
+﻿@using Dpz.Core.Web.Library
+@model CommentContent
+@if (!string.IsNullOrEmpty(Model?.ReplyId) && !string.IsNullOrEmpty(Model?.ReplyNickName))
+{
+    <a href="#@(Model.ReplyId)">@@@(Model.ReplyNickName)</a>
+}
+@Html.Raw(Model?.CommentText?.MarkdownToHtml() ?? "")
