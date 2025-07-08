@@ -1,0 +1,160 @@
+@using Microsoft.Extensions.Configuration
+@model HomeContainerModel
+@inject IConfiguration Configuration
+<div class="home-container-v2">
+    <div class="home-main-v2">
+        <!--左边主要内容-->
+        <div class="home-main-left-v2">
+            <div class="layui-container" style="padding: 0 0 20px 0;width: 100%">
+                <div class="layui-row">
+                    <div class="home-carousel-container-v2">
+                        <div class="layui-carousel home-carousel-v2">
+                            <div carousel-item>
+                                @foreach (var item in Model.Pictures)
+                                {
+                                    <div class="carousel-item-v2" style="background: no-repeat 0 0">
+                                        <img src="@item.AccessUrl" alt="@item.Description" loading="lazy"/>
+                                        @if (!string.IsNullOrEmpty(item.Description))
+                                        {
+                                            <div class="carousel-text-v2">
+                                                <span>@item.Description</span>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 网站公告提示 -->
+            <div class="home-announcement-v2">
+                <i class="fa fa-volume-up home-announcement-icon-v2"></i>
+                <div class="home-announcement-content-v2">
+                    @{
+                        var runTimeCount = DateTime.Now - WebToolsExtensions.StartTime;
+                    }
+                    <span class="home-runtime-v2" id="runTime">
+                        运行时间 @($"{runTimeCount.Days:00}天{runTimeCount.Hours:00}小时{runTimeCount.Minutes:00}分钟{runTimeCount.Seconds:00}秒")
+                    </span>
+                </div>
+            </div>
+            <div id="video-player" class="home-video-player-v2"></div>
+            <!--文章列表-->
+            <partial name="_BlogsPartial" model="@Model.Blogs"/>
+        </div>
+        <!--右边小栏目-->
+        <div class="home-main-right-v2">
+            <partial name="_SearchBoxPartial"/>
+            <div class="home-blogger-info-v2">
+                <div class="home-blogger-avatar-v2">
+                    <img src="@(Configuration["CDNBaseAddress"])/images/Lara-Croft.png" alt="被打断de狗腿"/>
+                </div>
+                <p class="home-blogger-name-v2">
+                    彭迁&nbsp;|&nbsp;
+                    <a asp-action="Index" asp-controller="Resume" target="_blank">查看简历</a>
+                </p>
+                <p class="home-blogger-intro-v2">彭氏胖纸者，名迁，江陵人，诞于夏。少聪慧，敏于学。</p>
+                <p class="home-blogger-intro-v2">古人有言，曰：趋于地，就于时。迁者诞于炎炎之夏，故活泼而好动。</p>
+                <p class="home-blogger-intro-v2">
+                    江陵者襟江带河，集日月精华，文人骚客多出于此，迁虽芸芸之其一，实粹粹然也。</p>
+                <p class="home-blogger-intro-v2">
+                    迁之性，稳而健，平而滑。若得于古，不可为刺客而说客也夫刺客，静若处子，动若蛇蝎。偏安于角落，偶然爆发。而说客者，平滑婉转，若流水，或缓或急，然不可断绝也。</p>
+                <p class="home-blogger-intro-v2">迁者，柔弱如水，暴怒如江。遏飞舟击巉石曲回肠终归海。</p>
+                <p class="home-blogger-location-v2"><i class="fa fa-location-arrow"></i>&nbsp;广东 - 深圳</p>
+                <div class="home-blogger-divider-v2"></div>
+                <div class="home-blogger-contact-v2">
+                    <a target="_blank" title="QQ交流" href="http://wpa.qq.com/msgrd?v=3&uin=350952323&site=qq&menu=yes">
+                        <i class="fa fa-qq"></i>
+                    </a>
+                    <a target="_blank" title="给我写信" href="mailto:pengqian089@hotmail.com">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                    <a target="_blank" title="github" href="https://github.com/pengqian089">
+                        <i class="fa fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div></div><!--占位-->
+            <!--今日新闻-->
+            <div class="home-module-v2" data-request="@Url.Action("TodayNews", "Home")">
+                <div class="home-module-content-v2">
+                    <img src="@Configuration["CDNBaseAddress"]/loaders/bars.svg" alt="loading" style="width: 100%"/>
+                </div>
+            </div>
+            <partial name="_RightInfoPartial" model="@Tuple.Create(Model.LikeArticle, Model.News, Model.Tags)"/>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+        let bannerWidth = $(".home-carousel-container-v2").width();
+        if (bannerWidth <= 0) {
+            bannerWidth = $(".home-main-left-v2").width();
+        }
+        if (bannerWidth <= 0) {
+            bannerWidth = $(window).width() - 48; // 减去padding
+        }
+        let height = bannerWidth / (16 / 9);
+        
+        // 移动端高度限制
+        if ($(window).width() <= 768) {
+            height = Math.min(height, 250);
+        }
+        if ($(window).width() <= 480) {
+            height = Math.min(height, 200);
+        }
+        
+        layui.use("carousel", function () {
+            let carousel = layui.carousel;
+            const inst = carousel.render({
+                elem: ".home-carousel-v2",
+                width: "100%",
+                interval: 10000,
+                height: height + "px",
+                arrow: "always",
+                autoplay: true
+            });
+        });
+        
+        // 窗口大小变化时重新计算轮播图高度
+        $(window).on('resize', function() {
+            let newBannerWidth = $(".home-carousel-container-v2").width();
+            if (newBannerWidth <= 0) {
+                newBannerWidth = $(".home-main-left-v2").width();
+            }
+            if (newBannerWidth <= 0) {
+                newBannerWidth = $(window).width() - 48;
+            }
+            let newHeight = newBannerWidth / (16 / 9);
+            
+            // 移动端高度限制
+            if ($(window).width() <= 768) {
+                newHeight = Math.min(newHeight, 250);
+            }
+            if ($(window).width() <= 480) {
+                newHeight = Math.min(newHeight, 200);
+            }
+            
+            $(".home-carousel-v2").css('height', newHeight + 'px');
+        });
+        
+        playAnnouncement(3000);
+    });
+
+    function playAnnouncement(interval) {
+        let index = 0;
+        let $announcement = $('.home-announcement-content-v2>span');
+        //自动轮换
+        setInterval(function () {
+            index++;    //下标更新
+            if (index >= $announcement.length) {
+                index = 0;
+            }
+            $announcement.eq(index).stop(true, true).fadeIn().siblings('span').fadeOut();  //下标对应的图片显示，同辈元素隐藏
+        }, interval);
+    }
+</script>

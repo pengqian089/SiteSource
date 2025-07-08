@@ -377,7 +377,7 @@
     backdrop-filter: var(--ds-backdrop-blur-lg);
     border-radius: var(--ds-radius-xl);
     padding: var(--ds-space-4);
-    margin-bottom: var(--ds-space-6);
+    /*margin-bottom: var(--ds-space-6);*/
     box-shadow: var(--ds-shadow-lg);
     border: 1px solid var(--ds-border-primary);
     transition: all var(--ds-duration-300) var(--ds-easing-in-out);
@@ -1043,7 +1043,6 @@
     
     .article {
         padding: 1rem;
-        padding-bottom: 4.5rem; /* 小屏幕移动端也需要更多空间 */
     }
     
     .article::before {
