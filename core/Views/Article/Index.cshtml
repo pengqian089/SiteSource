@@ -1,0 +1,45 @@
+﻿@model ArticleIndexModel
+<div class="blog-container">
+    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+        <a href="/" title="网站首页">网站首页</a>
+        <a>
+            <cite>文章专栏</cite>
+        </a>
+    </blockquote>
+    <div class="blog-main">
+        <div class="blog-main-left">
+            <partial name="_BlogsPartial" model="@Model.List"/>
+            @{
+                var pageModel = new PageModel
+                {
+                    List = Model.List,
+                    HtmlTagIdAttribute = "blog-list",
+                    MaxPage = 200
+                };
+            }
+            <partial name="_PagerPartial" model="@pageModel"/>
+        </div>
+        <div class="blog-main-right">
+            <div class="blog-search">
+                <form class="layui-form" asp-action="Search" method="get">
+                    <div class="layui-form-item">
+                        <div class="search-keywords  shadow">
+                            <input type="text" name="keyword" required="required" lay-verify="required"
+                                   placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="search-submit  shadow">
+                            <a class="search-btn" lay-submit="formSearch" lay-filter="formSearch">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <partial name="_RightInfoPartial" model="@Tuple.Create(Model.LikeArticle, Model.News, Model.Tags)"/>
+            <div class="blog-module shadow" data-request="@Url.Action("TodayNews", "Home")">
+                <img src="@Program.CdnBaseAddress/loaders/bars.svg" alt="loading" style="width: 100%"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@using Dpz.Core.Infrastructure
+@model VmCommenter
+
+
+<div class="avatar">
+    @if (Model is VmGuestCommenter guestCommenter)
+    {
+        <img src="https://cravatar.cn/avatar/@(guestCommenter.Email.GenerateHashMd5())?d=wavatar" alt="@Model.NickName"/>
+    }
+    else if(Model is VmMemberCommenter membleCommenter)
+    {
+        <img src="@membleCommenter.Avatar" alt="@Model.NickName"/>
+    }
+</div>

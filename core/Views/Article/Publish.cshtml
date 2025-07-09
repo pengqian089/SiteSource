@@ -1,0 +1,159 @@
+﻿@using System.IO
+@using AngleSharp.Html
+@using AngleSharp.Html.Parser
+@using Dpz.Core.Service.V4.Services
+@using Markdig
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration
+@model VmArticle
+@inject IArticleService Service
+@inject IConfiguration Configuration
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>发布文章</title>
+</head>
+<body>
+<div>
+    <link rel="stylesheet" href="@(Configuration["CDNBaseAddress"])/lib/editor.md/css/editormd.min.css"/>
+    <link href="@(Configuration["CDNBaseAddress"])/lib/layui/css/layui.css" rel="stylesheet"/>
+    <link href="@(Configuration["CDNBaseAddress"])/lib/highlight/styles/a11y-dark.min.css" rel="stylesheet"/>
+    <link href="@(Configuration["CDNBaseAddress"])/css/frame-dark.css" rel="stylesheet"/>
+    <script src="@(Configuration["CDNBaseAddress"])/lib/jquery/jquery.min.js"></script>
+    <script src="@(Configuration["CDNBaseAddress"])/lib/layui/layui.js"></script>
+    <script src="@(Configuration["CDNBaseAddress"])/lib/highlight/highlight.min.js"></script>
+    <script src="@(Configuration["CDNBaseAddress"])/lib/editor.md/editormd.min.js"></script>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">表单</li>
+            <li>源码预览</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <form asp-action="Publish" method="post" id="articleForm" class="layui-form">
+                    <div style="width: 99%;margin: 5px auto;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" asp-for="Title">标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" required asp-for="Title" lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" asp-for="Tags">标签</label>
+                            <div class="layui-input-block">
+                                <select asp-for="Tags" multiple="multiple" asp-items="await Service.ArticleTagsAsync()" lay-verify="required">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" for="newTag">添加标签</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="newTag" name="newTag" placeholder="补充标签" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label" asp-for="Introduction">文章简介</label>
+                            <div class="layui-input-block">
+                                <textarea required lay-verify="required" asp-for="Introduction" placeholder="请输入内容" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="editor">
+                        <textarea style="display: none;" asp-for="Markdown"></textarea>
+                        <input asp-for="Id" type="hidden"/>
+                        <input asp-for="HtmlContent" type="hidden"/>
+                    </div>
+                    <div style="width: 99%;margin: 0 auto;text-align: right">
+                        <button class="layui-btn" type="button" id="save">保存</button>
+                        <button class="layui-btn  layui-btn-primary" type="button" id="cancel">取消</button>
+                    </div>
+                </form>
+            </div>
+            <div class="layui-tab-item">
+                @if (Model != null)
+                {
+                    var htmlContent = Markdown.ToHtml(Model.Markdown);
+                    var htmlParse = new HtmlParser();
+                    var document = await htmlParse.ParseDocumentAsync(htmlContent);
+                    TextWriter text = new StringWriter();
+                    document.ToHtml(text, new PrettyMarkupFormatter());
+                    <pre style="padding: 0; max-height: 100%;overflow-y: auto;width: 100%;margin-bottom: 15px;white-space: pre-wrap;font-size: 16px;font-weight: bold"><code class="lang-xml">@text</code></pre>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            document.querySelectorAll("pre code").forEach((block) => {
+                hljs.highlightElement(block);
+            });
+            var closeOrSuccess = 0; // default close value is 0,success values is 1;
+            layui.use(["table", "form", "layer","element"], function () {
+                let layer = layui.layer, form = layui.form ,element = layui.element;
+                let parentIndex = parent.layer.getFrameIndex(window.name);
+                let editor = editormd("editor",
+                    {
+                        width: "99%",
+                        height: $(document).height() - 20 - 38 - 41 - $("#articleForm").height(),
+                        saveHTMLToTextarea: true,
+                        imageUpload: true,
+                        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL: "/Article/Upload",
+                        path: "@(Configuration["CDNBaseAddress"])/lib/editor.md/lib/",
+                        onload: function () {
+                            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                                this.setTheme("dark");
+                                this.setEditorTheme("blackboard");
+                                this.setPreviewTheme("dark");
+                            }
+                        },
+                        toolbarIcons: function () {
+                            return [
+                                "undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                                "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link",
+                                "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
+                                "html-entities", "pagebreak", "|", "goto-line", "watch", "preview",
+                                "clear", "search"
+                            ];
+                        }
+                    });
+                $("#save").click(function () {
+                    $("#BlogContents").val(editor.getHTML());
+                    if (editor.getMarkdown().length < 5) {
+                        layer.msg("这么点?", { icon: 2, anim: 6 });
+                        return;
+                    }
+                    let index = layer.load(1);
+                    let form = document.getElementById("articleForm");
+                    let data = new FormData(form);
+                    $.ajax({
+                        url: form.getAttribute("action"),
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                        type: form.getAttribute("method")
+                    }).done(function (result) {
+                        if (!result.success) {
+                            layer.msg(result.msg, { icon: 2, anim: 6 });
+                        } else {
+                            parent.layer.close(parentIndex);
+                            closeOrSuccess = 1;
+                        }
+                    }).always(function () {
+                        layer.close(index);
+                    });
+                });
+                $("#cancel").click(function () {
+                    parent.layer.close(parentIndex);
+                    closeOrSuccess = 0;
+                });
+            });
+        </script>
+</div>
+</body>
+</html>
