@@ -167,6 +167,35 @@
     
     --ds-shadow-color: rgba(0, 0, 0, 0.1);
     --ds-shadow-color-strong: rgba(0, 0, 0, 0.25);
+
+    /* ===== 书签组件专用颜色 ===== */
+    /* 无图片书签卡片颜色 */
+    --ds-bookmark-no-image-bg: linear-gradient(135deg, 
+        rgba(248, 250, 252, 0.9) 0%, 
+        rgba(241, 245, 249, 0.95) 50%, 
+        rgba(226, 232, 240, 1) 100%);
+    --ds-bookmark-no-image-text: rgba(71, 85, 105, 0.9);
+    --ds-bookmark-no-image-text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    --ds-bookmark-no-image-pattern: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid-light" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid-light)"/></svg>');
+    
+    /* 无图片书签操作区域颜色 */
+    --ds-bookmark-no-image-overlay: linear-gradient(
+        180deg, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(255, 255, 255, 0.4) 40%, 
+        rgba(255, 255, 255, 0.3) 70%, 
+        rgba(255, 255, 255, 0.9) 100%
+    );
+    --ds-bookmark-no-image-tag-bg: rgba(139, 92, 246, 0.1);
+    --ds-bookmark-no-image-tag-text: rgba(139, 92, 246, 0.8);
+    --ds-bookmark-no-image-tag-hover-bg: rgba(139, 92, 246, 0.15);
+    --ds-bookmark-no-image-tag-hover-text: rgba(139, 92, 246, 1);
+    --ds-bookmark-no-image-setting-bg: rgba(255, 255, 255, 0.9);
+    --ds-bookmark-no-image-setting-text: rgba(71, 85, 105, 0.7);
+    --ds-bookmark-no-image-setting-border: rgba(226, 232, 240, 0.8);
+    --ds-bookmark-no-image-setting-hover-bg: rgba(139, 92, 246, 0.1);
+    --ds-bookmark-no-image-setting-hover-text: rgba(139, 92, 246, 0.9);
+    --ds-bookmark-no-image-setting-hover-border: rgba(139, 92, 246, 0.3);
 }
 
 /* ===== 暗色主题 ===== */
@@ -191,6 +220,32 @@
         /* 阴影色 */
         --ds-shadow-color: rgba(0, 0, 0, 0.3);
         --ds-shadow-color-strong: rgba(0, 0, 0, 0.5);
+
+        /* 暗色主题下的书签组件颜色 */
+        --ds-bookmark-no-image-bg: linear-gradient(135deg, 
+            rgba(55, 65, 81, 0.9) 0%, 
+            rgba(75, 85, 99, 0.95) 50%, 
+            rgba(107, 114, 128, 1) 100%);
+        --ds-bookmark-no-image-text: rgba(229, 231, 235, 0.9);
+        --ds-bookmark-no-image-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        --ds-bookmark-no-image-pattern: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid-dark" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(139,92,246,0.15)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid-dark)"/></svg>');
+        --ds-bookmark-no-image-overlay: linear-gradient(
+            180deg, 
+            rgba(0, 0, 0, 0.6) 0%, 
+            rgba(0, 0, 0, 0.3) 40%, 
+            rgba(0, 0, 0, 0.2) 70%, 
+            rgba(0, 0, 0, 0.7) 100%
+        );
+        --ds-bookmark-no-image-tag-bg: rgba(139, 92, 246, 0.2);
+        --ds-bookmark-no-image-tag-text: rgba(196, 181, 253, 0.9);
+        --ds-bookmark-no-image-tag-hover-bg: rgba(139, 92, 246, 0.3);
+        --ds-bookmark-no-image-tag-hover-text: rgba(196, 181, 253, 1);
+        --ds-bookmark-no-image-setting-bg: rgba(55, 65, 81, 0.9);
+        --ds-bookmark-no-image-setting-text: rgba(156, 163, 175, 0.8);
+        --ds-bookmark-no-image-setting-border: rgba(75, 85, 99, 0.8);
+        --ds-bookmark-no-image-setting-hover-bg: rgba(139, 92, 246, 0.2);
+        --ds-bookmark-no-image-setting-hover-text: rgba(196, 181, 253, 0.9);
+        --ds-bookmark-no-image-setting-hover-border: rgba(139, 92, 246, 0.4);
     }
 }
 

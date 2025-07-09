@@ -203,6 +203,7 @@
 .bookmark-item .bookmark-card {
     height: 100%;
     position: relative;
+    z-index: 1;
 }
 
 .bookmark-card > img {
@@ -216,8 +217,34 @@
     transform: scale(1.02);
 }
 
+/* 无图片书签卡片样式 - 兼容性版本 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))),
+.bookmark-card.no-image {
+    min-height: 120px;
+    background: var(--ds-bookmark-no-image-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon)))::before,
+.bookmark-card.no-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--ds-bookmark-no-image-pattern);
+    opacity: 0.3;
+}
+
 .bookmark-info {
     padding: var(--ds-space-4);
+    position: relative;
+    z-index: 1;
 }
 
 .bookmark .bookmark-icon {
@@ -240,10 +267,37 @@
     line-height: var(--ds-line-height-tight);
 }
 
+/* 无图片卡片中的标题样式 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-title,
+.bookmark-card.no-image .bookmark-title {
+    color: var(--ds-bookmark-no-image-text);
+    font-weight: var(--ds-font-weight-bold);
+    font-size: var(--ds-font-size-lg);
+    text-shadow: var(--ds-bookmark-no-image-text-shadow);
+    text-align: center;
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-icon,
+.bookmark-card.no-image .bookmark-icon {
+    filter: none;
+    opacity: 0.8;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-icon,
+    .bookmark-card.no-image .bookmark-icon {
+        filter: brightness(1.2);
+        opacity: 0.9;
+    }
+}
+
 .bookmark-item a {
     color: var(--ds-text-primary);
     text-decoration: none;
     transition: color var(--ds-duration-200) ease;
+    position: relative;
+    z-index: 5;
+    display: block;
 }
 
 .bookmark-item a:hover {
@@ -252,30 +306,142 @@
 
 .bookmark-action {
     position: absolute;
-    top: var(--ds-space-2);
-    right: var(--ds-space-2);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: var(--ds-space-3);
     opacity: 0;
-    transition: opacity var(--ds-duration-200) ease;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    background: linear-gradient(
+        180deg, 
+        rgba(0, 0, 0, 0.7) 0%, 
+        rgba(0, 0, 0, 0.3) 40%, 
+        rgba(0, 0, 0, 0.1) 70%, 
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    backdrop-filter: blur(8px);
+    border-radius: var(--ds-radius-xl);
+    z-index: 10;
+}
+
+.bookmark-action .bookmark-tags,
+.bookmark-action .bookmark-tags span,
+.bookmark-action .bookmark-setting {
+    pointer-events: auto !important;
+}
+
+/* 确保操作区域本身不阻挡超链接点击 */
+.bookmark-action {
+    pointer-events: none !important;
+}
+
+/* 只允许特定元素接收点击事件 */
+.bookmark-action .bookmark-tags,
+.bookmark-action .bookmark-tags > span,
+.bookmark-action .bookmark-setting {
+    pointer-events: auto !important;
+}
+
+.bookmark-action .bookmark-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-2);
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 100%;
+}
+
+.bookmark-action .bookmark-tags span {
+    padding: var(--ds-space-1) var(--ds-space-2);
+    background: rgba(139, 92, 246, 0.9);
+    color: white;
+    border-radius: var(--ds-radius-md);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-medium);
+    white-space: nowrap;
+    box-shadow: var(--ds-shadow-sm);
+    backdrop-filter: blur(4px);
+    transition: all var(--ds-duration-200) ease;
+}
+
+.bookmark-action .bookmark-tags span:hover {
+    background: rgba(139, 92, 246, 1);
+    transform: translateY(-1px);
+    box-shadow: var(--ds-shadow-md);
 }
 
 .bookmark-setting {
-    width: 32px;
-    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
     border-radius: var(--ds-radius-lg);
-    background: var(--ds-bg-primary);
-    border: 1px solid var(--ds-border-primary);
-    box-shadow: var(--ds-shadow-md);
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: var(--ds-shadow-lg);
     transition: all var(--ds-duration-200) var(--ds-easing-out);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    font-size: var(--ds-font-size-sm);
+    position: relative;
+    z-index: 15;
+    pointer-events: auto !important;
 }
 
 .bookmark-setting:hover {
-    background: var(--ds-bg-accent);
-    border-color: var(--ds-border-accent);
-    transform: scale(1.1);
+    background: rgba(139, 92, 246, 0.9);
+    border-color: rgba(139, 92, 246, 0.8);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--ds-shadow-xl);
+}
+
+.bookmark-setting i {
+    margin-right: var(--ds-space-1);
 }
 
 .bookmark-container .bookmark-item:hover .bookmark-action {
     opacity: 1;
+}
+
+/* 无图片卡片的操作区域优化 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action,
+.bookmark-card.no-image + .bookmark-action {
+    background: var(--ds-bookmark-no-image-overlay);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-tags span,
+.bookmark-card.no-image + .bookmark-action .bookmark-tags span {
+    background: var(--ds-bookmark-no-image-tag-bg);
+    color: var(--ds-bookmark-no-image-tag-text);
+    font-weight: var(--ds-font-weight-semibold);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-tags span:hover,
+.bookmark-card.no-image + .bookmark-action .bookmark-tags span:hover {
+    background: var(--ds-bookmark-no-image-tag-hover-bg);
+    color: var(--ds-bookmark-no-image-tag-hover-text);
+    transform: translateY(-1px) scale(1.05);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-setting,
+.bookmark-card.no-image + .bookmark-action .bookmark-setting {
+    background: var(--ds-bookmark-no-image-setting-bg);
+    color: var(--ds-bookmark-no-image-setting-text);
+    border-color: var(--ds-bookmark-no-image-setting-border);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-setting:hover,
+.bookmark-card.no-image + .bookmark-action .bookmark-setting:hover {
+    background: var(--ds-bookmark-no-image-setting-hover-bg);
+    color: var(--ds-bookmark-no-image-setting-hover-text);
+    border-color: var(--ds-bookmark-no-image-setting-hover-border);
 }
 
 .bookmark .layui-colla-item.create-form, 
@@ -321,6 +487,49 @@
         padding: 14px 22px;
         font-size: 14px;
     }
+    
+    /* 移动端书签操作区域优化 */
+    .bookmark-action {
+        padding: var(--ds-space-2);
+        z-index: 10 !important;
+    }
+    
+    .bookmark-action .bookmark-tags {
+        gap: var(--ds-space-1);
+    }
+    
+    .bookmark-action .bookmark-tags span {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .bookmark-setting {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        z-index: 15 !important;
+        pointer-events: auto !important;
+    }
+    
+    .bookmark-setting i {
+        margin-right: 0;
+    }
+    
+    /* 移动端无图片书签优化 */
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+    .bookmark-card.no-image {
+        min-height: 100px;
+    }
+    
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-title,
+    .bookmark-card.no-image .bookmark-title {
+        font-size: var(--ds-font-size-base);
+    }
+    
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-info,
+    .bookmark-card.no-image .bookmark-info {
+        padding: var(--ds-space-3);
+    }
 }
 
 /* 明亮主题适配 */
@@ -351,6 +560,7 @@
 
     .bookmark-item a {
         color: #3b82f6;
+        z-index: 5 !important;
     }
 
     .bookmark-item a:hover {
@@ -445,6 +655,47 @@
     .bookmark-title {
         color: rgba(0, 0, 0, 0.8);
     }
+
+    /* 明亮主题下的书签操作区域 */
+    .bookmark-action {
+        background: linear-gradient(
+            180deg, 
+            rgba(255, 255, 255, 0.8) 0%, 
+            rgba(255, 255, 255, 0.4) 40%, 
+            rgba(255, 255, 255, 0.2) 70%, 
+            rgba(255, 255, 255, 0.7) 100%
+        );
+        z-index: 10 !important;
+    }
+
+    .bookmark-action .bookmark-tags span {
+        background: rgba(139, 92, 246, 0.9);
+        color: white;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .bookmark-action .bookmark-tags span:hover {
+        background: rgba(139, 92, 246, 1);
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .bookmark-setting {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: rgba(139, 92, 246, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 15 !important;
+        pointer-events: auto !important;
+    }
+
+    .bookmark-setting:hover {
+        background: rgba(139, 92, 246, 0.9);
+        border-color: rgba(139, 92, 246, 0.8);
+        color: white;
+        box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    }
+
+
 }
 
 /* 动画效果 */
@@ -585,4 +836,42 @@
 .bookmark.performance-mode .bookmark .category {
     transition: none !important;
     background: rgba(90, 90, 90, 0.8) !important;
+}
+
+.bookmark.performance-mode .bookmark-action {
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-action .bookmark-tags span {
+    backdrop-filter: none !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-setting {
+    backdrop-filter: none !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+.bookmark.performance-mode .bookmark-card.no-image {
+    background: var(--ds-gray-200) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+    .bookmark.performance-mode .bookmark-card.no-image {
+        background: var(--ds-gray-700) !important;
+    }
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon)))::before,
+.bookmark.performance-mode .bookmark-card.no-image::before {
+    display: none !important;
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action,
+.bookmark.performance-mode .bookmark-card.no-image + .bookmark-action {
+    background: rgba(0, 0, 0, 0.7) !important;
 }
