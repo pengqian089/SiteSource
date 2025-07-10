@@ -1,0 +1,30 @@
+﻿@model List<Dpz.Core.Public.ViewModel.Steam.VmAchievementDetail>
+
+@if (Model is null || !Model.Any())
+{
+    <div style="width:100%;margin: 0 auto">
+        暂未支持Steam成就
+    </div>
+}
+else
+{
+    var unlockCount = Model.Count(x => x.UnlockTime.HasValue) + 0m;
+    var count = Model.Count;
+    <div class="achievement-summary">
+        <span>
+            成就进度&nbsp;
+            <span>@unlockCount / @count</span>
+        </span>
+        <div class="achievement-progress">
+            <div class="achievement-progress-bar" style="width: @((unlockCount / count * 100).ToString("F"))%"></div>
+        </div>
+    </div>
+    <div class="achievement-icons">
+        @foreach (var item in Model.Where(x => x.UnlockTime.HasValue).OrderByDescending(x => x.UnlockTime).Take(5))
+        {
+            <div class="achievement-icon-item" title="@item.DisplayName">
+                <img alt="@item.DisplayName" src="@item.Icon"/>
+            </div>
+        }
+    </div>
+}

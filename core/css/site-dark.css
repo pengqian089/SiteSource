@@ -381,48 +381,6 @@
         background: rgba(36, 37, 37);
     }
 
-    .cd-timeline-content {
-        background-image: initial;
-        background-color: rgba(36, 37, 37, 0.5);
-        box-shadow: rgb(51 53 53 / 50%) 0px 3px 0px;
-    }
-
-    .cd-timeline-content::before {
-        border-color: transparent rgb(58, 61, 61) transparent transparent;
-    }
-
-    @media only screen and (min-width: 1170px) {
-        .cd-timeline-content::before {
-            border-color: transparent transparent transparent rgb(58, 61, 61);
-        }
-
-        .cd-timeline-block:nth-child(2n) .cd-timeline-content::before {
-            border-color: transparent rgb(58, 61, 61) transparent transparent;
-        }
-    }
-
-    .cd-timeline-content h2 {
-        color: rgb(193, 186, 174);
-    }
-
-    #cd-timeline::before {
-        background-image: initial;
-        background-color: rgb(51, 53, 53);
-    }
-
-    .cd-timeline-img {
-        box-shadow: rgb(36 37 37) 0px 0px 0px 4px, rgb(13 13 13 / 8%) 0px 2px 0px inset, rgb(13 13 13 / 5%) 0px 3px 0px 4px;
-    }
-
-    .cd-timeline-content .content a {
-        color: #cf1a75;
-    }
-
-    .cd-timeline-content .content a:hover {
-        color: #d6207b;
-        text-decoration: underline;
-    }
-
     .fly-panel {
         background-color: rgb(36, 37, 37);
         box-shadow: rgb(13 13 13 / 5%) 0px 1px 2px 0px;

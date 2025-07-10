@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS分块引用示例</title>
+    
+    <!-- 引用所有CSS分块文件 -->
+    <link rel="stylesheet" href="./core/css/global.min.1.css">
+    <link rel="stylesheet" href="./core/css/global.min.2.css">
+    <link rel="stylesheet" href="./core/css/global.min.3.css">
+    <!-- 如果有更多分块，继续添加 -->
+    
+    <!-- 或者使用动态加载的方式 -->
+    <script>
+        // 动态加载CSS分块（可选方案）
+        const cssChunks = ['global.min.1.css', 'global.min.2.css', 'global.min.3.css'];
+        cssChunks.forEach(chunk => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `./core/css/${chunk}`;
+            document.head.appendChild(link);
+        });
+    </script>
+</head>
+<body>
+    <h1>你的网站内容</h1>
+</body>
+</html> 

@@ -165,6 +165,12 @@
     --ds-text-muted: rgba(0, 0, 0, 0.5);
     --ds-text-on-primary: #ffffff;
     
+    /* 时间轴专用按钮颜色 - 高对比度设计 */
+    --ds-timeline-btn-text: #ffffff;
+    --ds-timeline-btn-text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(0, 0, 0, 0.9);
+    --ds-timeline-btn-bg: linear-gradient(135deg, #4c1d95 0%, #5b21b6 50%, #6d28d9 100%);
+    --ds-timeline-btn-bg-hover: linear-gradient(135deg, #3730a3 0%, #4c1d95 50%, #5b21b6 100%);
+    
     --ds-shadow-color: rgba(0, 0, 0, 0.1);
     --ds-shadow-color-strong: rgba(0, 0, 0, 0.25);
 
@@ -216,6 +222,12 @@
         --ds-text-secondary: rgba(255, 255, 255, 0.75);
         --ds-text-muted: rgba(255, 255, 255, 0.5);
         --ds-text-on-primary: #ffffff;
+        
+        /* 暗色主题时间轴专用按钮颜色 - 高对比度设计 */
+        --ds-timeline-btn-text: #ffffff;
+        --ds-timeline-btn-text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 1);
+        --ds-timeline-btn-bg: linear-gradient(135deg, #581c87 0%, #6d28d9 50%, #7c3aed 100%);
+        --ds-timeline-btn-bg-hover: linear-gradient(135deg, #4c1d95 0%, #581c87 50%, #6d28d9 100%);
         
         /* 阴影色 */
         --ds-shadow-color: rgba(0, 0, 0, 0.3);

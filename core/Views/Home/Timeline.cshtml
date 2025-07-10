@@ -1,0 +1,65 @@
+﻿@using Markdig
+@using Microsoft.Extensions.Configuration
+@model List<VmTimeline>
+@inject IConfiguration Configuration
+<div class="blog-container">
+    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+        <a href="/" title="网站首页" data-pjax>网站首页</a>
+        <a><cite></cite>时间轴</a>
+    </blockquote>
+    <div class="blog-main">
+        <div class="layui-container">
+            <div class="layui-row layui-col-space10 timeline-v2-container">
+                <section id="cd-timeline" class="cd-container timeline-v2-timeline">
+                    @foreach (var item in Model)
+                    {
+                        <div class="cd-timeline-block timeline-v2-block">
+                            <div class="cd-timeline-img cd-picture timeline-v2-img">
+                                <img src="@(Configuration["CDNBaseAddress"])/images/cd-icon-location.svg"
+                                     alt="Location">
+                            </div>
+                            <div class="cd-timeline-content timeline-v2-content">
+                                <div class="timeline-bg-decoration"></div>
+                                <h2 class="timeline-v2-title">@item.Title</h2>
+                                @if (!string.IsNullOrEmpty(item.Content))
+                                {
+                                    <div class="content timeline-v2-text">@Html.Raw(Markdown.ToHtml(item.Content))</div>
+                                }
+                                <div class="timeline-actions timeline-v2-actions">
+                                    @if (!string.IsNullOrEmpty(item.More))
+                                    {
+                                        <a href="@item.More" target="_blank" class="cd-read-more timeline-v2-btn">阅读更多</a>
+                                    }
+                                    <span class="cd-date timeline-v2-date">@item.Date.ToString("yyyy-MM-dd")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        let $timeline_block = $('.timeline-v2-block');
+        $timeline_block.each(function () {
+            if ($(this).offset().top > $(window).scrollTop() + $(window).height() *
+                0.75) {
+                $(this).find('.timeline-v2-img, .timeline-v2-content').addClass(
+                    'is-hidden');
+            }
+        });
+        //时光轴根据滚动条动画展示
+        $(window).on('scroll', function () {
+            $timeline_block.each(function () {
+                if ($(this).offset().top <= $(window).scrollTop() + $(window)
+                    .height() * 0.75 && $(this).find('.timeline-v2-img')
+                    .hasClass('is-hidden')) {
+                    $(this).find('.timeline-v2-img, .timeline-v2-content')
+                        .removeClass('is-hidden').addClass('bounce-in');
+                }
+            });
+        });
+    });
+</script>

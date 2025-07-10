@@ -40,6 +40,6 @@ $inputParameters = [System.String]::Join(" ",$cssPaths)
 
 #cleancss -o ./core/css/global.min.css $inputParameters --with-rebase
 
-$execute = "cleancss -o ./core/css/global.min.css $inputParameters --with-rebase --debug"
+$execute = "cleancss -o ./core/css/global.min.css $inputParameters --with-rebase --source-map --debug"
 
 Invoke-Expression $execute
