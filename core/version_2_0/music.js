@@ -232,5 +232,5 @@ function musicInit() {
             }
         ]
     });
-    document.getElementById('large-visualization').style.height = document.getElementById('album-art').offsetWidth + 'px';
+    // 移除动态设置可视化画板高度的代码，让CSS的aspect-ratio自然处理高度匹配
 }

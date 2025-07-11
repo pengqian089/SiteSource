@@ -135,6 +135,8 @@ code {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    line-height: 1.8;
+    word-spacing: 0.1em;
 }
 
 /* 面包屑装饰性渐变条 */
@@ -168,6 +170,8 @@ code {
     border-radius: 8px;
     transition: all 0.3s ease;
     background: transparent;
+    margin: 0.1rem 0;
+    display: inline-block;
 }
 
 .layui-elem-quote.sitemap a:hover {
@@ -184,6 +188,9 @@ code {
     padding: 0.3rem 0.8rem;
     border-radius: 8px;
     border: 1px solid rgba(139, 92, 246, 0.25);
+    line-height: 1.5;
+    margin: 0.2rem 0;
+    display: inline-block;
 }
 
 /*面包屑导航END*/
@@ -1596,6 +1603,53 @@ body .warning .layui-layer-title {
 @media screen and (max-width:640px) {
     body {
         background: #fff
+    }
+    
+    /* 面包屑移动端优化 */
+    .layui-elem-quote.sitemap {
+        padding: 0.8rem 1rem;
+        margin: 0.8rem auto 1rem;
+        border-radius: 12px;
+    }
+    
+    .layui-elem-quote.sitemap a {
+        padding: 0.2rem 0.4rem;
+        margin: 0.1rem;
+        font-size: 12px;
+    }
+    
+    .layui-elem-quote.sitemap cite {
+        padding: 0.25rem 0.6rem;
+        margin: 0.15rem 0;
+        font-size: 12px;
+        line-height: 1.6;
+        word-break: break-word;
+        hyphens: auto;
+    }
+}
+
+/* 超小屏幕优化 */
+@media screen and (max-width: 480px) {
+    .layui-elem-quote.sitemap {
+        padding: 0.6rem 0.8rem;
+        margin: 0.6rem auto 0.8rem;
+        border-radius: 10px;
+    }
+    
+    .layui-elem-quote.sitemap a {
+        padding: 0.15rem 0.3rem;
+        margin: 0.05rem;
+        font-size: 11px;
+    }
+    
+    .layui-elem-quote.sitemap cite {
+        padding: 0.2rem 0.5rem;
+        margin: 0.1rem 0;
+        font-size: 11px;
+        line-height: 1.7;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 }
 

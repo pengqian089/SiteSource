@@ -7,6 +7,12 @@ $path = $location.Path
     "./core/css/site.css",
     "./core/css/site-dark.css",
     "./core/css/nprogress.min.css",
+    "./core/css/version_2_0/pager_version_2_0.css",
+    "./core/css/version_2_0/home_version_2_0.css",
+    "./core/css/version_2_0/right_version_2_0.css",
+    "./core/css/version_2_0/article_list_version_2_0.css",
+    "./core/css/version_2_0/article_read_version_2_0.css",
+    "./core/css/version_2_0/timeline_version_2_0.css",
     "./core/font-awesome/css/font-awesome.css",
     "./library/prism/prism.css",
     "./core/lib/tocbot/tocbot_version_2_0.css",
@@ -14,14 +20,18 @@ $path = $location.Path
     "./core/lib/photoswipe/photoswipe.css",
     "./core/lib/photoswipe/default-skin/default-skin.css",
     "./fonts/chinese-font.css",
-    "./core/css/friends.css",
-    "./core/css/comment.css",
+    "./core/css/version_2_0/friends_version_2_0.css",
+    "./core/css/version_2_0/comment_version_2_0.css",
     "./core/css/version_2_0/steam_version_2_0.css",
     "./core/css/version_2_0/mumble_version_2_0.css",
+    "./core/css/version_2_0/home_version_2_0.css",
+    "./core/css/version_2_0/home_version_2_0.css",
+    "./core/css/version_2_0/home_version_2_0.css",
     "./core/css/markdown.css",
     "./core/css/version_2_0/bookmark_version_2_0.css",
     "./core/css/video.css",
-    "./core/css/music.css"
+    "./core/css/version_2_0/music_version_2_0.css",
+    "./core/css/version_2_0/notification_version_2_0.css"
 
 foreach($item in $cssPaths){
     #$newCssPath = $item.Replace("./", "").Replace("/", "\");
@@ -40,6 +50,6 @@ $inputParameters = [System.String]::Join(" ",$cssPaths)
 
 #cleancss -o ./core/css/global.min.css $inputParameters --with-rebase
 
-$execute = "cleancss -o ./core/css/global.min.css $inputParameters --with-rebase --source-map --debug"
+$execute = "cleancss -o ./core/css/global.min.css $inputParameters --with-rebase --debug"
 
 Invoke-Expression $execute

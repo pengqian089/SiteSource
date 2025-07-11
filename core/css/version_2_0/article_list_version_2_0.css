@@ -567,30 +567,31 @@
     left: 0 !important;
     right: 0 !important;
     padding: 1rem 1.5rem 1.2rem !important; /* 增加内间距，使用!important覆盖原始样式 */
-    border-top: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border-top: 1px solid rgba(139, 92, 246, 0.2) !important;
     font-size: 0.85rem !important;
-    color: rgba(255, 255, 255, 0.65) !important;
-    background: linear-gradient(135deg, rgba(30, 31, 31, 0.98) 0%, rgba(44, 45, 46, 0.95) 100%) !important; /* 稍微深一点的背景 */
+    color: rgba(71, 85, 105, 0.8) !important;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%) !important; /* 浅色背景 */
     border-radius: 0 0 16px 16px !important; /* 匹配卡片圆角 */
     margin-top: 0 !important; /* 重置原始的margin-top */
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
 }
 
 .article > .article-footer > span {
     margin-right: 1rem !important;
     display: inline-flex !important;
     align-items: center !important;
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: rgba(71, 85, 105, 0.8) !important;
     font-weight: 500 !important;
     transition: color 0.3s ease !important;
     padding-right: 0 !important; /* 重置原始的padding-right: 3% */
 }
 
 .article > .article-footer > span:hover {
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: rgba(71, 85, 105, 0.95) !important;
 }
 
 .article > .article-footer i {
-    color: #c084fc !important;
+    color: var(--ds-primary-600) !important;
     font-size: 1rem !important;
     margin-right: 0.4rem !important;
     min-width: 16px !important;
@@ -599,7 +600,7 @@
 
 /* 文章作者样式 - 普通文本 */
 .article > .article-footer .article-author {
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: rgba(71, 85, 105, 0.85) !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
     display: inline-block !important; /* 确保显示 */
@@ -609,31 +610,33 @@
 
 /* 分类链接样式 */
 .article > .article-footer a {
-    color: #c084fc !important;
+    color: var(--ds-primary-600) !important;
     text-decoration: none !important;
     font-weight: 600 !important;
     transition: all 0.3s ease !important;
     padding: 0.2rem 0.5rem !important;
     border-radius: 6px !important;
-    background: rgba(139, 92, 246, 0.15) !important;
+    background: rgba(139, 92, 246, 0.1) !important;
     margin-right: 0.5rem !important;
     font-size: 0.85rem !important;
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
 }
 
 .article > .article-footer a:hover {
-    color: #a855f7 !important;
-    background: rgba(139, 92, 246, 0.25) !important;
+    color: var(--ds-primary-700) !important;
+    background: rgba(139, 92, 246, 0.15) !important;
+    border-color: rgba(139, 92, 246, 0.3) !important;
     transform: translateY(-1px) !important;
 }
 
 .article > .article-footer .timeago {
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: rgba(71, 85, 105, 0.7) !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
 }
 
 .article > .article-footer .article-view {
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: rgba(71, 85, 105, 0.7) !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
 }
@@ -647,21 +650,21 @@
 }
 
 .article > .article-footer .article-category-tag {
-    color: #c084fc !important;
+    color: var(--ds-primary-600) !important;
     text-decoration: none !important;
     font-weight: 600 !important;
     transition: all 0.3s ease !important;
     padding: 0.15rem 0.4rem !important;
     border-radius: 4px !important;
-    background: rgba(139, 92, 246, 0.15) !important;
+    background: rgba(139, 92, 246, 0.1) !important;
     font-size: 0.8rem !important;
-    border: 1px solid rgba(139, 92, 246, 0.25) !important;
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
 }
 
 .article > .article-footer .article-category-tag:hover {
-    color: #a855f7 !important;
-    background: rgba(139, 92, 246, 0.25) !important;
-    border-color: rgba(139, 92, 246, 0.4) !important;
+    color: var(--ds-primary-700) !important;
+    background: rgba(139, 92, 246, 0.15) !important;
+    border-color: rgba(139, 92, 246, 0.3) !important;
     transform: translateY(-1px) !important;
     text-decoration: none !important;
 }
@@ -1292,7 +1295,9 @@
 
     .article > .article-footer {
         color: rgba(255, 255, 255, 0.6) !important;
-        border-top: 1px solid rgba(139, 92, 246, 0.2) !important;
+        border-top: 1px solid rgba(139, 92, 246, 0.3) !important;
+        background: linear-gradient(135deg, rgba(30, 31, 31, 0.98) 0%, rgba(44, 45, 46, 0.95) 100%) !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
     }
     
     /* 暗色主题下的移动端布局优化 */
@@ -1347,8 +1352,12 @@
         }
     }
 
+    .article > .article-footer > span {
+        color: rgba(255, 255, 255, 0.65) !important;
+    }
+
     .article > .article-footer > span:hover {
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(255, 255, 255, 0.85) !important;
     }
 
     .article > .article-footer i {
@@ -1358,11 +1367,13 @@
     .article > .article-footer a {
         color: #c084fc !important;
         background: rgba(139, 92, 246, 0.15) !important;
+        border: 1px solid rgba(139, 92, 246, 0.25) !important;
     }
 
     .article > .article-footer a:hover {
         color: #a855f7 !important;
-        background: rgba(139, 92, 246, 0.2) !important;
+        background: rgba(139, 92, 246, 0.25) !important;
+        border-color: rgba(139, 92, 246, 0.4) !important;
     }
 
     .article > .article-footer .timeago {

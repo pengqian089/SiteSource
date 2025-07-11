@@ -74,8 +74,9 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%; /* 改为具体高度，避免aspect-ratio导致过大 */
+    aspect-ratio: 1 / 1; /* 与封面保持相同的正方形比例 */
     max-height: 320px; /* 与封面最大高度匹配 */
+    min-height: 200px; /* 与封面最小高度匹配 */
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: var(--ds-backdrop-blur-md);
     border-radius: var(--ds-radius-2xl) 0 0 0;
@@ -95,8 +96,9 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%; /* 改为具体高度，避免aspect-ratio导致过大 */
+    aspect-ratio: 1 / 1; /* 与封面保持相同的正方形比例 */
     max-height: 320px; /* 与封面最大高度匹配 */
+    min-height: 200px; /* 与封面最小高度匹配 */
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.9) 0%, 
         rgba(30, 30, 30, 0.85) 100%);
@@ -186,6 +188,7 @@ input[type=range].amplitude-song-slider {
     z-index: 10;
     cursor: pointer;
     outline: none;
+    align-self: center;
 }
 
 input[type=range].amplitude-song-slider::-webkit-slider-track {
@@ -204,7 +207,7 @@ input[type=range].amplitude-song-slider::-webkit-slider-thumb {
     background: linear-gradient(135deg, var(--ds-primary-600), var(--ds-primary-500));
     border-radius: 50%;
     cursor: pointer;
-    margin-top: -7px;
+    margin-top: -3px; /* 轻微向下调整圆点位置 */
     box-shadow: var(--ds-shadow-md);
     transition: all var(--ds-duration-200) var(--ds-easing-out);
 }
@@ -232,6 +235,7 @@ input[type=range].amplitude-song-slider::-moz-range-thumb {
     cursor: pointer;
     border: none;
     box-shadow: var(--ds-shadow-md);
+    margin-top: -3px; /* Firefox 轻微向下调整 */
 }
 
 /* 进度条背景 */
@@ -957,11 +961,13 @@ input[type=range].amplitude-volume-slider::-webkit-slider-thumb:hover {
     
     #amplitude-left img.album-art {
         max-height: 250px; /* 在平板上限制封面高度 */
+        min-height: 250px; /* 确保封面最小高度 */
         border-radius: var(--ds-radius-2xl) var(--ds-radius-2xl) 0 0;
     }
     
     .amplitude-visualization, #large-visualization {
         max-height: 250px; /* 与封面高度匹配 */
+        min-height: 250px; /* 与封面最小高度匹配 */
         border-radius: var(--ds-radius-2xl) var(--ds-radius-2xl) 0 0;
     }
     
@@ -1004,10 +1010,12 @@ input[type=range].amplitude-volume-slider::-webkit-slider-thumb:hover {
     
     #amplitude-left img.album-art {
         max-height: 200px; /* 手机上进一步减少封面高度 */
+        min-height: 200px; /* 确保封面最小高度 */
     }
     
     .amplitude-visualization, #large-visualization {
         max-height: 200px; /* 与封面高度匹配 */
+        min-height: 200px; /* 与封面最小高度匹配 */
     }
     
     #player-left-bottom {
@@ -1076,11 +1084,13 @@ input[type=range].amplitude-volume-slider::-webkit-slider-thumb:hover {
     
     #amplitude-left img.album-art {
         max-height: 160px; /* 小屏手机上最小封面高度 */
+        min-height: 160px; /* 确保封面最小高度 */
         border-radius: var(--ds-radius-xl) var(--ds-radius-xl) 0 0;
     }
     
     .amplitude-visualization, #large-visualization {
         max-height: 160px; /* 与封面高度匹配 */
+        min-height: 160px; /* 与封面最小高度匹配 */
         border-radius: var(--ds-radius-xl) var(--ds-radius-xl) 0 0;
     }
     
@@ -1096,6 +1106,7 @@ input[type=range].amplitude-volume-slider::-webkit-slider-thumb:hover {
     input[type=range].amplitude-song-slider::-webkit-slider-thumb {
         width: 16px;
         height: 16px;
+        margin-top: -2px; /* 小屏幕轻微向下调整 */
     }
     
     #previous, #next {

@@ -1,0 +1,76 @@
+﻿@using Microsoft.Extensions.Configuration
+@model IEnumerable<VmArticleMini>
+@inject IConfiguration _configuration
+@{
+    //var htmlParse = new HtmlParser();
+}
+@foreach (var item in Model)
+{
+    <article class="article shadow layui-anim layui-anim-upbit">
+        @if (!string.IsNullOrEmpty(item.MainImage))
+        {
+            <div class="article-content">
+                <div class="article-left">
+                    <img data-src="@item.MainImage" class="lazy" alt="@item.Title"
+                         src="@(_configuration["CDNBaseAddress"])/loaders/puff.svg"/>
+                </div>
+
+                <div class="article-right">
+                    <h2 class="article-title">
+                        <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax>@item.Title</a>
+                    </h2>
+                    <div class="article-abstract">
+                        @Html.Raw(item.Introduction)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="article-content">
+                <div class="article-left"></div>
+                <div class="article-right" style="width:100%">
+                    <h2 class="article-title">
+                        <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax>@item.Title</a>
+                    </h2>
+                    <div class="article-abstract">
+                        @Html.Raw(item.Introduction)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="article-footer">
+            <span>
+                <i class="layui-icon layui-icon-time"></i>
+                <time class="timeago" datetime="@item.CreateTime">@item.CreateTime</time>
+            </span>
+            <span>
+                <i class="layui-icon layui-icon-user"></i>
+                <span class="article-author">
+                     @item.Author.Name
+                </span>
+            </span>
+            <span>
+                <i class="layui-icon layui-icon-note"></i>
+                <div class="article-categories">
+                    @foreach (var tag in item.Tags)
+                    {
+                        <a class="article-category-tag"
+                           asp-action="Index"
+                           asp-controller="Article"
+                           asp-route-tag="@tag"
+                           data-pjax>
+                            @tag
+                        </a>
+                    }
+                </div>
+            </span>
+            <span>
+                <i class="layui-icon layui-icon-eye"></i>
+                <span class="article-view">
+                    @item.CommentCount
+                </span>
+            </span>
+        </div>
+    </article>
+}

@@ -709,17 +709,43 @@
     }
     
     .comment-form-footer {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
         gap: var(--ds-space-3);
-        align-items: stretch;
+        padding: var(--ds-space-3) var(--ds-space-4);
     }
     
     .form-footer-action {
-        justify-content: center;
+        justify-content: flex-start;
+        flex-shrink: 0;
+        order: 1;
     }
     
     .form-footer-btn {
-        justify-content: center;
+        justify-content: flex-end;
+        flex-shrink: 0;
+        order: 2;
+    }
+    
+    /* 当空间不足时，让按钮组换行 */
+    @media screen and (max-width: 600px) {
+        .comment-form-footer {
+            flex-direction: column;
+            gap: var(--ds-space-3);
+            align-items: stretch;
+        }
+        
+        .form-footer-action {
+            justify-content: center;
+            order: 1;
+        }
+        
+        .form-footer-btn {
+            justify-content: center;
+            order: 2;
+        }
     }
     
     .comment-count {
@@ -731,21 +757,116 @@
         font-size: var(--ds-font-size-lg);
     }
     
+    /* 主评论项在移动端保持横向布局 */
     .comments-area .comment-item {
         padding: var(--ds-space-4);
-        flex-direction: column;
+        flex-direction: row;
         gap: var(--ds-space-3);
+        align-items: flex-start;
     }
     
     .comment-item .avatar {
-        margin-right: 0;
-        align-self: center;
+        margin-right: var(--ds-space-3);
+        flex-shrink: 0;
     }
     
+    .comment-item .detail {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    /* 移动端头像尺寸调整 */
+    .avatar img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* 移动端评论头部优化 */
+    .comment-item .detail .comment-head {
+        flex-wrap: wrap;
+        gap: var(--ds-space-2);
+        margin-bottom: var(--ds-space-2);
+    }
+    
+    .comment-head .head-nickname {
+        font-size: var(--ds-font-size-sm);
+        font-weight: var(--ds-font-weight-semibold);
+    }
+    
+    .comment-head .timeago {
+        font-size: var(--ds-font-size-xs);
+        color: var(--ds-text-muted);
+    }
+    
+    .comment-head .btn-reply {
+        padding: var(--ds-space-1) var(--ds-space-2);
+        font-size: var(--ds-font-size-xs);
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+    
+    .comment-head .btn-reply svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* 移动端回复区域优化 */
     .comment-item .detail .replies {
-        margin-left: 0;
+        margin-left: var(--ds-space-2);
         padding-left: var(--ds-space-3);
         border-left-width: 2px;
+        margin-top: var(--ds-space-3);
+    }
+    
+    /* 回复项中的头像和信息排列优化 */
+    .comment-item .detail .replies .comment-item {
+        padding: var(--ds-space-3);
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--ds-space-2);
+    }
+    
+    .comment-item .detail .replies .comment-item .avatar {
+        margin-right: var(--ds-space-2);
+    }
+    
+    .comment-item .detail .replies .comment-item .avatar img {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head {
+        gap: var(--ds-space-1);
+        margin-bottom: var(--ds-space-2);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .head-nickname {
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .timeago {
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .btn-reply {
+        font-size: var(--ds-font-size-xs);
+        padding: 2px var(--ds-space-1);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .btn-reply svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    /* 移动端评论内容优化 */
+    .comment-item .detail .comment-content {
+        font-size: var(--ds-font-size-sm);
+        line-height: var(--ds-line-height-normal);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-content {
+        font-size: var(--ds-font-size-xs);
+        line-height: var(--ds-line-height-normal);
     }
 }
 
@@ -778,21 +899,44 @@
     
     .comment-form-footer {
         padding: var(--ds-space-2) var(--ds-space-3);
+        gap: var(--ds-space-2);
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-footer-action {
+        justify-content: center;
+        gap: var(--ds-space-2);
+        order: 1;
+    }
+    
+    .form-footer-btn {
+        justify-content: center;
+        order: 2;
     }
     
     .footer-action-item {
         width: 32px;
         height: 32px;
+        flex-shrink: 0;
     }
     
     .footer-action-item svg {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
     
     .form-footer-btn .ds-button {
         padding: var(--ds-space-2) var(--ds-space-4);
         font-size: var(--ds-font-size-xs);
+        min-height: 36px;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .form-footer-btn .ds-button svg {
+        width: 14px;
+        height: 14px;
     }
     
     .comment-count {
@@ -809,21 +953,99 @@
         height: 28px;
     }
     
+    /* 超小屏幕评论项优化 */
     .comments-area .comment-item {
         padding: var(--ds-space-3);
+        gap: var(--ds-space-2);
+    }
+    
+    .comment-item .avatar {
+        margin-right: var(--ds-space-2);
     }
     
     .avatar img {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* 超小屏幕评论头部优化 */
+    .comment-item .detail .comment-head {
+        gap: var(--ds-space-1);
+        margin-bottom: var(--ds-space-2);
     }
     
     .comment-head .head-nickname {
-        font-size: var(--ds-font-size-sm);
+        font-size: var(--ds-font-size-xs);
+        font-weight: var(--ds-font-weight-semibold);
     }
     
+    .comment-head .timeago {
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-head .btn-reply {
+        padding: 2px var(--ds-space-1);
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-head .btn-reply svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    /* 超小屏幕回复区域优化 */
+    .comment-item .detail .replies {
+        margin-left: var(--ds-space-1);
+        padding-left: var(--ds-space-2);
+        margin-top: var(--ds-space-2);
+    }
+    
+    .comment-item .detail .replies .comment-item {
+        padding: var(--ds-space-2);
+        gap: var(--ds-space-1);
+    }
+    
+    .comment-item .detail .replies .comment-item .avatar {
+        margin-right: var(--ds-space-1);
+    }
+    
+    .comment-item .detail .replies .comment-item .avatar img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head {
+        gap: 2px;
+        margin-bottom: var(--ds-space-1);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .head-nickname {
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .timeago {
+        font-size: var(--ds-font-size-xs);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .btn-reply {
+        font-size: var(--ds-font-size-xs);
+        padding: 1px 4px;
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-head .btn-reply svg {
+        width: 10px;
+        height: 10px;
+    }
+    
+    /* 超小屏幕评论内容优化 */
     .comment-item .detail .comment-content {
-        font-size: var(--ds-font-size-sm);
+        font-size: var(--ds-font-size-xs);
+        line-height: var(--ds-line-height-normal);
+    }
+    
+    .comment-item .detail .replies .comment-item .detail .comment-content {
+        font-size: var(--ds-font-size-xs);
+        line-height: var(--ds-line-height-tight);
     }
 }
 
