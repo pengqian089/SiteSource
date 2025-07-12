@@ -20,6 +20,25 @@
     let modalPrevBtn = null;
     let modalNextBtn = null;
     
+    // 事件监听器引用
+    let eventListeners = {
+        click: null,
+        load: null,
+        error: null,
+        resize: null,
+        scroll: null
+    };
+    
+    // 相册数据
+    let albumsData = {
+        currentPage: 1,
+        pageSize: 20,
+        totalPages: 1,
+        totalCount: 0,
+        hasNextPage: false,
+        pictures: []
+    };
+    
     // 图片缩放和拖拽相关变量
     let currentScale = 1;
     let currentTranslateX = 0;
@@ -62,8 +81,8 @@
             }
 
             // 检查必要的数据
-            if (!window.albumsData) {
-                console.error('Albums data not found');
+            if (!albumsData || !albumsData.pictures) {
+                console.error('Albums data not properly initialized');
                 return;
             }
 
@@ -106,16 +125,6 @@
         modalNextBtn = document.getElementById('albumsModalNext');
         imageContainer = document.querySelector('.albums-modal-image-container-v2');
         
-        // 收集所有图片信息，并统一数据结构
-        allImages = (window.albumsData.pictures || []).map(picture => ({
-            id: picture.id,
-            url: picture.url,
-            description: picture.description,
-            width: picture.width,
-            height: picture.height
-        }));
-        hasMorePages = window.albumsData.hasNextPage;
-        
         // 验证必要元素
         if (!masonryContainer) {
             throw new Error('Masonry container not found');
@@ -126,12 +135,54 @@
         if (!imageContainer) {
             throw new Error('Image container not found');
         }
+        
+        // 初始化数据
+        initializeData();
+    }
+
+    // 初始化数据
+    function initializeData() {
+        // 从DOM元素读取初始化数据
+        const containerElement = document.querySelector('.albums-container-v2');
+        const albumsPicturesElement = document.querySelector('#albums-pictures-data');
+        if (!containerElement || !albumsPicturesElement) {
+            console.error('Albums container not found');
+            return;
+        }
+        
+        // 读取数据属性
+        albumsData.currentPage = parseInt(containerElement.dataset.currentPage) || 1;
+        albumsData.pageSize = parseInt(containerElement.dataset.pageSize) || 20;
+        albumsData.totalPages = parseInt(containerElement.dataset.totalPages) || 1;
+        albumsData.totalCount = parseInt(containerElement.dataset.totalCount) || 0;
+        albumsData.hasNextPage = containerElement.dataset.hasNextPage === 'true';
+        
+        // 解析图片数据
+        try {
+            albumsData.pictures = JSON.parse(albumsPicturesElement.value || '[]');
+        } catch (error) {
+            console.error('Failed to parse pictures data:', error);
+            albumsData.pictures = [];
+        }
+        
+        // 收集所有图片信息，并统一数据结构
+        allImages = (albumsData.pictures || []).map(picture => ({
+            id: picture.id,
+            url: picture.url,
+            description: picture.description,
+            width: picture.width,
+            height: picture.height
+                }));
+        hasMorePages = albumsData.hasNextPage;
     }
 
     // 初始化原生JavaScript事件
     function initializeEventDelegation() {
+        // 清理之前的事件监听器
+        removeEventListeners();
+        
         // 使用原生事件委托处理图片卡片按钮
-        document.addEventListener('click', function(e) {
+        eventListeners.click = function(e) {
             const target = e.target.closest('.albums-view-btn, .albums-download-btn, .albums-share-btn');
             if (!target) return;
 
@@ -151,21 +202,48 @@
                 const description = target.getAttribute('data-description');
                 sharePicture(url, description);
             }
-        });
+        };
+        document.addEventListener('click', eventListeners.click);
 
         // 图片加载事件
-        document.addEventListener('load', function(e) {
+        eventListeners.load = function(e) {
             if (e.target.classList.contains('albums-picture-image-v2')) {
                 albumsImageLoaded(e.target);
             }
-        }, true);
+        };
+        document.addEventListener('load', eventListeners.load, true);
 
         // 图片错误事件
-        document.addEventListener('error', function(e) {
+        eventListeners.error = function(e) {
             if (e.target.classList.contains('albums-picture-image-v2')) {
                 albumsImageError(e.target);
             }
-        }, true);
+        };
+        document.addEventListener('error', eventListeners.error, true);
+    }
+
+    // 移除事件监听器
+    function removeEventListeners() {
+        if (eventListeners.click) {
+            document.removeEventListener('click', eventListeners.click);
+            eventListeners.click = null;
+        }
+        if (eventListeners.load) {
+            document.removeEventListener('load', eventListeners.load, true);
+            eventListeners.load = null;
+        }
+        if (eventListeners.error) {
+            document.removeEventListener('error', eventListeners.error, true);
+            eventListeners.error = null;
+        }
+        if (eventListeners.resize) {
+            window.removeEventListener('resize', eventListeners.resize);
+            eventListeners.resize = null;
+        }
+        if (eventListeners.scroll) {
+            window.removeEventListener('scroll', eventListeners.scroll);
+            eventListeners.scroll = null;
+        }
     }
 
     // 初始化瀑布流
@@ -178,14 +256,15 @@
         
         // 监听窗口大小变化，重新调整布局
         let resizeTimeout = null;
-        window.addEventListener('resize', () => {
+        eventListeners.resize = () => {
             if (resizeTimeout) {
                 clearTimeout(resizeTimeout);
             }
             resizeTimeout = setTimeout(() => {
                 adjustMasonryLayout();
             }, 300);
-        });
+        };
+        window.addEventListener('resize', eventListeners.resize);
     }
 
     // 调整瀑布流布局
@@ -204,13 +283,27 @@
     function initializeScrollListener() {
         // 使用 Intersection Observer 监听加载更多
         if ('IntersectionObserver' in window) {
+            // 创建 sentinel 元素并放在瀑布流容器的末尾
             const sentinel = document.createElement('div');
+            sentinel.id = 'albums-sentinel';
             sentinel.style.height = '1px';
-            sentinel.style.position = 'absolute';
-            sentinel.style.bottom = `${config.loadThreshold}px`;
-            sentinel.style.left = '0';
             sentinel.style.width = '100%';
-            document.body.appendChild(sentinel);
+            sentinel.style.position = 'relative';
+            sentinel.style.clear = 'both';
+            sentinel.style.backgroundColor = 'transparent';
+            
+            // 将 sentinel 放在加载指示器之前
+            const loadingElement = document.getElementById('albumsLoading');
+            if (loadingElement && loadingElement.parentNode) {
+                loadingElement.parentNode.insertBefore(sentinel, loadingElement);
+            } else {
+                const container = document.querySelector('.albums-container-v2');
+                if (container) {
+                    container.appendChild(sentinel);
+                } else {
+                    document.body.appendChild(sentinel);
+                }
+            }
             
             observerInstance = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -220,22 +313,23 @@
                 });
             }, {
                 root: null,
-                rootMargin: '0px',
-                threshold: 0.1
+                rootMargin: `${config.loadThreshold}px`,
+                threshold: 0.01
             });
             
             observerInstance.observe(sentinel);
         } else {
             // 降级到传统滚动监听
             let scrollTimeout = null;
-            window.addEventListener('scroll', () => {
+            eventListeners.scroll = () => {
                 if (scrollTimeout) {
                     clearTimeout(scrollTimeout);
                 }
                 scrollTimeout = setTimeout(() => {
                     checkLoadMore();
                 }, 100);
-            });
+            };
+            window.addEventListener('scroll', eventListeners.scroll);
         }
     }
 
@@ -245,8 +339,38 @@
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         
-        if (scrollTop + windowHeight >= documentHeight - config.loadThreshold && hasMorePages && !isLoading) {
+        // 计算到底部的距离
+        const distanceToBottom = documentHeight - (scrollTop + windowHeight);
+        
+        if (distanceToBottom <= config.loadThreshold && hasMorePages && !isLoading) {
             loadMoreImages();
+        }
+    }
+
+    // 更新 sentinel 元素位置
+    function updateSentinelPosition() {
+        const sentinel = document.getElementById('albums-sentinel');
+        if (!sentinel) return;
+        
+        const loadingElement = document.getElementById('albumsLoading');
+        if (loadingElement && loadingElement.parentNode && sentinel.parentNode) {
+            // 确保 sentinel 在 loading 元素之前
+            if (sentinel.nextSibling !== loadingElement) {
+                loadingElement.parentNode.insertBefore(sentinel, loadingElement);
+            }
+        }
+    }
+
+    // 停止观察 sentinel 元素
+    function stopObservingSentinel() {
+        if (observerInstance) {
+            observerInstance.disconnect();
+            observerInstance = null;
+        }
+        
+        const sentinel = document.getElementById('albums-sentinel');
+        if (sentinel && sentinel.parentNode) {
+            sentinel.parentNode.removeChild(sentinel);
         }
     }
 
@@ -258,8 +382,8 @@
         showLoadingIndicator();
         
         try {
-            const nextPage = window.albumsData.currentPage + 1;
-            const response = await fetch(`/pages/albums?pageIndex=${nextPage}&pageSize=${window.albumsData.pageSize}`);
+            const nextPage = albumsData.currentPage + 1;
+            const response = await fetch(`/pages/albums?pageIndex=${nextPage}&pageSize=${albumsData.pageSize}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -268,8 +392,8 @@
             const data = await response.json();
             
                          // 更新页面数据
-             window.albumsData.currentPage = data.currentPageIndex;
-             window.albumsData.hasNextPage = data.totalPageCount > data.currentPageIndex;
+             albumsData.currentPage = data.currentPageIndex;
+             albumsData.hasNextPage = data.totalPageCount > data.currentPageIndex;
              hasMorePages = data.totalPageCount > data.currentPageIndex;
             
             // 更新统计信息
@@ -295,6 +419,11 @@
                 hideLoadingIndicator();
                 if (!hasMorePages) {
                     showNoMoreIndicator();
+                    // 停止观察 sentinel 元素
+                    stopObservingSentinel();
+                } else {
+                    // 确保 sentinel 元素仍然在正确的位置
+                    updateSentinelPosition();
                 }
             }, config.loadDelay);
             
@@ -1322,7 +1451,10 @@
                 return date.toLocaleDateString('zh-CN', {
                     year: 'numeric',
                     month: 'short',
-                    day: 'numeric'
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
                 });
             }
         } catch (error) {
@@ -1332,28 +1464,102 @@
 
     // 清理函数
     function cleanup() {
+        // 清理 Intersection Observer
         if (observerInstance) {
             observerInstance.disconnect();
+            observerInstance = null;
+        }
+        
+        // 清理 sentinel 元素
+        const sentinel = document.getElementById('albums-sentinel');
+        if (sentinel && sentinel.parentNode) {
+            sentinel.parentNode.removeChild(sentinel);
         }
         
         // 清理模态框事件监听器
         unbindModalEvents();
         
+        // 关闭模态框（如果打开）
+        if (modal && modal.style.display !== 'none') {
+            closeModal();
+        }
+        
         // 移除事件监听器
-        window.removeEventListener('resize', adjustMasonryLayout);
-        window.removeEventListener('scroll', checkLoadMore);
+        removeEventListeners();
+        
+        // 重置全局变量
+        isLoading = false;
+        hasMorePages = true;
+        currentImageIndex = 0;
+        allImages = [];
+        currentScale = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        isDragging = false;
+        
+        // 重置相册数据
+        albumsData = {
+            currentPage: 1,
+            pageSize: 20,
+            totalPages: 1,
+            totalCount: 0,
+            hasNextPage: false,
+            pictures: []
+        };
+        
+        // 重置 DOM 元素引用
+        loadingElement = null;
+        noMoreElement = null;
+        masonryContainer = null;
+        modal = null;
+        modalImage = null;
+        modalPrevBtn = null;
+        modalNextBtn = null;
+        imageContainer = null;
+        
+        // 恢复页面滚动
+        document.body.style.overflow = '';
     }
 
     // 页面卸载时清理
-    window.addEventListener('beforeunload', cleanup);
+    window.addEventListener('beforeunload', window.cleanupAlbums);
 
 
+
+    // 公开初始化函数以支持 pjax
+    window.initAlbums = function() {
+        // 检查是否是相册页面
+        if (!document.querySelector('.albums-container-v2')) {
+            return false;
+        }
+        
+        // 如果已经初始化过，先清理
+        if (observerInstance || modal) {
+            cleanup();
+        }
+        
+        try {
+            init();
+            return true;
+        } catch (error) {
+            console.error('Failed to initialize albums:', error);
+            return false;
+        }
+    };
+
+    // 公开清理函数以支持 pjax
+    window.cleanupAlbums = function() {
+        // 只有当相册已初始化时才进行清理
+        if (observerInstance || modal || masonryContainer) {
+            cleanup();
+        }
+    };
 
     // 页面加载完成后初始化
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', window.initAlbums);
     } else {
-        init();
+        window.initAlbums();
     }
 
 })();

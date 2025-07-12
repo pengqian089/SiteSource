@@ -31,7 +31,8 @@ $path = $location.Path
     "./core/css/version_2_0/bookmark_version_2_0.css",
     "./core/css/video.css",
     "./core/css/version_2_0/music_version_2_0.css",
-    "./core/css/version_2_0/notification_version_2_0.css"
+    "./core/css/version_2_0/notification_version_2_0.css",
+    "./core/css/version_2_0/albums_version_2_0.css"
 
 foreach($item in $cssPaths){
     #$newCssPath = $item.Replace("./", "").Replace("/", "\");

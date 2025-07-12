@@ -1,7 +1,24 @@
 ﻿@using System.Text.Json
 @model IPagedList<VmPictureRecord>
 
-<div class="albums-container-v2">
+@{
+    var initJson = JsonSerializer.Serialize(Model.Select(p => new
+    {
+        id = p.Id,
+        url = p.AccessUrl,
+        description = p.Description,
+        width = p.Width,
+        height = p.Height
+    }));
+}
+
+<div class="albums-container-v2"
+     data-current-page="@Model.CurrentPageIndex"
+     data-page-size="@Model.PageSize"
+     data-total-pages="@Model.TotalPageCount"
+     data-total-count="@Model.TotalItemCount"
+     data-has-next-page="@((Model.TotalPageCount > Model.CurrentPageIndex).ToString().ToLower())">
+    <textarea id="albums-pictures-data" style="display: none">@Html.Raw(initJson)</textarea>
     <div class="albums-header-v2">
         <div class="albums-title-v2">
             <h1 class="ds-text-heading">📸 相册</h1>
@@ -24,29 +41,31 @@
         {
             <div class="albums-picture-card-v2" data-id="@picture.Id">
                 <div class="albums-picture-wrapper-v2">
-                    <img 
-                        src="@picture.AccessUrl!albums" 
-                        alt="@picture.Description" 
+                    <img
+                        src="@picture.AccessUrl!albums"
+                        alt="@picture.Description"
                         class="albums-picture-image-v2"
                         data-width="@picture.Width"
                         data-height="@picture.Height"
-                        loading="lazy"
-                    />
+                        loading="lazy"/>
                     <div class="albums-picture-overlay-v2">
                         <div class="albums-picture-actions-v2">
-                            <button class="albums-action-btn-v2 albums-view-btn" data-id="@picture.Id" data-url="@picture.AccessUrl">
+                            <button class="albums-action-btn-v2 albums-view-btn" data-id="@picture.Id"
+                                    data-url="@picture.AccessUrl">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button class="albums-action-btn-v2 albums-download-btn" data-url="@picture.AccessUrl" data-id="@picture.Id">
+                            <button class="albums-action-btn-v2 albums-download-btn" data-url="@picture.AccessUrl"
+                                    data-id="@picture.Id">
                                 <i class="fa fa-download"></i>
                             </button>
-                            <button class="albums-action-btn-v2 albums-share-btn" data-url="@picture.AccessUrl" data-description="@picture.Description">
+                            <button class="albums-action-btn-v2 albums-share-btn" data-url="@picture.AccessUrl"
+                                    data-description="@picture.Description">
                                 <i class="fa fa-share"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="albums-picture-info-v2">
                     @if (!string.IsNullOrEmpty(picture.Description))
                     {
@@ -54,7 +73,7 @@
                             <p class="ds-text-body">@picture.Description</p>
                         </div>
                     }
-                    
+
                     @if (picture.Tags != null && picture.Tags.Any())
                     {
                         <div class="albums-picture-tags-v2">
@@ -64,17 +83,17 @@
                             }
                         </div>
                     }
-                    
+
                     <div class="albums-picture-meta-v2">
                         <div class="albums-picture-user-v2">
-                            <img 
-                                src="@(!string.IsNullOrEmpty(picture.Creator.Avatar) ? picture.Creator.Avatar : "/core/images/default-avatar.png")" 
-                                alt="@picture.Creator.Name" 
-                                class="albums-user-avatar-v2"
-                            />
+                            <img
+                                src="@(!string.IsNullOrEmpty(picture.Creator.Avatar) ? picture.Creator.Avatar : "/core/images/default-avatar.png")"
+                                alt="@picture.Creator.Name"
+                                class="albums-user-avatar-v2"/>
                             <div class="albums-user-info-v2">
                                 <span class="albums-user-name-v2">@picture.Creator.Name</span>
-                                <span class="albums-upload-time-v2">@picture.UploadTime.ToString("yyyy-MM-dd HH:mm")</span>
+                                <span
+                                    class="albums-upload-time-v2">@picture.UploadTime.ToString("yyyy-MM-dd HH:mm")</span>
                             </div>
                         </div>
                         <div class="albums-picture-size-v2">
@@ -91,7 +110,8 @@
     <div class="albums-loading-v2" id="albumsLoading" style="display: none;">
         <div class="albums-loading-spinner-v2">
             <div class="ds-progress">
-                <div class="ds-progress-bar" style="width: 100%; animation: ds-progress-shine 2s ease-in-out infinite;"></div>
+                <div class="ds-progress-bar"
+                     style="width: 100%; animation: ds-progress-shine 2s ease-in-out infinite;"></div>
             </div>
         </div>
         <p class="ds-text-body">正在加载更多图片...</p>
@@ -126,7 +146,7 @@
             <i class="fa fa-times"></i>
         </button>
         <div class="albums-modal-image-container-v2">
-            <img id="albumsModalImage" src="" alt="" class="albums-modal-image-v2" />
+            <img id="albumsModalImage" src="" alt="" class="albums-modal-image-v2"/>
             <div class="albums-modal-loading-v2" id="albumsModalLoading">
                 <div class="albums-modal-loading-spinner-v2"></div>
                 <span>加载中...</span>
@@ -145,21 +165,3 @@
         </div>
     </div>
 </div>
-
-<script>
-// 初始化相册数据
-window.albumsData = {
-    currentPage: @Model.CurrentPageIndex,
-    pageSize: @Model.PageSize,
-    totalPages: @Model.TotalPageCount,
-    totalCount: @Model.TotalItemCount,
-    hasNextPage: @((Model.TotalPageCount > Model.CurrentPageIndex).ToString().ToLower()),
-    pictures: @Html.Raw(JsonSerializer.Serialize(Model.Select(p => new { 
-        id = p.Id, 
-        url = p.AccessUrl, 
-        description = p.Description,
-        width = p.Width,
-        height = p.Height
-    })))
-};
-</script>
