@@ -1,0 +1,82 @@
+﻿@using Microsoft.Extensions.Configuration
+@using Dpz.Core.Service.RepositoryService
+@inject IConfiguration Configuration
+@inject IAppOptionService OptionService
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    
+    @* <partial name="_SeoPartial" view-data="ViewData" /> *@
+    <partial name="_PageMetadataPartial" view-data="ViewData"/>
+    <partial name="_IncludeCssFilePartial"/>
+    <link rel="alternate" type="application/rss+xml" href="@Url.Action("Rss","Home")" title="RSS Feed">
+    <script src="@Configuration["CDNBaseAddress"]/lib/jquery/jquery.min.js?version=3.6.0"></script>
+    <script src="@Configuration["CDNBaseAddress"]/js/jquery.pjax.js"></script>
+</head>
+<body class="line-numbers rainbow-braces match-braces">
+    <partial name="Menu/_MenuPartial" />
+    <div class="blog-body">
+        @RenderBody()
+    </div>
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        @Html.Raw(await OptionService.GetFooterContentAsync())
+        <p>当前版本：@(Configuration["AgileConfig:env"]) @WebToolsExtensions.Version</p>
+    </footer>
+    <div class="blog-mask animated layui-hide"></div>
+    <partial name="Menu/_LeftMenuPartial" />
+    <div id="gallery" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="关闭 (Esc)"></button>
+                    <button class="pswp__button pswp__button--fs" title="切换全屏"></button>
+                    <button class="pswp__button pswp__button--zoom" title="放大缩小"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="上一张 (键盘←)">
+                </button>
+                <button class="pswp__button pswp__button--arrow--right" title="下一张 (键盘→)">
+                </button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="music-player"></div>
+    <canvas id="can-back-round" style="top:0;position: fixed;width: 100vw;height: 100vh;display: flex;justify-content: center;align-items: center;z-index: -1"></canvas>
+    <partial name="_IncludeJsFilesPartial" />
+    @await RenderSectionAsync("Scripts", required: false)
+    <environment exclude="Development">
+        <script>
+            (function (c, l, a, r, i, t, y) {
+                c[a] = c[a] || function () {
+                    (c[a].q = c[a].q || []).push(arguments)
+                };
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "4g75mft80b");
+        </script>
+    </environment>
+</body>
+</html>

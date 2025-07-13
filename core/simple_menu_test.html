@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简化菜单测试</title>
+    <meta name="web-api-base-address" content="/">
+    <meta name="cdn-base-address" content="/">
+    
+    <!-- 引入必要的CSS -->
+    <link rel="stylesheet" href="/core/css/version_2_0/_design_system.css">
+    <link rel="stylesheet" href="/core/css/version_2_0/menu_version_2_0.css">
+    <link rel="stylesheet" href="/library/fontawesome-free/css/all.min.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            padding: 120px 20px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+        
+        .test-title {
+            color: #2d3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            text-align: center;
+        }
+        
+        .test-description {
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .test-btn.secondary {
+            background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+        }
+        
+        .test-btn.secondary:hover {
+            box-shadow: 0 4px 12px rgba(113, 128, 150, 0.4);
+        }
+        
+        .debug-info {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .status {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .status.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .status.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+        
+        .status.warning {
+            background: #fefcbf;
+            color: #744210;
+            border: 1px solid #f6e05e;
+        }
+        
+        @media (max-width: 768px) {
+            .test-container {
+                padding: 100px 16px 16px;
+            }
+            
+            .test-card {
+                padding: 20px;
+            }
+            
+            .test-title {
+                font-size: 24px;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .test-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="blog-nav-v2" id="blog-nav-v2">
+        <div class="blog-nav-container-v2">
+            <!-- Logo -->
+            <a class="blog-logo-v2" href="/" data-pjax>
+                <img src="/images/logo-removebg.png" alt="logo"/>
+                <span>叫我阿胖</span>
+            </a>
+
+            <!-- 桌面端导航菜单 -->
+            <ul class="blog-nav-menu-v2" lay-filter="nav">
+                <li class="blog-nav-item-v2">
+                    <a href="/" data-pjax>
+                        <i class="fa fa-home fa-fw"></i>
+                        <span>网站首页</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/article" data-pjax>
+                        <i class="fa fa-file-text fa-fw"></i>
+                        <span>文章专栏</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/steam" data-pjax>
+                        <i class="fa fa-steam fa-fw"></i>
+                        <span>Steam</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/talk" data-pjax>
+                        <i class="fa fa-comments fa-fw"></i>
+                        <span>碎碎念</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/bookmark" data-pjax>
+                        <i class="fa fa-bookmark fa-fw"></i>
+                        <span>我的书签</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="javascript:;" class="has-dropdown">
+                        <i class="fa fa-toggle-down fa-fw"></i>
+                        <span>其它内容</span>
+                    </a>
+                    <ul class="blog-nav-dropdown-v2">
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/albums" data-pjax>
+                                <i class="fa fa-photo fa-fw"></i>
+                                <span>相册</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/music" data-pjax>
+                                <i class="fa fa-music fa-fw"></i>
+                                <span>曲库</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/code" data-pjax>
+                                <i class="fa fa-code fa-fw"></i>
+                                <span>网站源码</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/timeline" data-pjax>
+                                <i class="fa fa-pagelines fa-fw"></i>
+                                <span>时间轴</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/friends" data-pjax>
+                                <i class="fa fa-address-book fa-fw"></i>
+                                <span>友情链接</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/markdown" data-pjax>
+                                <i class="fa fa-map-marker fa-fw"></i>
+                                <span>Markdown语法</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- 用户头像 -->
+            <a href="/account" class="blog-user-v2">
+                <img src="/images/guest.png" alt="avatar" title="guest"/>
+            </a>
+
+            <!-- 移动端菜单切换按钮 -->
+            <button class="blog-nav-toggle-v2" id="blog-nav-toggle-v2">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端侧边菜单 -->
+    <ul class="blog-nav-mobile-v2" id="blog-nav-mobile-v2" lay-filter="nav">
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/" data-pjax>
+                <i class="fa fa-home fa-fw"></i>
+                <span>网站首页</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/article" data-pjax>
+                <i class="fa fa-file-text fa-fw"></i>
+                <span>文章专栏</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/steam" data-pjax>
+                <i class="fa fa-steam fa-fw"></i>
+                <span>Steam</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/talk" data-pjax>
+                <i class="fa fa-comments fa-fw"></i>
+                <span>碎碎念</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/bookmark" data-pjax>
+                <i class="fa fa-bookmark fa-fw"></i>
+                <span>我的书签</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2 has-submenu">
+            <a href="javascript:;" class="submenu-toggle">
+                <i class="fa fa-toggle-down fa-fw"></i>
+                <span>其它内容</span>
+            </a>
+            <ul class="blog-nav-mobile-submenu-v2">
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/albums" data-pjax>
+                        <i class="fa fa-photo fa-fw"></i>
+                        <span>相册</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/music" data-pjax>
+                        <i class="fa fa-music fa-fw"></i>
+                        <span>曲库</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/code" data-pjax>
+                        <i class="fa fa-code fa-fw"></i>
+                        <span>网站源码</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/timeline" data-pjax>
+                        <i class="fa fa-pagelines fa-fw"></i>
+                        <span>时间轴</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/friends" data-pjax>
+                        <i class="fa fa-address-book fa-fw"></i>
+                        <span>友情链接</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/markdown" data-pjax>
+                        <i class="fa fa-map-marker fa-fw"></i>
+                        <span>Markdown语法</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- 移动端遮罩层 -->
+    <div class="blog-nav-mask-v2" id="blog-nav-mask-v2"></div>
+
+    <!-- 页面内容 -->
+    <div class="test-container">
+        <div class="test-card">
+            <h1 class="test-title">简化菜单功能测试</h1>
+            <div class="test-description">
+                此页面使用内联脚本直接测试菜单功能，避免异步加载问题。<br>
+                请将浏览器窗口缩小到移动端尺寸（宽度 < 992px）来测试汉堡菜单。
+            </div>
+            
+            <div class="test-buttons">
+                <button class="test-btn" onclick="testMenuToggle()">
+                    <i class="fa fa-play"></i>
+                    测试汉堡菜单
+                </button>
+                <button class="test-btn secondary" onclick="checkMenuElements()">
+                    <i class="fa fa-search"></i>
+                    检查菜单元素
+                </button>
+                <button class="test-btn secondary" onclick="initializeMenu()">
+                    <i class="fa fa-cog"></i>
+                    初始化菜单
+                </button>
+                <button class="test-btn secondary" onclick="clearDebugInfo()">
+                    <i class="fa fa-trash"></i>
+                    清空日志
+                </button>
+            </div>
+            
+            <div id="test-status"></div>
+            
+            <div class="debug-info" id="debug-info">
+等待测试...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 内联菜单功能脚本
+        let debugLog = [];
+        let menuInitialized = false;
+        let menuEventListeners = {
+            toggleClick: null,
+            maskClick: null,
+            submenuToggles: [],
+            menuLinks: [],
+            resize: null,
+            keydown: null
+        };
+
+        function addDebugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.push(`[${timestamp}] ${message}`);
+            updateDebugDisplay();
+        }
+
+        function updateDebugDisplay() {
+            const debugElement = document.getElementById('debug-info');
+            debugElement.textContent = debugLog.join('\n');
+            debugElement.scrollTop = debugElement.scrollHeight;
+        }
+
+        function updateStatus(type, message) {
+            const statusElement = document.getElementById('test-status');
+            statusElement.className = `status ${type}`;
+            statusElement.textContent = message;
+        }
+
+        function clearDebugInfo() {
+            debugLog = [];
+            updateDebugDisplay();
+            updateStatus('success', '日志已清空');
+        }
+
+        function checkMenuElements() {
+            addDebugLog('检查菜单元素...');
+            
+            const navToggle = document.getElementById('blog-nav-toggle-v2');
+            const navMobile = document.getElementById('blog-nav-mobile-v2');
+            const navMask = document.getElementById('blog-nav-mask-v2');
+            
+            const results = [];
+            results.push(`汉堡菜单按钮: ${navToggle ? '✓ 存在' : '✗ 不存在'}`);
+            results.push(`移动端菜单: ${navMobile ? '✓ 存在' : '✗ 不存在'}`);
+            results.push(`遮罩层: ${navMask ? '✓ 存在' : '✗ 不存在'}`);
+            
+            if (navToggle) {
+                const hasClickListener = navToggle.onclick !== null || 
+                    (navToggle.getEventListeners && navToggle.getEventListeners('click').length > 0);
+                results.push(`点击事件监听器: ${hasClickListener ? '✓ 已绑定' : '? 未知'}`);
+            }
+            
+            results.forEach(result => addDebugLog(result));
+            
+            const allElementsExist = navToggle && navMobile && navMask;
+            updateStatus(allElementsExist ? 'success' : 'error', 
+                allElementsExist ? '所有菜单元素都存在' : '部分菜单元素缺失');
+        }
+
+        function initializeMenu() {
+            addDebugLog('开始初始化菜单...');
+            
+            const navToggle = document.getElementById('blog-nav-toggle-v2');
+            const navMobile = document.getElementById('blog-nav-mobile-v2');
+            const navMask = document.getElementById('blog-nav-mask-v2');
+            
+            if (!navToggle || !navMobile || !navMask) {
+                addDebugLog('错误：菜单元素不存在');
+                updateStatus('error', '菜单元素不存在');
+                return false;
+            }
+
+            // 清理旧的事件监听器
+            if (menuEventListeners.toggleClick) {
+                navToggle.removeEventListener('click', menuEventListeners.toggleClick);
+                addDebugLog('清理旧的点击事件监听器');
+            }
+
+            // 移动端菜单切换函数
+            function handleToggleClick(e) {
+                addDebugLog('汉堡菜单按钮被点击');
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isOpen = navMobile.classList.contains('show');
+                addDebugLog(`当前菜单状态: ${isOpen ? '打开' : '关闭'}`);
+                
+                if (isOpen) {
+                    navMobile.classList.remove('show');
+                    navMask.classList.remove('show');
+                    document.body.style.overflow = '';
+                    addDebugLog('菜单已关闭');
+                } else {
+                    navMobile.classList.add('show');
+                    navMask.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    addDebugLog('菜单已打开');
+                }
+                
+                const newState = navMobile.classList.contains('show');
+                addDebugLog(`切换后菜单状态: ${newState ? '打开' : '关闭'}`);
+            }
+
+            // 点击遮罩关闭菜单
+            function handleMaskClick() {
+                addDebugLog('遮罩被点击，关闭菜单');
+                navMobile.classList.remove('show');
+                navMask.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // 绑定事件监听器
+            menuEventListeners.toggleClick = handleToggleClick;
+            menuEventListeners.maskClick = handleMaskClick;
+            
+            navToggle.addEventListener('click', handleToggleClick);
+            navMask.addEventListener('click', handleMaskClick);
+            
+            addDebugLog('事件监听器绑定完成');
+
+            // 测试事件监听器
+            addDebugLog('测试事件监听器绑定...');
+            const testEvent = new Event('click', { bubbles: true, cancelable: true });
+            let eventFired = false;
+            
+            function testListener() {
+                eventFired = true;
+            }
+            
+            navToggle.addEventListener('click', testListener);
+            navToggle.dispatchEvent(testEvent);
+            navToggle.removeEventListener('click', testListener);
+            
+            if (eventFired) {
+                addDebugLog('✓ 事件监听器测试成功');
+                menuInitialized = true;
+                updateStatus('success', '菜单初始化成功');
+                return true;
+            } else {
+                addDebugLog('✗ 事件监听器测试失败');
+                updateStatus('error', '菜单初始化失败');
+                return false;
+            }
+        }
+
+        function testMenuToggle() {
+            addDebugLog('开始测试汉堡菜单功能...');
+            
+            if (!menuInitialized) {
+                addDebugLog('菜单未初始化，先进行初始化...');
+                if (!initializeMenu()) {
+                    return;
+                }
+            }
+            
+            const navToggle = document.getElementById('blog-nav-toggle-v2');
+            const navMobile = document.getElementById('blog-nav-mobile-v2');
+            
+            if (!navToggle || !navMobile) {
+                addDebugLog('错误：菜单元素不存在');
+                updateStatus('error', '菜单元素不存在');
+                return;
+            }
+
+            const wasOpen = navMobile.classList.contains('show');
+            addDebugLog(`测试前菜单状态: ${wasOpen ? '打开' : '关闭'}`);
+
+            // 模拟点击事件
+            const clickEvent = new Event('click', {
+                bubbles: true,
+                cancelable: true
+            });
+
+            navToggle.dispatchEvent(clickEvent);
+
+            // 等待一段时间检查结果
+            setTimeout(() => {
+                const isOpen = navMobile.classList.contains('show');
+                const expectedState = !wasOpen;
+                
+                addDebugLog(`测试后菜单状态: ${isOpen ? '打开' : '关闭'}`);
+                addDebugLog(`期望状态: ${expectedState ? '打开' : '关闭'}`);
+                
+                if (isOpen === expectedState) {
+                    addDebugLog('✓ 汉堡菜单测试成功');
+                    updateStatus('success', `汉堡菜单功能正常 (${isOpen ? '已打开' : '已关闭'})`);
+                } else {
+                    addDebugLog('✗ 汉堡菜单测试失败 - 状态未正确切换');
+                    updateStatus('error', '汉堡菜单功能异常');
+                }
+            }, 100);
+        }
+
+        // 页面加载完成后自动初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            addDebugLog('页面加载完成');
+            checkMenuElements();
+            
+            // 自动初始化菜单
+            setTimeout(() => {
+                initializeMenu();
+            }, 500);
+        });
+
+        // 窗口大小改变时的处理
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            addDebugLog(`窗口大小改变: ${width}px`);
+            
+            if (width >= 992) {
+                const navMobile = document.getElementById('blog-nav-mobile-v2');
+                const navMask = document.getElementById('blog-nav-mask-v2');
+                if (navMobile && navMask) {
+                    navMobile.classList.remove('show');
+                    navMask.classList.remove('show');
+                    document.body.style.overflow = '';
+                    addDebugLog('桌面端尺寸，关闭移动端菜单');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

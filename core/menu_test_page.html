@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜单测试页面</title>
+    <meta name="web-api-base-address" content="">
+    <meta name="cdn-base-address" content="">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- 引入设计系统和菜单样式 -->
+    <link rel="stylesheet" href="css/version_2_0/_design_system.css">
+    <link rel="stylesheet" href="css/version_2_0/menu_version_2_0.css">
+    
+    <!-- 额外的修复样式 -->
+    <style>
+        /* 确保下拉菜单容器不被裁剪 */
+        .blog-nav-v2 {
+            overflow: visible !important;
+        }
+        
+        .blog-nav-container-v2 {
+            overflow: visible !important;
+        }
+        
+        .blog-nav-menu-v2 {
+            overflow: visible !important;
+        }
+        
+        .blog-nav-item-v2 {
+            overflow: visible !important;
+        }
+        
+        /* 强制下拉菜单显示 - 用于调试 */
+        .blog-nav-dropdown-v2 {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            z-index: 99999 !important;
+            min-width: 200px !important;
+            background: white !important;
+            border: 1px solid #ddd !important;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+            padding: 8px !important;
+            margin-top: 8px !important;
+            list-style: none !important;
+        }
+        
+        .blog-nav-dropdown-item-v2 {
+            margin: 0 !important;
+        }
+        
+        .blog-nav-dropdown-item-v2 a {
+            display: block !important;
+            padding: 8px 12px !important;
+            color: #333 !important;
+            text-decoration: none !important;
+            border-radius: 4px !important;
+            transition: background 0.2s !important;
+        }
+        
+        .blog-nav-dropdown-item-v2 a:hover {
+            background: #f0f0f0 !important;
+        }
+        
+        /* 调试模式 - 始终显示下拉菜单 */
+        .debug-always-show .blog-nav-dropdown-v2 {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            pointer-events: auto !important;
+            display: block !important;
+            background: rgba(0, 255, 0, 0.9) !important;
+            border: 2px solid #00ff00 !important;
+        }
+        
+        /* 强制显示样式 */
+        .blog-nav-dropdown-v2.force-show {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            pointer-events: auto !important;
+            display: block !important;
+            background: rgba(255, 0, 0, 0.9) !important;
+            border: 3px solid #ff0000 !important;
+        }
+    </style>
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-content {
+            padding-top: 120px;
+            padding-left: 20px;
+            padding-right: 20px;
+            color: white;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .debug-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- 菜单组件 -->
+    <nav class="blog-nav-v2" id="blog-nav-v2">
+        <div class="blog-nav-container-v2">
+            <!-- Logo -->
+            <a class="blog-logo-v2" href="/" data-pjax>
+                <img src="https://via.placeholder.com/52x52/8b5cf6/ffffff?text=L" alt="logo"/>
+                <span>测试网站</span>
+            </a>
+
+            <!-- 桌面端导航菜单 -->
+            <ul class="blog-nav-menu-v2" lay-filter="nav">
+                <li class="blog-nav-item-v2 nav-active-v2">
+                    <a href="/" data-pjax>
+                        <i class="fa fa-home fa-fw"></i>
+                        <span>网站首页</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/article" data-pjax>
+                        <i class="fa fa-file-text fa-fw"></i>
+                        <span>文章专栏</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/steam" data-pjax>
+                        <i class="fa fa-steam fa-fw"></i>
+                        <span>Steam</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/talk" data-pjax>
+                        <i class="fa fa-comments fa-fw"></i>
+                        <span>碎碎念</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/bookmark" data-pjax>
+                        <i class="fa fa-bookmark fa-fw"></i>
+                        <span>我的书签</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="javascript:;" class="has-dropdown">
+                        <i class="fa fa-toggle-down fa-fw"></i>
+                        <span>其它内容</span>
+                    </a>
+                    <ul class="blog-nav-dropdown-v2">
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/albums" data-pjax>
+                                <i class="fa fa-photo fa-fw"></i>
+                                <span>相册</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/music" data-pjax>
+                                <i class="fa fa-music fa-fw"></i>
+                                <span>曲库</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/code" data-pjax>
+                                <i class="fa fa-code fa-fw"></i>
+                                <span>网站源码</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/timeline" data-pjax>
+                                <i class="fa fa-pagelines fa-fw"></i>
+                                <span>时间轴</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/friends" data-pjax>
+                                <i class="fa fa-address-book fa-fw"></i>
+                                <span>友情链接</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/markdown" data-pjax>
+                                <i class="fa fa-map-marker fa-fw"></i>
+                                <span>Markdown语法</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- 用户头像 -->
+            <a href="/login" class="blog-user-v2">
+                <img src="https://via.placeholder.com/48x48/8b5cf6/ffffff?text=U" alt="avatar" title="guest"/>
+            </a>
+
+            <!-- 移动端菜单切换按钮 -->
+            <button class="blog-nav-toggle-v2" id="blog-nav-toggle-v2">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端遮罩层 -->
+    <div class="blog-nav-mask-v2" id="blog-nav-mask-v2"></div>
+
+    <!-- 移动端侧边菜单 -->
+    <ul class="blog-nav-mobile-v2" id="blog-nav-mobile-v2" lay-filter="nav">
+        <li class="blog-nav-mobile-item-v2 nav-active-v2">
+            <a href="/" data-pjax>
+                <i class="fa fa-home fa-fw"></i>
+                <span>网站首页</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/article" data-pjax>
+                <i class="fa fa-file-text fa-fw"></i>
+                <span>文章专栏</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/steam" data-pjax>
+                <i class="fa fa-steam fa-fw"></i>
+                <span>Steam</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/talk" data-pjax>
+                <i class="fa fa-comments fa-fw"></i>
+                <span>碎碎念</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/bookmark" data-pjax>
+                <i class="fa fa-bookmark fa-fw"></i>
+                <span>我的书签</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2 has-submenu">
+            <a href="javascript:;" class="submenu-toggle">
+                <i class="fa fa-toggle-down fa-fw"></i>
+                <span>其它内容</span>
+            </a>
+            <ul class="blog-nav-mobile-submenu-v2">
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/albums" data-pjax>
+                        <i class="fa fa-photo fa-fw"></i>
+                        <span>相册</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/music" data-pjax>
+                        <i class="fa fa-music fa-fw"></i>
+                        <span>曲库</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/code" data-pjax>
+                        <i class="fa fa-code fa-fw"></i>
+                        <span>网站源码</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/timeline" data-pjax>
+                        <i class="fa fa-pagelines fa-fw"></i>
+                        <span>时间轴</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/friends" data-pjax>
+                        <i class="fa fa-address-book fa-fw"></i>
+                        <span>友情链接</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/markdown" data-pjax>
+                        <i class="fa fa-map-marker fa-fw"></i>
+                        <span>Markdown语法</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- 测试内容 -->
+    <div class="test-content">
+        <div class="test-section">
+            <h2>菜单功能测试</h2>
+            <p>这是一个测试页面，用于验证菜单的各项功能。</p>
+            
+            <h3>桌面端测试</h3>
+            <p>请将鼠标悬停在 "其它内容" 菜单项上，应该能看到下拉菜单。</p>
+            
+            <h3>移动端测试</h3>
+            <p>在移动设备或缩小浏览器窗口时，点击右上角的菜单按钮，应该能打开侧边菜单。</p>
+            
+            <h3>调试工具</h3>
+            <button class="test-button" onclick="forceShowDropdown()">强制显示下拉菜单</button>
+            <button class="test-button" onclick="toggleDebugMode()">切换调试模式</button>
+            <button class="test-button" onclick="fixDropdownStyles()">修复下拉菜单样式</button>
+            <button class="test-button" onclick="checkCSSVariables()">检查CSS变量</button>
+            <button class="test-button" onclick="testMobileMenu()">切换移动端菜单</button>
+            <button class="test-button" onclick="simulatePjax()">模拟 Pjax 导航</button>
+            <button class="test-button" onclick="checkMenuState()">检查菜单状态</button>
+            
+            <div class="debug-info" id="debug-info">
+                调试信息将显示在这里...
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试说明</h3>
+            <ul>
+                <li><strong>桌面端下拉菜单</strong>：鼠标悬停在 "其它内容" 上应该显示下拉菜单</li>
+                <li><strong>移动端菜单</strong>：点击菜单按钮应该打开侧边菜单</li>
+                <li><strong>子菜单展开</strong>：在移动端菜单中点击 "其它内容" 应该展开子菜单</li>
+                <li><strong>Pjax 兼容性</strong>：模拟 Pjax 导航后菜单功能应该正常</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 模拟 dpzOption
+        const dpzOption = {
+            webApiBaseAddress: '',
+            CDNBaseAddress: '',
+            isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+        };
+
+        // 模拟 loadImages 函数
+        function loadImages(images) {
+            return Promise.resolve(images);
+        }
+
+        // 引入菜单初始化代码（简化版）
+        let menuV2Initialized = false;
+        let desktopDropdownsInitialized = false;
+
+        function updateMenuActiveState() {
+            console.log('更新菜单激活状态');
+        }
+
+        function initMenuV2() {
+            if (menuV2Initialized) {
+                return;
+            }
+            
+            const navToggle = document.getElementById('blog-nav-toggle-v2');
+            const navMobile = document.getElementById('blog-nav-mobile-v2');
+            const navMask = document.getElementById('blog-nav-mask-v2');
+            
+            if (!navToggle || !navMobile || !navMask) {
+                console.warn('Menu v2 elements not found');
+                return;
+            }
+
+            function handleToggleClick(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isOpen = navMobile.classList.contains('show');
+                
+                if (isOpen) {
+                    navMobile.classList.remove('show');
+                    navMask.classList.remove('show');
+                    document.body.style.overflow = '';
+                } else {
+                    navMobile.classList.add('show');
+                    navMask.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                updateDebugInfo('移动端菜单切换: ' + (isOpen ? '关闭' : '打开'));
+            }
+
+            function handleMaskClick() {
+                navMobile.classList.remove('show');
+                navMask.classList.remove('show');
+                document.body.style.overflow = '';
+                updateDebugInfo('点击遮罩关闭菜单');
+            }
+
+            function handleSubmenuToggle(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const parentItem = this.parentElement;
+                const isOpen = parentItem.classList.contains('submenu-open');
+                
+                document.querySelectorAll('.blog-nav-mobile-item-v2.has-submenu').forEach(function(item) {
+                    if (item !== parentItem) {
+                        item.classList.remove('submenu-open');
+                    }
+                });
+                
+                if (isOpen) {
+                    parentItem.classList.remove('submenu-open');
+                } else {
+                    parentItem.classList.add('submenu-open');
+                }
+                
+                updateDebugInfo('子菜单切换: ' + (isOpen ? '关闭' : '打开'));
+            }
+
+            function handleMenuLinkClick() {
+                setTimeout(function() {
+                    if (navMobile && navMask) {
+                        navMobile.classList.remove('show');
+                        navMask.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                }, 100);
+                updateDebugInfo('菜单项点击，关闭移动端菜单');
+            }
+
+            function handleResize() {
+                if (window.innerWidth >= 992) {
+                    if (navMobile && navMask) {
+                        navMobile.classList.remove('show');
+                        navMask.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                }
+            }
+            
+            function handleKeydown(e) {
+                if (e.key === 'Escape' && navMobile && navMobile.classList.contains('show')) {
+                    navMobile.classList.remove('show');
+                    navMask.classList.remove('show');
+                    document.body.style.overflow = '';
+                    updateDebugInfo('ESC键关闭菜单');
+                }
+            }
+
+            navToggle.addEventListener('click', handleToggleClick);
+            navMask.addEventListener('click', handleMaskClick);
+            
+            const submenuToggles = document.querySelectorAll('.blog-nav-mobile-item-v2.has-submenu > a');
+            submenuToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', handleSubmenuToggle);
+            });
+
+            const menuLinks = document.querySelectorAll('.blog-nav-mobile-v2 a[href]:not(.submenu-toggle)');
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', handleMenuLinkClick);
+            });
+
+            window.addEventListener('resize', handleResize);
+            document.addEventListener('keydown', handleKeydown);
+            
+            menuV2Initialized = true;
+            updateDebugInfo('移动端菜单初始化完成');
+        }
+
+        function initDesktopDropdowns() {
+            if (desktopDropdownsInitialized) {
+                return;
+            }
+            
+            const dropdownItems = document.querySelectorAll('.blog-nav-item-v2');
+            
+            dropdownItems.forEach(function(item) {
+                const dropdown = item.querySelector('.blog-nav-dropdown-v2');
+                
+                if (!dropdown) return;
+                
+                let hoverTimer = null;
+                
+                function handleItemEnter() {
+                    clearTimeout(hoverTimer);
+                    dropdown.classList.add('dropdown-visible');
+                    updateDebugInfo('鼠标进入菜单项，显示下拉菜单');
+                }
+                
+                function handleItemLeave() {
+                    hoverTimer = setTimeout(function() {
+                        dropdown.classList.remove('dropdown-visible');
+                        updateDebugInfo('鼠标离开菜单项，隐藏下拉菜单');
+                    }, 150);
+                }
+                
+                function handleDropdownEnter() {
+                    clearTimeout(hoverTimer);
+                    dropdown.classList.add('dropdown-visible');
+                    updateDebugInfo('鼠标进入下拉菜单');
+                }
+                
+                function handleDropdownLeave() {
+                    hoverTimer = setTimeout(function() {
+                        dropdown.classList.remove('dropdown-visible');
+                        updateDebugInfo('鼠标离开下拉菜单，隐藏菜单');
+                    }, 150);
+                }
+                
+                item.addEventListener('mouseenter', handleItemEnter);
+                item.addEventListener('mouseleave', handleItemLeave);
+                dropdown.addEventListener('mouseenter', handleDropdownEnter);
+                dropdown.addEventListener('mouseleave', handleDropdownLeave);
+                
+                item._dropdownHandlers = {
+                    itemEnter: handleItemEnter,
+                    itemLeave: handleItemLeave,
+                    dropdownEnter: handleDropdownEnter,
+                    dropdownLeave: handleDropdownLeave
+                };
+            });
+            
+            desktopDropdownsInitialized = true;
+            updateDebugInfo('桌面端下拉菜单初始化完成');
+        }
+
+        function cleanupDesktopDropdowns() {
+            const dropdownItems = document.querySelectorAll('.blog-nav-item-v2');
+            
+            dropdownItems.forEach(function(item) {
+                const dropdown = item.querySelector('.blog-nav-dropdown-v2');
+                
+                if (!dropdown || !item._dropdownHandlers) return;
+                
+                item.removeEventListener('mouseenter', item._dropdownHandlers.itemEnter);
+                item.removeEventListener('mouseleave', item._dropdownHandlers.itemLeave);
+                dropdown.removeEventListener('mouseenter', item._dropdownHandlers.dropdownEnter);
+                dropdown.removeEventListener('mouseleave', item._dropdownHandlers.dropdownLeave);
+                
+                delete item._dropdownHandlers;
+            });
+            
+            desktopDropdownsInitialized = false;
+            updateDebugInfo('清理桌面端下拉菜单事件监听器');
+        }
+
+        // 调试函数
+        function updateDebugInfo(message) {
+            const debugInfo = document.getElementById('debug-info');
+            const timestamp = new Date().toLocaleTimeString();
+            debugInfo.innerHTML = `[${timestamp}] ${message}\n` + debugInfo.innerHTML;
+        }
+
+        function testDropdown() {
+            const dropdown = document.querySelector('.blog-nav-dropdown-v2');
+            if (dropdown) {
+                dropdown.classList.toggle('dropdown-visible');
+                updateDebugInfo('手动切换下拉菜单显示状态');
+            }
+        }
+
+        function testMobileMenu() {
+            const navMobile = document.getElementById('blog-nav-mobile-v2');
+            const navMask = document.getElementById('blog-nav-mask-v2');
+            if (navMobile && navMask) {
+                const isOpen = navMobile.classList.contains('show');
+                if (isOpen) {
+                    navMobile.classList.remove('show');
+                    navMask.classList.remove('show');
+                    document.body.style.overflow = '';
+                } else {
+                    navMobile.classList.add('show');
+                    navMask.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+                updateDebugInfo('手动切换移动端菜单: ' + (isOpen ? '关闭' : '打开'));
+            }
+        }
+
+        function simulatePjax() {
+            updateDebugInfo('模拟 Pjax 导航开始');
+            
+            // 重置初始化状态
+            menuV2Initialized = false;
+            
+            // 清理桌面端下拉菜单
+            cleanupDesktopDropdowns();
+            
+            // 重新初始化
+            setTimeout(function() {
+                initMenuV2();
+                initDesktopDropdowns();
+                updateMenuActiveState();
+                updateDebugInfo('模拟 Pjax 导航完成，菜单重新初始化');
+            }, 100);
+        }
+
+        function checkMenuState() {
+            const info = {
+                'menuV2Initialized': menuV2Initialized,
+                'desktopDropdownsInitialized': desktopDropdownsInitialized,
+                'window.innerWidth': window.innerWidth,
+                'mobileMenuVisible': document.getElementById('blog-nav-mobile-v2').classList.contains('show'),
+                'dropdownVisible': document.querySelector('.blog-nav-dropdown-v2').classList.contains('dropdown-visible')
+            };
+            
+            updateDebugInfo('菜单状态检查: ' + JSON.stringify(info, null, 2));
+        }
+
+        function forceShowDropdown() {
+            const dropdown = document.querySelector('.blog-nav-dropdown-v2');
+            if (dropdown) {
+                // 移除所有可能的隐藏类
+                dropdown.classList.remove('dropdown-visible');
+                
+                // 添加强制显示类
+                dropdown.classList.add('force-show');
+                
+                // 直接设置样式
+                dropdown.style.display = 'block';
+                dropdown.style.opacity = '1';
+                dropdown.style.visibility = 'visible';
+                dropdown.style.transform = 'translateY(0)';
+                dropdown.style.pointerEvents = 'auto';
+                dropdown.style.zIndex = '99999';
+                dropdown.style.position = 'absolute';
+                dropdown.style.top = '100%';
+                dropdown.style.left = '0';
+                
+                updateDebugInfo('强制显示下拉菜单 - 已设置所有样式');
+                
+                // 输出调试信息
+                console.log('下拉菜单元素:', dropdown);
+                console.log('计算样式:', window.getComputedStyle(dropdown));
+                console.log('父元素:', dropdown.parentElement);
+                console.log('父元素计算样式:', window.getComputedStyle(dropdown.parentElement));
+                
+                // 检查元素位置
+                const rect = dropdown.getBoundingClientRect();
+                console.log('元素位置:', rect);
+                updateDebugInfo(`下拉菜单位置: top=${rect.top}, left=${rect.left}, width=${rect.width}, height=${rect.height}`);
+            } else {
+                updateDebugInfo('未找到下拉菜单元素');
+                console.log('所有可能的下拉菜单元素:', document.querySelectorAll('[class*="dropdown"]'));
+            }
+        }
+
+        function toggleDebugMode() {
+            const nav = document.querySelector('.blog-nav-v2');
+            if (nav) {
+                nav.classList.toggle('debug-always-show');
+                const isDebugMode = nav.classList.contains('debug-always-show');
+                updateDebugInfo('调试模式: ' + (isDebugMode ? '开启 - 下拉菜单应该始终可见' : '关闭'));
+            }
+        }
+
+        function checkCSSVariables() {
+            const testElement = document.createElement('div');
+            testElement.style.display = 'none';
+            document.body.appendChild(testElement);
+            
+            const computedStyle = window.getComputedStyle(testElement);
+            const variables = [
+                '--ds-bg-primary',
+                '--ds-border-primary',
+                '--ds-shadow-xl',
+                '--ds-radius-lg',
+                '--ds-space-2',
+                '--ds-duration-300',
+                '--ds-easing-out'
+            ];
+            
+            updateDebugInfo('=== CSS变量检查 ===');
+            variables.forEach(variable => {
+                const value = computedStyle.getPropertyValue(variable);
+                updateDebugInfo(`${variable}: ${value || '未定义'}`);
+            });
+            
+            document.body.removeChild(testElement);
+        }
+
+        function fixDropdownStyles() {
+            const dropdown = document.querySelector('.blog-nav-dropdown-v2');
+            if (dropdown) {
+                // 直接设置基础样式，不依赖CSS变量
+                dropdown.style.cssText = `
+                    position: absolute !important;
+                    top: 100% !important;
+                    left: 0 !important;
+                    z-index: 99999 !important;
+                    min-width: 200px !important;
+                    background: white !important;
+                    border: 1px solid #ddd !important;
+                    border-radius: 8px !important;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+                    padding: 8px !important;
+                    margin-top: 8px !important;
+                    list-style: none !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    transform: translateY(0) !important;
+                    pointer-events: auto !important;
+                    display: block !important;
+                `;
+                
+                updateDebugInfo('应用了基础样式修复');
+                
+                // 检查元素位置
+                const rect = dropdown.getBoundingClientRect();
+                updateDebugInfo(`修复后位置: top=${rect.top}, left=${rect.left}, width=${rect.width}, height=${rect.height}`);
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initMenuV2();
+            initDesktopDropdowns();
+            updateMenuActiveState();
+            updateDebugInfo('页面加载完成，菜单初始化');
+        });
+    </script>
+</body>
+</html> 

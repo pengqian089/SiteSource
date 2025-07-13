@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJAX菜单测试页面</title>
+    <meta name="web-api-base-address" content="">
+    <meta name="cdn-base-address" content="">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="css/version_2_0/_design_system.css">
+    <link rel="stylesheet" href="css/version_2_0/menu_version_2_0.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .test-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .test-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .test-btn.secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+        
+        .test-btn.secondary:hover {
+            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 10px 5px;
+        }
+        
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .status-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .debug-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #374151;
+            white-space: pre-wrap;
+        }
+        
+        .pjax-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .pjax-link {
+            padding: 10px 20px;
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .pjax-link:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-1px);
+            text-decoration: none;
+            color: #1d4ed8;
+        }
+        
+        @media (max-width: 768px) {
+            .test-container {
+                padding: 90px 15px 20px;
+            }
+            
+            .test-card {
+                padding: 20px;
+            }
+            
+            .test-title {
+                font-size: 20px;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .test-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="blog-nav-v2" id="blog-nav-v2">
+        <div class="blog-nav-container-v2">
+            <!-- Logo -->
+            <a class="blog-logo-v2" href="/" data-pjax>
+                <img src="images/logo-removebg.png" alt="logo" onerror="this.style.display='none'"/>
+                <span>菜单测试</span>
+            </a>
+
+            <!-- 桌面端导航菜单 -->
+            <ul class="blog-nav-menu-v2" lay-filter="nav">
+                <li class="blog-nav-item-v2">
+                    <a href="/" data-pjax>
+                        <i class="fa fa-home fa-fw"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="/article" data-pjax>
+                        <i class="fa fa-file-text fa-fw"></i>
+                        <span>文章</span>
+                    </a>
+                </li>
+                <li class="blog-nav-item-v2">
+                    <a href="javascript:;" class="has-dropdown">
+                        <i class="fa fa-toggle-down fa-fw"></i>
+                        <span>更多</span>
+                    </a>
+                    <ul class="blog-nav-dropdown-v2">
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/albums" data-pjax>
+                                <i class="fa fa-photo fa-fw"></i>
+                                <span>相册</span>
+                            </a>
+                        </li>
+                        <li class="blog-nav-dropdown-item-v2">
+                            <a href="/music" data-pjax>
+                                <i class="fa fa-music fa-fw"></i>
+                                <span>音乐</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- 用户头像 -->
+            <a href="/account" class="blog-user-v2">
+                <img src="images/guest.png" alt="avatar" title="guest" onerror="this.style.display='none'"/>
+            </a>
+
+            <!-- 移动端菜单切换按钮 -->
+            <button class="blog-nav-toggle-v2" id="blog-nav-toggle-v2">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端遮罩层 -->
+    <div class="blog-nav-mask-v2" id="blog-nav-mask-v2"></div>
+
+    <!-- 移动端侧边菜单 -->
+    <ul class="blog-nav-mobile-v2" id="blog-nav-mobile-v2" lay-filter="nav">
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/" data-pjax>
+                <i class="fa fa-home fa-fw"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2">
+            <a href="/article" data-pjax>
+                <i class="fa fa-file-text fa-fw"></i>
+                <span>文章</span>
+            </a>
+        </li>
+        <li class="blog-nav-mobile-item-v2 has-submenu">
+            <a href="javascript:;" class="submenu-toggle">
+                <i class="fa fa-toggle-down fa-fw"></i>
+                <span>更多内容</span>
+            </a>
+            <ul class="blog-nav-mobile-submenu-v2">
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/albums" data-pjax>
+                        <i class="fa fa-photo fa-fw"></i>
+                        <span>相册</span>
+                    </a>
+                </li>
+                <li class="blog-nav-mobile-submenu-item-v2">
+                    <a href="/music" data-pjax>
+                        <i class="fa fa-music fa-fw"></i>
+                        <span>音乐</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- 页面内容 -->
+    <div class="blog-body">
+        <div class="test-container">
+            <div class="test-card">
+                <h1 class="test-title">PJAX 菜单功能测试</h1>
+                <div class="test-description">
+                    此页面用于测试pjax切换页面后，汉堡菜单按钮是否仍然有效。此页面使用专门的测试脚本来解决异步加载问题。
+                    请按照以下步骤进行测试：
+                </div>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testMenuToggle()">
+                        <i class="fa fa-play"></i>
+                        测试汉堡菜单
+                    </button>
+                    <button class="test-btn secondary" onclick="simulatePjaxNavigation()">
+                        <i class="fa fa-refresh"></i>
+                        模拟PJAX导航
+                    </button>
+                    <button class="test-btn secondary" onclick="checkEventListeners()">
+                        <i class="fa fa-search"></i>
+                        检查事件监听器
+                    </button>
+                    <button class="test-btn secondary" onclick="forceReinitializeMenu()">
+                        <i class="fa fa-cog"></i>
+                        强制重新初始化
+                    </button>
+                </div>
+                
+                <div id="test-status"></div>
+                
+                <div class="debug-info" id="debug-info">
+等待测试...
+                </div>
+            </div>
+            
+            <div class="test-card">
+                <h2 class="test-title">PJAX 导航链接</h2>
+                <div class="test-description">
+                    点击以下链接进行pjax导航，然后测试汉堡菜单是否仍然工作：
+                </div>
+                
+                <div class="pjax-links">
+                    <a href="menu_test_page.html" class="pjax-link" data-pjax>菜单测试页面</a>
+                    <a href="simple_menu_test.html" class="pjax-link" data-pjax>简单菜单测试</a>
+                    <a href="dropdown_debug.html" class="pjax-link" data-pjax>下拉菜单调试</a>
+                    <a href="pjax_menu_test.html" class="pjax-link" data-pjax>重新加载此页面</a>
+                </div>
+            </div>
+            
+            <div class="test-card">
+                <h2 class="test-title">测试说明</h2>
+                <div class="test-description">
+                    <strong>测试步骤：</strong><br>
+                    1. 缩小浏览器窗口到移动端尺寸（宽度 < 992px）<br>
+                    2. 点击右上角的汉堡菜单按钮（☰），确认菜单可以正常打开/关闭<br>
+                    3. 点击上方的PJAX导航链接进行页面切换<br>
+                    4. 再次测试汉堡菜单按钮是否仍然有效<br>
+                    5. 使用"检查事件监听器"按钮查看事件绑定状态<br><br>
+                    
+                    <strong>预期结果：</strong><br>
+                    - PJAX导航前后，汉堡菜单按钮都应该正常工作<br>
+                    - 事件监听器应该正确清理和重新绑定<br>
+                    - 控制台不应该出现重复绑定的警告
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/jquery.pjax.js"></script>
+    
+    <!-- 使用专门的测试菜单脚本 -->
+    <script src="test_menu_fix.js"></script>
+    
+    <script>
+        // 全局调试函数
+        function updateDebugInfo(message) {
+            const debugElement = document.getElementById('debug-info');
+            const timestamp = new Date().toLocaleTimeString();
+            const currentContent = debugElement.textContent;
+            debugElement.textContent = `[${timestamp}] ${message}\n${currentContent}`;
+        }
+        
+        function updateStatus(type, message) {
+            const statusElement = document.getElementById('test-status');
+            const statusClass = `status-${type}`;
+            const icon = type === 'success' ? 'check' : type === 'error' ? 'times' : 'exclamation-triangle';
+            
+            statusElement.innerHTML = `
+                <div class="status-indicator ${statusClass}">
+                    <i class="fa fa-${icon}"></i>
+                    ${message}
+                </div>
+            `;
+        }
+        
+        // 测试汉堡菜单功能
+        function testMenuToggle() {
+            updateDebugInfo('开始测试汉堡菜单功能...');
+            
+            const toggleBtn = document.getElementById('blog-nav-toggle-v2');
+            const mobileMenu = document.getElementById('blog-nav-mobile-v2');
+            const mask = document.getElementById('blog-nav-mask-v2');
+            
+            if (!toggleBtn || !mobileMenu || !mask) {
+                updateStatus('error', '菜单元素未找到');
+                updateDebugInfo('错误：菜单元素未找到');
+                return;
+            }
+            
+            // 模拟点击汉堡菜单按钮
+            const wasOpen = mobileMenu.classList.contains('show');
+            updateDebugInfo(`点击前菜单状态: ${wasOpen ? '打开' : '关闭'}`);
+            
+            // 创建点击事件
+            const clickEvent = new Event('click', {
+                bubbles: true,
+                cancelable: true
+            });
+            
+            toggleBtn.dispatchEvent(clickEvent);
+            
+            setTimeout(() => {
+                const isOpen = mobileMenu.classList.contains('show');
+                const expectedState = !wasOpen;
+                
+                updateDebugInfo(`点击后菜单状态: ${isOpen ? '打开' : '关闭'}, 期望状态: ${expectedState ? '打开' : '关闭'}`);
+                
+                if (isOpen === expectedState) {
+                    updateStatus('success', `汉堡菜单功能正常 (${isOpen ? '已打开' : '已关闭'})`);
+                    updateDebugInfo(`汉堡菜单测试成功 - 状态: ${isOpen ? '打开' : '关闭'}`);
+                } else {
+                    updateStatus('error', '汉堡菜单功能异常');
+                    updateDebugInfo('汉堡菜单测试失败 - 状态未正确切换');
+                }
+            }, 100);
+        }
+        
+        // 模拟PJAX导航
+        function simulatePjaxNavigation() {
+            updateDebugInfo('模拟PJAX导航...');
+            updateStatus('warning', '正在模拟PJAX导航...');
+            
+            // 触发pjax:complete事件，但不传递xhr参数以避免错误
+            $(document).trigger('pjax:complete', [null]);
+            
+            setTimeout(() => {
+                updateStatus('success', 'PJAX导航模拟完成');
+                updateDebugInfo('PJAX导航模拟完成，菜单已重新初始化');
+                
+                // 重新检查菜单状态
+                setTimeout(() => {
+                    checkEventListeners();
+                }, 200);
+            }, 200);
+        }
+        
+        // 检查事件监听器
+        function checkEventListeners() {
+            updateDebugInfo('检查事件监听器状态...');
+            
+            const toggleBtn = document.getElementById('blog-nav-toggle-v2');
+            const mobileMenu = document.getElementById('blog-nav-mobile-v2');
+            const mask = document.getElementById('blog-nav-mask-v2');
+            
+            let hasListeners = false;
+            let details = [];
+            
+            // 检查按钮是否有事件监听器
+            if (toggleBtn) {
+                // 检查元素上是否绑定了click事件
+                const events = $._data(toggleBtn, 'events');
+                const hasJQueryEvents = events && events.click && events.click.length > 0;
+                
+                // 检查原生事件监听器（通过尝试触发事件）
+                let hasNativeEvents = false;
+                const originalLog = console.log;
+                let eventTriggered = false;
+                
+                // 临时重写console.log来捕获可能的日志输出
+                console.log = function() {
+                    eventTriggered = true;
+                    originalLog.apply(console, arguments);
+                };
+                
+                // 创建一个测试事件
+                const testEvent = new Event('click', { bubbles: true, cancelable: true });
+                let preventDefaultCalled = false;
+                const originalPreventDefault = testEvent.preventDefault;
+                testEvent.preventDefault = function() {
+                    preventDefaultCalled = true;
+                    originalPreventDefault.call(this);
+                };
+                
+                toggleBtn.dispatchEvent(testEvent);
+                
+                // 恢复console.log
+                console.log = originalLog;
+                
+                if (preventDefaultCalled || eventTriggered) {
+                    hasNativeEvents = true;
+                }
+                
+                if (hasJQueryEvents || hasNativeEvents) {
+                    hasListeners = true;
+                    details.push('✓ 汉堡菜单按钮有事件监听器');
+                    if (hasJQueryEvents) details.push('  - jQuery事件监听器存在');
+                    if (hasNativeEvents) details.push('  - 原生事件监听器存在');
+                } else {
+                    details.push('✗ 汉堡菜单按钮无事件监听器');
+                }
+            }
+            
+            // 检查子菜单切换按钮
+            const submenuToggles = document.querySelectorAll('.blog-nav-mobile-item-v2.has-submenu > a');
+            details.push(`✓ 找到 ${submenuToggles.length} 个子菜单切换按钮`);
+            
+            // 检查菜单链接
+            const menuLinks = document.querySelectorAll('.blog-nav-mobile-v2 a[href]:not(.submenu-toggle)');
+            details.push(`✓ 找到 ${menuLinks.length} 个菜单链接`);
+            
+            // 检查菜单元素状态
+            if (toggleBtn) details.push(`✓ 汉堡菜单按钮元素存在 (ID: ${toggleBtn.id})`);
+            if (mobileMenu) details.push(`✓ 移动端菜单存在 (ID: ${mobileMenu.id})`);
+            if (mask) details.push(`✓ 遮罩层存在 (ID: ${mask.id})`);
+            
+            const status = hasListeners ? 'success' : 'error';
+            const message = hasListeners ? '事件监听器正常' : '事件监听器缺失';
+            
+            updateStatus(status, message);
+            updateDebugInfo(`事件监听器检查完成:\n${details.join('\n')}`);
+        }
+        
+        // 强制重新初始化菜单
+        function forceReinitializeMenu() {
+            updateDebugInfo('强制重新初始化菜单...');
+            
+            // 调用测试脚本的强制重新初始化函数
+            if (typeof window.testMenuForceInit === 'function') {
+                const success = window.testMenuForceInit();
+                updateDebugInfo(`强制重新初始化完成，成功: ${success}`);
+                
+                // 等待一段时间后检查事件监听器
+                setTimeout(() => {
+                    checkEventListeners();
+                }, 200);
+            } else {
+                updateDebugInfo('测试菜单强制初始化函数不存在');
+                
+                // 尝试调用其他初始化函数
+                if (typeof window.testMenuReinit === 'function') {
+                    const success = window.testMenuReinit();
+                    updateDebugInfo(`调用重新初始化函数，成功: ${success}`);
+                } else if (typeof window.testMenuInit === 'function') {
+                    const success = window.testMenuInit();
+                    updateDebugInfo(`调用初始化函数，成功: ${success}`);
+                } else {
+                    updateDebugInfo('没有找到任何可用的初始化函数');
+                }
+                
+                setTimeout(() => {
+                    checkEventListeners();
+                }, 200);
+            }
+        }
+        
+        // 页面加载完成后的初始化
+        $(document).ready(function() {
+            updateDebugInfo('页面加载完成，开始初始化...');
+            
+            // 等待一段时间确保所有脚本加载完成
+            setTimeout(() => {
+                // 首先尝试强制初始化测试菜单
+                if (typeof window.testMenuForceInit === 'function') {
+                    updateDebugInfo('调用测试菜单强制初始化...');
+                    const success = window.testMenuForceInit();
+                    updateDebugInfo(`测试菜单初始化完成，成功: ${success}`);
+                } else {
+                    updateDebugInfo('测试菜单脚本未加载，等待加载...');
+                }
+                
+                // 配置PJAX
+                $.pjax.defaults.timeout = 10000;
+                $(document).pjax('a[data-pjax]', '.blog-body');
+                
+                // 监听PJAX事件
+                $(document).on('pjax:send', function() {
+                    updateDebugInfo('PJAX导航开始...');
+                    updateStatus('warning', '正在加载页面...');
+                });
+                
+                $(document).on('pjax:complete', function() {
+                    updateDebugInfo('PJAX导航完成，菜单已重新初始化');
+                    updateStatus('success', 'PJAX导航完成');
+                    
+                    // 重新绑定测试函数到全局作用域
+                    window.testMenuToggle = testMenuToggle;
+                    window.simulatePjaxNavigation = simulatePjaxNavigation;
+                    window.checkEventListeners = checkEventListeners;
+                    window.forceReinitializeMenu = forceReinitializeMenu;
+                });
+                
+                $(document).on('pjax:error', function(xhr, textStatus, error) {
+                    updateDebugInfo(`PJAX导航失败: ${textStatus}`);
+                    updateStatus('error', 'PJAX导航失败');
+                });
+                
+                updateStatus('success', '页面初始化完成');
+                updateDebugInfo('页面初始化完成，可以开始测试');
+                
+                // 绑定全局函数
+                window.testMenuToggle = testMenuToggle;
+                window.simulatePjaxNavigation = simulatePjaxNavigation;
+                window.checkEventListeners = checkEventListeners;
+                window.forceReinitializeMenu = forceReinitializeMenu;
+                
+                // 初始检查
+                setTimeout(() => {
+                    checkEventListeners();
+                }, 1000);
+                
+            }, 1000); // 等待1秒确保所有脚本加载完成
+        });
+    </script>
+</body>
+</html> 

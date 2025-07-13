@@ -1,0 +1,79 @@
+﻿@using Dpz.Core.EnumLibrary
+@{ var menu = (MenuItem?) ViewBag.Menu; }
+
+<ul class="blog-nav-mobile-v2" id="blog-nav-mobile-v2" lay-filter="nav">
+    <li class="blog-nav-mobile-item-v2 @Html.Raw(menu == MenuItem.Home ? "nav-active-v2" : "")">
+        <a href="/" data-pjax>
+            <i class="fa fa-home fa-fw"></i>
+            <span>网站首页</span>
+        </a>
+    </li>
+    <li class="blog-nav-mobile-item-v2 @Html.Raw(menu == MenuItem.Blog ? "nav-active-v2" : "")">
+        <a asp-action="Index" asp-controller="Article" data-pjax>
+            <i class="fa fa-file-text fa-fw"></i>
+            <span>文章专栏</span>
+        </a>
+    </li>
+    <li class="blog-nav-mobile-item-v2 @Html.Raw(menu == MenuItem.Steam ? "nav-active-v2" : "")">
+        <a asp-controller="Steam" asp-action="Index" data-pjax>
+            <i class="fa fa-steam fa-fw"></i>
+            <span>Steam</span>
+        </a>
+    </li>
+    <li class="blog-nav-mobile-item-v2 @Html.Raw(menu == MenuItem.Mumble ? "nav-active-v2" : "")">
+        <a asp-action="Index" asp-controller="Talk" data-pjax>
+            <i class="fa fa-comments fa-fw"></i>
+            <span>碎碎念</span>
+        </a>
+    </li>
+    <li class="blog-nav-mobile-item-v2 @Html.Raw(menu == MenuItem.Bookmark ? "nav-active-v2" : "")">
+        <a asp-action="Index" asp-controller="Bookmark" data-pjax>
+            <i class="fa fa-bookmark fa-fw"></i>
+            <span>我的书签</span>
+        </a>
+    </li>
+    <li class="blog-nav-mobile-item-v2 has-submenu @Html.Raw(menu is MenuItem.Albums or MenuItem.Code or MenuItem.Timeline or MenuItem.Markdown or MenuItem.Music or MenuItem.Friends ? "nav-active-v2" : "")">
+        <a href="javascript:;" class="submenu-toggle">
+            <i class="fa fa-toggle-down fa-fw"></i>
+            <span>其它内容</span>
+        </a>
+        <ul class="blog-nav-mobile-submenu-v2">
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Albums ? "nav-active-v2" : "")">
+                <a asp-controller="Home" asp-action="GetAlbums" asp-route-path="" data-pjax>
+                    <i class="fa fa-photo fa-fw"></i>
+                    <span>相册</span>
+                </a>
+            </li>
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Music ? "nav-active-v2" : "")">
+                <a asp-controller="Music" asp-action="Index" asp-route-path="" data-pjax>
+                    <i class="fa fa-music fa-fw"></i>
+                    <span>曲库</span>
+                </a>
+            </li>
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Code ? "nav-active-v2" : "")">
+                <a asp-controller="Code" asp-action="Index" asp-route-path="" data-pjax>
+                    <i class="fa fa-code fa-fw"></i>
+                    <span>网站源码</span>
+                </a>
+            </li>
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Timeline ? "nav-active-v2" : "")">
+                <a asp-controller="Home" asp-action="Timeline" data-pjax>
+                    <i class="fa fa-pagelines fa-fw"></i>
+                    <span>时间轴</span>
+                </a>
+            </li>
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Friends ? "nav-active-v2" : "")">
+                <a asp-controller="Home" asp-action="Friends" data-pjax>
+                    <i class="fa fa-address-book fa-fw"></i>
+                    <span>友情链接</span>
+                </a>
+            </li>
+            <li class="blog-nav-mobile-submenu-item-v2 @Html.Raw(menu == MenuItem.Markdown ? "nav-active-v2" : "")">
+                <a asp-controller="Home" asp-action="Markdown" data-pjax>
+                    <i class="fa fa-map-marker fa-fw"></i>
+                    <span>Markdown语法</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

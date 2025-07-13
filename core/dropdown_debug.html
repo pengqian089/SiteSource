@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下拉菜单调试</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .test-nav {
+            background: #333;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .test-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        .test-item {
+            position: relative;
+        }
+
+        .test-item > a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .test-item > a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .test-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            list-style: none;
+        }
+
+        .test-item:hover .test-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .test-dropdown-item {
+            margin: 0;
+        }
+
+        .test-dropdown-item a {
+            display: block;
+            padding: 8px 12px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .test-dropdown-item a:hover {
+            background: #f0f0f0;
+        }
+
+        .debug-info {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        .test-button:hover {
+            background: #0056b3;
+        }
+
+        .force-show {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            background: rgba(255, 0, 0, 0.9) !important;
+            border: 2px solid red !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>下拉菜单调试页面</h1>
+    
+    <nav class="test-nav">
+        <ul class="test-menu">
+            <li class="test-item">
+                <a href="#">首页</a>
+            </li>
+            <li class="test-item">
+                <a href="#">文章</a>
+            </li>
+            <li class="test-item">
+                <a href="#" class="has-dropdown">
+                    <i class="fa fa-caret-down"></i>
+                    其它内容
+                </a>
+                <ul class="test-dropdown" id="testDropdown">
+                    <li class="test-dropdown-item">
+                        <a href="#">
+                            <i class="fa fa-photo"></i>
+                            相册
+                        </a>
+                    </li>
+                    <li class="test-dropdown-item">
+                        <a href="#">
+                            <i class="fa fa-music"></i>
+                            曲库
+                        </a>
+                    </li>
+                    <li class="test-dropdown-item">
+                        <a href="#">
+                            <i class="fa fa-code"></i>
+                            网站源码
+                        </a>
+                    </li>
+                    <li class="test-dropdown-item">
+                        <a href="#">
+                            <i class="fa fa-timeline"></i>
+                            时间轴
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div>
+        <h3>调试工具</h3>
+        <button class="test-button" onclick="forceShow()">强制显示下拉菜单</button>
+        <button class="test-button" onclick="checkStyles()">检查样式</button>
+        <button class="test-button" onclick="clearLog()">清空日志</button>
+    </div>
+
+    <div class="debug-info" id="debugInfo">调试信息将显示在这里...</div>
+
+    <script>
+        function log(message) {
+            const debugInfo = document.getElementById('debugInfo');
+            const timestamp = new Date().toLocaleTimeString();
+            debugInfo.textContent = `[${timestamp}] ${message}\n` + debugInfo.textContent;
+        }
+
+        function forceShow() {
+            const dropdown = document.getElementById('testDropdown');
+            if (dropdown) {
+                dropdown.classList.add('force-show');
+                dropdown.style.display = 'block';
+                dropdown.style.opacity = '1';
+                dropdown.style.visibility = 'visible';
+                dropdown.style.transform = 'translateY(0)';
+                dropdown.style.zIndex = '9999';
+                
+                log('强制显示下拉菜单');
+                
+                const rect = dropdown.getBoundingClientRect();
+                log(`下拉菜单位置: top=${rect.top}, left=${rect.left}, width=${rect.width}, height=${rect.height}`);
+                
+                const computed = window.getComputedStyle(dropdown);
+                log(`计算样式: display=${computed.display}, opacity=${computed.opacity}, visibility=${computed.visibility}`);
+            } else {
+                log('未找到下拉菜单元素');
+            }
+        }
+
+        function checkStyles() {
+            const dropdown = document.getElementById('testDropdown');
+            if (dropdown) {
+                const computed = window.getComputedStyle(dropdown);
+                const rect = dropdown.getBoundingClientRect();
+                
+                log('=== 样式检查 ===');
+                log(`display: ${computed.display}`);
+                log(`opacity: ${computed.opacity}`);
+                log(`visibility: ${computed.visibility}`);
+                log(`transform: ${computed.transform}`);
+                log(`z-index: ${computed.zIndex}`);
+                log(`position: ${computed.position}`);
+                log(`top: ${computed.top}`);
+                log(`left: ${computed.left}`);
+                log(`width: ${computed.width}`);
+                log(`height: ${computed.height}`);
+                log(`background: ${computed.background}`);
+                log(`border: ${computed.border}`);
+                log(`位置信息: top=${rect.top}, left=${rect.left}, width=${rect.width}, height=${rect.height}`);
+                log(`是否在视口内: ${rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth}`);
+            } else {
+                log('未找到下拉菜单元素');
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('debugInfo').textContent = '日志已清空...';
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            log('页面加载完成');
+            
+            // 添加鼠标事件监听
+            const testItem = document.querySelector('.test-item:last-child');
+            const dropdown = document.getElementById('testDropdown');
+            
+            if (testItem && dropdown) {
+                testItem.addEventListener('mouseenter', function() {
+                    log('鼠标进入菜单项');
+                });
+                
+                testItem.addEventListener('mouseleave', function() {
+                    log('鼠标离开菜单项');
+                });
+                
+                dropdown.addEventListener('mouseenter', function() {
+                    log('鼠标进入下拉菜单');
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    log('鼠标离开下拉菜单');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

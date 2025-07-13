@@ -1,0 +1,31 @@
+﻿@*<link href="/css/chatroom.css" rel="stylesheet" asp-append-version="true" />
+<div class="chatroom chatroom-fold">
+    <div class="chatroom-info"></div>
+    <ul class="chatroom-tribes">
+        <li class="chatroom-tribe current" data-id="group">
+            <span class="name">人工智障AI</span>
+            <span class="count" style="visibility:hidden">0</span>
+        </li>
+    </ul>
+    <div class="chatroom-pannels">
+        <div class="chatroom-pannel-bd">
+            <div class="chatroom-item current" data-id="group">
+            </div>
+        </div>
+        <div class="chatroom-pannel-ft">
+            <textarea type="text" class="chatroom-input" placeholder="按 Ctrl+Enter 发送"></textarea>
+            <span class="chatroom-send-btn">发送</span>
+        </div>
+    </div>
+</div>
+<div class="chatroom-log myself" id="MsgTemp" style="display: none">
+    <span class="avatar">
+        <img src="/images/guest.png" alt="guest">
+    </span>
+    <span class="time">
+        <b class="info"></b><span></span>
+    </span>
+    <span class="detail"></span>
+</div>
+<script src="/js/chatroom.js" asp-append-version="true"></script>*@
+<script src="/js/chat.min.js" asp-append-version="true"></script>

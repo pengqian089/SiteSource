@@ -54,6 +54,26 @@ body {
     min-height: calc(100vh - 80px);
 }
 
+/* v2 菜单适配 */
+.blog-nav-v2 + .blog-body {
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+    .blog-nav-v2 + .blog-body {
+        margin-top: 70px;
+        min-height: calc(100vh - 70px);
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-nav-v2 + .blog-body {
+        margin-top: 64px;
+        min-height: calc(100vh - 64px);
+    }
+}
+
 .blog-container {
     margin: 0 15px;
     position: relative;

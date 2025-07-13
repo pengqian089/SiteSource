@@ -1,4 +1,4 @@
-@model Tuple<IList<VmArticleMini>,IList<VmArticleMini>,IList<string>>
+﻿@model Tuple<IList<VmArticleMini>, IList<VmArticleMini>, IList<string>>
 @{
     var tag = Context.Request.Query["tag"];
 }
@@ -9,11 +9,13 @@
         {
             if (tag == item)
             {
-                <a asp-controller="Article" asp-action="Index" asp-route-tag="@item" class="right-category-tag-v2 right-category-tag-active-v2">@item</a>
+                <a asp-controller="Article" asp-action="Index" asp-route-tag="@item"
+                   class="right-category-tag-v2 right-category-tag-active-v2">@item</a>
             }
             else
             {
-                <a asp-controller="Article" asp-action="Index" asp-route-tag="@item" class="right-category-tag-v2">@item</a>
+                <a asp-controller="Article" asp-action="Index" asp-route-tag="@item"
+                   class="right-category-tag-v2">@item</a>
             }
         }
     </div>
@@ -25,7 +27,8 @@
         {
             <li class="right-module-item-v2">
                 <i class="right-module-icon-v2 fa fa-hand-o-right"></i>
-                <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax class="right-module-link-v2">@item.Title</a>
+                <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax
+                   class="right-module-link-v2">@item.Title</a>
             </li>
         }
     </ul>
@@ -37,7 +40,8 @@
         {
             <li class="right-module-item-v2">
                 <i class="right-module-icon-v2 fa fa-hand-o-right"></i>
-                <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax class="right-module-link-v2">@item.Title</a>
+                <a asp-action="Read" asp-controller="Article" asp-route-id="@item.Id" data-pjax
+                   class="right-module-link-v2">@item.Title</a>
             </li>
         }
     </ul>
@@ -45,6 +49,7 @@
 
 <!--移动端遮罩层-->
 <div class="right-category-mask-v2"></div>
-
 <!--右边悬浮 平板或手机设备显示-->
-<div class="right-category-toggle-v2"><i class="fa fa-chevron-left"></i></div>
+<div class="right-category-toggle-v2">
+    <i class="fa fa-chevron-left"></i>
+</div>
