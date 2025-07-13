@@ -21,6 +21,12 @@ function initMobileSearch() {
         return;
     }
 
+    const blogMainLeft = document.querySelector('.blog-main-left,.home-main-left-v2');
+    if (!blogMainLeft) {
+        log('未找到 .blog-main-left 或 .home-main-left-v2，跳过移动端搜索初始化');
+        return;
+    }
+
     log('当前为移动端，开始初始化移动端搜索功能');
 
     // 创建移动端搜索元素

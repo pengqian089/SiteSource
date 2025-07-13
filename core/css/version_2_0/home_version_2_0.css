@@ -2,15 +2,7 @@
 /* 引入设计系统 */
 @import '_design_system.css';
 
-/* ===== 移动端防护 - 防止元素超出屏幕宽度 ===== */
-* {
-    box-sizing: border-box;
-}
 
-html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
 
 img {
     max-width: 100%;

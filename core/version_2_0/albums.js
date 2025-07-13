@@ -54,10 +54,10 @@
     // 缩放配置
     const zoomConfig = {
         minScale: 0.5,
-        maxScale: 5,
+        maxScale: 8,
         zoomStep: 0.2,
         touchZoomSensitivity: 0.005,
-        wheelZoomSensitivity: 0.001
+        wheelZoomSensitivity: 0.005
     };
 
     // 配置选项
@@ -642,8 +642,8 @@
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
             
-            // 计算缩放因子
-            const delta = e.deltaY * -zoomConfig.wheelZoomSensitivity;
+            // 计算缩放因子，使用更合适的缩放敏感度
+            const delta = e.deltaY * -0.005; // 调整缩放敏感度
             const scaleFactor = Math.exp(delta);
             
             zoomImage(scaleFactor, mouseX, mouseY);
@@ -655,23 +655,27 @@
         const newScale = Math.max(zoomConfig.minScale, Math.min(zoomConfig.maxScale, currentScale * scaleFactor));
         
         if (newScale !== currentScale) {
-            // 计算缩放中心点
-            const scaleChange = newScale / currentScale;
             const rect = imageContainer.getBoundingClientRect();
             
-            // 如果没有指定中心点，使用图片中心
+            // 如果没有指定中心点，使用容器中心
             if (centerX === undefined || centerY === undefined) {
                 centerX = rect.width / 2;
                 centerY = rect.height / 2;
             }
             
-            // 计算新的位移
-            const newTranslateX = centerX - (centerX - currentTranslateX) * scaleChange;
-            const newTranslateY = centerY - (centerY - currentTranslateY) * scaleChange;
+            // 计算缩放比例变化
+            const scaleChange = newScale / currentScale;
+            
+            // 计算缩放中心点相对于容器的位置
+            const offsetX = centerX - rect.width / 2;
+            const offsetY = centerY - rect.height / 2;
+            
+            // 计算缩放后的新位移
+            // 公式：新位移 = (旧位移 - 偏移) * 缩放比例 + 偏移
+            currentTranslateX = (currentTranslateX - offsetX / currentScale) * scaleChange + offsetX / newScale;
+            currentTranslateY = (currentTranslateY - offsetY / currentScale) * scaleChange + offsetY / newScale;
             
             currentScale = newScale;
-            currentTranslateX = newTranslateX;
-            currentTranslateY = newTranslateY;
             
             updateImageTransform();
             updateZoomState();
@@ -680,7 +684,35 @@
 
     // 更新图片变换
     function updateImageTransform() {
-        modalImage.style.transform = `scale(${currentScale}) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+        // 应用边界限制
+        applyBoundaryConstraints();
+        
+        modalImage.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${currentScale})`;
+    }
+    
+    // 应用边界限制
+    function applyBoundaryConstraints() {
+        if (currentScale <= 1) {
+            // 缩放比例小于等于1时，图片居中
+            currentTranslateX = 0;
+            currentTranslateY = 0;
+            return;
+        }
+        
+        const rect = imageContainer.getBoundingClientRect();
+        const imageRect = modalImage.getBoundingClientRect();
+        
+        // 计算图片当前显示尺寸
+        const imageWidth = imageRect.width;
+        const imageHeight = imageRect.height;
+        
+        // 计算最大允许的位移
+        const maxTranslateX = Math.max(0, (imageWidth - rect.width) / 2);
+        const maxTranslateY = Math.max(0, (imageHeight - rect.height) / 2);
+        
+        // 限制位移范围
+        currentTranslateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, currentTranslateX));
+        currentTranslateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, currentTranslateY));
     }
 
     // 更新缩放状态
@@ -692,6 +724,54 @@
             modalImage.classList.remove('zoomed');
             imageContainer.classList.remove('zoomed');
         }
+        
+        // 显示缩放比例提示
+        showZoomIndicator();
+    }
+    
+    // 显示缩放比例提示
+    function showZoomIndicator() {
+        // 防止频繁显示
+        if (window.zoomIndicatorTimeout) {
+            clearTimeout(window.zoomIndicatorTimeout);
+        }
+        
+        let indicator = document.getElementById('albums-zoom-indicator');
+        
+        if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'albums-zoom-indicator';
+            indicator.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 10001;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+                backdrop-filter: blur(10px);
+            `;
+            document.body.appendChild(indicator);
+        }
+        
+        indicator.textContent = `${Math.round(currentScale * 100)}%`;
+        indicator.style.opacity = '1';
+        
+        window.zoomIndicatorTimeout = setTimeout(() => {
+            indicator.style.opacity = '0';
+            setTimeout(() => {
+                if (indicator && indicator.parentNode) {
+                    indicator.parentNode.removeChild(indicator);
+                }
+            }, 200);
+        }, 1000);
     }
 
     // 鼠标按下处理
@@ -716,8 +796,8 @@
         const deltaX = e.clientX - dragStartX;
         const deltaY = e.clientY - dragStartY;
         
-        currentTranslateX = dragStartTranslateX + deltaX / currentScale;
-        currentTranslateY = dragStartTranslateY + deltaY / currentScale;
+        currentTranslateX = dragStartTranslateX + deltaX;
+        currentTranslateY = dragStartTranslateY + deltaY;
         
         updateImageTransform();
     }
@@ -761,8 +841,8 @@
             const deltaX = e.touches[0].clientX - dragStartX;
             const deltaY = e.touches[0].clientY - dragStartY;
             
-            currentTranslateX = dragStartTranslateX + deltaX / currentScale;
-            currentTranslateY = dragStartTranslateY + deltaY / currentScale;
+            currentTranslateX = dragStartTranslateX + deltaX;
+            currentTranslateY = dragStartTranslateY + deltaY;
             
             updateImageTransform();
         } else if (e.touches.length === 2) {
@@ -777,11 +857,19 @@
             
             if (lastTouchDistance > 0) {
                 const scaleFactor = distance / lastTouchDistance;
+                
+                // 计算两指中心点
                 const centerX = (touch1.clientX + touch2.clientX) / 2;
                 const centerY = (touch1.clientY + touch2.clientY) / 2;
+                
+                // 获取容器位置
                 const rect = imageContainer.getBoundingClientRect();
                 
-                zoomImage(scaleFactor, centerX - rect.left, centerY - rect.top);
+                // 转换为相对于容器的坐标
+                const relativeCenterX = centerX - rect.left;
+                const relativeCenterY = centerY - rect.top;
+                
+                zoomImage(scaleFactor, relativeCenterX, relativeCenterY);
             }
             
             lastTouchDistance = distance;
@@ -799,8 +887,16 @@
         currentScale = 1;
         currentTranslateX = 0;
         currentTranslateY = 0;
+        
+        // 添加平滑过渡效果
+        modalImage.style.transition = 'transform 0.3s ease-out';
         updateImageTransform();
         updateZoomState();
+        
+        // 恢复正常的过渡效果
+        setTimeout(() => {
+            modalImage.style.transition = 'opacity var(--ds-duration-300) var(--ds-easing-out), transform var(--ds-duration-200) var(--ds-easing-out)';
+        }, 300);
     }
 
     // 初始化懒加载
@@ -896,6 +992,13 @@
             console.error('Modal or modalImage not found');
             return;
         }
+        
+        // 重置缩放状态
+        currentScale = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        updateImageTransform();
+        updateZoomState();
         
         // 显示加载状态
         showModalLoading();
@@ -1169,8 +1272,12 @@
         // 清理事件监听器
         unbindModalEvents();
         
-        // 重置缩放状态
-        resetZoom();
+        // 立即重置缩放状态
+        currentScale = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        updateImageTransform();
+        updateZoomState();
         
         // 添加关闭动画
         modal.classList.remove('show');
@@ -1189,6 +1296,16 @@
         
         // 恢复页面滚动
         document.body.style.overflow = '';
+        
+        // 清理缩放指示器
+        if (window.zoomIndicatorTimeout) {
+            clearTimeout(window.zoomIndicatorTimeout);
+            window.zoomIndicatorTimeout = null;
+        }
+        const indicator = document.getElementById('albums-zoom-indicator');
+        if (indicator && indicator.parentNode) {
+            indicator.parentNode.removeChild(indicator);
+        }
     }
 
     // 显示上一张图片
@@ -1214,8 +1331,12 @@
             return;
         }
         
-        // 重置缩放状态
-        resetZoom();
+        // 立即重置缩放状态（无动画）
+        currentScale = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        updateImageTransform();
+        updateZoomState();
         
         // 显示加载状态
         showModalLoading();

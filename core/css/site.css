@@ -3,6 +3,16 @@ html {
     background-color: transparent;
 }
 
+/* ===== 移动端防护 - 防止元素超出屏幕宽度 ===== */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 @font-face {
     font-family: "cascadia-code";
     src: url("../../fonts/cascadia-code/woff2/CascadiaCode.woff2") format('woff2'),
@@ -788,34 +798,7 @@ div[carousel-item] {
     background-color: #bb0662;
 }
 
-/* ::-webkit-scrollbar {
-    width: 0.5em;
-    height: 0.5em;
-}
-
-::-webkit-scrollbar-button:vertical {
-    display: none
-}
-
-::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
-    background-color: #393D49
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    background-color: #b4055f;
-    background-image: linear-gradient(#b4055f, #735760)
-}
-
-::-webkit-scrollbar-thumb:vertical:hover {
-    background-color: #575153
-}
-
-::-webkit-scrollbar-thumb:vertical:active {
-    background-color: #b3075e
-} */
-
-
+/* 浅色模式滚动条样式 */
 ::-webkit-scrollbar {
     height: 12px;
     width: 14px;
@@ -826,10 +809,10 @@ div[carousel-item] {
 
 ::-webkit-scrollbar-thumb {
     width: 10px;
-    background-color: #969696;
+    background-color: rgba(139, 92, 246, 0.3);
     border-radius: 10px;
     z-index: 12;
-    border: 4px solid rgba(184, 184, 184, 0);
+    border: 4px solid rgba(255, 255, 255, 0.8);
     background-clip: padding-box;
     transition: background-color .32s ease-in-out;
     margin: 4px;
@@ -838,16 +821,17 @@ div[carousel-item] {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #58595c
+    background-color: rgba(139, 92, 246, 0.6);
 }
 
-::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
-    background: #f5eded
+::-webkit-scrollbar-corner, 
+::-webkit-scrollbar-track {
+    background: rgba(248, 250, 252, 0.8);
 }
 
 html {
     scrollbar-width: thin;
-    scrollbar-color: #969696 #58595c;
+    scrollbar-color: rgba(139, 92, 246, 0.4) rgba(248, 250, 252, 0.8);
 }
 
 .aplayer-list ol::-webkit-scrollbar-thumb {

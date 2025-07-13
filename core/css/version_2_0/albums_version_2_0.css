@@ -2,16 +2,6 @@
 /* 引入设计系统 */
 @import '_design_system.css';
 
-/* ===== 防护样式 ===== */
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
-
 /* ===== 主容器 ===== */
 .albums-container-v2 {
     min-height: 100vh;
@@ -683,7 +673,7 @@ html, body {
     object-fit: contain;
     opacity: 1;
     transition: opacity var(--ds-duration-300) var(--ds-easing-out), transform var(--ds-duration-200) var(--ds-easing-out);
-    transform-origin: center center;
+    transform-origin: 0 0;
     cursor: zoom-in;
 }
 
@@ -983,6 +973,27 @@ html, body {
         justify-content: center;
     }
     
+    /* 平板设备按钮优化 - 改善触摸体验 */
+    .albums-picture-overlay-v2 {
+        opacity: 0.85;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
+    }
+    
+    .albums-action-btn-v2 {
+        width: 46px;
+        height: 46px;
+        font-size: var(--ds-font-size-lg);
+    }
+    
     /* 触摸设备优化 */
     .albums-modal-nav-btn-v2 {
         width: 50px;
@@ -1041,6 +1052,21 @@ html, body {
     
     .albums-picture-size-v2 {
         align-items: flex-start;
+    }
+    
+    /* 小屏幕设备按钮优化 - 默认显示 */
+    .albums-picture-overlay-v2 {
+        opacity: 0.9;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.25) 0%,
+            rgba(0, 0, 0, 0.15) 50%,
+            rgba(0, 0, 0, 0.35) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
     }
     
     .albums-action-btn-v2 {
@@ -1103,8 +1129,20 @@ html, body {
         padding: var(--ds-space-2);
     }
     
+    /* 超小屏幕设备按钮优化 - 始终显示 */
+    .albums-picture-overlay-v2 {
+        opacity: 0.95;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.4) 100%
+        );
+    }
+    
     .albums-picture-actions-v2 {
         gap: var(--ds-space-2);
+        transform: translateY(0);
     }
     
     .albums-action-btn-v2 {
@@ -1317,6 +1355,128 @@ html, body {
     }
 }
 
+/* ===== 暗色主题下的触摸设备优化 ===== */
+@media (prefers-color-scheme: dark) and (hover: none) and (pointer: coarse) {
+    .albums-picture-overlay-v2 {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.6) 100%
+        );
+    }
+    
+    /* 优化触摸设备深色模式下的按钮样式 - 移除白色轮廓 */
+    .albums-action-btn-v2 {
+        background: rgba(32, 33, 36, 0.94);
+        border: 3px solid rgba(192, 132, 252, 0.8);
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.6),
+            0 3px 9px rgba(0, 0, 0, 0.4),
+            0 0 12px rgba(192, 132, 252, 0.4);
+    }
+    
+    .albums-action-btn-v2:hover,
+    .albums-action-btn-v2:active {
+        background: rgba(192, 132, 252, 0.9);
+        border-color: rgba(192, 132, 252, 0.9);
+        box-shadow: 
+            0 8px 24px rgba(0, 0, 0, 0.7),
+            0 4px 12px rgba(192, 132, 252, 0.5),
+            0 0 16px rgba(192, 132, 252, 0.6);
+    }
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 1024px) {
+    .albums-picture-overlay-v2 {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.35) 0%,
+            rgba(0, 0, 0, 0.25) 50%,
+            rgba(0, 0, 0, 0.55) 100%
+        );
+    }
+    
+    /* 优化平板深色模式下的按钮样式 - 移除白色轮廓 */
+    .albums-action-btn-v2 {
+        background: rgba(32, 33, 36, 0.92);
+        border: 2px solid rgba(192, 132, 252, 0.75);
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.5),
+            0 3px 9px rgba(0, 0, 0, 0.35),
+            0 0 12px rgba(192, 132, 252, 0.35);
+    }
+    
+    .albums-action-btn-v2:hover {
+        background: rgba(192, 132, 252, 0.88);
+        border-color: rgba(192, 132, 252, 0.88);
+        box-shadow: 
+            0 8px 24px rgba(0, 0, 0, 0.6),
+            0 4px 12px rgba(192, 132, 252, 0.45),
+            0 0 16px rgba(192, 132, 252, 0.55);
+    }
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    .albums-picture-overlay-v2 {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.6) 100%
+        );
+    }
+    
+    /* 优化小屏幕深色模式下的按钮样式 - 移除白色轮廓 */
+    .albums-action-btn-v2 {
+        background: rgba(32, 33, 36, 0.95);
+        border: 2px solid rgba(192, 132, 252, 0.8);
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.6),
+            0 3px 9px rgba(0, 0, 0, 0.4),
+            0 0 12px rgba(192, 132, 252, 0.4);
+    }
+    
+    .albums-action-btn-v2:hover {
+        background: rgba(192, 132, 252, 0.9);
+        border-color: rgba(192, 132, 252, 0.9);
+        box-shadow: 
+            0 8px 24px rgba(0, 0, 0, 0.7),
+            0 4px 12px rgba(192, 132, 252, 0.5),
+            0 0 16px rgba(192, 132, 252, 0.6);
+    }
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 480px) {
+    .albums-picture-overlay-v2 {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.4) 50%,
+            rgba(0, 0, 0, 0.7) 100%
+        );
+    }
+    
+    /* 优化超小屏幕深色模式下的按钮样式 - 移除白色轮廓 */
+    .albums-action-btn-v2 {
+        background: rgba(28, 29, 32, 0.96);
+        border: 2px solid rgba(192, 132, 252, 0.85);
+        box-shadow: 
+            0 4px 14px rgba(0, 0, 0, 0.7),
+            0 2px 7px rgba(0, 0, 0, 0.5),
+            0 0 10px rgba(192, 132, 252, 0.5);
+    }
+    
+    .albums-action-btn-v2:hover {
+        background: rgba(192, 132, 252, 0.95);
+        border-color: rgba(192, 132, 252, 0.95);
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.8),
+            0 3px 9px rgba(192, 132, 252, 0.6),
+            0 0 14px rgba(192, 132, 252, 0.7);
+    }
+}
+
 /* ===== 动画性能优化 ===== */
 @media (prefers-reduced-motion: reduce) {
     .albums-picture-card-v2,
@@ -1416,6 +1576,35 @@ html, body {
 /* ===== 打印样式 ===== */
 /* ===== 触摸设备优化 ===== */
 @media (hover: none) and (pointer: coarse) {
+    /* 图片卡片按钮在触摸设备上默认显示 */
+    .albums-picture-overlay-v2 {
+        opacity: 0.55;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
+    }
+    
+    /* 为触摸设备优化按钮尺寸 */
+    .albums-action-btn-v2 {
+        width: 50px;
+        height: 50px;
+        font-size: var(--ds-font-size-xl);
+        border-width: 3px;
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 3px 9px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 1),
+            0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    
+    /* 模态框按钮优化 */
     .albums-modal-nav-btn-v2 {
         width: 60px;
         height: 60px;
@@ -1440,18 +1629,6 @@ html, body {
             0 3px 9px rgba(0, 0, 0, 0.4),
             inset 0 2px 0 rgba(255, 255, 255, 0.3),
             0 0 15px rgba(255, 255, 255, 0.3);
-    }
-    
-    .albums-action-btn-v2 {
-        width: 50px;
-        height: 50px;
-        font-size: var(--ds-font-size-xl);
-        border-width: 3px;
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.4),
-            0 3px 9px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 1),
-            0 0 10px rgba(255, 255, 255, 0.4);
     }
     
     .albums-modal-keyboard-hint-v2 {
