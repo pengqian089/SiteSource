@@ -1,6 +1,8 @@
 /* 菜单样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 引入设计系统 */
 @import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* ===== 主导航容器 ===== */
 .blog-nav-v2 {

@@ -1,6 +1,8 @@
-/* 评论系统样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 评论样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 引入设计系统 */
 @import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* 评论主容器 */
 .comment-block {
@@ -1573,4 +1575,10 @@
 .comment-form .ds-button,
 .comments-area .ds-button {
     font-family: inherit;
-} 
+}
+
+.comment-loading {
+    width: 3rem;
+    display: block;
+    margin: 0 auto;
+}

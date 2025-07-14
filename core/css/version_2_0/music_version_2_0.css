@@ -1,6 +1,8 @@
-/* 音乐页面样式 2.0 版本 - 现代化音乐播放器设计 */
+/* 音乐播放器样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 引入设计系统 */
 @import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* ===== 播放器容器 ===== */
 #blue-playlist-container {

@@ -1,7 +1,8 @@
-/* 分页组件样式 2.0 版本 - 现代化、美观大气的设计 */
-/* 所有样式使用最高优先级确保覆盖原有样式 */
+/* 分页器样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 引入设计系统 */
 @import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* 分页容器基础样式 */
 .laypage-main {

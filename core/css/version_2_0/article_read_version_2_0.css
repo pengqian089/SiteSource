@@ -1,7 +1,8 @@
-/* Article Read Version 2.0 - 文章详情页面样式 */
-/* 基于统一设计系统 2.0 的现代化文章阅读体验 */
-
-@import "_design_system.css";
+/* 文章阅读样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* ===== 文章详情容器 ===== */
 .article-detail {

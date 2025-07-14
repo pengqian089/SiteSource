@@ -1,6 +1,8 @@
-/* 右侧信息模块样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 右侧边栏样式 2.0 版本 - 现代化、美观大气的设计 */
 /* 引入设计系统 */
 @import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
 
 /* ===== 右侧信息容器基础样式 ===== */
 .right-info-container-v2 {
