@@ -536,6 +536,303 @@
     }
 }
 
+/* 小屏幕设备优化 (480px以下) - 激进的空间优化 */
+@media screen and (max-width: 480px) {
+    
+    /* 减少主容器边距 */
+    .blog-container {
+        padding: 0.5rem !important;
+        margin: 0 !important;
+    }
+    
+    .blog-main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .blog-main-left {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Steam容器激进优化 */
+    .steam-games {
+        padding: 0.8rem !important;
+        margin: 0.5rem auto 1rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1) !important;
+    }
+    
+    /* 游戏卡片激进优化 */
+    .game-card,
+    .game-info-card {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+        border-radius: 12px !important;
+    }
+    
+    .game-content {
+        gap: 1rem !important;
+    }
+    
+    .game-content > img,
+    .game-logo-image {
+        width: 100% !important;
+        max-width: 240px !important;
+        margin: 0 auto !important;
+    }
+    
+    .game-info .game-name {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .game-info .game-time {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 0.8rem !important;
+    }
+    
+    /* 成就区域优化 */
+    .game-card .game-achievements {
+        padding: 1rem !important;
+        gap: 1rem !important;
+        margin-top: 0.8rem !important;
+    }
+    
+    .achievement-summary-section {
+        gap: 0.8rem !important;
+    }
+    
+    .achievement-progress {
+        width: 100% !important;
+        max-width: 200px !important;
+    }
+    
+    .stats-numbers {
+        gap: 0.8rem !important;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem !important;
+    }
+    
+    .stat-label,
+    .recent-achievements-label {
+        font-size: 0.8rem !important;
+        padding: 0.15rem 0.3rem !important;
+    }
+    
+    /* 成就项激进优化 */
+    .achievements .item {
+        padding: 1rem !important;
+        gap: 1rem !important;
+        margin: 0.8rem 0 !important;
+    }
+    
+    .achievements .item .ach-icon img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+    
+    .achievements .item .game-name {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .achievements .item .desc {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .achievements .item .un-lock {
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    /* 成就分类标题优化 */
+    .achievement-category-header {
+        padding: 0.8rem 1rem !important;
+        min-height: auto !important;
+    }
+    
+    .category-title.unlock-title,
+    .category-title.lock-title,
+    .category-title.hide-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .category-badge.unlock-badge,
+    .category-badge.lock-badge,
+    .category-badge.hide-badge {
+        padding: 0.3rem 0.6rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* 返回按钮区域优化 */
+    .return-section {
+        margin-top: 2rem !important;
+        padding: 1rem 0 !important;
+    }
+    
+    .return-button {
+        padding: 0.6rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* 面包屑导航优化 */
+    .layui-elem-quote.sitemap {
+        padding: 0.5rem 0.8rem !important;
+        margin: 0.5rem 0 !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* 成就图标优化 */
+    .achievement-icons .achievement-icon-item img {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    
+    .recent-achievements-icons {
+        gap: 0.3rem !important;
+    }
+    
+    /* 隐藏不必要的装饰性元素 */
+    .steam-games::before {
+        display: none !important;
+    }
+    
+    /* 评论区域优化 */
+    .comments-section {
+        margin-top: 2rem !important;
+    }
+}
+
+/* 超小屏幕设备优化 (360px以下) - 极致空间优化 */
+@media screen and (max-width: 360px) {
+    
+    /* 进一步减少边距 */
+    .blog-container {
+        padding: 0.3rem !important;
+    }
+    
+    .steam-games {
+        padding: 0.6rem !important;
+        margin: 0.3rem auto 0.8rem !important;
+    }
+    
+    .game-card,
+    .game-info-card {
+        padding: 0.8rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .game-content {
+        gap: 0.8rem !important;
+    }
+    
+    .game-info .game-name {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .game-info .game-time {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    .game-card .game-achievements {
+        padding: 0.8rem !important;
+        gap: 0.8rem !important;
+    }
+    
+    .achievements .item {
+        padding: 0.8rem !important;
+        gap: 0.8rem !important;
+    }
+    
+    .achievements .item .ach-icon img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .achievements .item .game-name {
+        font-size: 1rem !important;
+        margin-bottom: 0.4rem !important;
+    }
+    
+    .achievements .item .desc {
+        font-size: 0.8rem !important;
+    }
+    
+    .achievement-category-header {
+        padding: 0.6rem 0.8rem !important;
+        flex-direction: column !important;
+        gap: 0.3rem !important;
+    }
+    
+    .category-title.unlock-title,
+    .category-title.lock-title,
+    .category-title.hide-title {
+        font-size: 1rem !important;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem !important;
+    }
+    
+    .stat-label,
+    .recent-achievements-label {
+        font-size: 0.75rem !important;
+    }
+    
+    /* 隐藏更多装饰性元素 */
+    .achievement-progress-bar::after {
+        display: none !important;
+    }
+}
+
+/* 横屏模式下的优化 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    
+    .steam-games {
+        padding: 1rem !important;
+        margin: 0.5rem auto 1rem !important;
+    }
+    
+    .game-card,
+    .game-info-card {
+        padding: 1rem !important;
+    }
+    
+    .game-content {
+        flex-direction: row !important;
+        gap: 1rem !important;
+        text-align: left !important;
+    }
+    
+    .game-content > img,
+    .game-logo-image {
+        width: 120px !important;
+        max-width: 120px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .game-info .game-name {
+        text-align: left !important;
+        font-size: 1.1rem !important;
+    }
+    
+    .game-info .game-time {
+        text-align: left !important;
+    }
+    
+    .achievement-summary-section {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+    }
+}
+
 /* 平板端优化 */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     
@@ -1830,4 +2127,79 @@
     width: 100% !important;
     display: block !important;
     clear: both;
+}
+/* 游戏列表页面 (Index) 专门优化 */
+@media screen and (max-width: 480px) {
+    
+    /* 游戏列表页面的特殊优化 */
+    .steam-games .game-card {
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08) !important;
+        border: 1px solid rgba(139, 92, 246, 0.1) !important;
+    }
+    
+    /* 游戏列表中的成就摘要优化 */
+    .game-card .achievement-summary {
+        flex-direction: column !important;
+        gap: 0.6rem !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .game-card .achievement-summary > span {
+        font-size: 0.8rem !important;
+    }
+    
+    .game-card .achievement-summary > span > span {
+        padding: 0.1rem 0.4rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .game-card .achievement-progress {
+        width: 80% !important;
+        max-width: 160px !important;
+        margin: 0 auto !important;
+    }
+    
+    .game-card .achievement-icons {
+        gap: 0.3rem !important;
+        justify-content: center !important;
+    }
+    
+    .game-card .achievement-icons .achievement-icon-item img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    /* 游戏列表页面右侧栏优化 */
+    .blog-main-right {
+        margin-top: 1rem !important;
+        padding: 0 !important;
+    }
+    
+    .blog-main-right .blog-module {
+        margin: 0.5rem 0 !important;
+        padding: 0.8rem !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    
+    /* 游戏列表页面超小屏幕优化 */
+    .game-card .achievement-summary > span {
+        font-size: 0.75rem !important;
+    }
+    
+    .game-card .achievement-progress {
+        width: 90% !important;
+        max-width: 140px !important;
+    }
+    
+    .game-card .achievement-icons .achievement-icon-item img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    
+    .game-card .achievement-icons {
+        gap: 0.2rem !important;
+    }
 }

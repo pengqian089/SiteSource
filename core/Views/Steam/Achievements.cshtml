@@ -74,6 +74,7 @@ else
                             </span>
                             <div class="achievement-progress progress-bar-container">
                                 <div class="achievement-progress-bar"
+                                     style="width: @progressPercentage.ToString("F1")%"
                                      data-progress="@progressPercentage.ToString("F1")"></div>
                             </div>
                             <span class="completion-rate">完成度：@progressPercentage.ToString("F1")%</span>
@@ -252,87 +253,3 @@ else
         </div>
     </div>
 }
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // 设置进度条宽度
-        const progressBar = document.querySelector('.achievement-progress-bar[data-progress]');
-        if (progressBar) {
-            const progress = progressBar.getAttribute('data-progress');
-            progressBar.style.width = progress + '%';
-        }
-
-        // 展开收起功能 - 使用事件委托确保始终有效
-        document.addEventListener('click', function (e) {
-            // 检查点击的是否是 category-toggle 或其子元素
-            const toggle = e.target.closest('.category-toggle');
-            if (!toggle) return;
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            const section = toggle.closest('.achievement-category-section');
-            const content = section.querySelector('.category-content');
-            const icon = toggle.querySelector('.toggle-icon');
-            const category = section.getAttribute('data-category');
-
-            // 切换展开/收起状态
-            if (content.classList.contains('collapsed')) {
-                // 展开
-                content.classList.remove('collapsed');
-                toggle.classList.remove('collapsed');
-                icon.classList.remove('layui-icon-right');
-                icon.classList.add('layui-icon-down');
-                localStorage.setItem(`steam-achievements-${category}`, 'expanded');
-            } else {
-                // 收起
-                content.classList.add('collapsed');
-                toggle.classList.add('collapsed');
-                icon.classList.remove('layui-icon-down');
-                icon.classList.add('layui-icon-right');
-                localStorage.setItem(`steam-achievements-${category}`, 'collapsed');
-            }
-        });
-
-        // 恢复之前的展开/收起状态，如果没有保存的状态则使用默认设置
-        const categoryToggles = document.querySelectorAll('.category-toggle');
-        categoryToggles.forEach(toggle => {
-            const section = toggle.closest('.achievement-category-section');
-            const category = section.getAttribute('data-category');
-            const savedState = localStorage.getItem(`steam-achievements-${category}`);
-            const content = section.querySelector('.category-content');
-            const icon = toggle.querySelector('.toggle-icon');
-
-            // 如果有保存的状态，使用保存的状态
-            if (savedState !== null) {
-                if (savedState === 'collapsed') {
-                    content.classList.add('collapsed');
-                    toggle.classList.add('collapsed');
-                    icon.classList.remove('layui-icon-down');
-                    icon.classList.add('layui-icon-right');
-                } else {
-                    content.classList.remove('collapsed');
-                    toggle.classList.remove('collapsed');
-                    icon.classList.remove('layui-icon-right');
-                    icon.classList.add('layui-icon-down');
-                }
-            } else {
-                // 如果没有保存的状态，使用默认设置
-                // 已解锁成就默认展开，其他默认收起
-                if (category === 'unlocked') {
-                    content.classList.remove('collapsed');
-                    toggle.classList.remove('collapsed');
-                    icon.classList.remove('layui-icon-right');
-                    icon.classList.add('layui-icon-down');
-                    localStorage.setItem(`steam-achievements-${category}`, 'expanded');
-                } else {
-                    content.classList.add('collapsed');
-                    toggle.classList.add('collapsed');
-                    icon.classList.remove('layui-icon-down');
-                    icon.classList.add('layui-icon-right');
-                    localStorage.setItem(`steam-achievements-${category}`, 'collapsed');
-                }
-            }
-        });
-    });
-</script> 
