@@ -23,7 +23,9 @@
                                 <h2 class="timeline-v2-title">@item.Title</h2>
                                 @if (!string.IsNullOrEmpty(item.Content))
                                 {
-                                    <div class="content timeline-v2-text">@Html.Raw(Markdown.ToHtml(item.Content))</div>
+                                    <div class="content timeline-v2-text markdown-body">
+                                        @Html.Raw(Markdown.ToHtml(item.Content))
+                                    </div>
                                 }
                                 <div class="timeline-actions timeline-v2-actions">
                                     @if (!string.IsNullOrEmpty(item.More))

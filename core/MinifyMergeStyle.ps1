@@ -27,7 +27,7 @@ $path = $location.Path
     "./core/css/version_2_0/home_version_2_0.css",
     "./core/css/version_2_0/home_version_2_0.css",
     "./core/css/version_2_0/home_version_2_0.css",
-    "./core/css/markdown.css",
+    "./core/css/version_2_0/markdown_version_2_0.css",
     "./core/css/version_2_0/bookmark_version_2_0.css",
     "./core/css/video.css",
     "./core/css/version_2_0/music_version_2_0.css",
