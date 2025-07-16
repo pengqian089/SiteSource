@@ -1,4 +1,4 @@
-/* 相册样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 相册样式 2.0 版本 - 使用 PhotoSwipe */
 /* 引入设计系统 */
 @import '_design_system.css';
 /* 引入Firefox兼容性修复 */
@@ -259,60 +259,8 @@
     transform: translateY(-1px) scale(1.05);
 }
 
-/* 为操作按钮添加描边效果以增强对比度 */
 .albums-action-btn-v2 i {
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-}
-
-/* 为按钮添加外发光效果，增强可见性 */
-.albums-action-btn-v2,
-.albums-modal-close-v2,
-.albums-modal-nav-btn-v2 {
-    position: relative;
-}
-
-.albums-action-btn-v2::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
-    z-index: -2;
-    pointer-events: none;
-}
-
-/* 为模态窗口关闭按钮添加外发光 */
-.albums-modal-close-v2::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
-    z-index: -2;
-    pointer-events: none;
-}
-
-.albums-action-btn-v2::after {
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-}
-
-.albums-modal-close-v2::after {
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 70%);
-}
-
-
-
-.albums-action-btn-v2:hover::after,
-.albums-modal-close-v2:hover::after {
-    opacity: 1;
 }
 
 /* ===== 图片信息区域 ===== */
@@ -504,458 +452,15 @@
     max-width: 400px;
 }
 
-/* ===== 模态框 ===== */
-.albums-modal-v2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
+/* ===== PhotoSwipe 样式增强 ===== */
+.pswp__caption__center {
+    text-align: center;
+    max-width: 90%;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-.albums-modal-v2.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.albums-modal-v2.closing {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.95);
-}
-
-.albums-modal-backdrop-v2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: var(--ds-backdrop-blur-lg);
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
-}
-
-.albums-modal-content-v2 {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    min-width: 400px;
-    min-height: 300px;
-    background: var(--ds-bg-primary);
-    border-radius: var(--ds-radius-2xl);
-    overflow: hidden;
-    box-shadow: var(--ds-shadow-2xl);
-    border: 1px solid var(--ds-border-primary);
-    transform: scale(0.9);
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
-}
-
-.albums-modal-v2.show .albums-modal-content-v2 {
-    transform: scale(1);
-}
-
-.albums-modal-v2.closing .albums-modal-content-v2 {
-    transform: scale(0.9);
-}
-
-.albums-modal-close-v2 {
-    position: absolute;
-    top: var(--ds-space-4);
-    right: var(--ds-space-4);
-    z-index: 10;
-    width: 44px;
-    height: 44px;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: var(--ds-backdrop-blur-lg);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    color: white;
-    font-size: var(--ds-font-size-lg);
-    cursor: pointer;
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.5),
-        0 2px 6px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-}
-
-.albums-modal-close-v2::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(200, 200, 200, 0.3));
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
-}
-
-.albums-modal-close-v2:hover::before {
-    opacity: 1;
-}
-
-.albums-modal-close-v2:hover {
-    transform: scale(1.1);
-    background: rgba(0, 0, 0, 0.95);
-    border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.6),
-        0 4px 12px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* 为模态窗口关闭按钮添加描边效果 */
-.albums-modal-close-v2 i {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
-}
-
-.albums-modal-image-container-v2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--ds-space-4);
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
-    min-height: 200px;
-}
-
-.albums-modal-image-container-v2.dragging {
-    cursor: grabbing;
-}
-
-.albums-modal-image-container-v2.zoomed {
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.1);
-}
-
-.albums-modal-image-container-v2.zoomed::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.albums-modal-image-container-v2.zoomed::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-}
-
-.albums-modal-image-container-v2.zoomed::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.albums-modal-image-container-v2.zoomed::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.albums-modal-image-v2 {
-    max-width: 100%;
-    max-height: 80vh;
-    min-width: 200px;
-    min-height: 150px;
-    border-radius: var(--ds-radius-lg);
-    object-fit: contain;
-    opacity: 1;
-    transition: opacity var(--ds-duration-300) var(--ds-easing-out), transform var(--ds-duration-200) var(--ds-easing-out);
-    transform-origin: 0 0;
-    cursor: zoom-in;
-}
-
-.albums-modal-image-v2.zoomed {
-    cursor: move;
-    max-width: none;
-    max-height: none;
-}
-
-.albums-modal-image-v2.fading {
-    opacity: 0;
-}
-
-.albums-modal-image-v2.loading {
-    opacity: 0.7;
-    filter: blur(2px);
-}
-
-/* 图片切换动画 */
-.albums-modal-image-container-v2 {
-    position: relative;
-}
-
-.albums-modal-image-v2 {
-    position: relative;
-    z-index: 1;
-}
-
-.albums-modal-image-v2.slide-out-left {
-    transform: translateX(-100%);
-    opacity: 0;
-}
-
-.albums-modal-image-v2.slide-out-right {
-    transform: translateX(100%);
-    opacity: 0;
-}
-
-.albums-modal-image-v2.slide-in-left {
-    animation: slideInLeft var(--ds-duration-300) var(--ds-easing-out) forwards;
-}
-
-.albums-modal-image-v2.slide-in-right {
-    animation: slideInRight var(--ds-duration-300) var(--ds-easing-out) forwards;
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* 淡入淡出动画 */
-.albums-modal-image-v2.fade-in {
-    animation: fadeIn var(--ds-duration-300) var(--ds-easing-out) forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* 加载状态 */
-.albums-modal-loading-v2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: var(--ds-backdrop-blur-md);
-    border-radius: var(--ds-radius-lg);
-    padding: var(--ds-space-4);
-    color: white;
-    font-size: var(--ds-font-size-sm);
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--ds-duration-200) var(--ds-easing-out);
-}
-
-.albums-modal-loading-v2.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.albums-modal-loading-spinner-v2 {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-right: var(--ds-space-2);
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* 模态框导航按钮容器 - 确保左右按钮正确分布 */
-.albums-modal-nav-v2 {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 var(--ds-space-4);
-    pointer-events: none;
-    z-index: 15;
-}
-
-/* 模态框导航按钮 - 高对比度设计确保在各种背景下可见 */
-.albums-modal-nav-btn-v2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: var(--ds-backdrop-blur-lg);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    color: white;
-    font-size: var(--ds-font-size-lg);
-    cursor: pointer;
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
-    pointer-events: auto;
-    position: relative;
-    overflow: hidden;
-    z-index: 16;
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.5),
-        0 2px 6px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.albums-modal-nav-btn-v2:hover {
-    transform: scale(1.1);
-    background: rgba(0, 0, 0, 0.95);
-    border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.6),
-        0 4px 12px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        0 0 20px rgba(255, 255, 255, 0.4);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.albums-modal-nav-btn-v2:active {
-    transform: scale(0.95);
-}
-
-.albums-modal-nav-btn-v2:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: scale(1);
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.6);
-}
-
-/* 为导航按钮添加描边效果 */
-.albums-modal-nav-btn-v2 i {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
-}
-
-.albums-modal-nav-btn-v2::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(200, 200, 200, 0.3));
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
-}
-
-.albums-modal-nav-btn-v2:hover::before {
-    opacity: 1;
-}
-
-.albums-modal-nav-btn-v2::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-.albums-modal-nav-btn-v2:hover::after {
-    width: 100%;
-    height: 100%;
-}
-
-/* 键盘导航提示 */
-.albums-modal-keyboard-hint-v2 {
-    position: absolute;
-    bottom: var(--ds-space-4);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: var(--ds-backdrop-blur-md);
-    color: white;
-    font-size: var(--ds-font-size-xs);
-    padding: var(--ds-space-2) var(--ds-space-3);
-    border-radius: var(--ds-radius-md);
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--ds-duration-300) var(--ds-easing-out);
-    pointer-events: none;
-    z-index: 10;
-}
-
-.albums-modal-v2:hover .albums-modal-keyboard-hint-v2 {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* 图片信息面板 */
-.albums-modal-info-panel-v2 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: var(--ds-backdrop-blur-lg);
-    color: white;
-    padding: var(--ds-space-4);
-    transform: translateY(100%);
-    transition: transform var(--ds-duration-300) var(--ds-easing-out);
-}
-
-.albums-modal-content-v2:hover .albums-modal-info-panel-v2 {
-    transform: translateY(0);
-}
-
-.albums-modal-info-title-v2 {
-    font-size: var(--ds-font-size-lg);
-    font-weight: 600;
-    margin-bottom: var(--ds-space-2);
-}
-
-.albums-modal-info-meta-v2 {
-    font-size: var(--ds-font-size-sm);
-    opacity: 0.8;
+.pswp__ui--fit .pswp__caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
 }
 
 /* ===== 响应式设计 ===== */
@@ -975,7 +480,6 @@
         justify-content: center;
     }
     
-    /* 平板设备按钮优化 - 改善触摸体验 */
     .albums-picture-overlay-v2 {
         opacity: 0.85;
         background: linear-gradient(
@@ -994,24 +498,6 @@
         width: 46px;
         height: 46px;
         font-size: var(--ds-font-size-lg);
-    }
-    
-    /* 触摸设备优化 */
-    .albums-modal-nav-btn-v2 {
-        width: 50px;
-        height: 50px;
-        font-size: var(--ds-font-size-xl);
-    }
-    
-    .albums-modal-close-v2 {
-        width: 50px;
-        height: 50px;
-        font-size: var(--ds-font-size-xl);
-    }
-    
-    .albums-modal-keyboard-hint-v2 {
-        font-size: var(--ds-font-size-sm);
-        padding: var(--ds-space-3) var(--ds-space-4);
     }
 }
 
@@ -1056,7 +542,6 @@
         align-items: flex-start;
     }
     
-    /* 小屏幕设备按钮优化 - 默认显示 */
     .albums-picture-overlay-v2 {
         opacity: 0.9;
         background: linear-gradient(
@@ -1067,31 +552,10 @@
         );
     }
     
-    .albums-picture-actions-v2 {
-        transform: translateY(0);
-    }
-    
     .albums-action-btn-v2 {
         width: 40px;
         height: 40px;
         font-size: var(--ds-font-size-base);
-    }
-    
-    .albums-modal-content-v2 {
-        max-width: 95vw;
-        max-height: 95vh;
-        min-width: 320px;
-        min-height: 240px;
-    }
-    
-    .albums-modal-image-container-v2 {
-        min-height: 160px;
-    }
-    
-    .albums-modal-image-v2 {
-        max-height: 70vh;
-        min-width: 180px;
-        min-height: 135px;
     }
 }
 
@@ -1131,7 +595,6 @@
         padding: var(--ds-space-2);
     }
     
-    /* 超小屏幕设备按钮优化 - 始终显示 */
     .albums-picture-overlay-v2 {
         opacity: 0.95;
         background: linear-gradient(
@@ -1144,7 +607,6 @@
     
     .albums-picture-actions-v2 {
         gap: var(--ds-space-2);
-        transform: translateY(0);
     }
     
     .albums-action-btn-v2 {
@@ -1157,38 +619,6 @@
         width: 28px;
         height: 28px;
     }
-    
-    .albums-modal-nav-v2 {
-        padding: 0 var(--ds-space-2);
-    }
-    
-    .albums-modal-content-v2 {
-        min-width: 280px;
-        min-height: 200px;
-    }
-    
-    .albums-modal-image-container-v2 {
-        min-height: 140px;
-    }
-    
-    .albums-modal-image-v2 {
-        min-width: 150px;
-        min-height: 112px;
-    }
-    
-    .albums-modal-nav-btn-v2 {
-        width: 36px;
-        height: 36px;
-        font-size: var(--ds-font-size-base);
-        border-width: 1px;
-    }
-    
-    .albums-modal-close-v2 {
-        width: 36px;
-        height: 36px;
-        font-size: var(--ds-font-size-base);
-        border-width: 1px;
-    }
 }
 
 /* ===== 暗色主题适配 ===== */
@@ -1197,8 +627,7 @@
     .albums-picture-card-v2,
     .albums-loading-v2,
     .albums-no-more-v2,
-    .albums-empty-v2,
-    .albums-modal-content-v2 {
+    .albums-empty-v2 {
         background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
         border: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: 
@@ -1207,10 +636,7 @@
     }
     
     .albums-header-v2:hover,
-    .albums-picture-card-v2:hover,
-    .albums-loading-v2:hover,
-    .albums-no-more-v2:hover,
-    .albums-empty-v2:hover {
+    .albums-picture-card-v2:hover {
         box-shadow: 
             0 12px 32px rgba(139, 92, 246, 0.2),
             0 6px 16px rgba(0, 0, 0, 0.4),
@@ -1238,46 +664,6 @@
         border-color: #c084fc;
     }
     
-    .albums-picture-meta-v2 {
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    
-    .albums-user-avatar-v2 {
-        border-color: rgba(192, 132, 252, 0.4);
-    }
-    
-    .albums-user-avatar-v2:hover {
-        border-color: #c084fc;
-    }
-    
-    .albums-user-name-v2 {
-        color: rgba(255, 255, 255, 0.95);
-    }
-    
-    .albums-upload-time-v2 {
-        color: rgba(255, 255, 255, 0.5);
-    }
-    
-    .albums-picture-description-v2 p {
-        color: rgba(255, 255, 255, 0.75);
-    }
-    
-    .albums-no-more-icon-v2,
-    .albums-empty-icon-v2 {
-        background: rgba(192, 132, 252, 0.15);
-        color: #c084fc;
-    }
-    
-    .albums-empty-v2 h3 {
-        color: rgba(255, 255, 255, 0.95);
-    }
-    
-    .albums-empty-v2 p,
-    .albums-loading-v2 p,
-    .albums-no-more-v2 p {
-        color: rgba(255, 255, 255, 0.75);
-    }
-    
     .albums-action-btn-v2 {
         background: rgba(32, 33, 36, 0.9);
         color: #c084fc;
@@ -1299,183 +685,34 @@
             inset 0 2px 0 rgba(255, 255, 255, 0.3),
             0 0 15px rgba(192, 132, 252, 0.5);
     }
-    
-    .albums-modal-backdrop-v2 {
-        background: rgba(0, 0, 0, 0.95);
-    }
-    
-    .albums-modal-close-v2,
-    .albums-modal-nav-btn-v2 {
-        background: rgba(18, 18, 18, 0.9);
-        color: rgba(220, 220, 220, 0.95);
-        border: 2px solid rgba(192, 132, 252, 0.4);
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.6),
-            0 3px 9px rgba(0, 0, 0, 0.4),
-            inset 0 2px 0 rgba(192, 132, 252, 0.2),
-            0 0 10px rgba(192, 132, 252, 0.2);
-    }
-    
-    .albums-modal-close-v2:hover,
-    .albums-modal-nav-btn-v2:hover {
-        background: rgba(0, 0, 0, 0.95);
-        color: #e0e0e0;
-        border-color: rgba(192, 132, 252, 0.6);
-        box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.7),
-            0 4px 12px rgba(192, 132, 252, 0.3),
-            inset 0 2px 0 rgba(192, 132, 252, 0.3),
-            0 0 20px rgba(192, 132, 252, 0.4);
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-    }
-    
-    /* 暗色主题下的按钮图标增强 */
-    .albums-action-btn-v2 i {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-    }
-    
-    .albums-modal-close-v2 i,
-    .albums-modal-nav-btn-v2 i {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 6px rgba(192, 132, 252, 0.4));
-    }
-    
-    /* 深色模式下的滚动条样式 */
-    .albums-modal-image-container-v2.zoomed {
-        scrollbar-color: rgba(192, 132, 252, 0.4) rgba(0, 0, 0, 0.3);
-    }
-    
-    .albums-modal-image-container-v2.zoomed::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.3);
-    }
-    
-    .albums-modal-image-container-v2.zoomed::-webkit-scrollbar-thumb {
-        background: rgba(192, 132, 252, 0.4);
-    }
-    
-    .albums-modal-image-container-v2.zoomed::-webkit-scrollbar-thumb:hover {
-        background: rgba(192, 132, 252, 0.6);
-    }
 }
 
-/* ===== 暗色主题下的触摸设备优化 ===== */
-@media (prefers-color-scheme: dark) and (hover: none) and (pointer: coarse) {
+/* ===== 触摸设备优化 ===== */
+@media (hover: none) and (pointer: coarse) {
     .albums-picture-overlay-v2 {
+        opacity: 0.55;
         background: linear-gradient(
             135deg,
-            rgba(0, 0, 0, 0.4) 0%,
-            rgba(0, 0, 0, 0.3) 50%,
-            rgba(0, 0, 0, 0.6) 100%
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.3) 100%
         );
     }
     
-    /* 优化触摸设备深色模式下的按钮样式 - 移除白色轮廓 */
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
+    }
+    
     .albums-action-btn-v2 {
-        background: rgba(32, 33, 36, 0.94);
-        border: 3px solid rgba(192, 132, 252, 0.8);
+        width: 50px;
+        height: 50px;
+        font-size: var(--ds-font-size-xl);
+        border-width: 3px;
         box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.6),
-            0 3px 9px rgba(0, 0, 0, 0.4),
-            0 0 12px rgba(192, 132, 252, 0.4);
-    }
-    
-    .albums-action-btn-v2:hover,
-    .albums-action-btn-v2:active {
-        background: rgba(192, 132, 252, 0.9);
-        border-color: rgba(192, 132, 252, 0.9);
-        box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.7),
-            0 4px 12px rgba(192, 132, 252, 0.5),
-            0 0 16px rgba(192, 132, 252, 0.6);
-    }
-}
-
-@media (prefers-color-scheme: dark) and (max-width: 1024px) {
-    .albums-picture-overlay-v2 {
-        background: linear-gradient(
-            135deg,
-            rgba(0, 0, 0, 0.35) 0%,
-            rgba(0, 0, 0, 0.25) 50%,
-            rgba(0, 0, 0, 0.55) 100%
-        );
-    }
-    
-    /* 优化平板深色模式下的按钮样式 - 移除白色轮廓 */
-    .albums-action-btn-v2 {
-        background: rgba(32, 33, 36, 0.92);
-        border: 2px solid rgba(192, 132, 252, 0.75);
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.5),
-            0 3px 9px rgba(0, 0, 0, 0.35),
-            0 0 12px rgba(192, 132, 252, 0.35);
-    }
-    
-    .albums-action-btn-v2:hover {
-        background: rgba(192, 132, 252, 0.88);
-        border-color: rgba(192, 132, 252, 0.88);
-        box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.6),
-            0 4px 12px rgba(192, 132, 252, 0.45),
-            0 0 16px rgba(192, 132, 252, 0.55);
-    }
-}
-
-@media (prefers-color-scheme: dark) and (max-width: 768px) {
-    .albums-picture-overlay-v2 {
-        background: linear-gradient(
-            135deg,
-            rgba(0, 0, 0, 0.4) 0%,
-            rgba(0, 0, 0, 0.3) 50%,
-            rgba(0, 0, 0, 0.6) 100%
-        );
-    }
-    
-    /* 优化小屏幕深色模式下的按钮样式 - 移除白色轮廓 */
-    .albums-action-btn-v2 {
-        background: rgba(32, 33, 36, 0.95);
-        border: 2px solid rgba(192, 132, 252, 0.8);
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.6),
-            0 3px 9px rgba(0, 0, 0, 0.4),
-            0 0 12px rgba(192, 132, 252, 0.4);
-    }
-    
-    .albums-action-btn-v2:hover {
-        background: rgba(192, 132, 252, 0.9);
-        border-color: rgba(192, 132, 252, 0.9);
-        box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.7),
-            0 4px 12px rgba(192, 132, 252, 0.5),
-            0 0 16px rgba(192, 132, 252, 0.6);
-    }
-}
-
-@media (prefers-color-scheme: dark) and (max-width: 480px) {
-    .albums-picture-overlay-v2 {
-        background: linear-gradient(
-            135deg,
-            rgba(0, 0, 0, 0.5) 0%,
-            rgba(0, 0, 0, 0.4) 50%,
-            rgba(0, 0, 0, 0.7) 100%
-        );
-    }
-    
-    /* 优化超小屏幕深色模式下的按钮样式 - 移除白色轮廓 */
-    .albums-action-btn-v2 {
-        background: rgba(28, 29, 32, 0.96);
-        border: 2px solid rgba(192, 132, 252, 0.85);
-        box-shadow: 
-            0 4px 14px rgba(0, 0, 0, 0.7),
-            0 2px 7px rgba(0, 0, 0, 0.5),
-            0 0 10px rgba(192, 132, 252, 0.5);
-    }
-    
-    .albums-action-btn-v2:hover {
-        background: rgba(192, 132, 252, 0.95);
-        border-color: rgba(192, 132, 252, 0.95);
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.8),
-            0 3px 9px rgba(192, 132, 252, 0.6),
-            0 0 14px rgba(192, 132, 252, 0.7);
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 3px 9px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 1),
+            0 0 10px rgba(255, 255, 255, 0.4);
     }
 }
 
@@ -1489,10 +726,7 @@
     .albums-tag-v2,
     .albums-picture-image-v2,
     .albums-picture-overlay-v2,
-    .albums-picture-actions-v2,
-    .albums-modal-v2,
-    .albums-modal-close-v2,
-    .albums-modal-nav-btn-v2 {
+    .albums-picture-actions-v2 {
         transition: none !important;
         animation: none !important;
         transform: none !important;
@@ -1512,8 +746,7 @@
     .albums-user-avatar-v2,
     .albums-loading-v2,
     .albums-no-more-v2,
-    .albums-empty-v2,
-    .albums-modal-content-v2 {
+    .albums-empty-v2 {
         border-width: 2px !important;
     }
     
@@ -1525,12 +758,6 @@
         -webkit-text-fill-color: unset !important;
     }
     
-    .albums-picture-description-v2 p,
-    .albums-upload-time-v2 {
-        font-weight: var(--ds-font-weight-bold) !important;
-    }
-    
-    /* 高对比度模式下的按钮优化 */
     .albums-action-btn-v2 {
         background: rgba(255, 255, 255, 1) !important;
         border: 3px solid rgba(0, 0, 0, 0.9) !important;
@@ -1538,25 +765,6 @@
             0 8px 24px rgba(0, 0, 0, 0.8),
             0 4px 12px rgba(0, 0, 0, 0.6),
             inset 0 2px 0 rgba(255, 255, 255, 1) !important;
-    }
-    
-    .albums-action-btn-v2 i {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) !important;
-    }
-    
-    .albums-modal-close-v2,
-    .albums-modal-nav-btn-v2 {
-        background: rgba(0, 0, 0, 1) !important;
-        border: 3px solid rgba(255, 255, 255, 1) !important;
-        box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.9),
-            0 4px 12px rgba(0, 0, 0, 0.8),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5) !important;
-    }
-    
-    .albums-modal-close-v2 i,
-    .albums-modal-nav-btn-v2 i {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 1)) drop-shadow(0 0 8px rgba(255, 255, 255, 1)) !important;
     }
 }
 
@@ -1568,107 +776,18 @@
 .albums-user-avatar-v2,
 .albums-tag-v2,
 .albums-picture-image-v2,
-.albums-picture-overlay-v2,
-.albums-modal-content-v2 {
+.albums-picture-overlay-v2 {
     will-change: transform;
     backface-visibility: hidden;
     transform-style: preserve-3d;
 }
 
 /* ===== 打印样式 ===== */
-/* ===== 触摸设备优化 ===== */
-@media (hover: none) and (pointer: coarse) {
-    /* 图片卡片按钮在触摸设备上默认显示 */
-    .albums-picture-overlay-v2 {
-        opacity: 0.55;
-        background: linear-gradient(
-            135deg,
-            rgba(0, 0, 0, 0.2) 0%,
-            rgba(0, 0, 0, 0.1) 50%,
-            rgba(0, 0, 0, 0.3) 100%
-        );
-    }
-    
-    .albums-picture-actions-v2 {
-        transform: translateY(0);
-    }
-    
-    /* 为触摸设备优化按钮尺寸 */
-    .albums-action-btn-v2 {
-        width: 50px;
-        height: 50px;
-        font-size: var(--ds-font-size-xl);
-        border-width: 3px;
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.4),
-            0 3px 9px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 1),
-            0 0 10px rgba(255, 255, 255, 0.4);
-    }
-    
-    /* 模态框按钮优化 */
-    .albums-modal-nav-btn-v2 {
-        width: 60px;
-        height: 60px;
-        font-size: var(--ds-font-size-2xl);
-        opacity: 0.9;
-        border-width: 3px;
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.6),
-            0 3px 9px rgba(0, 0, 0, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 0.3),
-            0 0 15px rgba(255, 255, 255, 0.3);
-    }
-    
-    .albums-modal-close-v2 {
-        width: 60px;
-        height: 60px;
-        font-size: var(--ds-font-size-2xl);
-        opacity: 0.9;
-        border-width: 3px;
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.6),
-            0 3px 9px rgba(0, 0, 0, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 0.3),
-            0 0 15px rgba(255, 255, 255, 0.3);
-    }
-    
-    .albums-modal-keyboard-hint-v2 {
-        display: none;
-    }
-    
-    .albums-modal-nav-v2 {
-        padding: 0 var(--ds-space-4);
-    }
-    
-    .albums-modal-image-v2 {
-        user-select: none;
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-    }
-    
-    .albums-modal-content-v2 {
-        touch-action: pan-y;
-    }
-    
-    .albums-modal-image-container-v2 {
-        touch-action: pan-y;
-    }
-}
-
-/* ===== 高分辨率屏幕优化 ===== */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .albums-modal-loading-spinner-v2 {
-        border-width: 1px;
-    }
-}
-
 @media print {
     .albums-picture-overlay-v2,
     .albums-action-btn-v2,
     .albums-loading-v2,
-    .albums-no-more-v2,
-    .albums-modal-v2 {
+    .albums-no-more-v2 {
         display: none !important;
     }
     
@@ -1683,3 +802,5 @@
         column-gap: 20px;
     }
 }
+
+
