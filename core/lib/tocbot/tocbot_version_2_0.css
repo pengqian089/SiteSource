@@ -124,7 +124,7 @@ a.toc-link:hover {
 .toc-link::before {
     content: '';
     position: absolute;
-    left: var(--ds-space-4); /* 调整位置 */
+    left: var(--ds-space-3); /* 调整到更左的位置，与激活状态保持一致 */
     top: 50%;
     transform: translateY(-50%);
     width: 4px;
@@ -147,6 +147,7 @@ a.toc-link:hover {
     background: var(--ds-primary-600);
     width: 8px;
     height: 8px;
+    left: calc(var(--ds-space-3) - 2px); /* 向左移动更多，确保不遮挡文字 */
     box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
 }
 

@@ -74,6 +74,31 @@
             <!-- End Left Side Player -->
             <!-- Right Side Player -->
             <div id="amplitude-right">
+                <!-- 音乐搜索框 -->
+                <div class="music-search-container">
+                    <div class="search-input-wrapper">
+                        <input type="text" 
+                               id="music-search-input" 
+                               class="music-search-input" 
+                               placeholder="搜索歌曲或艺术家..."
+                               autocomplete="off">
+                        <span class="search-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </span>
+                        <button type="button" class="search-clear-btn" id="search-clear-btn" style="display: none;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 歌曲列表容器 -->
+                <div class="songs-list-container">
                 @foreach (var item in Model)
                 {
                     <div data-url="@item.MusicUrl"
@@ -98,6 +123,7 @@
                         </span>
                     </div>
                 }
+                </div> <!-- 结束 songs-list-container -->
             </div>
         </div>
     </div>

@@ -29,7 +29,12 @@ function musicInit() {
         preLine = 2,
         lineHeight = 20,
         lycElement = document.getElementsByClassName("meta-lyrics")[0],
-        lyricsItems = new Map();
+        lyricsItems = new Map(),
+        enableScrollingLyrics = true, // 设置为 false 可禁用歌词滚动效果
+        searchInput = document.getElementById('music-search-input'),
+        searchClearBtn = document.getElementById('search-clear-btn'),
+        songsContainer = document.querySelector('.songs-list-container'),
+        allSongs = [];
     if (localStorage["music-volume"] === undefined) {
         localStorage["music-volume"] = volumeElement.value;
     } else {
@@ -86,6 +91,14 @@ function musicInit() {
         lycElement.innerHTML = "";
         const lyrics = lyricsItems.get(key);
         //console.log(lyrics);
+        
+        // 根据配置决定是否启用滚动歌词效果
+        if (enableScrollingLyrics) {
+            lycElement.classList.add("scrolling-lyrics");
+        } else {
+            lycElement.classList.remove("scrolling-lyrics");
+        }
+        
         let ul = document.createElement("ul");
         for (let item of lyrics) {
             let li = document.createElement("li");
@@ -99,13 +112,27 @@ function musicInit() {
     function highLight() {
         const liElements = document.querySelectorAll(".meta-lyrics ul li");
         for (let item of liElements) {
-            item.classList.remove("active");
+            item.classList.remove("active", "long-text", "medium-text");
         }
         if (liElements.length > 0) {
-            liElements[lineNo].classList.add("active");
+            const currentLi = liElements[lineNo];
+            currentLi.classList.add("active");
+            
+            // 只有在启用滚动歌词时才检测文本长度并添加滚动效果类
+            if (enableScrollingLyrics && lycElement.classList.contains("scrolling-lyrics")) {
+                const textLength = currentLi.textContent.length;
+                if (textLength > 50) {
+                    currentLi.classList.add("long-text");
+                } else if (textLength > 30) {
+                    currentLi.classList.add("medium-text");
+                }
+            }
         }
         if (lineNo > preLine) {
-            document.querySelectorAll(".meta-lyrics ul")[0].style.transform = `translateY(-${((lineNo - preLine + 2) * lineHeight)}px)`;
+            const ul = document.querySelectorAll(".meta-lyrics ul")[0];
+            if (ul) {
+                ul.style.transform = `translateY(-${((lineNo - preLine + 2) * lineHeight)}px)`;
+            }
         }
 
     }
@@ -233,4 +260,115 @@ function musicInit() {
         ]
     });
     // 移除动态设置可视化画板高度的代码，让CSS的aspect-ratio自然处理高度匹配
+    
+    // 初始化搜索功能
+    initSearchFunction();
+    
+    function initSearchFunction() {
+        // 获取所有歌曲元素
+        allSongs = Array.from(document.querySelectorAll('.song'));
+        
+        if (!searchInput || !searchClearBtn || !songsContainer) {
+            console.warn('搜索框元素未找到');
+            return;
+        }
+        
+        // 搜索输入事件
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            
+            // 显示/隐藏清除按钮
+            if (searchTerm) {
+                searchClearBtn.style.display = 'flex';
+            } else {
+                searchClearBtn.style.display = 'none';
+            }
+            
+            filterSongs(searchTerm);
+        });
+        
+        // 清除搜索
+        searchClearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            searchClearBtn.style.display = 'none';
+            filterSongs('');
+            searchInput.focus();
+        });
+        
+        // 按 ESC 键清除搜索
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchClearBtn.style.display = 'none';
+                filterSongs('');
+                searchInput.blur();
+            }
+        });
+    }
+    
+    function filterSongs(searchTerm) {
+        if (!searchTerm) {
+            // 显示所有歌曲
+            allSongs.forEach(song => {
+                song.style.display = 'flex';
+                song.classList.remove('search-highlight');
+            });
+            return;
+        }
+        
+        let visibleCount = 0;
+        
+        allSongs.forEach((song, index) => {
+            const title = song.dataset.title?.toLowerCase() || '';
+            const artist = song.dataset.artist?.toLowerCase() || '';
+            
+            // 检查歌曲标题或艺术家是否包含搜索词
+            const isMatch = title.includes(searchTerm) || artist.includes(searchTerm);
+            
+            if (isMatch) {
+                song.style.display = 'flex';
+                song.classList.add('search-highlight');
+                visibleCount++;
+            } else {
+                song.style.display = 'none';
+                song.classList.remove('search-highlight');
+            }
+        });
+        
+        // 如果没有找到匹配项，显示提示
+        if (visibleCount === 0) {
+            showNoResultsMessage();
+        } else {
+            hideNoResultsMessage();
+        }
+    }
+    
+    function showNoResultsMessage() {
+        let noResultsMsg = document.querySelector('.no-search-results');
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.className = 'no-search-results';
+            noResultsMsg.innerHTML = `
+                <div class="no-results-content">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                        <line x1="11" y1="8" x2="11" y2="12"></line>
+                        <line x1="11" y1="16" x2="11" y2="16"></line>
+                    </svg>
+                    <p>未找到匹配的歌曲</p>
+                    <span>试试搜索其他关键词</span>
+                </div>
+            `;
+            songsContainer.appendChild(noResultsMsg);
+        }
+        noResultsMsg.style.display = 'flex';
+    }
+    
+    function hideNoResultsMessage() {
+        const noResultsMsg = document.querySelector('.no-search-results');
+        if (noResultsMsg) {
+            noResultsMsg.style.display = 'none';
+        }
+    }
 }
