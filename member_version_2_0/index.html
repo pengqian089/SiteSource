@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 会员系统</title>
+    <link rel="stylesheet" href="css/member.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="../core/font-awesome/css/font-awesome.css">
+</head>
+<body class="member-body">
+    <!-- 面包屑导航 -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="/">首页</a>
+            <span class="separator">/</span>
+            <span class="current">个人中心</span>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="member-container">
+        <!-- 侧边栏导航 -->
+        <div class="member-sidebar">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="../core/images/laola.png" alt="用户头像" class="user-avatar" id="userAvatar">
+                    <div class="avatar-upload">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                </div>
+                <h3 class="user-name" id="userName">用户名</h3>
+                <p class="user-email" id="userEmail">user@example.com</p>
+            </div>
+            
+            <nav class="member-nav">
+                <ul>
+                    <li class="nav-item active" data-page="profile">
+                        <a href="#profile">
+                            <i class="fa fa-user"></i>
+                            <span>基本设置</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="articles">
+                        <a href="#articles">
+                            <i class="fa fa-file-text"></i>
+                            <span>我的文章</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="mumbles">
+                        <a href="#mumbles">
+                            <i class="fa fa-comment"></i>
+                            <span>我的碎碎念</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="timeline">
+                        <a href="#timeline">
+                            <i class="fa fa-clock-o"></i>
+                            <span>我的时间轴</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="photos">
+                        <a href="#photos">
+                            <i class="fa fa-image"></i>
+                            <span>我的相册</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 主内容区域 -->
+        <div class="member-content">
+            <!-- 基本设置页面 -->
+            <div class="content-page active" id="profile-page">
+                <div class="page-header">
+                    <h2><i class="fa fa-user"></i> 基本设置</h2>
+                </div>
+                
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input type="text" class="form-control" id="account" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>昵称 <span class="required">*</span></label>
+                        <input type="text" class="form-control" id="nickname" placeholder="请输入昵称">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select class="form-control" id="gender">
+                            <option value="">请选择</option>
+                            <option value="male">男</option>
+                            <option value="female">女</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>签名</label>
+                        <textarea class="form-control" id="signature" rows="3" placeholder="请输入个人签名"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>头像</label>
+                        <div class="avatar-upload-area">
+                            <div class="avatar-preview">
+                                <img src="../core/images/laola.png" alt="头像预览" id="avatarPreview">
+                            </div>
+                            <div class="upload-controls">
+                                <button type="button" class="btn btn-primary" id="uploadAvatar">
+                                    <i class="fa fa-upload"></i> 上传头像
+                                </button>
+                                <input type="file" id="avatarFile" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>双因素验证</label>
+                        <div class="two-factor-section">
+                            <div class="two-factor-status" id="twoFactorStatus">
+                                <span class="status-text">未绑定</span>
+                                <button type="button" class="btn btn-success" id="bindTwoFactor">
+                                    <i class="fa fa-shield"></i> 绑定双因素验证
+                                </button>
+                            </div>
+                            
+                            <div class="two-factor-modal" id="twoFactorModal" style="display: none;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3>双因素验证设置</h3>
+                                        <button type="button" class="close-btn" id="closeTwoFactorModal">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="qr-section">
+                                            <div class="qr-code" id="qrCode">
+                                                <!-- 二维码将在这里显示 -->
+                                            </div>
+                                            <div class="secret-key">
+                                                <label>密钥：</label>
+                                                <input type="text" class="form-control" id="secretKey" readonly>
+                                                <button type="button" class="btn btn-sm btn-secondary" id="copySecretKey">
+                                                    <i class="fa fa-copy"></i> 复制
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="pin-section">
+                                            <label>请输入6位PIN码：</label>
+                                            <input type="text" class="form-control" id="pinCode" maxlength="6" placeholder="000000">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="cancelTwoFactor">取消</button>
+                                        <button type="button" class="btn btn-primary" id="confirmTwoFactor">确认绑定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="saveProfile">
+                            <i class="fa fa-save"></i> 保存设置
+                        </button>
+                        <button type="button" class="btn btn-danger" id="logout">
+                            <i class="fa fa-sign-out"></i> 退出登录
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的文章页面 -->
+            <div class="content-page" id="articles-page">
+                <div class="page-header">
+                    <h2><i class="fa fa-file-text"></i> 我的文章</h2>
+                    <button type="button" class="btn btn-primary" id="newArticle">
+                        <i class="fa fa-plus"></i> 发布文章
+                    </button>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="search-group">
+                            <input type="text" class="form-control" id="articleTitleSearch" placeholder="搜索标题">
+                        </div>
+                        <div class="search-group">
+                            <select class="form-control" id="articleTagSearch">
+                                <option value="">所有标签</option>
+                                <option value="技术">技术</option>
+                                <option value="编程">编程</option>
+                                <option value="生活">生活</option>
+                                <option value="随笔">随笔</option>
+                                <option value="教程">教程</option>
+                                <option value="分享">分享</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="searchArticles">
+                            <i class="fa fa-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table" id="articlesTable">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>简介</th>
+                                <th>标签</th>
+                                <th>查看量</th>
+                                <th>评论量</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articlesTableBody">
+                            <!-- 文章数据将在这里动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="pagination-container">
+                    <nav aria-label="文章分页">
+                        <ul class="pagination" id="articlesPagination">
+                            <!-- 分页将在这里动态生成 -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- 我的碎碎念页面 -->
+            <div class="content-page" id="mumbles-page">
+                <div class="page-header">
+                    <h2><i class="fa fa-comment"></i> 我的碎碎念</h2>
+                    <button type="button" class="btn btn-primary" id="newMumble">
+                        <i class="fa fa-plus"></i> 发布碎碎念
+                    </button>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="search-group">
+                            <input type="text" class="form-control" id="mumbleContentSearch" placeholder="搜索内容">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="searchMumbles">
+                            <i class="fa fa-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table" id="mumblesTable">
+                        <thead>
+                            <tr>
+                                <th>内容</th>
+                                <th>点赞数</th>
+                                <th>评论数</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mumblesTableBody">
+                            <!-- 碎碎念数据将在这里动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="pagination-container">
+                    <nav aria-label="碎碎念分页">
+                        <ul class="pagination" id="mumblesPagination">
+                            <!-- 分页将在这里动态生成 -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- 我的时间轴页面 -->
+            <div class="content-page" id="timeline-page">
+                <div class="page-header">
+                    <h2><i class="fa fa-clock-o"></i> 我的时间轴</h2>
+                    <button type="button" class="btn btn-primary" id="newTimeline">
+                        <i class="fa fa-plus"></i> 发布时间轴
+                    </button>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="search-group">
+                            <input type="text" class="form-control" id="timelineSearch" placeholder="搜索标题/内容">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="searchTimeline">
+                            <i class="fa fa-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table" id="timelineTable">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>内容</th>
+                                <th>时间轴日期</th>
+                                <th>更多链接</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timelineTableBody">
+                            <!-- 时间轴数据将在这里动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="pagination-container">
+                    <nav aria-label="时间轴分页">
+                        <ul class="pagination" id="timelinePagination">
+                            <!-- 分页将在这里动态生成 -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- 我的相册页面 -->
+            <div class="content-page" id="photos-page">
+                <div class="page-header">
+                    <h2><i class="fa fa-image"></i> 我的相册</h2>
+                    <button type="button" class="btn btn-primary" id="uploadPhoto">
+                        <i class="fa fa-plus"></i> 上传照片
+                    </button>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="search-group">
+                            <select class="form-control" id="photoTagSearch">
+                                <option value="">所有标签</option>
+                                <option value="风景">风景</option>
+                                <option value="自然">自然</option>
+                                <option value="人物">人物</option>
+                                <option value="建筑">建筑</option>
+                                <option value="城市">城市</option>
+                                <option value="生活">生活</option>
+                                <option value="美食">美食</option>
+                                <option value="旅行">旅行</option>
+                            </select>
+                        </div>
+                        <div class="search-group">
+                            <input type="text" class="form-control" id="photoDescSearch" placeholder="搜索描述">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="searchPhotos">
+                            <i class="fa fa-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="photos-grid" id="photosGrid">
+                    <!-- 照片网格将在这里动态加载 -->
+                </div>
+                
+                <!-- 分页 -->
+                <div class="pagination-container">
+                    <nav aria-label="相册分页">
+                        <ul class="pagination" id="photosPagination">
+                            <!-- 分页将在这里动态生成 -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 发布/编辑模态框 -->
+    <div class="modal-overlay" id="publishModal" style="display: none;">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modalTitle">发布内容</h3>
+                <button type="button" class="close-btn" id="closeModal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态内容 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelPublish">取消</button>
+                <button type="button" class="btn btn-primary" id="confirmPublish">发布</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div class="modal-overlay" id="deleteModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>确认删除</h3>
+                <button type="button" class="close-btn" id="closeDeleteModal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>确定要删除这个项目吗？此操作无法撤销。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDelete">取消</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载提示 -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fa fa-spinner fa-spin"></i>
+            <p>加载中...</p>
+        </div>
+    </div>
+
+    <script src="../core/lib/jquery/jquery.min.js"></script>
+    <script src="js/member.js"></script>
+</body>
+</html> 
