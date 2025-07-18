@@ -2,19 +2,29 @@
 <html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>个人中心 - 会员系统</title>
     <link rel="stylesheet" href="css/member.css">
     <link rel="stylesheet" href="css/dark-mode.css">
     <link rel="stylesheet" href="../core/font-awesome/css/font-awesome.css">
 </head>
 <body class="member-body">
+    <!-- 手机端菜单切换按钮 -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fa fa-bars"></i>
+    </button>
+    
+    <!-- 手机端遮罩层 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
     <!-- 面包屑导航 -->
     <div class="breadcrumb-container">
         <div class="breadcrumb">
             <a href="/">首页</a>
             <span class="separator">/</span>
-            <span class="current">个人中心</span>
+            <a href="#profile">个人中心</a>
+            <span class="separator">/</span>
+            <span class="current" id="currentPageTitle">基本设置</span>
         </div>
     </div>
 
@@ -224,6 +234,11 @@
                     </table>
                 </div>
                 
+                <!-- 手机端卡片布局 -->
+                <div class="mobile-cards" id="articlesMobileCards">
+                    <!-- 手机端文章卡片将在这里动态加载 -->
+                </div>
+                
                 <!-- 分页 -->
                 <div class="pagination-container">
                     <nav aria-label="文章分页">
@@ -269,6 +284,11 @@
                             <!-- 碎碎念数据将在这里动态加载 -->
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- 手机端卡片布局 -->
+                <div class="mobile-cards" id="mumblesMobileCards">
+                    <!-- 手机端碎碎念卡片将在这里动态加载 -->
                 </div>
                 
                 <!-- 分页 -->
@@ -319,6 +339,11 @@
                     </table>
                 </div>
                 
+                <!-- 手机端卡片布局 -->
+                <div class="mobile-cards" id="timelineMobileCards">
+                    <!-- 手机端时间轴卡片将在这里动态加载 -->
+                </div>
+                
                 <!-- 分页 -->
                 <div class="pagination-container">
                     <nav aria-label="时间轴分页">
@@ -364,6 +389,11 @@
                 
                 <div class="photos-grid" id="photosGrid">
                     <!-- 照片网格将在这里动态加载 -->
+                </div>
+                
+                <!-- 手机端相册网格 -->
+                <div class="mobile-photos-grid" id="photosMobileGrid">
+                    <!-- 手机端照片卡片将在这里动态加载 -->
                 </div>
                 
                 <!-- 分页 -->

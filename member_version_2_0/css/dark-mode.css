@@ -517,6 +517,62 @@
     box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
 
+/* 深色模式下的录音功能样式 */
+[data-theme="dark"] .recording-section {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .recording-status {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] #recordingStatusText {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] #recordingTime {
+    color: var(--primary-color);
+}
+
+/* 深色模式下的录音播放器样式 */
+[data-theme="dark"] .recording-player {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .audio-progress {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .audio-progress-bar {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .audio-progress-handle {
+    background: var(--primary-color);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .audio-progress-handle:hover {
+    background: var(--primary-hover);
+}
+
+[data-theme="dark"] .audio-progress-handle:active,
+[data-theme="dark"] .audio-progress-handle.dragging {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .audio-time-info {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .time-separator {
+    color: var(--text-muted);
+}
+
 /* 深色模式下的照片网格 */
 [data-theme="dark"] .photo-card {
     background: var(--bg-card);
@@ -631,4 +687,124 @@
 /* 深色模式下的照片元数据 */
 [data-theme="dark"] .photo-meta {
     color: var(--text-muted);
+}
+
+/* 深色模式响应式样式 */
+@media (max-width: 768px) {
+    [data-theme="dark"] .member-sidebar {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    [data-theme="dark"] .menu-toggle {
+        background: var(--primary-color);
+        color: white;
+    }
+    
+    [data-theme="dark"] .menu-toggle:hover {
+        background: var(--primary-hover);
+    }
+    
+    [data-theme="dark"] .mobile-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+    
+    [data-theme="dark"] .mobile-card-row {
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    [data-theme="dark"] .mobile-card-label {
+        color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .mobile-card-content {
+        color: var(--text-secondary);
+    }
+    
+    [data-theme="dark"] .mobile-photo-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+    
+    [data-theme="dark"] .mobile-photo-title {
+        color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .mobile-photo-meta {
+        color: var(--text-muted);
+    }
+    
+    /* 深色模式下的移动端用户资料优化 */
+    [data-theme="dark"] .member-sidebar.active .user-profile {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+    }
+    
+    [data-theme="dark"] .member-sidebar.active .user-avatar {
+        border: 3px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    
+    [data-theme="dark"] .member-sidebar.active .avatar-upload {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary-color);
+    }
+    
+    [data-theme="dark"] .member-sidebar.active .avatar-upload:hover {
+        background: white;
+    }
+    
+    [data-theme="dark"] .member-sidebar.active .user-name {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    [data-theme="dark"] .member-sidebar.active .user-email {
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Toast消息暗色模式 */
+[data-theme="dark"] .toast-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .toast-progress {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .toast-message {
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* 暗色模式下消息类型颜色调整 */
+[data-theme="dark"] .toast-message[data-type="success"] {
+    --toast-color: #10b981;
+    --toast-bg-color: #1e293b;
+    --toast-border-color: #10b981;
+    --toast-text-color: #a7f3d0;
+}
+
+[data-theme="dark"] .toast-message[data-type="error"] {
+    --toast-color: #ef4444;
+    --toast-bg-color: #1e293b;
+    --toast-border-color: #ef4444;
+    --toast-text-color: #fecaca;
+}
+
+[data-theme="dark"] .toast-message[data-type="warning"] {
+    --toast-color: #f59e0b;
+    --toast-bg-color: #1e293b;
+    --toast-border-color: #f59e0b;
+    --toast-text-color: #fed7aa;
+}
+
+[data-theme="dark"] .toast-message[data-type="info"] {
+    --toast-color: #3b82f6;
+    --toast-bg-color: #1e293b;
+    --toast-border-color: #3b82f6;
+    --toast-text-color: #bfdbfe;
 } 
