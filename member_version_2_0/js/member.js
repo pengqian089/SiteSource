@@ -21,7 +21,8 @@ const CONSTANTS = {
     // 分页配置
     PAGINATION: {
         DEFAULT_PAGE_SIZE: 10,
-        DEFAULT_PAGE_NUM: 1
+        DEFAULT_PAGE_NUM: 1,
+        MAX_VISIBLE_PAGES: 5  // 最多显示的页码数量
     },
     
     // 响应式断点
@@ -369,14 +370,18 @@ class MemberCenter {
     /**
      * 页面切换
      * @param {string} page - 页面标识
+     * @param {boolean} resetPageIndex - 是否重置页码（默认为true，在页面类型变化时重置）
      */
-    switchPage(page) {
+    switchPage(page, resetPageIndex = true) {
         if (!this.isValidPage(page)) {
             console.warn('无效的页面标识:', page);
             return;
         }
         
         try {
+            // 检查是否是页面类型变化
+            const isPageChanged = page !== this.state.currentPage;
+            
             // 更新导航状态
             $(CONSTANTS.SELECTORS.navItem).removeClass('active');
             $(`.nav-item[data-page="${page}"]`).addClass('active');
@@ -387,6 +392,11 @@ class MemberCenter {
             
             // 更新状态
             this.state.currentPage = page;
+            
+            // 如果是页面类型变化且需要重置页码，重置到第1页
+            if (isPageChanged && resetPageIndex) {
+                this.state.currentPageNum = CONSTANTS.PAGINATION.DEFAULT_PAGE_NUM;
+            }
             
             // 更新面包屑和数据
             this.updateBreadcrumb(page);
@@ -434,12 +444,16 @@ class MemberCenter {
                 // 更新分页参数
                 if (params.pageIndex) {
                     this.state.currentPageNum = parseInt(params.pageIndex) || CONSTANTS.PAGINATION.DEFAULT_PAGE_NUM;
+                } else {
+                    // 如果URL中没有指定页码，默认为第1页
+                    this.state.currentPageNum = CONSTANTS.PAGINATION.DEFAULT_PAGE_NUM;
                 }
                 if (params.pageSize) {
                     this.state.pageSize = parseInt(params.pageSize) || CONSTANTS.PAGINATION.DEFAULT_PAGE_SIZE;
                 }
                 
-                this.switchPage(page);
+                // 不重置页码，保持从URL解析出来的页码
+                this.switchPage(page, false);
             } else {
                 // 默认显示profile页面
                 this.switchPage(CONSTANTS.PAGES.PROFILE);
@@ -1126,71 +1140,85 @@ class MemberCenter {
             return `#${type}${queryString}`;
         };
 
-        // 上一页
-        const prevDisabled = currentPage <= 1 ? 'disabled' : '';
-        const prevUrl = prevDisabled ? '#' : generatePageUrl(currentPage - 1);
-        pagination.append(`
-            <li class="page-item ${prevDisabled}">
-                <a class="page-link" href="${prevUrl}" ${prevDisabled ? 'tabindex="-1"' : ''}>
-                    <i class="fa fa-chevron-left"></i>
-                </a>
-            </li>
-        `);
-
-        // 页码
-        const startPage = Math.max(1, currentPage - 2);
-        const endPage = Math.min(totalPages, currentPage + 2);
-
-        if (startPage > 1) {
+        // 上一页按钮
+        const prevDisabled = currentPage <= 1;
+        if (prevDisabled) {
             pagination.append(`
-                <li class="page-item">
-                    <a class="page-link" href="${generatePageUrl(1)}">1</a>
+                <li class="page-item disabled">
+                    <span class="page-link" tabindex="-1">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
                 </li>
             `);
-            if (startPage > 2) {
-                pagination.append(`
-                    <li class="page-item disabled">
-                        <span class="page-link">...</span>
-                    </li>
-                `);
+        } else {
+            pagination.append(`
+                <li class="page-item">
+                    <a class="page-link" href="${generatePageUrl(currentPage - 1)}">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                </li>
+            `);
+        }
+
+        // 计算要显示的页码范围（最多显示配置的页码数量）
+        const maxVisiblePages = CONSTANTS.PAGINATION.MAX_VISIBLE_PAGES;
+        let startPage = 1;
+        let endPage = totalPages;
+        
+        // 如果总页数超过最大显示数量，则进行优化显示
+        if (totalPages > maxVisiblePages) {
+            const halfVisible = Math.floor(maxVisiblePages / 2);
+            
+            if (currentPage <= halfVisible + 1) {
+                // 当前页在前面，显示前maxVisiblePages页
+                endPage = maxVisiblePages;
+            } else if (currentPage >= totalPages - halfVisible) {
+                // 当前页在后面，显示后maxVisiblePages页
+                startPage = totalPages - maxVisiblePages + 1;
+            } else {
+                // 当前页在中间，显示当前页前后各halfVisible页
+                startPage = currentPage - halfVisible;
+                endPage = currentPage + halfVisible;
             }
         }
 
+        // 渲染页码
         for (let i = startPage; i <= endPage; i++) {
-            const active = i === currentPage ? 'active' : '';
-            const pageUrl = active ? '#' : generatePageUrl(i);
-            pagination.append(`
-                <li class="page-item ${active}">
-                    <a class="page-link" href="${pageUrl}">${i}</a>
-                </li>
-            `);
-        }
-
-        if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
+            const isActive = i === currentPage;
+            if (isActive) {
                 pagination.append(`
-                    <li class="page-item disabled">
-                        <span class="page-link">...</span>
+                    <li class="page-item active">
+                        <span class="page-link">${i}</span>
+                    </li>
+                `);
+            } else {
+                pagination.append(`
+                    <li class="page-item">
+                        <a class="page-link" href="${generatePageUrl(i)}">${i}</a>
                     </li>
                 `);
             }
+        }
+
+        // 下一页按钮
+        const nextDisabled = currentPage >= totalPages;
+        if (nextDisabled) {
+            pagination.append(`
+                <li class="page-item disabled">
+                    <span class="page-link" tabindex="-1">
+                        <i class="fa fa-chevron-right"></i>
+                    </span>
+                </li>
+            `);
+        } else {
             pagination.append(`
                 <li class="page-item">
-                    <a class="page-link" href="${generatePageUrl(totalPages)}">${totalPages}</a>
+                    <a class="page-link" href="${generatePageUrl(currentPage + 1)}">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
                 </li>
             `);
         }
-
-        // 下一页
-        const nextDisabled = currentPage >= totalPages ? 'disabled' : '';
-        const nextUrl = nextDisabled ? '#' : generatePageUrl(currentPage + 1);
-        pagination.append(`
-            <li class="page-item ${nextDisabled}">
-                <a class="page-link" href="${nextUrl}" ${nextDisabled ? 'tabindex="-1"' : ''}>
-                    <i class="fa fa-chevron-right"></i>
-                </a>
-            </li>
-        `);
     }
 
     // 跳转到指定页面 (保留用于向后兼容，但推荐使用URL导航)

@@ -541,13 +541,38 @@ body {
 .search-form {
     display: flex;
     gap: 16px;
-    align-items: flex-end;
+    align-items: stretch;
     flex-wrap: wrap;
 }
 
 .search-group {
     flex: 1;
     min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* 搜索表单中的标签样式 */
+.search-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* 搜索表单中直接的按钮样式 */
+.search-form > .btn {
+    align-self: flex-end;
+    height: 44px; /* 与form-control的高度保持一致 */
+    min-width: auto;
+    flex-shrink: 0;
+}
+
+/* 确保表单控件高度一致 */
+.search-form .form-control {
+    height: 44px;
+    padding: 10px 16px;
 }
 
 /* 表格样式 */
@@ -1444,6 +1469,11 @@ body {
     display: none;
 }
 
+/* 汉堡菜单默认隐藏 */
+.menu-toggle {
+    display: none;
+}
+
 /* 响应式设计 */
 @media (max-width: 1024px) {
     .member-container {
@@ -1648,6 +1678,7 @@ body {
     
     /* 菜单切换按钮 */
     .menu-toggle {
+        display: block; /* 在移动端显示汉堡菜单 */
         position: fixed;
         top: 15px;
         left: 15px;
