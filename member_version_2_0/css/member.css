@@ -300,6 +300,136 @@ body {
     color: var(--text-secondary);
 }
 
+/* Select 元素样式 */
+select.form-control {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+select.form-control:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238b5cf6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+/* Multiple select 样式 */
+select.form-control[multiple] {
+    background-image: none;
+    padding-right: 16px;
+    min-height: 120px;
+    max-height: 200px;
+}
+
+/* Option 样式 */
+select.form-control option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+select.form-control option:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+select.form-control option:checked {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+select.form-control option:checked:hover {
+    background: var(--primary-hover);
+    color: white;
+}
+
+/* 选中状态的视觉指示器 */
+select.form-control option:checked::before {
+    content: "✓ ";
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Select 容器样式优化 */
+.form-group select.form-control[multiple] {
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.form-group select.form-control[multiple]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* 选中项的背景渐变效果 */
+select.form-control option:checked {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+
+/* 悬停时的选中项效果 */
+select.form-control option:checked:hover {
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+    color: white;
+    transform: translateX(2px);
+}
+
+/* 未选中项的悬停效果 */
+select.form-control option:hover:not(:checked) {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    transform: translateX(2px);
+}
+
+/* Select 容器和操作按钮样式 */
+.select-container {
+    position: relative;
+}
+
+.select-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: flex-end;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
 .required {
     color: var(--danger-color);
 }
@@ -688,8 +818,51 @@ body {
     color: var(--text-primary);
 }
 
-.data-table .cell-title:hover {
+.data-table .cell-title a {
     color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.data-table .cell-title a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* 当表格行hover时，确保标题链接颜色变为白色 */
+.data-table tbody tr:hover .cell-title a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.data-table tbody tr:hover .cell-title a:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: underline;
+}
+
+/* 通用表格链接样式 */
+.data-table a {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.data-table a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* 当表格行hover时，所有链接颜色变为白色 */
+.data-table tbody tr:hover a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.data-table tbody tr:hover a:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: underline;
 }
 
 /* 表格列宽优化 */
@@ -1064,6 +1237,35 @@ body {
 .loading-spinner i {
     font-size: 48px;
     margin-bottom: 16px;
+}
+
+/* Cherry Markdown 编辑器纯编辑模式样式 */
+.cherry.cherry-editor-only {
+    width: 100% !important;
+}
+
+.cherry.cherry-editor-only .cherry-previewer {
+    display: none !important;
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.cherry.cherry-editor-only .cherry-editor {
+    width: 100% !important;
+    flex: 1 !important;
+}
+
+.cherry.cherry-editor-only .cherry-main {
+    display: flex !important;
+    width: 100% !important;
+}
+
+/* 强制隐藏预览相关的工具栏按钮 */
+.cherry-toolbar .cherry-toolbar-button[data-name="togglePreview"],
+.cherry-toolbar .cherry-toolbar-button[data-name="previewClose"],
+.cherry-toolbar .cherry-toolbar-button[data-name="mobilePreview"] {
+    display: none !important;
 }
 
 /* 录音功能 */
@@ -1957,5 +2159,30 @@ body {
     
     .audio-time-info {
         font-size: 13px;
+    }
+    
+    /* 移动端select优化 */
+    select.form-control[multiple] {
+        min-height: 100px;
+        max-height: 150px;
+    }
+    
+    select.form-control option {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    /* 移动端select操作按钮优化 */
+    .select-actions {
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 6px;
+    }
+    
+    .select-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 12px;
     }
 } 

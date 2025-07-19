@@ -97,13 +97,27 @@
     color: var(--text-primary);
 }
 
-[data-theme="dark"] .data-table .cell-title:hover {
-    color: white;
-    background: var(--primary-color);
-    border-radius: var(--radius-sm);
-    padding: 2px 6px;
-    margin: -2px -6px;
-    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+[data-theme="dark"] .data-table .cell-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+[data-theme="dark"] .data-table .cell-title a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* 深色模式下，当表格行hover时，确保标题链接颜色变为白色 */
+[data-theme="dark"] .data-table tbody tr:hover .cell-title a {
+    color: white !important;
+    text-decoration: none;
+}
+
+[data-theme="dark"] .data-table tbody tr:hover .cell-title a:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: underline;
 }
 
 [data-theme="dark"] .search-section {
@@ -195,6 +209,113 @@
 [data-theme="dark"] .modal-body select.form-control option {
     background: var(--bg-card);
     color: var(--text-primary);
+}
+
+/* 深色模式下所有select元素的样式 */
+[data-theme="dark"] select.form-control {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] select.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a855f7' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+[data-theme="dark"] select.form-control[multiple] {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+}
+
+/* 深色模式下option样式 */
+[data-theme="dark"] select.form-control option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] select.form-control option:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] select.form-control option:checked {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+[data-theme="dark"] select.form-control option:checked:hover {
+    background: var(--primary-hover);
+    color: white;
+}
+
+/* 深色模式下选中状态的视觉指示器 */
+[data-theme="dark"] select.form-control option:checked::before {
+    content: "✓ ";
+    margin-right: 8px;
+    font-weight: bold;
+    color: white;
+}
+
+/* 深色模式下Select容器样式优化 */
+[data-theme="dark"] .form-group select.form-control[multiple] {
+    border: 2px solid var(--border-color);
+    background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .form-group select.form-control[multiple]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+}
+
+/* 深色模式下选中项的背景渐变效果 */
+[data-theme="dark"] select.form-control option:checked {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+
+/* 深色模式下悬停时的选中项效果 */
+[data-theme="dark"] select.form-control option:checked:hover {
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+    color: white;
+    transform: translateX(2px);
+}
+
+/* 深色模式下未选中项的悬停效果 */
+[data-theme="dark"] select.form-control option:hover:not(:checked) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: translateX(2px);
+}
+
+/* 深色模式下Select操作按钮样式 */
+[data-theme="dark"] .btn-outline-primary {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+    background: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background: var(--secondary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
 }
 
 /* 深色模式下模态框中的文本区域 */
@@ -303,14 +424,24 @@
 [data-theme="dark"] .data-table a {
     color: var(--primary-color);
     font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
 [data-theme="dark"] .data-table a:hover {
-    color: white;
-    background: var(--primary-color);
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* 深色模式下，当表格行hover时，所有链接颜色变为白色 */
+[data-theme="dark"] .data-table tbody tr:hover a {
+    color: white !important;
     text-decoration: none;
+}
+
+[data-theme="dark"] .data-table tbody tr:hover a:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: underline;
 }
 
 /* 深色模式下的代码块 */
@@ -527,6 +658,30 @@
 /* 深色模式下的加载动画 */
 [data-theme="dark"] .loading-spinner {
     color: var(--text-primary);
+}
+
+/* 深色模式下 Cherry Markdown 编辑器纯编辑模式样式 */
+[data-theme="dark"] .cherry.cherry-editor-only {
+    background: var(--bg-card);
+}
+
+[data-theme="dark"] .cherry.cherry-editor-only .cherry-editor {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .cherry.cherry-editor-only .cherry-previewer {
+    display: none !important;
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* 深色模式下强制隐藏预览相关的工具栏按钮 */
+[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="togglePreview"],
+[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="previewClose"],
+[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="mobilePreview"] {
+    display: none !important;
 }
 
 /* 深色模式下的录音指示器 */
