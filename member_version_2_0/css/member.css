@@ -1890,7 +1890,7 @@ select.form-control option:hover:not(:checked) {
         display: block; /* 在移动端显示汉堡菜单 */
         position: fixed;
         top: 15px;
-        left: 15px;
+        right: 15px;
         z-index: 1600;
         background: var(--primary-color);
         color: white;

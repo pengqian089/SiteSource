@@ -753,10 +753,41 @@
     
     .blog-nav-container-v2 {
         padding: 0 var(--ds-space-3);
+        justify-content: space-between;
+        position: relative;
     }
     
+    /* 用户头像移到左侧 */
+    .blog-user-v2 {
+        order: 1;
+        margin-left: 0;
+        position: absolute;
+        left: var(--ds-space-3);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* Logo 居中 */
     .blog-logo-v2 {
+        order: 2;
         font-size: var(--ds-font-size-lg);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
+    
+    /* 汉堡菜单在右侧 */
+    .blog-nav-toggle-v2 {
+        order: 3;
+        width: 44px;
+        height: 44px;
+        font-size: var(--ds-font-size-base);
+        position: absolute;
+        right: var(--ds-space-3);
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .blog-logo-v2 img {
@@ -767,12 +798,6 @@
     .blog-user-v2 img {
         width: 40px;
         height: 40px;
-    }
-    
-    .blog-nav-toggle-v2 {
-        width: 44px;
-        height: 44px;
-        font-size: var(--ds-font-size-base);
     }
 }
 
@@ -794,11 +819,42 @@
     
     .blog-nav-container-v2 {
         padding: 0 var(--ds-space-2);
+        justify-content: space-between;
+        position: relative;
     }
     
+    /* 用户头像移到左侧 */
+    .blog-user-v2 {
+        order: 1;
+        margin-left: 0;
+        position: absolute;
+        left: var(--ds-space-2);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* Logo 居中 */
     .blog-logo-v2 {
+        order: 2;
         font-size: var(--ds-font-size-base);
         gap: var(--ds-space-2);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
+    
+    /* 汉堡菜单在右侧 */
+    .blog-nav-toggle-v2 {
+        order: 3;
+        width: 40px;
+        height: 40px;
+        font-size: var(--ds-font-size-sm);
+        position: absolute;
+        right: var(--ds-space-2);
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .blog-logo-v2 img {
@@ -809,12 +865,6 @@
     .blog-user-v2 img {
         width: 36px;
         height: 36px;
-    }
-    
-    .blog-nav-toggle-v2 {
-        width: 40px;
-        height: 40px;
-        font-size: var(--ds-font-size-sm);
     }
     
     .blog-nav-mobile-item-v2 {

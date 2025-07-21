@@ -69,9 +69,7 @@ Write-Host "--------------------------------" -ForegroundColor yellow
 [string[]]$memberCssPaths = 
     "./member_version_2_0/css/dark-mode.css",
     "./member_version_2_0/css/member.css",
-    "./core/font-awesome/css/font-awesome.css",
-    "./library/cherry-markdown/cherry-markdown.css",
-    "./core/css/version_2_0/markdown_version_2_0.css"
+    "./core/font-awesome/css/font-awesome.css"
 
 foreach($item in $memberCssPaths){
     $filePath = [System.IO.Path]::Combine($path,$item)

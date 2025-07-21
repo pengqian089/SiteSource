@@ -432,7 +432,7 @@
     background: var(--ds-bg-secondary);
     border-radius: 0 0 var(--ds-radius-xl) var(--ds-radius-xl);
     margin: var(--ds-space-6) -var(--ds-space-8) 0 -var(--ds-space-8);
-    padding: var(--ds-space-6) var(--ds-space-8) 0 var(--ds-space-8);
+    padding: 0;
 }
 
 /* 详情页面样式 */
@@ -528,7 +528,7 @@
 
     .mumble-comment {
         margin: var(--ds-space-6) -var(--ds-space-6) 0 -var(--ds-space-6);
-        padding: var(--ds-space-6) var(--ds-space-6) 0 var(--ds-space-6);
+        padding: 0;
     }
 }
 
