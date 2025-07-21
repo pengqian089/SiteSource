@@ -1,6 +1,11 @@
 $location = Get-Location
 $path = $location.Path
 [System.Console]::WriteLine($path)
+
+Write-Host "--------------------------------" -ForegroundColor yellow
+Write-Host "Merge global style" -ForegroundColor yellow
+Write-Host "--------------------------------" -ForegroundColor yellow
+
 [string[]]$cssPaths = 
     "./core/lib/layui/css/layui.css",
     "./library/music-player/index.css",
@@ -36,11 +41,8 @@ $path = $location.Path
     "./core/css/version_2_0/menu_version_2_0.css"
 
 foreach($item in $cssPaths){
-    #$newCssPath = $item.Replace("./", "").Replace("/", "\");
-    #$filePath = [System.IO.Path]::Combine($path,$newCssPath)
     $filePath = [System.IO.Path]::Combine($path,$item)
     if(![System.IO.File]::Exists($filePath)){
-        #[System.Console]::WriteLine()
         Write-Host "$filePath file not exists" -ForegroundColor red
         return;
     }
@@ -55,3 +57,34 @@ $inputParameters = [System.String]::Join(" ",$cssPaths)
 $execute = "cleancss -o ./core/css/global.min.css $inputParameters --with-rebase --debug"
 
 Invoke-Expression $execute
+
+Write-Host "merge global style complete" -ForegroundColor green
+
+
+Write-Host "--------------------------------" -ForegroundColor yellow
+Write-Host "Merge member style" -ForegroundColor yellow
+Write-Host "--------------------------------" -ForegroundColor yellow
+
+
+[string[]]$memberCssPaths = 
+    "./member_version_2_0/css/dark-mode.css",
+    "./member_version_2_0/css/member.css",
+    "./core/font-awesome/css/font-awesome.css",
+    "./library/cherry-markdown/cherry-markdown.css",
+    "./core/css/version_2_0/markdown_version_2_0.css"
+
+foreach($item in $memberCssPaths){
+    $filePath = [System.IO.Path]::Combine($path,$item)
+    if(![System.IO.File]::Exists($filePath)){
+        Write-Host "$filePath file not exists" -ForegroundColor red
+        return;
+    }
+}
+
+$memberInputParameters = [System.String]::Join(" ",$memberCssPaths)
+
+$memberExecute = "cleancss -o ./member_version_2_0/css/global-member.min.css $memberInputParameters --with-rebase --debug"
+
+Invoke-Expression $memberExecute
+
+Write-Host "merge member style complete" -ForegroundColor green

@@ -782,6 +782,13 @@ select.form-control option:hover:not(:checked) {
     position: relative;
 }
 
+.data-table .cell-long-text pre{
+    max-width: 100%;
+    max-height: 5rem;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
 .data-table .cell-long-text:hover {
     white-space: normal;
     word-wrap: break-word;
@@ -913,7 +920,7 @@ select.form-control option:hover:not(:checked) {
 /* 碎碎念表格列宽优化 */
 #mumblesTable th:nth-child(1), /* 内容列 */
 #mumblesTable td:nth-child(1) {
-    width: 50%;
+    width: 33%;
     min-width: 200px;
 }
 
