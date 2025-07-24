@@ -1,989 +1,987 @@
 /* 深色模式样式 */
-[data-theme="dark"] {
-    --primary-color: #a855f7;
-    --primary-hover: #9333ea;
-    --secondary-color: #64748b;
-    --success-color: #10b981;
-    --danger-color: #ef4444;
-    --warning-color: #f59e0b;
-    --info-color: #3b82f6;
-    
-    --bg-primary: #1e293b;
-    --bg-secondary: #0f172a;
-    --bg-tertiary: #334155;
-    --bg-card: #1e293b;
-    
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    
-    --border-color: #475569;
-    --border-light: #334155;
-    
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-}
-
-/* 深色模式下的特殊调整 */
-[data-theme="dark"] .member-body {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-}
-
-[data-theme="dark"] .form-control {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-}
-
-[data-theme="dark"] .form-control:read-only {
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-}
-
-/* 深色模式表格样式 */
-[data-theme="dark"] .data-table {
-    background: var(--bg-card);
-    margin: 0;
-}
-
-[data-theme="dark"] .data-table th {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .data-table td {
-    color: var(--text-secondary);
-    border-bottom: 1px solid var(--border-color);
-}
-
-/* 深色模式表格行背景交替显示 */
-[data-theme="dark"] .data-table tbody tr:nth-child(even) {
-    background: var(--bg-secondary);
-}
-
-[data-theme="dark"] .data-table tbody tr:nth-child(odd) {
-    background: var(--bg-card);
-}
-
-/* 深色模式表格行hover效果 */
-[data-theme="dark"] .data-table tbody tr:hover {
-    background: var(--primary-color) !important;
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
-}
-
-[data-theme="dark"] .data-table tbody tr:hover td {
-    color: white;
-}
-
-/* 深色模式长文本单元格样式 */
-[data-theme="dark"] .data-table .cell-long-text:hover {
-    background: var(--bg-card);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-/* 深色模式表格标题列样式 */
-[data-theme="dark"] .data-table .cell-title {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .data-table .cell-title a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-[data-theme="dark"] .data-table .cell-title a:hover {
-    color: var(--primary-hover);
-    text-decoration: underline;
-}
-
-/* 深色模式下，当表格行hover时，确保标题链接颜色变为白色 */
-[data-theme="dark"] .data-table tbody tr:hover .cell-title a {
-    color: white !important;
-    text-decoration: none;
-}
-
-[data-theme="dark"] .data-table tbody tr:hover .cell-title a:hover {
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-decoration: underline;
-}
-
-[data-theme="dark"] .search-section {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-}
-
-/* 深色模式下搜索表单标签样式 */
-[data-theme="dark"] .search-group label {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-/* 深色模式下搜索表单控件样式 */
-[data-theme="dark"] .search-form .form-control {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .search-form .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-}
-
-[data-theme="dark"] .table-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    overflow-x: auto; /* 允许水平滚动 */
-    overflow-y: hidden;
-    box-shadow: var(--shadow-md);
-    max-width: 100%; /* 确保不超过父容器宽度 */
-}
-
-[data-theme="dark"] .modal-content {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .two-factor-modal .modal-content {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-}
-
-/* 深色模式下模态框标题 */
-[data-theme="dark"] .modal-header h3 {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-/* 深色模式下模态框内容文字 */
-[data-theme="dark"] .modal-body {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .modal-body p {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .modal-body label {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-/* 深色模式下模态框中的表单元素 */
-[data-theme="dark"] .modal-body .form-control {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .modal-body .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-}
-
-[data-theme="dark"] .modal-body .form-control::placeholder {
-    color: var(--text-muted);
-}
-
-/* 深色模式下模态框中的选择框 */
-[data-theme="dark"] .modal-body select.form-control {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .modal-body select.form-control option {
-    background: var(--bg-card);
-    color: var(--text-primary);
-}
-
-/* 深色模式下所有select元素的样式 */
-[data-theme="dark"] select.form-control {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] select.form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a855f7' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-}
-
-[data-theme="dark"] select.form-control[multiple] {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-}
-
-/* 深色模式下option样式 */
-[data-theme="dark"] select.form-control option {
-    background: var(--bg-card);
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] select.form-control option:hover {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] select.form-control option:checked {
-    background: var(--primary-color);
-    color: white;
-    font-weight: 600;
-}
-
-[data-theme="dark"] select.form-control option:checked:hover {
-    background: var(--primary-hover);
-    color: white;
-}
-
-/* 深色模式下选中状态的视觉指示器 */
-[data-theme="dark"] select.form-control option:checked::before {
-    content: "✓ ";
-    margin-right: 8px;
-    font-weight: bold;
-    color: white;
-}
-
-/* 深色模式下Select容器样式优化 */
-[data-theme="dark"] .form-group select.form-control[multiple] {
-    border: 2px solid var(--border-color);
-    background: var(--bg-tertiary);
-}
-
-[data-theme="dark"] .form-group select.form-control[multiple]:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-}
-
-/* 深色模式下选中项的背景渐变效果 */
-[data-theme="dark"] select.form-control option:checked {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    color: white;
-    font-weight: 600;
-    position: relative;
-}
-
-/* 深色模式下悬停时的选中项效果 */
-[data-theme="dark"] select.form-control option:checked:hover {
-    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
-    color: white;
-    transform: translateX(2px);
-}
-
-/* 深色模式下未选中项的悬停效果 */
-[data-theme="dark"] select.form-control option:hover:not(:checked) {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    transform: translateX(2px);
-}
-
-/* 深色模式下Select操作按钮样式 */
-[data-theme="dark"] .btn-outline-primary {
-    background: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-}
-
-[data-theme="dark"] .btn-outline-primary:hover {
-    background: var(--primary-color);
-    color: white;
-    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
-}
-
-[data-theme="dark"] .btn-outline-secondary {
-    background: transparent;
-    border: 1px solid var(--secondary-color);
-    color: var(--secondary-color);
-}
-
-[data-theme="dark"] .btn-outline-secondary:hover {
-    background: var(--secondary-color);
-    color: white;
-    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
-}
-
-/* 深色模式下模态框中的文本区域 */
-[data-theme="dark"] .modal-body textarea.form-control {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-/* 深色模式下模态框中的按钮 */
-[data-theme="dark"] .modal-footer .btn {
-    color: white;
-}
-
-[data-theme="dark"] .modal-footer .btn-secondary {
-    background: var(--secondary-color);
-    border-color: var(--secondary-color);
-}
-
-[data-theme="dark"] .modal-footer .btn-secondary:hover {
-    background: #475569;
-    border-color: #475569;
-}
-
-/* 深色模式下双因素验证模态框特殊样式 */
-[data-theme="dark"] .two-factor-modal .modal-header h3 {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .two-factor-modal .modal-body label {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-[data-theme="dark"] .two-factor-modal .secret-key label {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .two-factor-modal .pin-section label {
-    color: var(--text-primary);
-}
-
-/* 深色模式下删除确认模态框 */
-[data-theme="dark"] .modal-body p {
-    color: var(--text-primary);
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-[data-theme="dark"] .qr-code {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .photo-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .photo-card:hover {
-    border-color: var(--primary-color);
-}
-
-/* 深色模式下的滚动条 */
-[data-theme="dark"] ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
-
-/* 深色模式下的选择文本 */
-[data-theme="dark"] ::selection {
-    background: var(--primary-color);
-    color: white;
-}
-
-/* 深色模式下的占位符文本 */
-[data-theme="dark"] ::placeholder {
-    color: var(--text-muted);
-}
-
-/* 深色模式下的链接 */
-[data-theme="dark"] a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-[data-theme="dark"] a:hover {
-    color: var(--primary-hover);
-    text-decoration: underline;
-}
-
-/* 深色模式下表格中的链接 */
-[data-theme="dark"] .data-table a {
-    color: var(--primary-color);
-    font-weight: 500;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-[data-theme="dark"] .data-table a:hover {
-    color: var(--primary-hover);
-    text-decoration: underline;
-}
-
-/* 深色模式下，当表格行hover时，所有链接颜色变为白色 */
-[data-theme="dark"] .data-table tbody tr:hover a {
-    color: white !important;
-    text-decoration: none;
-}
-
-[data-theme="dark"] .data-table tbody tr:hover a:hover {
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-decoration: underline;
-}
-
-/* 深色模式下的代码块 */
-[data-theme="dark"] code {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-/* 深色模式下的引用块 */
-[data-theme="dark"] blockquote {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--primary-color);
-    color: var(--text-secondary);
-}
-
-/* 深色模式下的分割线 */
-[data-theme="dark"] hr {
-    border-color: var(--border-color);
-}
-
-/* 深色模式下的工具提示 */
-[data-theme="dark"] .tooltip {
-    background: var(--bg-card);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-lg);
-}
-
-/* 深色模式下的下拉菜单 */
-[data-theme="dark"] .dropdown-menu {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-lg);
-}
-
-[data-theme="dark"] .dropdown-item {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .dropdown-item:hover {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-/* 深色模式下的标签 */
-[data-theme="dark"] .tag {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-/* 深色模式下的徽章 */
-[data-theme="dark"] .badge {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-/* 深色模式下的进度条 */
-[data-theme="dark"] .progress {
-    background: var(--bg-secondary);
-}
-
-[data-theme="dark"] .progress-bar {
-    background: var(--primary-color);
-}
-
-/* 深色模式下的警告框 */
-[data-theme="dark"] .alert {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .alert-success {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: var(--success-color);
-    color: var(--success-color);
-}
-
-[data-theme="dark"] .alert-danger {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: var(--danger-color);
-    color: var(--danger-color);
-}
-
-[data-theme="dark"] .alert-warning {
-    background: rgba(245, 158, 11, 0.1);
-    border-color: var(--warning-color);
-    color: var(--warning-color);
-}
-
-[data-theme="dark"] .alert-info {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: var(--info-color);
-    color: var(--info-color);
-}
-
-/* 深色模式下的卡片 */
-[data-theme="dark"] .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .card-header {
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .card-footer {
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border-color);
-}
-
-/* 深色模式下的列表组 */
-[data-theme="dark"] .list-group-item {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .list-group-item:hover {
-    background: var(--bg-tertiary);
-}
-
-/* 深色模式下的面包屑 */
-[data-theme="dark"] .breadcrumb {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-}
-
-[data-theme="dark"] .breadcrumb .current {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-[data-theme="dark"] .breadcrumb .separator {
-    color: var(--text-muted);
-}
-
-/* 深色模式下的分页 */
-[data-theme="dark"] .pagination .page-link {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-[data-theme="dark"] .pagination .page-link:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
-}
-
-[data-theme="dark"] .pagination .page-item.active .page-link {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
-}
-
-/* 深色模式下的标签页 */
-[data-theme="dark"] .nav-tabs .nav-link {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .nav-tabs .nav-link:hover {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .nav-tabs .nav-link.active {
-    background: var(--bg-card);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-/* 深色模式下的折叠面板 */
-[data-theme="dark"] .accordion-item {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .accordion-button {
-    background: var(--bg-card);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .accordion-button:hover {
-    background: var(--bg-tertiary);
-}
-
-[data-theme="dark"] .accordion-button:not(.collapsed) {
-    background: var(--bg-tertiary);
-    color: var(--primary-color);
-}
-
-[data-theme="dark"] .accordion-body {
-    background: var(--bg-card);
-    color: var(--text-primary);
-}
-
-/* 深色模式下的模态框背景 */
-[data-theme="dark"] .modal-backdrop {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-/* 深色模式下的加载动画 */
-[data-theme="dark"] .loading-spinner {
-    color: var(--text-primary);
-}
-
-/* 深色模式下 Cherry Markdown 编辑器纯编辑模式样式 */
-[data-theme="dark"] .cherry.cherry-editor-only {
-    background: var(--bg-card);
-}
-
-[data-theme="dark"] .cherry.cherry-editor-only .cherry-editor {
-    background: var(--bg-card);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .cherry.cherry-editor-only .cherry-previewer {
-    display: none !important;
-    width: 0 !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-/* 深色模式下强制隐藏预览相关的工具栏按钮 */
-[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="togglePreview"],
-[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="previewClose"],
-[data-theme="dark"] .cherry-toolbar .cherry-toolbar-button[data-name="mobilePreview"] {
-    display: none !important;
-}
-
-/* 深色模式下的录音指示器 */
-[data-theme="dark"] .recording-indicator {
-    background: var(--danger-color);
-    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-}
-
-/* 深色模式下的录音功能样式 */
-[data-theme="dark"] .recording-section {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .recording-status {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] #recordingStatusText {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] #recordingTime {
-    color: var(--primary-color);
-}
-
-/* 深色模式下的录音播放器样式 */
-[data-theme="dark"] .recording-player {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .audio-progress {
-    background: var(--bg-secondary);
-}
-
-[data-theme="dark"] .audio-progress-bar {
-    background: var(--primary-color);
-}
-
-[data-theme="dark"] .audio-progress-handle {
-    background: var(--primary-color);
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-[data-theme="dark"] .audio-progress-handle:hover {
-    background: var(--primary-hover);
-}
-
-[data-theme="dark"] .audio-progress-handle:active,
-[data-theme="dark"] .audio-progress-handle.dragging {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] .audio-time-info {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .time-separator {
-    color: var(--text-muted);
-}
-
-/* 深色模式下的照片网格 */
-[data-theme="dark"] .photo-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .photo-card:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
-}
-
-/* 深色模式下的用户头像边框 */
-[data-theme="dark"] .user-avatar {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
-}
-
-/* 深色模式下的导航项 */
-[data-theme="dark"] .nav-item {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .nav-item:hover {
-    background: var(--bg-tertiary);
-    color: var(--primary-color);
-    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
-    transform: translateY(-1px);
-}
-
-[data-theme="dark"] .nav-item.active {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.2);
-    transform: translateY(-1px);
-    border: 1px solid rgba(168, 85, 247, 0.3);
-}
-
-/* 深色模式下激活状态菜单项中的链接和文字 */
-[data-theme="dark"] .nav-item.active a,
-[data-theme="dark"] .nav-item.active a span,
-[data-theme="dark"] .nav-item.active a i {
-    color: white !important;
-}
-
-/* 深色模式下的按钮悬停效果 */
-[data-theme="dark"] .btn-primary:hover {
-    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-}
-
-[data-theme="dark"] .btn-secondary:hover {
-    box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
-}
-
-[data-theme="dark"] .btn-success:hover {
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-
-[data-theme="dark"] .btn-danger:hover {
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-}
-
-/* 深色模式下的输入框聚焦效果 */
-[data-theme="dark"] .form-control:focus {
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-}
-
-
-
-
-
-/* 深色模式下的页面标题 */
-[data-theme="dark"] .page-header h2 {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .page-header h2 i {
-    color: var(--primary-color);
-}
-
-/* 深色模式下的表单标签 */
-[data-theme="dark"] .form-group label {
-    color: var(--text-primary);
-}
-
-/* 深色模式下的状态文本 */
-[data-theme="dark"] .status-text {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-/* 深色模式下的用户信息 */
-[data-theme="dark"] .user-name {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .user-email {
-    color: var(--text-secondary);
-}
-
-/* 深色模式下的照片标签 */
-[data-theme="dark"] .photo-tag {
-    background: var(--primary-color);
-    color: white;
-}
-
-/* 深色模式下的照片标题 */
-[data-theme="dark"] .photo-title {
-    color: var(--text-primary);
-}
-
-/* 深色模式下的照片元数据 */
-[data-theme="dark"] .photo-meta {
-    color: var(--text-muted);
-}
-
-/* 深色模式下汉堡菜单默认隐藏 */
-[data-theme="dark"] .menu-toggle {
-    display: none;
-}
-
-/* 深色模式响应式样式 */
-@media (max-width: 768px) {
-    [data-theme="dark"] .member-sidebar {
-        background: var(--bg-primary);
-        box-shadow: var(--shadow-lg);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #a855f7;
+        --primary-hover: #9333ea;
+        --secondary-color: #64748b;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --warning-color: #f59e0b;
+        --info-color: #3b82f6;
+
+        --bg-primary: #1e293b;
+        --bg-secondary: #0f172a;
+        --bg-tertiary: #334155;
+        --bg-card: #1e293b;
+
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+
+        --border-color: #475569;
+        --border-light: #334155;
+
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
     }
-    
-    [data-theme="dark"] .menu-toggle {
-        display: block; /* 在移动端显示汉堡菜单 */
+
+    /* 深色模式下的特殊调整 */
+    .member-body {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    }
+
+    .form-control {
+        background: var(--bg-tertiary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+    .form-control:read-only {
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+    }
+
+    /* 深色模式表格样式 */
+    .data-table {
+        background: var(--bg-card);
+        margin: 0;
+    }
+
+    .data-table th {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table td {
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* 深色模式表格行背景交替显示 */
+    .data-table tbody tr:nth-child(even) {
+        background: var(--bg-secondary);
+    }
+
+    .data-table tbody tr:nth-child(odd) {
+        background: var(--bg-card);
+    }
+
+    /* 深色模式表格行hover效果 */
+    .data-table tbody tr:hover {
+        background: var(--primary-color) !important;
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+    }
+
+    .data-table tbody tr:hover td {
+        color: white;
+    }
+
+    /* 深色模式长文本单元格样式 */
+    .data-table .cell-long-text:hover {
+        background: var(--bg-card);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+    }
+
+    /* 深色模式表格标题列样式 */
+    .data-table .cell-title {
+        color: var(--text-primary);
+    }
+
+    .data-table .cell-title a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .data-table .cell-title a:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+    }
+
+    /* 深色模式下，当表格行hover时，确保标题链接颜色变为白色 */
+    .data-table tbody tr:hover .cell-title a {
+        color: white !important;
+        text-decoration: none;
+    }
+
+    .data-table tbody tr:hover .cell-title a:hover {
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-decoration: underline;
+    }
+
+    .search-section {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+    }
+
+    /* 深色模式下搜索表单标签样式 */
+    .search-group label {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    /* 深色模式下搜索表单控件样式 */
+    .search-form .form-control {
+        background: var(--bg-tertiary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .search-form .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+    .table-container {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow-x: auto;
+        /* 允许水平滚动 */
+        overflow-y: hidden;
+        box-shadow: var(--shadow-md);
+        max-width: 100%;
+        /* 确保不超过父容器宽度 */
+    }
+
+    .modal-content {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .two-factor-modal .modal-content {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    /* 深色模式下模态框标题 */
+    .modal-header h3 {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    /* 深色模式下模态框内容文字 */
+    .modal-body {
+        color: var(--text-primary);
+    }
+
+    .modal-body p {
+        color: var(--text-primary);
+    }
+
+    .modal-body label {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    /* 深色模式下模态框中的表单元素 */
+    .modal-body .form-control {
+        background: var(--bg-tertiary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .modal-body .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+    .modal-body .form-control::placeholder {
+        color: var(--text-muted);
+    }
+
+    /* 深色模式下模态框中的选择框 */
+    .modal-body select.form-control {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    .modal-body select.form-control option {
+        background: var(--bg-card);
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下所有select元素的样式 */
+    select.form-control {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border-color: var(--border-color);
+    }
+
+    select.form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a855f7' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    }
+
+    select.form-control[multiple] {
+        background: var(--bg-tertiary);
+        border-color: var(--border-color);
+    }
+
+    /* 深色模式下option样式 */
+    select.form-control option {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    select.form-control option:hover {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+
+    select.form-control option:checked {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+    }
+
+    select.form-control option:checked:hover {
+        background: var(--primary-hover);
+        color: white;
+    }
+
+    /* 深色模式下选中状态的视觉指示器 */
+    select.form-control option:checked::before {
+        content: "✓ ";
+        margin-right: 8px;
+        font-weight: bold;
+        color: white;
+    }
+
+    /* 深色模式下Select容器样式优化 */
+    .form-group select.form-control[multiple] {
+        border: 2px solid var(--border-color);
+        background: var(--bg-tertiary);
+    }
+
+    .form-group select.form-control[multiple]:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+    /* 深色模式下选中项的背景渐变效果 */
+    select.form-control option:checked {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+        color: white;
+        font-weight: 600;
+        position: relative;
+    }
+
+    /* 深色模式下悬停时的选中项效果 */
+    select.form-control option:checked:hover {
+        background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+        color: white;
+        transform: translateX(2px);
+    }
+
+    /* 深色模式下未选中项的悬停效果 */
+    select.form-control option:hover:not(:checked) {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        transform: translateX(2px);
+    }
+
+    /* 深色模式下Select操作按钮样式 */
+    .btn-outline-primary {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .btn-outline-primary:hover {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-outline-secondary {
+        background: transparent;
+        border: 1px solid var(--secondary-color);
+        color: var(--secondary-color);
+    }
+
+    .btn-outline-secondary:hover {
+        background: var(--secondary-color);
+        color: white;
+        box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+    }
+
+    /* 深色模式下模态框中的文本区域 */
+    .modal-body textarea.form-control {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下模态框中的按钮 */
+    .modal-footer .btn {
+        color: white;
+    }
+
+    .modal-footer .btn-secondary {
+        background: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .modal-footer .btn-secondary:hover {
+        background: #475569;
+        border-color: #475569;
+    }
+
+    /* 深色模式下双因素验证模态框特殊样式 */
+    .two-factor-modal .modal-header h3 {
+        color: var(--text-primary);
+    }
+
+    .two-factor-modal .modal-body label {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    .two-factor-modal .secret-key label {
+        color: var(--text-primary);
+    }
+
+    .two-factor-modal .pin-section label {
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下删除确认模态框 */
+    .modal-body p {
+        color: var(--text-primary);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .qr-code {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+    }
+
+    .photo-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .photo-card:hover {
+        border-color: var(--primary-color);
+    }
+
+    /* 深色模式下的滚动条 */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+    }
+
+    /* 深色模式下的选择文本 */
+    ::selection {
         background: var(--primary-color);
         color: white;
     }
-    
-    [data-theme="dark"] .menu-toggle:hover {
-        background: var(--primary-hover);
-    }
-    
-    [data-theme="dark"] .mobile-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-    }
-    
-    [data-theme="dark"] .mobile-card-row {
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    [data-theme="dark"] .mobile-card-label {
-        color: var(--text-primary);
-    }
-    
-    [data-theme="dark"] .mobile-card-content {
-        color: var(--text-secondary);
-    }
-    
-    [data-theme="dark"] .mobile-photo-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-    }
-    
-    [data-theme="dark"] .mobile-photo-title {
-        color: var(--text-primary);
-    }
-    
-    [data-theme="dark"] .mobile-photo-meta {
+
+    /* 深色模式下的占位符文本 */
+    ::placeholder {
         color: var(--text-muted);
     }
-    
-    /* 深色模式下的移动端用户资料优化 */
-    [data-theme="dark"] .member-sidebar.active .user-profile {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+
+    /* 深色模式下的链接 */
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
     }
-    
-    [data-theme="dark"] .member-sidebar.active .user-avatar {
-        border: 3px solid rgba(255, 255, 255, 0.9);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+    a:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
     }
-    
-    [data-theme="dark"] .member-sidebar.active .avatar-upload {
-        background: rgba(255, 255, 255, 0.95);
+
+    /* 深色模式下表格中的链接 */
+    .data-table a {
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .data-table a:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+    }
+
+    /* 深色模式下，当表格行hover时，所有链接颜色变为白色 */
+    .data-table tbody tr:hover a {
+        color: white !important;
+        text-decoration: none;
+    }
+
+    .data-table tbody tr:hover a:hover {
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-decoration: underline;
+    }
+
+    /* 深色模式下的引用块 */
+    blockquote {
+        background: var(--bg-secondary);
+        border-left: 4px solid var(--primary-color);
+        color: var(--text-secondary);
+    }
+
+    /* 深色模式下的分割线 */
+    hr {
+        border-color: var(--border-color);
+    }
+
+    /* 深色模式下的工具提示 */
+    .tooltip {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* 深色模式下的下拉菜单 */
+    .dropdown-menu {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .dropdown-item {
+        color: var(--text-primary);
+    }
+
+    .dropdown-item:hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下的标签 */
+    .tag {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+    }
+
+    /* 深色模式下的徽章 */
+    .badge {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下的进度条 */
+    .progress {
+        background: var(--bg-secondary);
+    }
+
+    .progress-bar {
+        background: var(--primary-color);
+    }
+
+    /* 深色模式下的警告框 */
+    .alert {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .alert-success {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--success-color);
+        color: var(--success-color);
+    }
+
+    .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: var(--danger-color);
+        color: var(--danger-color);
+    }
+
+    .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: var(--warning-color);
+        color: var(--warning-color);
+    }
+
+    .alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: var(--info-color);
+        color: var(--info-color);
+    }
+
+    /* 深色模式下的卡片 */
+    .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-footer {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-color);
+    }
+
+    /* 深色模式下的列表组 */
+    .list-group-item {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .list-group-item:hover {
+        background: var(--bg-tertiary);
+    }
+
+    /* 深色模式下的面包屑 */
+    .breadcrumb {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-md);
+    }
+
+    .breadcrumb .current {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .breadcrumb .separator {
+        color: var(--text-muted);
+    }
+
+    /* 深色模式下的分页 */
+    .pagination .page-link {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    .pagination .page-link:hover {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+    }
+
+    .pagination .page-item.active .page-link {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
+    }
+
+    /* 深色模式下的标签页 */
+    .nav-tabs .nav-link {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+        color: var(--text-secondary);
+    }
+
+    .nav-tabs .nav-link:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .nav-tabs .nav-link.active {
+        background: var(--bg-card);
+        border-color: var(--primary-color);
         color: var(--primary-color);
     }
-    
-    [data-theme="dark"] .member-sidebar.active .avatar-upload:hover {
-        background: white;
+
+    /* 深色模式下的折叠面板 */
+    .accordion-item {
+        background: var(--bg-card);
+        border-color: var(--border-color);
     }
-    
-    [data-theme="dark"] .member-sidebar.active .user-name {
+
+    .accordion-button {
+        background: var(--bg-card);
+        color: var(--text-primary);
+    }
+
+    .accordion-button:hover {
+        background: var(--bg-tertiary);
+    }
+
+    .accordion-button:not(.collapsed) {
+        background: var(--bg-tertiary);
+        color: var(--primary-color);
+    }
+
+    .accordion-body {
+        background: var(--bg-card);
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下的模态框背景 */
+    .modal-backdrop {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    /* 深色模式下的加载动画 */
+    .loading-spinner {
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下 Cherry Markdown 编辑器纯编辑模式样式 */
+    .cherry.cherry-editor-only {
+        background: var(--bg-card);
+    }
+
+    .cherry.cherry-editor-only .cherry-editor {
+        background: var(--bg-card);
+        color: var(--text-primary);
+    }
+
+    .cherry.cherry-editor-only .cherry-previewer {
+        display: none !important;
+        width: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* 深色模式下强制隐藏预览相关的工具栏按钮 */
+    .cherry-toolbar .cherry-toolbar-button[data-name="togglePreview"],
+    .cherry-toolbar .cherry-toolbar-button[data-name="previewClose"],
+    .cherry-toolbar .cherry-toolbar-button[data-name="mobilePreview"] {
+        display: none !important;
+    }
+
+    /* 深色模式下的录音指示器 */
+    .recording-indicator {
+        background: var(--danger-color);
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    /* 深色模式下的录音功能样式 */
+    .recording-section {
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+    }
+
+    .recording-status {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+    }
+
+    #recordingStatusText {
+        color: var(--text-primary);
+    }
+
+    #recordingTime {
+        color: var(--primary-color);
+    }
+
+    /* 深色模式下的录音播放器样式 */
+    .recording-player {
+        background: var(--bg-card);
+        border-color: var(--border-color);
+    }
+
+    .audio-progress {
+        background: var(--bg-secondary);
+    }
+
+    .audio-progress-bar {
+        background: var(--primary-color);
+    }
+
+    .audio-progress-handle {
+        background: var(--primary-color);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .audio-progress-handle:hover {
+        background: var(--primary-hover);
+    }
+
+    .audio-progress-handle:active,
+    .audio-progress-handle.dragging {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .audio-time-info {
+        color: var(--text-secondary);
+    }
+
+    .time-separator {
+        color: var(--text-muted);
+    }
+
+    /* 深色模式下的照片网格 */
+    .photo-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .photo-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
+    }
+
+    /* 深色模式下的用户头像边框 */
+    .user-avatar {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    /* 深色模式下的导航项 */
+    .nav-item {
+        color: var(--text-primary);
+    }
+
+    .nav-item:hover {
+        background: var(--bg-tertiary);
+        color: var(--primary-color);
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+        transform: translateY(-1px);
+    }
+
+    .nav-item.active {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
         color: white;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.2);
+        transform: translateY(-1px);
+        border: 1px solid rgba(168, 85, 247, 0.3);
     }
-    
-    [data-theme="dark"] .member-sidebar.active .user-email {
-        color: rgba(255, 255, 255, 0.95);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    /* 深色模式下激活状态菜单项中的链接和文字 */
+    .nav-item.active a,
+    .nav-item.active a span,
+    .nav-item.active a i {
+        color: white !important;
+    }
+
+    /* 深色模式下的按钮悬停效果 */
+    .btn-primary:hover {
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-secondary:hover {
+        box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
+    }
+
+    .btn-success:hover {
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-danger:hover {
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    /* 深色模式下的输入框聚焦效果 */
+    .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+
+
+
+
+    /* 深色模式下的页面标题 */
+    .page-header h2 {
+        color: var(--text-primary);
+    }
+
+    .page-header h2 i {
+        color: var(--primary-color);
+    }
+
+    /* 深色模式下的表单标签 */
+    .form-group label {
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下的状态文本 */
+    .status-text {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    /* 深色模式下的用户信息 */
+    .user-name {
+        color: var(--text-primary);
+    }
+
+    .user-email {
+        color: var(--text-secondary);
+    }
+
+    /* 深色模式下的照片标签 */
+    .photo-tag {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    /* 深色模式下的照片标题 */
+    .photo-title {
+        color: var(--text-primary);
+    }
+
+    /* 深色模式下的照片元数据 */
+    .photo-meta {
+        color: var(--text-muted);
+    }
+
+    /* 深色模式下汉堡菜单默认隐藏 */
+    .menu-toggle {
+        display: none;
+    }
+
+    /* 深色模式响应式样式 */
+    @media (max-width: 768px) {
+        .member-sidebar {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .menu-toggle {
+            display: block;
+            /* 在移动端显示汉堡菜单 */
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .menu-toggle:hover {
+            background: var(--primary-hover);
+        }
+
+        .mobile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .mobile-card-row {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-card-label {
+            color: var(--text-primary);
+        }
+
+        .mobile-card-content {
+            color: var(--text-secondary);
+        }
+
+        .mobile-photo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .mobile-photo-title {
+            color: var(--text-primary);
+        }
+
+        .mobile-photo-meta {
+            color: var(--text-muted);
+        }
+
+        /* 深色模式下的移动端用户资料优化 */
+        .member-sidebar.active .user-profile {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .member-sidebar.active .user-avatar {
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .member-sidebar.active .avatar-upload {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-color);
+        }
+
+        .member-sidebar.active .avatar-upload:hover {
+            background: white;
+        }
+
+        .member-sidebar.active .user-name {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .member-sidebar.active .user-email {
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    /* Toast消息暗色模式 */
+    .toast-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .toast-progress {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .toast-message {
+        backdrop-filter: blur(12px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 暗色模式下消息类型颜色调整 */
+    .toast-message[data-type="success"] {
+        --toast-color: #10b981;
+        --toast-bg-color: #1e293b;
+        --toast-border-color: #10b981;
+        --toast-text-color: #a7f3d0;
+    }
+
+    .toast-message[data-type="error"] {
+        --toast-color: #ef4444;
+        --toast-bg-color: #1e293b;
+        --toast-border-color: #ef4444;
+        --toast-text-color: #fecaca;
+    }
+
+    .toast-message[data-type="warning"] {
+        --toast-color: #f59e0b;
+        --toast-bg-color: #1e293b;
+        --toast-border-color: #f59e0b;
+        --toast-text-color: #fed7aa;
+    }
+
+    .toast-message[data-type="info"] {
+        --toast-color: #3b82f6;
+        --toast-bg-color: #1e293b;
+        --toast-border-color: #3b82f6;
+        --toast-text-color: #bfdbfe;
     }
 }
-
-/* Toast消息暗色模式 */
-[data-theme="dark"] .toast-close:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .toast-progress {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .toast-message {
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-}
-
-/* 暗色模式下消息类型颜色调整 */
-[data-theme="dark"] .toast-message[data-type="success"] {
-    --toast-color: #10b981;
-    --toast-bg-color: #1e293b;
-    --toast-border-color: #10b981;
-    --toast-text-color: #a7f3d0;
-}
-
-[data-theme="dark"] .toast-message[data-type="error"] {
-    --toast-color: #ef4444;
-    --toast-bg-color: #1e293b;
-    --toast-border-color: #ef4444;
-    --toast-text-color: #fecaca;
-}
-
-[data-theme="dark"] .toast-message[data-type="warning"] {
-    --toast-color: #f59e0b;
-    --toast-bg-color: #1e293b;
-    --toast-border-color: #f59e0b;
-    --toast-text-color: #fed7aa;
-}
-
-[data-theme="dark"] .toast-message[data-type="info"] {
-    --toast-color: #3b82f6;
-    --toast-bg-color: #1e293b;
-    --toast-border-color: #3b82f6;
-    --toast-text-color: #bfdbfe;
-} 

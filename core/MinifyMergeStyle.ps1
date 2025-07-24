@@ -66,9 +66,9 @@ Write-Host "Merge member style" -ForegroundColor yellow
 Write-Host "--------------------------------" -ForegroundColor yellow
 
 
-[string[]]$memberCssPaths = 
-    "./member_version_2_0/css/dark-mode.css",
+[string[]]$memberCssPaths =     
     "./member_version_2_0/css/member.css",
+    "./member_version_2_0/css/dark-mode.css",
     "./core/font-awesome/css/font-awesome.css"
 
 foreach($item in $memberCssPaths){
