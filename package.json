@@ -5,7 +5,7 @@
     "@nplayer/danmaku": "^1.0.12",
     "artplayer": "^5.1.1",
     "artplayer-plugin-danmuku": "^5.0.1",
-    "cherry-markdown": "^0.8.8",
+    "cherry-markdown": "^0.8.58",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
     "nplayer": "^1.0.15"
