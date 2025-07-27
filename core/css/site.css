@@ -1605,9 +1605,6 @@ body .warning .layui-layer-title {
 /* video end */
 
 @media screen and (max-width:640px) {
-    body {
-        background: #fff
-    }
     
     /* 面包屑移动端优化 */
     .layui-elem-quote.sitemap {

@@ -944,12 +944,6 @@
         scrollbar-color: rgba(192, 132, 252, 0.5) rgba(30, 31, 31, 0.9);
     }
 
-    @media screen and (max-width:640px) {
-        body {
-            background: #000
-        }
-    }
-
     audio{
         color-scheme:dark;
     }
