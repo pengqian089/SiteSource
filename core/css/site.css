@@ -75,8 +75,8 @@ body {
 }
 
 .blog-container {
-    margin: 0 15px;
-    position: relative;
+    margin: 0 15px;    
+    /*position: relative;*/
 }
 
 .blog-main {
@@ -1662,6 +1662,7 @@ body .warning .layui-layer-title {
     .blog-container {
         width: 738px;
         margin: 0 auto;
+        margin-top: 100px;
     }
 
     .blog-main>.blog-main-right>.blog-module {

@@ -323,23 +323,26 @@
     flex-shrink: 0;
 }
 
+/* 搜索按钮 - 使用高特异性选择器覆盖全局样式 */
+.search-submit > .search-btn,
 .search-btn {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%);
-    border-radius: var(--ds-radius-lg);
-    border: none;
-    color: var(--ds-text-on-primary);
+    width: 44px !important;
+    height: 44px !important;
+    background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%) !important;
+    border-radius: var(--ds-radius-lg) !important;
+    border: none !important;
+    color: var(--ds-text-on-primary) !important;
     font-size: var(--ds-font-size-base);
     cursor: pointer;
     transition: all var(--ds-duration-300) var(--ds-easing-in-out);
-    box-shadow: var(--ds-shadow-md);
+    box-shadow: var(--ds-shadow-md) !important;
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    float: none !important; /* 覆盖全局样式的float */
 }
 
 .search-btn::before {
@@ -353,24 +356,28 @@
     transition: left 0.5s ease;
 }
 
+.search-submit > .search-btn:hover,
 .search-btn:hover {
     transform: translateY(-2px) scale(1.05);
-    background: linear-gradient(135deg, var(--ds-primary-700) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%);
-    box-shadow: var(--ds-shadow-lg);
+    background: linear-gradient(135deg, var(--ds-primary-700) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%) !important;
+    box-shadow: var(--ds-shadow-lg) !important;
 }
 
 .search-btn:hover::before {
     left: 100%;
 }
 
+.search-submit > .search-btn:active,
 .search-btn:active {
     transform: translateY(-1px) scale(1.02);
 }
 
+.search-submit > .search-btn i,
 .search-btn i {
     font-size: 1rem;
     position: relative;
     z-index: 1;
+    color: #ffffff !important; /* 确保图标为白色，覆盖可能的全局样式 */
 }
 
 /* 文章列表 - 现代化卡片设计 */
@@ -876,11 +883,7 @@
         padding: 3px 6px;
     }
     
-    /* 移动端搜索容器和覆盖层通过JavaScript控制显示 */
-    .mobile-search-container,
-    .mobile-search-overlay {
-        /* 不在CSS中强制显示，交由JavaScript控制 */
-    }
+    /* 移动端搜索容器和覆盖层通过JavaScript控制显示，不需要在CSS中强制显示 */
     
     .search-keywords,
     .search-submit {
@@ -1242,6 +1245,25 @@
         color: rgba(255, 255, 255, 0.5);
     }
 
+    /* 暗色主题下的搜索按钮 - 确保覆盖全局样式 */
+    .search-submit > .search-btn,
+    .search-btn {
+        background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        box-shadow: var(--ds-shadow-md) !important;
+    }
+
+    .search-submit > .search-btn:hover,
+    .search-btn:hover {
+        background: linear-gradient(135deg, var(--ds-primary-700) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%) !important;
+    }
+
+    .search-submit > .search-btn i,
+    .search-btn i {
+        color: #ffffff !important;
+    }
+
     .article {
         background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
         border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1304,11 +1326,7 @@
     
     /* 暗色主题下的移动端布局优化 */
     @media screen and (max-width: 768px) {
-        /* 移动端搜索组件在暗色主题下也不强制显示 */
-        .mobile-search-container,
-        .mobile-search-overlay {
-            /* JavaScript控制显示状态 */
-        }
+        /* 移动端搜索组件在暗色主题下由JavaScript控制显示状态，不需要在CSS中强制显示 */
         
         .article > .article-footer {
             display: flex !important;
