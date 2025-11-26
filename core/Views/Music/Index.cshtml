@@ -1,0 +1,144 @@
+﻿@using Dpz.Core.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.Extensions.Configuration
+@model ICollection<VmMusic>
+@inject IConfiguration Configuration
+<div class="blog-container">
+    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+        <a href="/" title="网站首页" data-pjax>网站首页</a>
+        <a><cite>曲库</cite></a>
+    </blockquote>
+    <div id="blue-playlist-container">
+        <!-- Amplitude Player -->
+        <div id="amplitude-player">
+
+            <!-- Left Side Player -->
+            <div id="amplitude-left">
+                <img data-amplitude-song-info="cover_art_url" alt="cover" src="@(Configuration["CDNBaseAddress"])/images/music.png" class="album-art" id="album-art" />
+                <div class="amplitude-visualization" id="large-visualization">
+
+                </div>
+                <div id="player-left-bottom">
+                    <div id="time-container">
+                        <span class="current-time">
+                            <span class="amplitude-current-minutes">00</span>:<span class="amplitude-current-seconds">00</span>
+                        </span>
+                        <div id="progress-container">
+                            <div class="amplitude-wave-form">
+
+                            </div>
+                            <input type="range" class="amplitude-song-slider" />
+                            <progress id="song-played-progress" class="amplitude-song-played-progress"></progress>
+                            <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
+                        </div>
+                        <span class="duration">
+                            <span class="amplitude-duration-minutes">00</span>:<span class="amplitude-duration-seconds">00</span>
+                        </span>
+                    </div>
+
+                    <div id="control-container">
+                        <div id="repeat-container">
+                            <div class="amplitude-repeat" id="repeat"></div>
+                            <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+                        </div>
+
+                        <div id="central-control-container">
+                            <div id="central-controls">
+                                <div class="amplitude-prev" id="previous"></div>
+                                <div class="amplitude-play-pause" id="play-pause"></div>
+                                <div class="amplitude-next" id="next"></div>
+                            </div>
+                        </div>
+
+                        <div id="volume-container">
+                            <div class="volume-controls">
+                                <div class="amplitude-mute amplitude-not-muted"></div>
+                                <input type="range" class="amplitude-volume-slider" max="100" value="50" min="0" step="1" />
+                                <div class="ms-range-fix"></div>
+                            </div>
+                            <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
+                        </div>
+                    </div>
+
+                    <div id="meta-container">
+                        <span data-amplitude-song-info="name" class="song-name"></span>
+
+                        <div class="song-artist-album">
+                            <span data-amplitude-song-info="artist"></span>
+                            <span data-amplitude-song-info="album"></span>
+                        </div>
+                    </div>
+                    <div class="meta-lyrics"></div>
+                </div>
+            </div>
+            <!-- End Left Side Player -->
+            <!-- Right Side Player -->
+            <div id="amplitude-right">
+                <!-- 音乐搜索框 -->
+                <div class="music-search-container">
+                    <div class="search-input-wrapper">
+                        <input type="text" 
+                               id="music-search-input" 
+                               class="music-search-input" 
+                               placeholder="搜索歌曲或艺术家..."
+                               autocomplete="off">
+                        <span class="search-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </span>
+                        <button type="button" class="search-clear-btn" id="search-clear-btn" style="display: none;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 歌曲列表容器 -->
+                <div class="songs-list-container">
+                @foreach (var item in Model)
+                {
+                    <div data-url="@item.MusicUrl"
+                         data-title="@item.Title"
+                         data-artist="@item.Artist"
+                         data-cover="@(item.CoverUrl ?? Configuration["upyun:Host"] + "/images/music.png")"
+                         data-lrc="@item.LyricUrl"
+                         data-group="@(string.Join(',',item.Group ?? new List<string>()))"
+                         class="song amplitude-song-container amplitude-play-pause" data-amplitude-song-index="@Model.IndexOf(item)">
+                        <div class="song-now-playing-icon-container">
+                            <div class="play-button-container">
+
+                            </div>
+                            <img alt="audio" class="now-playing" src="@(Configuration["CDNBaseAddress"])/images/now-playing.svg" />
+                        </div>
+                        <div class="song-meta-data">
+                            <span class="song-title">@item.Title</span>
+                            <span class="song-artist">@item.Artist</span>
+                        </div>
+                        <span class="song-duration">
+                            @item.Duration.ToString("mm\\:ss")
+                        </span>
+                    </div>
+                }
+                </div> <!-- 结束 songs-list-container -->
+            </div>
+        </div>
+    </div>
+</div>
+<environment include="Development">
+    <script>
+        $(function() {        
+            $.getScript("@Configuration["CustomScript"]/music.js");
+        });    
+    </script>
+</environment>
+<environment exclude="Development">
+    <script>
+        $(function() {        
+            $.getScript("@Configuration["CustomScript"]/music.min.js");
+        });    
+    </script>
+</environment>

@@ -1,0 +1,560 @@
+/* 友情链接样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
+
+/* 主容器样式 */
+.friends-container {
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    margin-bottom: var(--ds-space-8);
+    padding: var(--ds-space-8);
+    background: var(--ds-bg-primary);
+    border-radius: var(--ds-radius-2xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.friends-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400), var(--ds-secondary-500), var(--ds-success-500));
+    opacity: 0.8;
+}
+
+.friends-container:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ds-shadow-2xl);
+}
+
+/* 标题样式 */
+.friends-container .tag-title {
+    margin-bottom: var(--ds-space-8);
+    color: var(--ds-text-primary);
+    font-size: var(--ds-font-size-4xl);
+    font-weight: var(--ds-font-weight-bold);
+    text-align: center;
+    background: linear-gradient(135deg, var(--ds-primary-800) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--ds-shadow-sm);
+    position: relative;
+}
+
+.friends-container .tag-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500));
+    border-radius: var(--ds-radius-sm);
+}
+
+/* 友情链接项目容器 */
+.friends-container .friend-items {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--ds-space-6);
+    align-items: stretch;
+}
+
+/* 单个友情链接项 */
+.friends-container .friend-item {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 160px;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+}
+
+.friends-container .friend-item:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* 友情链接卡片 */
+.friends-container .friend-card {
+    border-radius: var(--ds-radius-xl);
+    background: var(--ds-bg-secondary);
+    backdrop-filter: var(--ds-backdrop-blur-lg) saturate(150%);
+    border: 1px solid var(--ds-border-secondary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.friends-container .friend-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ds-primary-500), transparent);
+    opacity: 0;
+    transition: opacity var(--ds-duration-300) ease;
+}
+
+.friends-container .friend-card:hover::before {
+    opacity: 1;
+}
+
+/* 链接样式 */
+.friends-container .friend-item a.link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: var(--ds-space-5);
+    text-decoration: none;
+    border-radius: var(--ds-radius-xl);
+    transition: all var(--ds-duration-300) ease;
+}
+
+/* 链接图标容器 */
+.friends-container .item-link-icon {
+    flex-shrink: 0;
+    margin-right: var(--ds-space-5);
+    position: relative;
+}
+
+.friends-container .item-link-icon::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(45deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400));
+    border-radius: var(--ds-radius-full);
+    opacity: 0;
+    transition: opacity var(--ds-duration-300) ease;
+    z-index: -1;
+}
+
+.friends-container .friend-card:hover .item-link-icon::before {
+    opacity: 0.3;
+}
+
+.friends-container .item-link-icon img {
+    width: 88px;
+    height: 88px;
+    border-radius: var(--ds-radius-full);
+    border: 3px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    object-fit: cover;
+}
+
+.friends-container .friend-item.friend-card:hover .item-link-icon img {
+    transform: rotate(360deg) scale(1.05);
+    border-color: var(--ds-border-accent);
+    box-shadow: var(--ds-shadow-xl);
+}
+
+/* 链接文本容器 */
+.friends-container .item-link-text {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 88px;
+}
+
+/* 链接名称 */
+.friends-container .item-link-name {
+    color: var(--ds-text-primary);
+    font-size: var(--ds-font-size-xl);
+    font-weight: var(--ds-font-weight-semibold);
+    margin-bottom: var(--ds-space-2);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: var(--ds-space-1);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: all var(--ds-duration-300) ease;
+}
+
+.friends-container .item-link-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500));
+    transition: width var(--ds-duration-300) ease;
+}
+
+.friends-container .friend-card:hover .item-link-name::after {
+    width: 100%;
+}
+
+/* 链接描述 */
+.friends-container .item-link-desc {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-base);
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+/* 悬停效果 - 现代化渐变背景 */
+.friends-container .friend-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.12),
+        0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* 每个卡片的独特悬停渐变 */
+.friends-container .friend-card:hover:nth-child(10n) {
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-1) {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-2) {
+    background: linear-gradient(135deg, rgba(180, 101, 218, 0.15) 0%, rgba(238, 96, 156, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-3) {
+    background: linear-gradient(135deg, rgba(106, 17, 203, 0.15) 0%, rgba(37, 117, 252, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-4) {
+    background: linear-gradient(135deg, rgba(196, 113, 245, 0.15) 0%, rgba(250, 113, 205, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-5) {
+    background: linear-gradient(135deg, rgba(72, 198, 239, 0.15) 0%, rgba(111, 134, 214, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-6) {
+    background: linear-gradient(135deg, rgba(11, 163, 96, 0.15) 0%, rgba(60, 186, 146, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-7) {
+    background: linear-gradient(135deg, rgba(12, 52, 131, 0.15) 0%, rgba(162, 182, 223, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-8) {
+    background: linear-gradient(135deg, rgba(255, 117, 140, 0.15) 0%, rgba(255, 126, 179, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.friends-container .friend-card:hover:nth-child(10n-9) {
+    background: linear-gradient(135deg, rgba(247, 112, 98, 0.15) 0%, rgba(254, 81, 150, 0.1) 100%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+/* 悬停时文本颜色变化 */
+.friends-container .friend-card:hover .item-link-name {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.friends-container .friend-card:hover .item-link-desc {
+    color: #475569;
+    opacity: 1;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 640px) {
+    .friends-container {
+        margin-bottom: 1.5em;
+        padding: 1.5em;
+        border-radius: 16px;
+    }
+    
+    .friends-container .friend-items {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .friends-container .tag-title {
+        font-size: 1.875rem;
+        margin-bottom: 1.5em;
+    }
+    
+    .friends-container .friend-item a.link {
+        padding: 16px;
+    }
+    
+    .friends-container .item-link-icon {
+        margin-right: 16px;
+    }
+    
+    .friends-container .item-link-icon img {
+        width: 72px;
+        height: 72px;
+    }
+    
+    .friends-container .item-link-text {
+        min-height: 72px;
+    }
+    
+    .friends-container .item-link-name {
+        font-size: 1.25rem;
+    }
+    
+    .friends-container .item-link-desc {
+        font-size: 0.875rem;
+        -webkit-line-clamp: 2;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .friends-container .friend-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .friends-container .friend-items {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+    
+    .friends-container .friend-item a.link {
+        padding: 24px;
+    }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+    .friends-container {
+        background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+            0 32px 64px rgba(0, 0, 0, 0.4),
+            0 16px 32px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .friends-container .tag-title {
+        color: rgba(255, 255, 255, 0.9);
+        background: linear-gradient(135deg, #e2e8f0 0%, #a855f7 50%, #06b6d4 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .friends-container .friend-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .friends-container .friend-card:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .friends-container .item-link-icon img {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .friends-container .friend-card:hover .item-link-icon img {
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .friends-container .item-link-name {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .friends-container .item-link-desc {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .friends-container .friend-card:hover .item-link-name {
+        color: #fff;
+    }
+
+    .friends-container .friend-card:hover .item-link-desc {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* 暗色主题下的悬停渐变效果 */
+    .friends-container .friend-card:hover:nth-child(10n) {
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-1) {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-2) {
+        background: linear-gradient(135deg, rgba(180, 101, 218, 0.2) 0%, rgba(238, 96, 156, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-3) {
+        background: linear-gradient(135deg, rgba(106, 17, 203, 0.2) 0%, rgba(37, 117, 252, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-4) {
+        background: linear-gradient(135deg, rgba(196, 113, 245, 0.2) 0%, rgba(250, 113, 205, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-5) {
+        background: linear-gradient(135deg, rgba(72, 198, 239, 0.2) 0%, rgba(111, 134, 214, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-6) {
+        background: linear-gradient(135deg, rgba(11, 163, 96, 0.2) 0%, rgba(60, 186, 146, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-7) {
+        background: linear-gradient(135deg, rgba(12, 52, 131, 0.2) 0%, rgba(162, 182, 223, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-8) {
+        background: linear-gradient(135deg, rgba(255, 117, 140, 0.2) 0%, rgba(255, 126, 179, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+
+    .friends-container .friend-card:hover:nth-child(10n-9) {
+        background: linear-gradient(135deg, rgba(247, 112, 98, 0.2) 0%, rgba(254, 81, 150, 0.1) 100%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.friends-container .friend-item {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.friends-container .friend-item:nth-child(2n) {
+    animation-delay: 0.1s;
+}
+
+.friends-container .friend-item:nth-child(3n) {
+    animation-delay: 0.2s;
+}
+
+.friends-container .friend-item:nth-child(4n) {
+    animation-delay: 0.3s;
+}
+
+/* 性能优化：检测用户动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    /* 禁用所有动画和过渡效果 */
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    /* 移除高耗性能的毛玻璃效果 */
+    .friends-container {
+        backdrop-filter: none;
+    }
+    
+    .friends-container .friend-card {
+        backdrop-filter: none;
+    }
+    
+    /* 简化阴影效果 */
+    .friends-container {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .friends-container .friend-card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* 移除悬停变换效果 */
+    .friends-container:hover,
+    .friends-container .friend-item:hover,
+    .friends-container .friend-card:hover,
+    .friends-container .friend-item.friend-card:hover .item-link-icon img {
+        transform: none;
+    }
+}
+
+/* GPU加速优化 */
+.friends-container,
+.friends-container .friend-card,
+.friends-container .item-link-icon img {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* 手动性能模式 */
+.friends-container.performance-mode {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: none !important;
+}
+
+.friends-container.performance-mode .friend-card {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    transition: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .friends-container.performance-mode {
+        background: rgba(30, 31, 31, 0.95) !important;
+    }
+    
+    .friends-container.performance-mode .friend-card {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+}

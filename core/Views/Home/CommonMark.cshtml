@@ -1,0 +1,58 @@
+﻿@model System.Collections.Generic.List<Dpz.Core.Web.Models.CommonMarkExample>
+
+<style>
+    .markdown-guide{
+        display: flex;
+        backdrop-filter:blur(25px);
+        background-color: rgba(255, 255, 255, .5);
+        flex-wrap: nowrap;
+        align-items: flex-start; 
+        justify-content: center;
+        margin: 2em;
+    }
+    .markdown-code{
+        width: 50%;
+    }
+    .markdown-preview{
+        margin-top: 7px;
+        border-left: solid 5px #66686b;
+        padding: 1em;
+        flex: 1;
+        width:1px;
+    }
+    @@media screen and (max-width: 640px) {
+        .markdown-guide{
+            display: block;
+            margin: 1em;
+            width: calc(100% - 2em);
+        }
+        .markdown-code{
+            display: none;
+        }
+        .markdown-preview{
+            border-left: none;
+            flex: none;
+            width: calc(100% - 2em);
+        }
+    }
+    @@media (prefers-color-scheme: dark){
+        .markdown-guide{
+            background-color: rgba(36,37,37,.5);
+        }
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="markdown-guide">
+
+        <div class="markdown-code">
+            <pre><code class="language-markdown">@item.Markdown</code></pre>
+        </div>
+        <div class="markdown-preview">
+            @* @Html.Raw(item.Html) *@
+            <pre><code class="language-markdown">@item.Html</code></pre>
+        </div>
+
+    </div>
+}

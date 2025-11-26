@@ -1,0 +1,53 @@
+﻿@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h1>Home/Mobile</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Resolver</th>
+                <th>Name</th>
+                <th>Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Device</th>
+                <td>@DetectionService?.Device?.Type</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Browser</th>
+                <td>@DetectionService?.Browser.Name</td>
+                <td>@DetectionService?.Browser?.Version</td>
+            </tr>
+            <tr>
+                <th>Platform</th>
+                <td>@DetectionService?.Platform?.Name</td>
+                <td>@DetectionService?.Platform?.Version</td>
+            </tr>
+            <tr>
+                <th>Engine</th>
+                <td>@DetectionService?.Engine?.Name</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Crawler</th>
+                <td>@DetectionService?.Crawler?.Name</td>
+                <td>@DetectionService?.Crawler?.Version</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

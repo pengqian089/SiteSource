@@ -1,0 +1,45 @@
+﻿@using Dpz.Core.EnumLibrary
+@model System.Collections.Generic.IList<Dpz.Core.Public.ViewModel.Option.VmFriends>
+
+
+<div class="blog-container">
+    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+        <a href="/" title="网站首页" data-pjax>网站首页</a>
+        <a><cite></cite>友情链接</a>
+    </blockquote>
+    
+    <div class="blog-main">
+        <div class="friends-container">
+            <div class="tag-title">
+                <i class="fa fa-address-book fa-fw"></i>
+                友情链接
+            </div>
+
+            <div class="friend-items">
+                @foreach (var item in Model)
+                {
+                    <div class="friend-item friend-card">
+                        <a href="@item.Link" target="_blank" title="@(item.Name)&#10;@(item.Description)" class="link">
+                            <div class="item-link-icon">
+                                <img src="@item.Avatar" alt="@item.Name"/>
+                            </div>
+                            <div class="item-link-text">
+                                <div class="item-link-name">
+                                    @item.Name
+                                </div>
+                                <div class="item-link-desc" title="@item.Description">
+                                    @item.Description
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @{
+        var key = "friends";
+    }
+    <partial name="_GlobalCommentPartial" model="(CommentNode.Friends,key)"/>
+</div>

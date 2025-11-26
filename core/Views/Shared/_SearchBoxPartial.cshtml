@@ -1,0 +1,15 @@
+﻿<div class="blog-search">
+    <form class="layui-form" asp-action="Search" asp-controller="Article" method="get">
+        <div class="layui-form-item">
+            <div class="search-keywords  shadow">
+                <input type="text" name="keyword" required="required" lay-verify="required"
+                       placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+            </div>
+            <div class="search-submit  shadow">
+                <a class="search-btn" lay-submit="formSearch" lay-filter="formSearch">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

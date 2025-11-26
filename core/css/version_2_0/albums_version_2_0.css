@@ -1,0 +1,806 @@
+/* 相册样式 2.0 版本 - 使用 PhotoSwipe */
+/* 引入设计系统 */
+@import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
+
+/* ===== 主容器 ===== */
+.albums-container-v2 {
+    min-height: 100vh;
+    padding: var(--ds-space-6);
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ===== 页面头部 ===== */
+.albums-header-v2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--ds-space-8);
+    padding: var(--ds-space-6);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.albums-header-v2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, rgba(168, 85, 247, 0.02) 100%);
+    opacity: 0;
+    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-header-v2:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ds-shadow-xl);
+}
+
+.albums-header-v2:hover::before {
+    opacity: 1;
+}
+
+.albums-title-v2 {
+    position: relative;
+    z-index: 1;
+}
+
+.albums-title-v2 h1 {
+    font-size: var(--ds-font-size-3xl);
+    font-weight: var(--ds-font-weight-bold);
+    color: var(--ds-text-primary);
+    margin: 0 0 var(--ds-space-2) 0;
+    background: linear-gradient(135deg, var(--ds-primary-600), var(--ds-primary-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-3);
+}
+
+.albums-title-v2 p {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-base);
+    margin: 0;
+}
+
+.albums-stats-v2 {
+    display: flex;
+    gap: var(--ds-space-6);
+    position: relative;
+    z-index: 1;
+}
+
+.albums-stat-item-v2 {
+    text-align: center;
+    padding: var(--ds-space-3) var(--ds-space-4);
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: var(--ds-radius-lg);
+    border: 1px solid var(--ds-border-accent);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-stat-item-v2:hover {
+    transform: translateY(-2px);
+    background: rgba(139, 92, 246, 0.15);
+    border-color: var(--ds-primary-500);
+}
+
+.albums-stat-number-v2 {
+    display: block;
+    font-size: var(--ds-font-size-xl);
+    font-weight: var(--ds-font-weight-bold);
+    color: var(--ds-primary-600);
+    line-height: 1;
+}
+
+.albums-stat-label-v2 {
+    display: block;
+    font-size: var(--ds-font-size-sm);
+    color: var(--ds-text-muted);
+    margin-top: var(--ds-space-1);
+}
+
+/* ===== 瀑布流布局 ===== */
+.albums-masonry-v2 {
+    columns: 4;
+    column-gap: var(--ds-space-6);
+    margin-bottom: var(--ds-space-8);
+}
+
+.albums-picture-card-v2 {
+    break-inside: avoid;
+    margin-bottom: var(--ds-space-6);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp var(--ds-duration-500) var(--ds-easing-out) forwards;
+}
+
+.albums-picture-card-v2:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ds-shadow-2xl);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== 图片容器 ===== */
+.albums-picture-wrapper-v2 {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ds-radius-xl) var(--ds-radius-xl) 0 0;
+}
+
+.albums-picture-image-v2 {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform var(--ds-duration-500) var(--ds-easing-out);
+    border-radius: var(--ds-radius-xl) var(--ds-radius-xl) 0 0;
+}
+
+.albums-picture-wrapper-v2:hover .albums-picture-image-v2 {
+    transform: scale(1.05);
+}
+
+/* ===== 图片悬停层 ===== */
+.albums-picture-overlay-v2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    backdrop-filter: var(--ds-backdrop-blur-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-picture-wrapper-v2:hover .albums-picture-overlay-v2 {
+    opacity: 1;
+}
+
+.albums-picture-actions-v2 {
+    display: flex;
+    gap: var(--ds-space-3);
+    transform: translateY(20px);
+    transition: transform var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-picture-wrapper-v2:hover .albums-picture-actions-v2 {
+    transform: translateY(0);
+}
+
+.albums-action-btn-v2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: var(--ds-primary-600);
+    font-size: var(--ds-font-size-lg);
+    cursor: pointer;
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.albums-action-btn-v2::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-action-btn-v2:hover::before {
+    opacity: 1;
+}
+
+.albums-action-btn-v2:hover {
+    transform: translateY(-2px) scale(1.1);
+    background: var(--ds-primary-600);
+    color: white;
+    border-color: var(--ds-primary-600);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(139, 92, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.albums-action-btn-v2:active {
+    transform: translateY(-1px) scale(1.05);
+}
+
+.albums-action-btn-v2 i {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* ===== 图片信息区域 ===== */
+.albums-picture-info-v2 {
+    padding: var(--ds-space-4);
+}
+
+.albums-picture-description-v2 {
+    margin-bottom: var(--ds-space-3);
+}
+
+.albums-picture-description-v2 p {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-sm);
+    line-height: var(--ds-line-height-relaxed);
+    margin: 0;
+}
+
+.albums-picture-tags-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-2);
+    margin-bottom: var(--ds-space-3);
+}
+
+.albums-tag-v2 {
+    font-size: var(--ds-font-size-xs);
+    padding: var(--ds-space-1) var(--ds-space-2);
+    border-radius: var(--ds-radius-sm);
+    transition: all var(--ds-duration-200) var(--ds-easing-out);
+}
+
+.albums-tag-v2:hover {
+    transform: translateY(-1px);
+    background: rgba(139, 92, 246, 0.2);
+}
+
+.albums-picture-meta-v2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--ds-space-3);
+    border-top: 1px solid var(--ds-border-secondary);
+}
+
+.albums-picture-user-v2 {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-2);
+}
+
+.albums-user-avatar-v2 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--ds-border-accent);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.albums-user-avatar-v2:hover {
+    transform: scale(1.1);
+    border-color: var(--ds-primary-500);
+}
+
+.albums-user-info-v2 {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.albums-user-name-v2 {
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-text-primary);
+}
+
+.albums-upload-time-v2 {
+    font-size: var(--ds-font-size-xs);
+    color: var(--ds-text-muted);
+}
+
+.albums-picture-size-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+/* ===== 加载指示器 ===== */
+.albums-loading-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ds-space-4);
+    padding: var(--ds-space-8) var(--ds-space-4);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    margin-bottom: var(--ds-space-6);
+}
+
+.albums-loading-spinner-v2 {
+    width: 200px;
+    height: 6px;
+    border-radius: var(--ds-radius-full);
+    overflow: hidden;
+}
+
+.albums-loading-v2 p {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-sm);
+    margin: 0;
+}
+
+/* ===== 无更多内容提示 ===== */
+.albums-no-more-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ds-space-4);
+    padding: var(--ds-space-8) var(--ds-space-4);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    margin-bottom: var(--ds-space-6);
+}
+
+.albums-no-more-icon-v2 {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ds-primary-600);
+    font-size: var(--ds-font-size-2xl);
+}
+
+.albums-no-more-v2 p {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-base);
+    margin: 0;
+}
+
+/* ===== 空状态 ===== */
+.albums-empty-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ds-space-6);
+    padding: var(--ds-space-20) var(--ds-space-8);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-lg);
+    text-align: center;
+}
+
+.albums-empty-icon-v2 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ds-primary-600);
+    font-size: var(--ds-font-size-4xl);
+    margin-bottom: var(--ds-space-4);
+}
+
+.albums-empty-v2 h3 {
+    color: var(--ds-text-primary);
+    font-size: var(--ds-font-size-xl);
+    margin: 0 0 var(--ds-space-2) 0;
+}
+
+.albums-empty-v2 p {
+    color: var(--ds-text-secondary);
+    font-size: var(--ds-font-size-base);
+    margin: 0;
+    max-width: 400px;
+}
+
+/* ===== PhotoSwipe 样式增强 ===== */
+.pswp__caption__center {
+    text-align: center;
+    max-width: 90%;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.pswp__ui--fit .pswp__caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+}
+
+/* ===== 响应式设计 ===== */
+@media screen and (max-width: 1024px) {
+    .albums-masonry-v2 {
+        columns: 3;
+        column-gap: var(--ds-space-4);
+    }
+    
+    .albums-header-v2 {
+        flex-direction: column;
+        gap: var(--ds-space-4);
+        text-align: center;
+    }
+    
+    .albums-stats-v2 {
+        justify-content: center;
+    }
+    
+    .albums-picture-overlay-v2 {
+        opacity: 0.85;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
+    }
+    
+    .albums-action-btn-v2 {
+        width: 46px;
+        height: 46px;
+        font-size: var(--ds-font-size-lg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .albums-container-v2 {
+        padding: var(--ds-space-4);
+    }
+    
+    .albums-masonry-v2 {
+        columns: 2;
+        column-gap: var(--ds-space-3);
+    }
+    
+    .albums-header-v2 {
+        padding: var(--ds-space-4);
+        margin-bottom: var(--ds-space-6);
+    }
+    
+    .albums-title-v2 h1 {
+        font-size: var(--ds-font-size-2xl);
+    }
+    
+    .albums-stats-v2 {
+        gap: var(--ds-space-4);
+    }
+    
+    .albums-picture-card-v2 {
+        margin-bottom: var(--ds-space-4);
+    }
+    
+    .albums-picture-info-v2 {
+        padding: var(--ds-space-3);
+    }
+    
+    .albums-picture-meta-v2 {
+        flex-direction: column;
+        gap: var(--ds-space-2);
+        align-items: flex-start;
+    }
+    
+    .albums-picture-size-v2 {
+        align-items: flex-start;
+    }
+    
+    .albums-picture-overlay-v2 {
+        opacity: 0.9;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.25) 0%,
+            rgba(0, 0, 0, 0.15) 50%,
+            rgba(0, 0, 0, 0.35) 100%
+        );
+    }
+    
+    .albums-action-btn-v2 {
+        width: 40px;
+        height: 40px;
+        font-size: var(--ds-font-size-base);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .albums-container-v2 {
+        padding: var(--ds-space-2);
+    }
+    
+    .albums-masonry-v2 {
+        columns: 1;
+        column-gap: 0;
+    }
+    
+    .albums-header-v2 {
+        padding: var(--ds-space-3);
+        margin-bottom: var(--ds-space-4);
+    }
+    
+    .albums-title-v2 h1 {
+        font-size: var(--ds-font-size-xl);
+    }
+    
+    .albums-stats-v2 {
+        gap: var(--ds-space-2);
+        flex-direction: column;
+    }
+    
+    .albums-stat-item-v2 {
+        padding: var(--ds-space-2) var(--ds-space-3);
+    }
+    
+    .albums-picture-card-v2 {
+        margin-bottom: var(--ds-space-3);
+    }
+    
+    .albums-picture-info-v2 {
+        padding: var(--ds-space-2);
+    }
+    
+    .albums-picture-overlay-v2 {
+        opacity: 0.95;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.4) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        gap: var(--ds-space-2);
+    }
+    
+    .albums-action-btn-v2 {
+        width: 36px;
+        height: 36px;
+        font-size: var(--ds-font-size-sm);
+    }
+    
+    .albums-user-avatar-v2 {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* ===== 暗色主题适配 ===== */
+@media (prefers-color-scheme: dark) {
+    .albums-header-v2,
+    .albums-picture-card-v2,
+    .albums-loading-v2,
+    .albums-no-more-v2,
+    .albums-empty-v2 {
+        background: linear-gradient(135deg, rgba(30, 31, 31, 0.95) 0%, rgba(44, 45, 46, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.3),
+            0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .albums-header-v2:hover,
+    .albums-picture-card-v2:hover {
+        box-shadow: 
+            0 12px 32px rgba(139, 92, 246, 0.2),
+            0 6px 16px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .albums-title-v2 h1 {
+        background: linear-gradient(135deg, #c084fc, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .albums-stat-number-v2 {
+        color: #c084fc;
+    }
+    
+    .albums-stat-item-v2 {
+        background: rgba(192, 132, 252, 0.15);
+        border: 1px solid rgba(192, 132, 252, 0.3);
+    }
+    
+    .albums-stat-item-v2:hover {
+        background: rgba(192, 132, 252, 0.2);
+        border-color: #c084fc;
+    }
+    
+    .albums-action-btn-v2 {
+        background: rgba(32, 33, 36, 0.9);
+        color: #c084fc;
+        border: 2px solid rgba(192, 132, 252, 0.6);
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 3px 9px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(192, 132, 252, 0.2),
+            0 0 10px rgba(192, 132, 252, 0.3);
+    }
+    
+    .albums-action-btn-v2:hover {
+        background: #c084fc;
+        color: white;
+        border-color: #c084fc;
+        box-shadow: 
+            0 8px 24px rgba(0, 0, 0, 0.5),
+            0 4px 12px rgba(192, 132, 252, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.3),
+            0 0 15px rgba(192, 132, 252, 0.5);
+    }
+}
+
+/* ===== 触摸设备优化 ===== */
+@media (hover: none) and (pointer: coarse) {
+    .albums-picture-overlay-v2 {
+        opacity: 0.55;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.2) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+    }
+    
+    .albums-picture-actions-v2 {
+        transform: translateY(0);
+    }
+    
+    .albums-action-btn-v2 {
+        width: 50px;
+        height: 50px;
+        font-size: var(--ds-font-size-xl);
+        border-width: 3px;
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 3px 9px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 1),
+            0 0 10px rgba(255, 255, 255, 0.4);
+    }
+}
+
+/* ===== 动画性能优化 ===== */
+@media (prefers-reduced-motion: reduce) {
+    .albums-picture-card-v2,
+    .albums-header-v2,
+    .albums-stat-item-v2,
+    .albums-action-btn-v2,
+    .albums-user-avatar-v2,
+    .albums-tag-v2,
+    .albums-picture-image-v2,
+    .albums-picture-overlay-v2,
+    .albums-picture-actions-v2 {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    @keyframes fadeInUp {
+        from, to { opacity: 1; transform: none; }
+    }
+}
+
+/* ===== 高对比度模式支持 ===== */
+@media (prefers-contrast: high) {
+    .albums-header-v2,
+    .albums-picture-card-v2,
+    .albums-stat-item-v2,
+    .albums-action-btn-v2,
+    .albums-user-avatar-v2,
+    .albums-loading-v2,
+    .albums-no-more-v2,
+    .albums-empty-v2 {
+        border-width: 2px !important;
+    }
+    
+    .albums-title-v2 h1,
+    .albums-user-name-v2,
+    .albums-empty-v2 h3 {
+        font-weight: var(--ds-font-weight-extrabold) !important;
+        text-shadow: none !important;
+        -webkit-text-fill-color: unset !important;
+    }
+    
+    .albums-action-btn-v2 {
+        background: rgba(255, 255, 255, 1) !important;
+        border: 3px solid rgba(0, 0, 0, 0.9) !important;
+        box-shadow: 
+            0 8px 24px rgba(0, 0, 0, 0.8),
+            0 4px 12px rgba(0, 0, 0, 0.6),
+            inset 0 2px 0 rgba(255, 255, 255, 1) !important;
+    }
+}
+
+/* ===== GPU加速优化 ===== */
+.albums-picture-card-v2,
+.albums-header-v2,
+.albums-stat-item-v2,
+.albums-action-btn-v2,
+.albums-user-avatar-v2,
+.albums-tag-v2,
+.albums-picture-image-v2,
+.albums-picture-overlay-v2 {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* ===== 打印样式 ===== */
+@media print {
+    .albums-picture-overlay-v2,
+    .albums-action-btn-v2,
+    .albums-loading-v2,
+    .albums-no-more-v2 {
+        display: none !important;
+    }
+    
+    .albums-picture-card-v2 {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .albums-masonry-v2 {
+        columns: 2;
+        column-gap: 20px;
+    }
+}
+
+

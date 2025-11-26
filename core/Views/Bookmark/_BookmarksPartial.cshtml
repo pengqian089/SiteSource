@@ -1,0 +1,47 @@
+﻿@using Microsoft.Extensions.Configuration
+@model List<VmBookmark>
+@inject IConfiguration Configuration
+
+@if (Model == null || !Model.Any())
+{
+    <div>暂无书签</div>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="bookmark-item">
+            <a href="@item.Url" target="_blank">
+                <div class="bookmark-card">
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img data-src="@(item.Image + "!bookmark")" alt="@item.Title" class="lazy" src="@(Configuration["CDNBaseAddress"])/loaders/puff.svg" />
+                    }
+                    <div class="bookmark-info">
+                        @if (!string.IsNullOrEmpty(item.Icon))
+                        {
+                            <img class="bookmark-icon" src="@item.Icon" alt="icon" />
+                        }
+                        <span class="bookmark-title" title="@item.Title">@item.Title</span>
+                    </div>
+                </div>
+            </a>
+            <div class="bookmark-action">
+                <div class="bookmark-tags">
+                    @foreach (var category in item.Categories)
+                    {
+                        <span title="分类: @category">
+                            <i class="fa fa-tag fa-fw"></i>@category
+                        </span>
+                    }
+                </div>
+                @if (User.IsAdmin())
+                {
+                    <span class="bookmark-setting" data-id="@item.Id" title="编辑书签">
+                        <i class="fa fa-cog fa-fw"></i>
+                    </span>
+                }
+            </div>
+        </div>
+    }
+}

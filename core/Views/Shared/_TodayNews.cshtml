@@ -1,0 +1,89 @@
+﻿@model TodayNewsModel?
+
+@if (Model != null)
+{
+    if (Model.Calendar != null)
+    {
+        <div class="today-briefing-v2">
+            <div class="today-briefing-header-v2">
+                <div class="today-briefing-title-v2">今日简报</div>
+                <div class="today-briefing-date-v2">
+                    <span class="date-main-v2">@(Model.Calendar.Month)月@(Model.Calendar.Day)日</span>
+                    <span class="date-lunar-v2">农历@(Model.Calendar.MonthCn)@(Model.Calendar.DayCn)</span>
+                    @if (Model.Calendar.IsTerm)
+                    {
+                        <div class="date-term-v2">
+                            <i class="fa fa-leaf"></i>
+                            <span>@Model.Calendar.Term</span>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            @if (Model.Weather?.Detail != null)
+            {
+                <div class="today-weather-v2">
+                    <div class="weather-location-v2">
+                        <i class="fa fa-map-marker"></i>
+                        <span>@(Model.Weather.City)</span>
+                    </div>
+                    <div class="weather-info-v2">
+                        <div class="weather-main-v2">
+                            <span class="weather-desc-v2">@(Model.Weather.Detail.TextDay)</span>
+                            <div class="weather-temp-v2">
+                                <span class="temp-low-v2">@Model.Weather.Detail.Low</span>
+                                <span class="temp-separator-v2">~</span>
+                                <span class="temp-high-v2">@Model.Weather.Detail.High</span>
+                                <span class="temp-unit-v2">℃</span>
+                            </div>
+                        </div>
+                        @if (int.TryParse(Model.Weather.Detail.WindScale, out var scale)
+                             && WebToolsExtensions.Wind.TryGetValue(scale, out var wind))
+                        {
+                            <div class="weather-wind-v2">
+                                <i class="fa fa-wind"></i>
+                                <span>@wind</span>
+                            </div>
+                        }
+                    </div>
+                    <div class="weather-date-v2">
+                        @if (Model.Weather.Detail.Date == DateTime.Now.Date)
+                        {
+                            <span>今天</span>
+                        }
+                        else
+                        {
+                            <span>明天</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="right-module-v2 shadow">
+        <div class="right-module-title-v2">今日资讯</div>
+        <ul class="right-module-list-v2">
+            @foreach (var item in Model.NewsList ?? new List<News>())
+            {
+                <li class="right-module-item-v2">
+                    <i class="right-module-icon-v2 fa fa-newspaper-o"></i>
+                    <a href="@item.Url" target="_blank" class="right-module-link-v2">@item.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+    
+    <div class="right-module-v2 shadow">
+        <div class="right-module-title-v2">历史上的今天</div>
+        <ul class="right-module-list-v2">
+            @foreach (var item in Model.HistoryList ?? new List<History>())
+            {
+                <li class="right-module-item-v2">
+                    <i class="right-module-icon-v2 fa fa-history"></i>
+                    <span class="right-module-text-v2">@item.Event</span>
+                </li>
+            }
+        </ul>
+    </div>
+}

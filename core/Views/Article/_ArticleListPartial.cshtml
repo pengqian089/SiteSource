@@ -1,0 +1,11 @@
+﻿@model IPagedList<VmArticleMini>
+@{
+    var pageModel = new PageModel
+    {
+        List = Model,
+        HtmlTagIdAttribute = "blog-list",
+        MaxPage = 200
+    };
+}
+<partial name="_BlogsPartial" model="@Model"/>
+<partial name="_PagerPartial" model="@pageModel"/>

@@ -1,0 +1,879 @@
+/* 书签样式 2.0 版本 - 现代化、美观大气的设计 */
+/* 引入设计系统 */
+@import '_design_system.css';
+/* 引入Firefox兼容性修复 */
+@import '_firefox_compatibility.css';
+
+/* 根容器样式 */
+.bookmark {
+    margin: var(--ds-space-8) var(--ds-space-4);
+    padding: var(--ds-space-8);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl) saturate(180%);
+    border-radius: var(--ds-radius-2xl);
+    border: 1px solid var(--ds-border-primary);
+    box-shadow: var(--ds-shadow-2xl);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+}
+
+.bookmark:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ds-shadow-2xl);
+}
+
+/* 分类标签样式 */
+.bookmark .category-box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-3);
+    margin-bottom: var(--ds-space-8);
+}
+
+.bookmark .category {
+    position: relative;
+    padding: var(--ds-space-4) var(--ds-space-6);
+    background: var(--ds-bg-secondary);
+    border-radius: var(--ds-radius-full);
+    border: 1px solid var(--ds-border-secondary);
+    color: var(--ds-text-secondary);
+    font-weight: var(--ds-font-weight-medium);
+    cursor: pointer;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    backdrop-filter: var(--ds-backdrop-blur-md);
+    overflow: hidden;
+}
+
+.bookmark .category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.bookmark .category:hover {
+    color: var(--ds-text-primary);
+    background: var(--ds-bg-accent);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--ds-shadow-lg);
+}
+
+.bookmark .category:hover::before {
+    left: 100%;
+}
+
+.bookmark .category.active {
+    background: linear-gradient(135deg, var(--ds-primary-600) 0%, var(--ds-primary-500) 50%, var(--ds-primary-400) 100%);
+    color: var(--ds-text-on-primary);
+    box-shadow: var(--ds-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.bookmark .category.active:hover {
+    background: linear-gradient(135deg, var(--ds-primary-700) 0%, var(--ds-primary-600) 50%, var(--ds-primary-500) 100%);
+    box-shadow: var(--ds-shadow-xl);
+}
+
+/* 搜索框样式 */
+.bookmark .search-box {
+    width: 100%;
+    position: relative;
+    margin-bottom: var(--ds-space-8);
+}
+
+.bookmark .search-box input {
+    font-size: var(--ds-font-size-lg);
+    width: 100%;
+    height: 56px;
+    padding: 0 var(--ds-space-5);
+    border: 2px solid var(--ds-border-secondary);
+    border-radius: var(--ds-radius-xl);
+    background: var(--ds-bg-secondary);
+    backdrop-filter: var(--ds-backdrop-blur-lg);
+    color: var(--ds-text-primary);
+    font-weight: var(--ds-font-weight-normal);
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    box-shadow: var(--ds-shadow-sm);
+}
+
+.bookmark .search-box input::placeholder {
+    color: var(--ds-text-muted);
+}
+
+.bookmark .search-box input:focus {
+    outline: none;
+    border-color: var(--ds-primary-500);
+    background: var(--ds-bg-primary);
+    color: var(--ds-text-primary);
+    box-shadow: 
+        0 0 0 3px rgba(139, 92, 246, 0.15),
+        var(--ds-shadow-md);
+    transform: translateY(-1px);
+}
+
+.bookmark .search-box .search-result {
+    width: calc(100% - 4px);
+    position: absolute;
+    z-index: 10;
+    top: 58px;
+    border: 2px solid var(--ds-border-secondary);
+    border-top: none;
+    border-radius: 0 0 var(--ds-radius-xl) var(--ds-radius-xl);
+    background: var(--ds-bg-primary);
+    backdrop-filter: var(--ds-backdrop-blur-2xl);
+    overflow: hidden;
+    box-shadow: var(--ds-shadow-xl);
+}
+
+.bookmark .search-box .search-result ul li {
+    list-style: none;
+    font-size: var(--ds-font-size-base);
+    height: auto;
+    min-height: 48px;
+    border-bottom: 1px solid var(--ds-border-primary);
+    background: transparent;
+    line-height: var(--ds-line-height-normal);
+    padding: var(--ds-space-3) var(--ds-space-5);
+    cursor: pointer;
+    color: var(--ds-text-secondary);
+    transition: all var(--ds-duration-200) ease;
+    display: flex;
+    align-items: center;
+}
+
+.bookmark .search-box .search-result ul li:last-child {
+    border: none;
+}
+
+.bookmark .search-box .search-result ul li:hover, 
+.bookmark .search-box .search-result ul li.selected {
+    background: var(--ds-bg-accent);
+    color: var(--ds-text-primary);
+    transform: translateX(4px);
+}
+
+/* 书签容器样式 */
+.bookmark .bookmark-container {
+    width: 100%;
+    margin-top: var(--ds-space-8);
+    column-count: auto;
+    column-gap: var(--ds-space-6);
+    column-width: 320px;
+}
+
+/* 书签卡片样式 */
+.bookmark-container .bookmark-item {
+    padding: 0;
+    break-inside: avoid;
+    background: var(--ds-bg-secondary);
+    margin-bottom: var(--ds-space-6);
+    backdrop-filter: var(--ds-backdrop-blur-lg) saturate(180%);
+    border-radius: var(--ds-radius-xl);
+    border: 1px solid var(--ds-border-secondary);
+    overflow: hidden;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    box-shadow: var(--ds-shadow-lg);
+    position: relative;
+}
+
+.bookmark-container .bookmark-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ds-primary-600), var(--ds-primary-500), var(--ds-primary-400));
+    opacity: 0;
+    transition: opacity var(--ds-duration-300) ease;
+}
+
+.bookmark-container .bookmark-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ds-shadow-xl);
+    border-color: var(--ds-border-accent);
+}
+
+.bookmark-container .bookmark-item:hover::before {
+    opacity: 1;
+}
+
+.bookmark-item .bookmark-card {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.bookmark-card > img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.bookmark-card > img:hover {
+    transform: scale(1.02);
+}
+
+/* 无图片书签卡片样式 - 兼容性版本 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))),
+.bookmark-card.no-image {
+    min-height: 120px;
+    background: var(--ds-bookmark-no-image-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon)))::before,
+.bookmark-card.no-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--ds-bookmark-no-image-pattern);
+    opacity: 0.3;
+}
+
+.bookmark-info {
+    padding: var(--ds-space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.bookmark .bookmark-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: var(--ds-radius-sm);
+    transition: all var(--ds-duration-300) var(--ds-easing-out);
+}
+
+.bookmark .bookmark-icon:hover {
+    transform: scale(1.1);
+}
+
+.bookmark-title {
+    margin: var(--ds-space-2) 0 0 0;
+    font-size: var(--ds-font-size-base);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--ds-text-primary);
+    line-height: var(--ds-line-height-tight);
+}
+
+/* 无图片卡片中的标题样式 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-title,
+.bookmark-card.no-image .bookmark-title {
+    color: var(--ds-bookmark-no-image-text);
+    font-weight: var(--ds-font-weight-bold);
+    font-size: var(--ds-font-size-lg);
+    text-shadow: var(--ds-bookmark-no-image-text-shadow);
+    text-align: center;
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-icon,
+.bookmark-card.no-image .bookmark-icon {
+    filter: none;
+    opacity: 0.8;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+    .bookmark-card.no-image .bookmark-icon {
+        filter: brightness(1.2);
+        opacity: 0.9;
+    }
+}
+
+.bookmark-item a {
+    color: var(--ds-text-primary);
+    text-decoration: none;
+    transition: color var(--ds-duration-200) ease;
+    position: relative;
+    z-index: 5;
+    display: block;
+}
+
+.bookmark-item a:hover {
+    color: var(--ds-primary-600);
+}
+
+.bookmark-action {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: var(--ds-space-3);
+    opacity: 0;
+    transition: all var(--ds-duration-300) var(--ds-easing-in-out);
+    background: linear-gradient(
+        180deg, 
+        rgba(0, 0, 0, 0.7) 0%, 
+        rgba(0, 0, 0, 0.3) 40%, 
+        rgba(0, 0, 0, 0.1) 70%, 
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    backdrop-filter: blur(8px);
+    border-radius: var(--ds-radius-xl);
+    z-index: 10;
+}
+
+.bookmark-action .bookmark-tags,
+.bookmark-action .bookmark-tags span,
+.bookmark-action .bookmark-setting {
+    pointer-events: auto !important;
+}
+
+/* 确保操作区域本身不阻挡超链接点击 */
+.bookmark-action {
+    pointer-events: none !important;
+}
+
+/* 只允许特定元素接收点击事件 */
+.bookmark-action .bookmark-tags,
+.bookmark-action .bookmark-tags > span,
+.bookmark-action .bookmark-setting {
+    pointer-events: auto !important;
+}
+
+.bookmark-action .bookmark-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-2);
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 100%;
+}
+
+.bookmark-action .bookmark-tags span {
+    padding: var(--ds-space-1) var(--ds-space-2);
+    background: rgba(139, 92, 246, 0.9);
+    color: white;
+    border-radius: var(--ds-radius-md);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-medium);
+    white-space: nowrap;
+    box-shadow: var(--ds-shadow-sm);
+    backdrop-filter: blur(4px);
+    transition: all var(--ds-duration-200) ease;
+}
+
+.bookmark-action .bookmark-tags span:hover {
+    background: rgba(139, 92, 246, 1);
+    transform: translateY(-1px);
+    box-shadow: var(--ds-shadow-md);
+}
+
+.bookmark-setting {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--ds-radius-lg);
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: var(--ds-shadow-lg);
+    transition: all var(--ds-duration-200) var(--ds-easing-out);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    font-size: var(--ds-font-size-sm);
+    position: relative;
+    z-index: 15;
+    pointer-events: auto !important;
+}
+
+.bookmark-setting:hover {
+    background: rgba(139, 92, 246, 0.9);
+    border-color: rgba(139, 92, 246, 0.8);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--ds-shadow-xl);
+}
+
+.bookmark-setting i {
+    margin-right: var(--ds-space-1);
+}
+
+.bookmark-container .bookmark-item:hover .bookmark-action {
+    opacity: 1;
+}
+
+/* 无图片卡片的操作区域优化 */
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action,
+.bookmark-card.no-image + .bookmark-action {
+    background: var(--ds-bookmark-no-image-overlay);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-tags span,
+.bookmark-card.no-image + .bookmark-action .bookmark-tags span {
+    background: var(--ds-bookmark-no-image-tag-bg);
+    color: var(--ds-bookmark-no-image-tag-text);
+    font-weight: var(--ds-font-weight-semibold);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-tags span:hover,
+.bookmark-card.no-image + .bookmark-action .bookmark-tags span:hover {
+    background: var(--ds-bookmark-no-image-tag-hover-bg);
+    color: var(--ds-bookmark-no-image-tag-hover-text);
+    transform: translateY(-1px) scale(1.05);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-setting,
+.bookmark-card.no-image + .bookmark-action .bookmark-setting {
+    background: var(--ds-bookmark-no-image-setting-bg);
+    color: var(--ds-bookmark-no-image-setting-text);
+    border-color: var(--ds-bookmark-no-image-setting-border);
+}
+
+.bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action .bookmark-setting:hover,
+.bookmark-card.no-image + .bookmark-action .bookmark-setting:hover {
+    background: var(--ds-bookmark-no-image-setting-hover-bg);
+    color: var(--ds-bookmark-no-image-setting-hover-text);
+    border-color: var(--ds-bookmark-no-image-setting-hover-border);
+}
+
+.bookmark .layui-colla-item.create-form, 
+.bookmark .layui-colla-item.edit-form {
+    background: var(--ds-bg-secondary);
+    border: 1px solid var(--ds-border-secondary);
+    border-radius: var(--ds-radius-lg);
+    margin-bottom: var(--ds-space-4);
+}
+
+.layui-btn-primary {
+    background: var(--ds-bg-secondary);
+    border: 1px solid var(--ds-border-secondary);
+    color: var(--ds-text-secondary);
+    border-radius: var(--ds-radius-md);
+    transition: all var(--ds-duration-200) var(--ds-easing-out);
+}
+
+.layui-btn-primary:hover {
+    background: var(--ds-bg-accent);
+    border-color: var(--ds-border-accent);
+    color: var(--ds-text-primary);
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 640px) {
+    .bookmark {
+        margin: 1em 0.5em;
+        padding: 1.5em;
+        border-radius: 16px;
+    }
+    
+    .bookmark .bookmark-container {
+        column-width: 280px;
+        column-gap: 16px;
+    }
+    
+    .bookmark-container .bookmark-item {
+        margin-bottom: 16px;
+    }
+    
+    .bookmark .category {
+        padding: 14px 22px;
+        font-size: 14px;
+    }
+    
+    /* 移动端书签操作区域优化 */
+    .bookmark-action {
+        padding: var(--ds-space-2);
+        z-index: 10 !important;
+    }
+    
+    .bookmark-action .bookmark-tags {
+        gap: var(--ds-space-1);
+    }
+    
+    .bookmark-action .bookmark-tags span {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .bookmark-setting {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        z-index: 15 !important;
+        pointer-events: auto !important;
+    }
+    
+    .bookmark-setting i {
+        margin-right: 0;
+    }
+    
+    /* 移动端无图片书签优化 */
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+    .bookmark-card.no-image {
+        min-height: 100px;
+    }
+    
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-title,
+    .bookmark-card.no-image .bookmark-title {
+        font-size: var(--ds-font-size-base);
+    }
+    
+    .bookmark-card:not(:has(> img:not(.bookmark-icon))) .bookmark-info,
+    .bookmark-card.no-image .bookmark-info {
+        padding: var(--ds-space-3);
+    }
+}
+
+/* 明亮主题适配 */
+@media (prefers-color-scheme: light) {
+    .bookmark {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 
+            0 32px 64px rgba(0, 0, 0, 0.12),
+            0 16px 32px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .bookmark-container .bookmark-item {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.08),
+            0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .bookmark-container .bookmark-item:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.15),
+            0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .bookmark-item a {
+        color: #3b82f6;
+        z-index: 5 !important;
+    }
+
+    .bookmark-item a:hover {
+        color: #1d4ed8;
+        text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    }
+
+    .bookmark-setting {
+        color: #8b5cf6;
+        background: rgba(139, 92, 246, 0.08);
+        border: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .bookmark-setting:hover {
+        background: rgba(139, 92, 246, 0.15);
+        border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .bookmark .layui-colla-item.create-form, 
+    .bookmark .layui-colla-item.create-form .layui-colla-title {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+        color: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .layui-btn-primary {
+        color: rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background: rgba(0, 0, 0, 0.03);
+    }
+
+    .layui-btn-primary:hover {
+        color: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.06);
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .bookmark .category {
+        background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.9) 100%);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .bookmark .category:hover {
+        color: rgba(0, 0, 0, 0.9);
+        background: linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(226, 232, 240, 1) 100%);
+        font-weight: 600;
+    }
+
+    .bookmark .category.active:hover {
+        color: #fff;
+    }
+
+    .bookmark .search-box input {
+        background: rgba(255, 255, 255, 0.7);
+        border: 2px solid rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.8);
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .bookmark .search-box input::placeholder {
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .bookmark .search-box input:focus {
+        border-color: #8b5cf6;
+        background: rgba(255, 255, 255, 0.95);
+        color: rgba(0, 0, 0, 0.9);
+        box-shadow: 
+            0 0 0 3px rgba(139, 92, 246, 0.1),
+            inset 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .bookmark .search-box .search-result {
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .bookmark .search-box .search-result ul li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .bookmark .search-box .search-result ul li:hover, 
+    .bookmark .search-box .search-result ul li.selected {
+        background: rgba(139, 92, 246, 0.1);
+        color: rgba(0, 0, 0, 0.9);
+        font-weight: 600;
+    }
+
+    .bookmark-title {
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* 明亮主题下的书签操作区域 */
+    .bookmark-action {
+        background: linear-gradient(
+            180deg, 
+            rgba(255, 255, 255, 0.8) 0%, 
+            rgba(255, 255, 255, 0.4) 40%, 
+            rgba(255, 255, 255, 0.2) 70%, 
+            rgba(255, 255, 255, 0.7) 100%
+        );
+        z-index: 10 !important;
+    }
+
+    .bookmark-action .bookmark-tags span {
+        background: rgba(139, 92, 246, 0.9);
+        color: white;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .bookmark-action .bookmark-tags span:hover {
+        background: rgba(139, 92, 246, 1);
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .bookmark-setting {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: rgba(139, 92, 246, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 15 !important;
+        pointer-events: auto !important;
+    }
+
+    .bookmark-setting:hover {
+        background: rgba(139, 92, 246, 0.9);
+        border-color: rgba(139, 92, 246, 0.8);
+        color: white;
+        box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    }
+
+
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bookmark-container .bookmark-item {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.bookmark-container .bookmark-item:nth-child(2n) {
+    animation-delay: 0.1s;
+}
+
+.bookmark-container .bookmark-item:nth-child(3n) {
+    animation-delay: 0.2s;
+}
+
+/* 滚动条样式 */
+.bookmark::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bookmark::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.bookmark::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    border-radius: 10px;
+}
+
+.bookmark::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+/* 性能优化：检测用户动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    /* 禁用所有动画和过渡效果 */
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    /* 移除高耗性能的毛玻璃效果 */
+    .bookmark {
+        backdrop-filter: none;
+        background: rgba(30, 31, 31, 0.95);
+    }
+    
+    .bookmark-container .bookmark-item {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .bookmark .search-box input {
+        backdrop-filter: none;
+        background: rgba(30, 30, 30, 0.9);
+    }
+    
+    .bookmark .search-box .search-result {
+        backdrop-filter: none;
+        background: rgba(30, 30, 30, 0.98);
+    }
+    
+    /* 简化阴影效果 */
+    .bookmark {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    
+    .bookmark-container .bookmark-item {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* 移除悬停变换效果 */
+    .bookmark:hover,
+    .bookmark-container .bookmark-item:hover,
+    .bookmark .category:hover {
+        transform: none;
+    }
+}
+
+/* 低端设备优化：基于性能检测 */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    /* 在小屏设备上简化效果 */
+    .bookmark {
+        backdrop-filter: blur(10px); /* 降低模糊强度 */
+    }
+    
+    .bookmark-container .bookmark-item {
+        backdrop-filter: blur(5px);
+    }
+    
+    /* 减少同时显示的阴影层数 */
+    .bookmark {
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .bookmark-container .bookmark-item {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* GPU加速优化 */
+.bookmark,
+.bookmark-container .bookmark-item,
+.bookmark .category {
+    /* 强制开启GPU加速 */
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* 完全禁用动画的简化版本（可选） */
+.bookmark.performance-mode {
+    backdrop-filter: none !important;
+    background: rgba(30, 31, 31, 0.95) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-container .bookmark-item {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark .category {
+    transition: none !important;
+    background: rgba(90, 90, 90, 0.8) !important;
+}
+
+.bookmark.performance-mode .bookmark-action {
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-action .bookmark-tags span {
+    backdrop-filter: none !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-setting {
+    backdrop-filter: none !important;
+    transition: none !important;
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+.bookmark.performance-mode .bookmark-card.no-image {
+    background: var(--ds-gray-200) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))),
+    .bookmark.performance-mode .bookmark-card.no-image {
+        background: var(--ds-gray-700) !important;
+    }
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon)))::before,
+.bookmark.performance-mode .bookmark-card.no-image::before {
+    display: none !important;
+}
+
+.bookmark.performance-mode .bookmark-card:not(:has(> img:not(.bookmark-icon))) + .bookmark-action,
+.bookmark.performance-mode .bookmark-card.no-image + .bookmark-action {
+    background: rgba(0, 0, 0, 0.7) !important;
+}

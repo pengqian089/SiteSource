@@ -1,0 +1,97 @@
+﻿@model System.Collections.Generic.List<VmBlock>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-Hans">
+<head>
+    <title>黑名单</title>
+    <style>
+        body{
+            margin: 0;
+            background-color: #454545;
+            color: white;
+            font-size: 14px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            overflow: auto;
+            word-break: normal;
+            word-break: keep-all;
+            max-width: 100%
+        }
+        
+        table th {
+            font-weight: 600
+        }
+        
+        table td,table th {
+             border-color: #30363d;
+             line-height: 2em;
+        }
+        
+        table tr {
+             background-color: #0d1117;
+                    border-color: #21262d
+        }
+        
+        table tr:nth-child(2n) {
+            background-color: #161b22
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>请求方法</th>
+            <th style="width: 20em">请求地址</th>
+            <th style="width: 20em">IP</th>
+            <th style="width: 50em">User-Agent</th>
+            <th>访问次数</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RequestMethod</td>
+                <td>@item.RequestPath</td>
+                <td>
+                    <details>
+                        <summary>@item.IpAddresses.FirstOrDefault()</summary>
+                        <ul>
+                            @foreach (var ip in item.IpAddresses)
+                            {
+                                <li>@ip</li>
+                            }
+                        </ul>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>@item.UserAgents.FirstOrDefault()</summary>
+                        <ul>
+                            @foreach (var ua in item.UserAgents)
+                            {
+                                <li>@ua</li>
+                            }
+                        </ul>
+                    </details>
+                </td>
+                <td>@item.AccessCount</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
