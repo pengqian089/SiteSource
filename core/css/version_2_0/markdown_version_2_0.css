@@ -247,10 +247,6 @@
     transition: opacity var(--ds-duration-200) var(--ds-easing-out);
 }
 
-.markdown-body li:hover::before {
-    opacity: 0.3;
-}
-
 /* ===== 表格样式 ===== */
 .markdown-body table {
     border-collapse: separate;
