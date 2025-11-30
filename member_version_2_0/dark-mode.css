@@ -48,77 +48,25 @@
         color: var(--text-secondary);
     }
 
-    /* 深色模式表格样式 */
-    .data-table {
+    /* List UI 深色模式微调 */
+    .list-item {
         background: var(--bg-card);
-        margin: 0;
+        border-color: var(--border-color);
+    }
+    
+    .list-item:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
     }
 
-    .data-table th {
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .data-table td {
+    .list-tag {
+        background: var(--bg-tertiary);
         color: var(--text-secondary);
-        border-bottom: 1px solid var(--border-color);
     }
 
-    /* 深色模式表格行背景交替显示 */
-    .data-table tbody tr:nth-child(even) {
-        background: var(--bg-secondary);
-    }
-
-    .data-table tbody tr:nth-child(odd) {
-        background: var(--bg-card);
-    }
-
-    /* 深色模式表格行hover效果 */
-    .data-table tbody tr:hover {
-        background: var(--primary-color) !important;
+    .list-tag:hover {
+        background: var(--primary-color);
         color: white;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
-    }
-
-    .data-table tbody tr:hover td {
-        color: white;
-    }
-
-    /* 深色模式长文本单元格样式 */
-    .data-table .cell-long-text:hover {
-        background: var(--bg-card);
-        box-shadow: var(--shadow-lg);
-        border: 1px solid var(--border-color);
-    }
-
-    /* 深色模式表格标题列样式 */
-    .data-table .cell-title {
-        color: var(--text-primary);
-    }
-
-    .data-table .cell-title a {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: var(--transition);
-    }
-
-    .data-table .cell-title a:hover {
-        color: var(--primary-hover);
-        text-decoration: underline;
-    }
-
-    /* 深色模式下，当表格行hover时，确保标题链接颜色变为白色 */
-    .data-table tbody tr:hover .cell-title a {
-        color: white !important;
-        text-decoration: none;
-    }
-
-    .data-table tbody tr:hover .cell-title a:hover {
-        color: rgba(255, 255, 255, 0.9) !important;
-        text-decoration: underline;
     }
 
     .search-section {
@@ -145,24 +93,7 @@
         box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
     }
 
-    .table-container {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        overflow-x: auto;
-        /* 允许水平滚动 */
-        overflow-y: hidden;
-        box-shadow: var(--shadow-md);
-        max-width: 100%;
-        /* 确保不超过父容器宽度 */
-    }
-
     .modal-content {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-    }
-
-    .two-factor-modal .modal-content {
         background: var(--bg-card);
         border: 1px solid var(--border-color);
     }
@@ -342,24 +273,6 @@
         border-color: #475569;
     }
 
-    /* 深色模式下双因素验证模态框特殊样式 */
-    .two-factor-modal .modal-header h3 {
-        color: var(--text-primary);
-    }
-
-    .two-factor-modal .modal-body label {
-        color: var(--text-primary);
-        font-weight: 500;
-    }
-
-    .two-factor-modal .secret-key label {
-        color: var(--text-primary);
-    }
-
-    .two-factor-modal .pin-section label {
-        color: var(--text-primary);
-    }
-
     /* 深色模式下删除确认模态框 */
     .modal-body p {
         color: var(--text-primary);
@@ -420,30 +333,6 @@
 
     a:hover {
         color: var(--primary-hover);
-        text-decoration: underline;
-    }
-
-    /* 深色模式下表格中的链接 */
-    .data-table a {
-        color: var(--primary-color);
-        font-weight: 500;
-        text-decoration: none;
-        transition: var(--transition);
-    }
-
-    .data-table a:hover {
-        color: var(--primary-hover);
-        text-decoration: underline;
-    }
-
-    /* 深色模式下，当表格行hover时，所有链接颜色变为白色 */
-    .data-table tbody tr:hover a {
-        color: white !important;
-        text-decoration: none;
-    }
-
-    .data-table tbody tr:hover a:hover {
-        color: rgba(255, 255, 255, 0.9) !important;
         text-decoration: underline;
     }
 
@@ -565,9 +454,13 @@
 
     /* 深色模式下的面包屑 */
     .breadcrumb {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-md);
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .breadcrumb a:hover {
+        background: var(--bg-tertiary);
     }
 
     .breadcrumb .current {
@@ -652,7 +545,16 @@
     }
 
     /* 深色模式下的加载动画 */
-    .loading-spinner {
+    .loading-overlay {
+        background: rgba(15, 23, 42, 0.6);
+    }
+
+    .spinner-border {
+        border-color: rgba(168, 85, 247, 0.2);
+        border-top-color: var(--primary-color);
+    }
+
+    .loading-text {
         color: var(--text-primary);
     }
 
@@ -787,31 +689,61 @@
         color: white !important;
     }
 
+    /* 深色模式下的按钮样式 */
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: #ffffff !important; /* 强制文字为白色 */
+    }
+
     /* 深色模式下的按钮悬停效果 */
     .btn-primary:hover {
         box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        color: #ffffff !important;
+    }
+
+    .btn-secondary {
+        color: #ffffff !important;
     }
 
     .btn-secondary:hover {
         box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
+        color: #ffffff !important;
+    }
+
+    .btn-success {
+        color: #ffffff !important;
     }
 
     .btn-success:hover {
         box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        color: #ffffff !important;
+    }
+
+    .btn-danger {
+        color: #ffffff !important;
     }
 
     .btn-danger:hover {
         box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        color: #ffffff !important;
+    }
+
+    .btn-info {
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-info:hover {
+        background-color: var(--info-color);
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     /* 深色模式下的输入框聚焦效果 */
     .form-control:focus {
         box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
     }
-
-
-
-
 
     /* 深色模式下的页面标题 */
     .page-header h2 {
@@ -861,6 +793,9 @@
     /* 深色模式下汉堡菜单默认隐藏 */
     .menu-toggle {
         display: none;
+        background: var(--bg-card);
+        border-color: var(--border-color);
+        color: var(--text-primary);
     }
 
     /* 深色模式响应式样式 */
@@ -871,44 +806,14 @@
         }
 
         .menu-toggle {
-            display: block;
+            display: flex;
             /* 在移动端显示汉堡菜单 */
-            background: var(--primary-color);
-            color: white;
         }
 
         .menu-toggle:hover {
-            background: var(--primary-hover);
-        }
-
-        .mobile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-        }
-
-        .mobile-card-row {
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .mobile-card-label {
-            color: var(--text-primary);
-        }
-
-        .mobile-card-content {
-            color: var(--text-secondary);
-        }
-
-        .mobile-photo-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-        }
-
-        .mobile-photo-title {
-            color: var(--text-primary);
-        }
-
-        .mobile-photo-meta {
-            color: var(--text-muted);
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
         }
 
         /* 深色模式下的移动端用户资料优化 */

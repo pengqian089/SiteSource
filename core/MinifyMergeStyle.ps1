@@ -67,8 +67,8 @@ Write-Host "--------------------------------" -ForegroundColor yellow
 
 
 [string[]]$memberCssPaths =     
-    "./member_version_2_0/css/member.css",
-    "./member_version_2_0/css/dark-mode.css",
+    "./member_version_2_0/member.css",
+    "./member_version_2_0/dark-mode.css",
     "./core/font-awesome/css/font-awesome.css"
 
 foreach($item in $memberCssPaths){
@@ -81,7 +81,7 @@ foreach($item in $memberCssPaths){
 
 $memberInputParameters = [System.String]::Join(" ",$memberCssPaths)
 
-$memberExecute = "cleancss -o ./member_version_2_0/css/global-member.min.css $memberInputParameters --with-rebase --debug"
+$memberExecute = "cleancss -o ./member_version_2_0/global-member.min.css $memberInputParameters --with-rebase --debug"
 
 Invoke-Expression $memberExecute
 
