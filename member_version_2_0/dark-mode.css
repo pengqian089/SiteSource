@@ -1,4 +1,4 @@
-/* 深色模式样式 */
+﻿/* 深色模式样式 */
 @media (prefers-color-scheme: dark) {
     :root {
         --primary-color: #a855f7;
@@ -46,6 +46,24 @@
     .form-control:read-only {
         background: var(--bg-secondary);
         color: var(--text-secondary);
+    }
+
+    /* 深色模式下日期和时间选择控件优化 */
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="time"] {
+        color-scheme: dark;
+    }
+
+    /* 调整日期选择器图标颜色以适应深色模式 */
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+    input[type="month"]::-webkit-calendar-picker-indicator,
+    input[type="week"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: brightness(0) invert(1);
     }
 
     /* List UI 深色模式微调 */
@@ -788,6 +806,55 @@
     /* 深色模式下的照片元数据 */
     .photo-meta {
         color: var(--text-muted);
+    }
+    
+    /* 深色模式下侧边栏底部信息 */
+    .sidebar-footer {
+        border-top-color: var(--border-color);
+    }
+    
+    .env-production {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    }
+    
+    .env-staging {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    }
+    
+    .env-test {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+    }
+    
+    .env-development {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    
+    .env-unknown {
+        background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.4);
+    }
+    
+    .version-info {
+        background: var(--bg-tertiary);
+        color: var(--text-secondary);
+    }
+    
+    .version-info:hover {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+    
+    .version-info i {
+        color: var(--primary-color);
     }
 
     /* 深色模式下汉堡菜单默认隐藏 */
