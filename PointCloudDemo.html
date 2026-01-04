@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>点云行动线路Demo - 机器狗巡检</title>
+    <script async src="https://dpangzi.com/library/es-module-shims/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://dpangzi.com/library/threejs/build/three.module.js",
+            "three/addons/": "https://dpangzi.com/library/threejs/examples/jsm/"
+        }
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            overflow: hidden; 
+            background: #1a1a2e;
+        }
+        #container { 
+            width: calc(100vw - 320px); 
+            height: 100vh; 
+            position: absolute;
+            left: 0;
+        }
+        
+        /* 左侧工具栏 */
+        #toolbar {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .tool-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .tool-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        .tool-btn.active {
+            background: #4a90d9;
+            box-shadow: 0 0 15px rgba(74,144,217,0.5);
+        }
+        .tool-btn.danger {
+            background: #e74c3c;
+        }
+        .tool-btn.danger:hover {
+            background: #c0392b;
+        }
+        
+        /* 右侧面板 */
+        #sidebar {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 320px;
+            height: 100vh;
+            background: #252836;
+            color: #fff;
+            overflow-y: auto;
+        }
+        .panel-header {
+            padding: 20px;
+            background: #2d3142;
+            border-bottom: 1px solid #3a3f54;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .panel-header .icon {
+            width: 24px;
+            height: 24px;
+            background: #4a90d9;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 标签页 */
+        .tabs {
+            display: flex;
+            background: #2d3142;
+            border-bottom: 1px solid #3a3f54;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: #8a8f9d;
+            transition: all 0.3s;
+            font-size: 13px;
+            border-bottom: 2px solid transparent;
+        }
+        .tab:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        .tab.active {
+            color: #4a90d9;
+            border-bottom-color: #4a90d9;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 15px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 路径点列表 */
+        .point-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .point-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #2d3142;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .point-item:hover {
+            background: #3a3f54;
+        }
+        .point-item.selected {
+            background: #4a90d9;
+            box-shadow: 0 0 10px rgba(74,144,217,0.3);
+        }
+        .point-num {
+            width: 28px;
+            height: 28px;
+            background: #4a90d9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        .point-item.selected .point-num {
+            background: #fff;
+            color: #4a90d9;
+        }
+        .point-info {
+            flex: 1;
+        }
+        .point-name {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .point-coords {
+            font-size: 11px;
+            color: #8a8f9d;
+        }
+        .point-item.selected .point-coords {
+            color: rgba(255,255,255,0.7);
+        }
+        .point-type {
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        /* 属性面板 */
+        .property-group {
+            margin-bottom: 20px;
+        }
+        .property-title {
+            font-size: 13px;
+            color: #8a8f9d;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3a3f54;
+        }
+        .property-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+        .property-label {
+            color: #8a8f9d;
+            font-size: 13px;
+        }
+        .property-value {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .property-input {
+            background: #2d3142;
+            border: 1px solid #3a3f54;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fff;
+            width: 120px;
+            font-size: 13px;
+        }
+        .property-input:focus {
+            outline: none;
+            border-color: #4a90d9;
+        }
+        .property-select {
+            background: #2d3142;
+            border: 1px solid #3a3f54;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fff;
+            width: 120px;
+            font-size: 13px;
+        }
+        
+        /* 开关 */
+        .switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #3a3f54;
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider {
+            background: #4a90d9;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #4a90d9;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #3a7bc8;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .btn-secondary {
+            background: #3a3f54;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: #4a4f64;
+        }
+        
+        /* 状态指示 */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .status-online {
+            background: rgba(46,204,113,0.2);
+            color: #2ecc71;
+        }
+        .status-offline {
+            background: rgba(231,76,60,0.2);
+            color: #e74c3c;
+        }
+        
+        /* 信息提示 */
+        #tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* 顶部信息栏 */
+        #topbar {
+            position: absolute;
+            left: 80px;
+            top: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+        .info-card {
+            background: rgba(37,40,54,0.9);
+            padding: 12px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+        .info-card-title {
+            font-size: 11px;
+            color: #8a8f9d;
+            margin-bottom: 4px;
+        }
+        .info-card-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #252836;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3f54;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4f64;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <!-- 顶部信息栏 -->
+    <div id="topbar">
+        <div class="info-card">
+            <div class="info-card-title">点云数量</div>
+            <div class="info-card-value" id="pointCount">50,000</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card-title">路径点数</div>
+            <div class="info-card-value" id="waypointCount">15</div>
+        </div>
+        <div class="info-card">
+            <div class="info-card-title">路线状态</div>
+            <div class="info-card-value"><span class="status-badge status-online">在线</span></div>
+        </div>
+    </div>
+    
+    <!-- 左侧工具栏 -->
+    <div id="toolbar">
+        <button class="tool-btn" onclick="resetView()" title="重置视角">🏠</button>
+        <button class="tool-btn" onclick="toggleTopView()" title="俯视图">⬇</button>
+        <button class="tool-btn" onclick="toggleSideView()" title="侧视图">➡</button>
+        <button class="tool-btn" onclick="togglePointCloud()" title="显示/隐藏点云">☁</button>
+        <button class="tool-btn" onclick="togglePath()" title="显示/隐藏路径">〰</button>
+        <button class="tool-btn active" onclick="toggleSelect(this)" title="选择模式">🎯</button>
+        <div style="height:1px;background:#3a3f54;margin:5px 0;"></div>
+        <button class="tool-btn" onclick="generateRandomPath()" title="随机生成线路" style="background:#27ae60;">🔀</button>
+        <button class="tool-btn" onclick="generateCirclePath()" title="生成环形线路" style="background:#8e44ad;">⭕</button>
+        <button class="tool-btn" onclick="generateZigzagPath()" title="生成Z字线路" style="background:#e67e22;">⚡</button>
+    </div>
+    
+    <!-- 提示框 -->
+    <div id="tooltip"></div>
+    
+    <!-- 右侧面板 -->
+    <div id="sidebar">
+        <div class="panel-header">
+            <div class="icon">📍</div>
+            <span>巡检路线配置 - Demo</span>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('points')">路径点</div>
+            <div class="tab" onclick="switchTab('properties')">属性配置</div>
+            <div class="tab" onclick="switchTab('settings')">参数设置</div>
+        </div>
+        
+        <!-- 路径点列表 -->
+        <div id="tab-points" class="tab-content active">
+            <div class="point-list" id="pointList"></div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="focusSelected()">定位选中</button>
+                <button class="btn btn-secondary" onclick="clearSelection()">清除选择</button>
+            </div>
+        </div>
+        
+        <!-- 属性配置 -->
+        <div id="tab-properties" class="tab-content">
+            <div id="selectedPointInfo">
+                <p style="color:#8a8f9d; text-align:center; padding:40px 0;">请先选择一个路径点</p>
+            </div>
+        </div>
+        
+        <!-- 参数设置 -->
+        <div id="tab-settings" class="tab-content">
+            <div class="property-group">
+                <div class="property-title">巡检参数配置</div>
+                <div class="property-row">
+                    <span class="property-label">巡检顺序</span>
+                    <select class="property-select">
+                        <option>全自动顺序巡检</option>
+                        <option>手动选择巡检</option>
+                        <option>逆序巡检</option>
+                    </select>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">低电量返航</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">测试模式</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">到达巡检点</span>
+                    <select class="property-select">
+                        <option>到点停留</option>
+                        <option>直接通过</option>
+                    </select>
+                </div>
+                <div class="property-row">
+                    <span class="property-label">停留时间(秒)</span>
+                    <input type="number" class="property-input" value="1" min="0">
+                </div>
+                <div class="property-row">
+                    <span class="property-label">巡检结束返航</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="property-group">
+                <div class="property-title">显示设置</div>
+                <div class="property-row">
+                    <span class="property-label">点云大小</span>
+                    <input type="range" min="1" max="10" value="3" oninput="setPointSize(this.value)">
+                </div>
+                <div class="property-row">
+                    <span class="property-label">路径宽度</span>
+                    <input type="range" min="1" max="10" value="2" oninput="setLineWidth(this.value)">
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary">保存配置</button>
+                <button class="btn btn-secondary">返回</button>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        
+        // ============ 全局变量 ============
+        let scene, camera, renderer, controls;
+        let pointCloudMesh, pathLine;
+        let markers = [];
+        let selectedMarkerIndex = -1;
+        let selectMode = true;
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        
+        // 模拟路径点数据（包含更多属性）
+        const waypointData = [
+            { id: 1, name: '起始点', coords: [10, 1, 10], type: '普通点', navId: 1 },
+            { id: 2, name: '转弯点A', coords: [8, 1, 5], type: '普通点', navId: 2 },
+            { id: 3, name: '监测点1', coords: [5, 1.5, 2], type: '监测点', navId: 3 },
+            { id: 4, name: '中心点', coords: [0, 1, 0], type: '普通点', navId: 4 },
+            { id: 5, name: '监测点2', coords: [-5, 1, 2], type: '监测点', navId: 5 },
+            { id: 6, name: '转弯点B', coords: [-8, 1, 5], type: '普通点', navId: 6 },
+            { id: 7, name: '边缘点1', coords: [-10, 1, 10], type: '普通点', navId: 7 },
+            { id: 8, name: '拐角点', coords: [-12, 1.2, 15], type: '普通点', navId: 8 },
+            { id: 9, name: '监测点3', coords: [-10, 1, 20], type: '监测点', navId: 9 },
+            { id: 10, name: '顶点A', coords: [-5, 1, 22], type: '普通点', navId: 10 },
+            { id: 11, name: '顶点中心', coords: [0, 1.5, 20], type: '监测点', navId: 11 },
+            { id: 12, name: '顶点B', coords: [5, 1, 22], type: '普通点', navId: 12 },
+            { id: 13, name: '边缘点2', coords: [10, 1, 20], type: '普通点', navId: 13 },
+            { id: 14, name: '返回点', coords: [12, 1.2, 15], type: '普通点', navId: 14 },
+            { id: 15, name: '终点', coords: [10, 1, 10], type: '终点', navId: 15 }
+        ];
+
+        // ============ 初始化场景 ============
+        function init() {
+            // 创建场景
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            
+            // 创建相机
+            camera = new THREE.PerspectiveCamera(60, (window.innerWidth - 320) / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 35, 50);
+            
+            // 创建渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth - 320, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('container').appendChild(renderer.domElement);
+            
+            // 添加控制器 - 使用导入的 OrbitControls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.target.set(0, 0, 10);
+            
+            // 添加灯光
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(10, 20, 10);
+            scene.add(directionalLight);
+            
+            // 创建网格
+            createGrid();
+            
+            // 创建点云
+            createPointCloud();
+            
+            // 创建路径
+            createPath();
+            
+            // 创建路径点标记
+            createMarkers();
+            
+            // 渲染路径点列表
+            renderPointList();
+            
+            // 添加事件监听
+            renderer.domElement.addEventListener('click', onMouseClick);
+            renderer.domElement.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('resize', onWindowResize);
+            
+            // 开始渲染循环
+            animate();
+        }
+
+        // ============ 创建网格 ============
+        function createGrid() {
+            const gridHelper = new THREE.GridHelper(80, 40, 0x3a3f54, 0x2d3142);
+            scene.add(gridHelper);
+            
+            // 添加坐标轴辅助
+            const axesHelper = new THREE.AxesHelper(10);
+            scene.add(axesHelper);
+        }
+
+        // ============ 创建点云 ============
+        function createPointCloud() {
+            const pointCount = 50000;
+            const positions = [];
+            const colors = [];
+            
+            for (let i = 0; i < pointCount; i++) {
+                // 生成点云位置（模拟地形）
+                const x = (Math.random() - 0.5) * 60;
+                const z = (Math.random() - 0.5) * 60;
+                const y = Math.sin(x * 0.1) * Math.cos(z * 0.1) * 3 + Math.random() * 2;
+                positions.push(x, Math.max(0, y), z);
+                
+                // 根据高度设置颜色（从绿到黄到红）
+                const normalizedY = Math.max(0, y) / 5;
+                if (normalizedY < 0.5) {
+                    colors.push(0, 0.8 + normalizedY * 0.4, 0.3);
+                } else {
+                    colors.push(normalizedY, 0.8 - (normalizedY - 0.5) * 0.6, 0);
+                }
+            }
+            
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            
+            const material = new THREE.PointsMaterial({
+                size: 0.15,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            pointCloudMesh = new THREE.Points(geometry, material);
+            scene.add(pointCloudMesh);
+            
+            document.getElementById('pointCount').textContent = pointCount.toLocaleString();
+        }
+
+        // ============ 创建路径 ============
+        function createPath() {
+            const pathPoints = waypointData.map(p => new THREE.Vector3(...p.coords));
+            
+            // 创建路径线
+            const lineGeometry = new THREE.BufferGeometry().setFromPoints(pathPoints);
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0x00aaff,
+                linewidth: 2,
+                transparent: true,
+                opacity: 0.8
+            });
+            pathLine = new THREE.Line(lineGeometry, lineMaterial);
+            scene.add(pathLine);
+            
+            // 创建发光效果的路径
+            const glowMaterial = new THREE.LineBasicMaterial({
+                color: 0x00aaff,
+                linewidth: 4,
+                transparent: true,
+                opacity: 0.3
+            });
+            const glowLine = new THREE.Line(lineGeometry.clone(), glowMaterial);
+            scene.add(glowLine);
+        }
+
+        // ============ 创建标记点 ============
+        function createMarkers() {
+            waypointData.forEach((point, idx) => {
+                // 创建球体标记
+                const markerGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+                const markerMaterial = new THREE.MeshPhongMaterial({
+                    color: point.type === '监测点' ? 0xff6b6b : 0xffd93d,
+                    emissive: point.type === '监测点' ? 0x441111 : 0x443300,
+                    shininess: 100
+                });
+                const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+                marker.position.set(...point.coords);
+                marker.userData = { index: idx, data: point };
+                scene.add(marker);
+                markers.push(marker);
+                
+                // 创建文字标签
+                const sprite = createTextSprite(point.id.toString());
+                sprite.position.set(point.coords[0], point.coords[1] + 1.8, point.coords[2]);
+                scene.add(sprite);
+            });
+            
+            document.getElementById('waypointCount').textContent = waypointData.length;
+        }
+
+        // ============ 创建文字精灵 ============
+        function createTextSprite(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            
+            // 绘制背景圆
+            ctx.beginPath();
+            ctx.arc(64, 64, 50, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(74, 144, 217, 0.9)';
+            ctx.fill();
+            
+            // 绘制边框
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // 绘制文字
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 64, 64);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(2, 2, 1);
+            return sprite;
+        }
+
+        // ============ 渲染路径点列表 ============
+        function renderPointList() {
+            const listEl = document.getElementById('pointList');
+            listEl.innerHTML = waypointData.map((point, idx) => `
+                <div class="point-item ${selectedMarkerIndex === idx ? 'selected' : ''}" 
+                     data-index="${idx}">
+                    <div class="point-num">${point.id}</div>
+                    <div class="point-info">
+                        <div class="point-name">${point.name}</div>
+                        <div class="point-coords">X: ${point.coords[0].toFixed(1)} Y: ${point.coords[1].toFixed(1)} Z: ${point.coords[2].toFixed(1)}</div>
+                    </div>
+                    <div class="point-type">${point.type}</div>
+                </div>
+            `).join('');
+            
+            // 添加点击事件
+            listEl.querySelectorAll('.point-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    selectPoint(parseInt(item.dataset.index));
+                });
+            });
+        }
+
+        // ============ 选择路径点 ============
+        function selectPoint(index) {
+            // 取消之前的选择
+            if (selectedMarkerIndex >= 0 && markers[selectedMarkerIndex]) {
+                const prevPoint = waypointData[selectedMarkerIndex];
+                markers[selectedMarkerIndex].material.color.setHex(
+                    prevPoint.type === '监测点' ? 0xff6b6b : 0xffd93d
+                );
+                markers[selectedMarkerIndex].scale.set(1, 1, 1);
+            }
+            
+            selectedMarkerIndex = index;
+            
+            // 高亮新选择
+            if (index >= 0 && markers[index]) {
+                markers[index].material.color.setHex(0x00ff00);
+                markers[index].scale.set(1.5, 1.5, 1.5);
+            }
+            
+            // 更新列表
+            renderPointList();
+            
+            // 更新属性面板
+            updatePropertyPanel(index);
+        }
+
+        // ============ 更新属性面板 ============
+        function updatePropertyPanel(index) {
+            const panel = document.getElementById('selectedPointInfo');
+            if (index < 0) {
+                panel.innerHTML = '<p style="color:#8a8f9d; text-align:center; padding:40px 0;">请先选择一个路径点</p>';
+                return;
+            }
+            
+            const point = waypointData[index];
+            panel.innerHTML = `
+                <div class="property-group">
+                    <div class="property-title">基本信息 - ${point.name}</div>
+                    <div class="property-row">
+                        <span class="property-label">序号</span>
+                        <span class="property-value">${point.id}</span>
+                    </div>
+                    <div class="property-row">
+                        <span class="property-label">导航点ID</span>
+                        <span class="property-value">${point.navId} ⊕</span>
+                    </div>
+                    <div class="property-row">
+                        <span class="property-label">功能属性</span>
+                        <select class="property-select">
+                            <option ${point.type === '普通点' ? 'selected' : ''}>普通点</option>
+                            <option ${point.type === '监测点' ? 'selected' : ''}>监测点</option>
+                            <option ${point.type === '终点' ? 'selected' : ''}>终点</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-group">
+                    <div class="property-title">位置坐标</div>
+                    <div class="property-row">
+                        <span class="property-label">X 坐标</span>
+                        <input type="number" class="property-input" value="${point.coords[0].toFixed(2)}" step="0.1">
+                    </div>
+                    <div class="property-row">
+                        <span class="property-label">Y 坐标</span>
+                        <input type="number" class="property-input" value="${point.coords[1].toFixed(2)}" step="0.1">
+                    </div>
+                    <div class="property-row">
+                        <span class="property-label">Z 坐标</span>
+                        <input type="number" class="property-input" value="${point.coords[2].toFixed(2)}" step="0.1">
+                    </div>
+                </div>
+                <div class="property-group">
+                    <div class="property-title">行为设置</div>
+                    <div class="property-row">
+                        <span class="property-label">到达动作</span>
+                        <select class="property-select">
+                            <option>停留检测</option>
+                            <option>直接通过</option>
+                            <option>执行任务</option>
+                        </select>
+                    </div>
+                    <div class="property-row">
+                        <span class="property-label">停留时间(秒)</span>
+                        <input type="number" class="property-input" value="2" min="0">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="btnFocusSelected">定位到此点</button>
+                    <button class="btn btn-danger">删除</button>
+                </div>
+            `;
+            
+            // 绑定按钮事件
+            document.getElementById('btnFocusSelected').addEventListener('click', focusSelected);
+        }
+
+        // ============ 鼠标点击事件 ============
+        function onMouseClick(event) {
+            if (!selectMode) return;
+            
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(markers);
+            
+            if (intersects.length > 0) {
+                const clickedMarker = intersects[0].object;
+                selectPoint(clickedMarker.userData.index);
+                switchTab('properties');
+            }
+        }
+
+        // ============ 鼠标移动事件（显示提示） ============
+        function onMouseMove(event) {
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(markers);
+            
+            const tooltip = document.getElementById('tooltip');
+            if (intersects.length > 0) {
+                const point = intersects[0].object.userData.data;
+                tooltip.innerHTML = `<strong>${point.name}</strong><br>类型: ${point.type}<br>坐标: (${point.coords.join(', ')})`;
+                tooltip.style.left = event.clientX + 15 + 'px';
+                tooltip.style.top = event.clientY + 15 + 'px';
+                tooltip.style.display = 'block';
+                document.body.style.cursor = 'pointer';
+            } else {
+                tooltip.style.display = 'none';
+                document.body.style.cursor = 'default';
+            }
+        }
+
+        // ============ 窗口大小调整 ============
+        function onWindowResize() {
+            camera.aspect = (window.innerWidth - 320) / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth - 320, window.innerHeight);
+        }
+
+        // ============ 渲染循环 ============
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            
+            // 让选中的标记点轻微浮动
+            if (selectedMarkerIndex >= 0) {
+                const marker = markers[selectedMarkerIndex];
+                marker.position.y = waypointData[selectedMarkerIndex].coords[1] + Math.sin(Date.now() * 0.003) * 0.2;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // ============ 工具函数 ============
+        function resetView() {
+            camera.position.set(0, 35, 50);
+            controls.target.set(0, 0, 10);
+            controls.update();
+        }
+
+        function toggleTopView() {
+            camera.position.set(0, 60, 0.1);
+            controls.target.set(0, 0, 10);
+            controls.update();
+        }
+
+        function toggleSideView() {
+            camera.position.set(60, 10, 10);
+            controls.target.set(0, 0, 10);
+            controls.update();
+        }
+
+        function togglePointCloud() {
+            pointCloudMesh.visible = !pointCloudMesh.visible;
+        }
+
+        function togglePath() {
+            pathLine.visible = !pathLine.visible;
+        }
+
+        function toggleSelect(btn) {
+            selectMode = !selectMode;
+            btn.classList.toggle('active', selectMode);
+        }
+
+        function focusSelected() {
+            if (selectedMarkerIndex >= 0) {
+                const point = waypointData[selectedMarkerIndex];
+                controls.target.set(...point.coords);
+                camera.position.set(point.coords[0] + 10, point.coords[1] + 15, point.coords[2] + 10);
+                controls.update();
+            }
+        }
+
+        function clearSelection() {
+            selectPoint(-1);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab:nth-child(${tabName === 'points' ? 1 : tabName === 'properties' ? 2 : 3})`).classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        function setPointSize(value) {
+            pointCloudMesh.material.size = value * 0.05;
+        }
+
+        function setLineWidth(value) {
+            pathLine.material.linewidth = value;
+        }
+
+        // ============ 随机生成线路函数 ============
+        function generateRandomPath() {
+            const pointCount = Math.floor(Math.random() * 10) + 8; // 8-17个点
+            const newWaypoints = [];
+            
+            for (let i = 0; i < pointCount; i++) {
+                const angle = (i / pointCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+                const radius = 10 + Math.random() * 15;
+                const x = Math.cos(angle) * radius + (Math.random() - 0.5) * 5;
+                const z = Math.sin(angle) * radius + (Math.random() - 0.5) * 5;
+                const y = 1 + Math.random() * 1.5;
+                
+                const types = ['普通点', '普通点', '普通点', '监测点'];
+                newWaypoints.push({
+                    id: i + 1,
+                    name: i === 0 ? '起始点' : i === pointCount - 1 ? '终点' : `路径点${i}`,
+                    coords: [parseFloat(x.toFixed(2)), parseFloat(y.toFixed(2)), parseFloat(z.toFixed(2))],
+                    type: i === 0 ? '起点' : i === pointCount - 1 ? '终点' : types[Math.floor(Math.random() * types.length)],
+                    navId: i + 1
+                });
+            }
+            
+            updatePathData(newWaypoints);
+            showNotification('已生成随机线路，共 ' + pointCount + ' 个点');
+        }
+        
+        function generateCirclePath() {
+            const pointCount = Math.floor(Math.random() * 6) + 10; // 10-15个点
+            const newWaypoints = [];
+            const radius = 15 + Math.random() * 10;
+            
+            for (let i = 0; i < pointCount; i++) {
+                const angle = (i / pointCount) * Math.PI * 2;
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
+                const y = 1 + Math.sin(angle * 2) * 0.5;
+                
+                newWaypoints.push({
+                    id: i + 1,
+                    name: i === 0 ? '起始点' : `环形点${i}`,
+                    coords: [parseFloat(x.toFixed(2)), parseFloat(y.toFixed(2)), parseFloat(z.toFixed(2))],
+                    type: i % 4 === 0 ? '监测点' : '普通点',
+                    navId: i + 1
+                });
+            }
+            // 闭合回起点
+            newWaypoints.push({
+                id: pointCount + 1,
+                name: '终点(返回)',
+                coords: [...newWaypoints[0].coords],
+                type: '终点',
+                navId: pointCount + 1
+            });
+            
+            updatePathData(newWaypoints);
+            showNotification('已生成环形线路，共 ' + (pointCount + 1) + ' 个点');
+        }
+        
+        function generateZigzagPath() {
+            const rows = Math.floor(Math.random() * 3) + 3; // 3-5行
+            const cols = Math.floor(Math.random() * 3) + 4; // 4-6列
+            const newWaypoints = [];
+            let id = 1;
+            
+            for (let row = 0; row < rows; row++) {
+                const direction = row % 2 === 0 ? 1 : -1;
+                const startCol = direction === 1 ? 0 : cols - 1;
+                const endCol = direction === 1 ? cols : -1;
+                
+                for (let col = startCol; col !== endCol; col += direction) {
+                    const x = (col - cols / 2) * 8;
+                    const z = (row - rows / 2) * 10;
+                    const y = 1 + Math.random() * 0.5;
+                    
+                    newWaypoints.push({
+                        id: id,
+                        name: id === 1 ? '起始点' : `巡检点${id - 1}`,
+                        coords: [parseFloat(x.toFixed(2)), parseFloat(y.toFixed(2)), parseFloat(z.toFixed(2))],
+                        type: (col === 0 || col === cols - 1) ? '监测点' : '普通点',
+                        navId: id
+                    });
+                    id++;
+                }
+            }
+            
+            // 标记终点
+            newWaypoints[newWaypoints.length - 1].name = '终点';
+            newWaypoints[newWaypoints.length - 1].type = '终点';
+            
+            updatePathData(newWaypoints);
+            showNotification('已生成Z字巡检线路，共 ' + newWaypoints.length + ' 个点');
+        }
+        
+        function updatePathData(newWaypoints) {
+            // 更新数据
+            waypointData.length = 0;
+            newWaypoints.forEach(p => waypointData.push(p));
+            
+            // 清除旧的标记和路径
+            clearPathAndMarkers();
+            
+            // 重新创建
+            createPath();
+            createMarkers();
+            
+            // 更新UI
+            selectedMarkerIndex = -1;
+            renderPointList();
+            updatePropertyPanel(-1);
+            
+            document.getElementById('waypointCount').textContent = waypointData.length;
+        }
+        
+        function clearPathAndMarkers() {
+            // 移除所有标记
+            markers.forEach(m => scene.remove(m));
+            markers.length = 0;
+            
+            // 移除路径线和精灵
+            const toRemove = [];
+            scene.traverse(obj => {
+                if (obj.isLine || obj.isSprite) {
+                    toRemove.push(obj);
+                }
+            });
+            toRemove.forEach(obj => scene.remove(obj));
+            pathLine = null;
+        }
+        
+        function showNotification(message) {
+            // 创建通知元素
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(46, 204, 113, 0.95);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1000;
+                    transition: opacity 0.3s, transform 0.3s;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                `;
+                document.body.appendChild(notification);
+            }
+            
+            notification.textContent = message;
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(-50%) translateY(0)';
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(-50%) translateY(-20px)';
+            }, 2000);
+        }
+
+        // ============ 暴露函数到全局（供HTML按钮调用） ============
+        window.resetView = resetView;
+        window.toggleTopView = toggleTopView;
+        window.toggleSideView = toggleSideView;
+        window.togglePointCloud = togglePointCloud;
+        window.togglePath = togglePath;
+        window.toggleSelect = toggleSelect;
+        window.focusSelected = focusSelected;
+        window.clearSelection = clearSelection;
+        window.switchTab = switchTab;
+        window.setPointSize = setPointSize;
+        window.setLineWidth = setLineWidth;
+        window.generateRandomPath = generateRandomPath;
+        window.generateCirclePath = generateCirclePath;
+        window.generateZigzagPath = generateZigzagPath;
+
+        // ============ 初始化 ============
+        init();
+    </script>
+</body>
+</html>
