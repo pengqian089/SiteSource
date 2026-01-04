@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>点云行动线路Demo - 机器狗巡检</title>
-    <script async src="https://dpangzi.com/library/es-module-shims/es-module-shims.js"></script>
+    <script async src="/library/es-module-shims/es-module-shims.js"></script>
     <script type="importmap">
     {
         "imports": {
-            "three": "https://dpangzi.com/library/threejs/build/three.module.js",
-            "three/addons/": "https://dpangzi.com/library/threejs/examples/jsm/"
+            "three": "/library/threejs/build/three.module.js",
+            "three/addons/": "/library/threejs/examples/jsm/"
         }
     }
     </script>
@@ -418,6 +418,9 @@
         <button class="tool-btn" onclick="generateRandomPath()" title="随机生成线路" style="background:#27ae60;">🔀</button>
         <button class="tool-btn" onclick="generateCirclePath()" title="生成环形线路" style="background:#8e44ad;">⭕</button>
         <button class="tool-btn" onclick="generateZigzagPath()" title="生成Z字线路" style="background:#e67e22;">⚡</button>
+        <div style="height:1px;background:#3a3f54;margin:5px 0;"></div>
+        <button class="tool-btn" onclick="loadRealPointCloud()" title="加载真实点云" style="background:#16a085;">📂</button>
+        <button class="tool-btn" onclick="generatePathFromPointCloud()" title="根据点云生成线路" style="background:#2980b9;">🗺️</button>
     </div>
     
     <!-- 提示框 -->
@@ -520,10 +523,13 @@
     <script type="module">
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { PCDLoader } from 'three/addons/loaders/PCDLoader.js';
         
         // ============ 全局变量 ============
         let scene, camera, renderer, controls;
         let pointCloudMesh, pathLine;
+        let realPointCloud = null;  // 真实点云对象
+        let realPointCloudBounds = null;  // 真实点云的边界信息
         let markers = [];
         let selectedMarkerIndex = -1;
         let selectMode = true;
@@ -1103,6 +1109,284 @@
             pathLine = null;
         }
         
+        // ============ 加载真实点云文件 ============
+        function loadRealPointCloud() {
+            const loader = new PCDLoader();
+            
+            showNotification('正在加载点云文件...');
+            
+            loader.load(
+                '/demo/ground_map.pcd',
+                function (points) {
+                    // 移除之前的真实点云（如果存在）
+                    if (realPointCloud) {
+                        scene.remove(realPointCloud);
+                        realPointCloud.geometry.dispose();
+                        realPointCloud.material.dispose();
+                    }
+                    
+                    // 隐藏模拟点云
+                    if (pointCloudMesh) {
+                        pointCloudMesh.visible = false;
+                    }
+                    
+                    // 设置点云材质
+                    points.material.size = 0.05;
+                    points.material.color.setHex(0x00ff88);
+                    
+                    // 【坐标系转换】将 ROS 坐标系 (X前 Y左 Z上) 实际转换为 Three.js (X右 Y上 Z前)
+                    // 创建旋转矩阵：绕 X 轴旋转 -90°
+                    const rotationMatrix = new THREE.Matrix4().makeRotationX(-Math.PI / 2);
+                    points.geometry.applyMatrix4(rotationMatrix);  // 实际修改顶点坐标
+                    
+                    // 居中点云
+                    points.geometry.center();
+                    
+                    // 计算边界框以调整视角
+                    points.geometry.computeBoundingBox();
+                    const box = points.geometry.boundingBox;
+                    const center = new THREE.Vector3();
+                    box.getCenter(center);
+                    const size = new THREE.Vector3();
+                    box.getSize(size);
+                    
+                    console.log('=== 转换后尺寸 ===');
+                    console.log('宽(X):', size.x.toFixed(2), '高(Y):', size.y.toFixed(2), '深(Z):', size.z.toFixed(2));
+                    
+                    // 保存边界信息供生成线路使用
+                    realPointCloudBounds = {
+                        min: box.min.clone(),
+                        max: box.max.clone(),
+                        center: center.clone(),
+                        size: size.clone()
+                    };
+                    
+                    // 添加到场景
+                    realPointCloud = points;
+                    scene.add(realPointCloud);
+                    
+                    // 更新点云数量显示
+                    const pointCount = points.geometry.attributes.position.count;
+                    document.getElementById('pointCount').textContent = pointCount.toLocaleString();
+                    
+                    // 调整相机位置以适应点云
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    camera.position.set(center.x, center.y + maxDim, center.z + maxDim * 1.5);
+                    controls.target.copy(center);
+                    controls.update();
+                    
+                    showNotification('点云加载成功！共 ' + pointCount.toLocaleString() + ' 个点');
+                },
+                function (xhr) {
+                    // 加载进度
+                    if (xhr.lengthComputable) {
+                        const percent = Math.round((xhr.loaded / xhr.total) * 100);
+                        showNotification('加载中... ' + percent + '%');
+                    }
+                },
+                function (error) {
+                    console.error('加载点云失败:', error);
+                    showNotification('加载失败: ' + error.message);
+                }
+            );
+        }
+
+        // ============ 根据点云生成巡检线路 ============
+        function generatePathFromPointCloud() {
+            if (!realPointCloudBounds) {
+                showNotification('请先加载点云文件！');
+                return;
+            }
+            
+            const bounds = realPointCloudBounds;
+            const { min, max, center, size } = bounds;
+            
+            // 获取点云的实际采样点（用于确定巡检高度）
+            const positions = realPointCloud.geometry.attributes.position.array;
+            
+            // 生成不同类型的巡检线路
+            const pathTypes = ['coverage', 'perimeter', 'zigzag'];
+            const selectedType = pathTypes[Math.floor(Math.random() * pathTypes.length)];
+            
+            let newWaypoints = [];
+            
+            // 计算安全巡检高度（略高于点云表面）
+            const patrolHeight = max.y + 0.5;  // 在点云上方 0.5 米
+            
+            // 边界缩进（避免贴边）
+            const margin = Math.min(size.x, size.z) * 0.1;
+            const xMin = min.x + margin;
+            const xMax = max.x - margin;
+            const zMin = min.z + margin;
+            const zMax = max.z - margin;
+            
+            if (selectedType === 'coverage') {
+                // 覆盖式巡检：S形路线覆盖整个区域
+                const rows = Math.floor(Math.random() * 3) + 3;  // 3-5 行
+                const cols = Math.floor(Math.random() * 3) + 4;  // 4-6 列
+                let id = 1;
+                
+                for (let row = 0; row < rows; row++) {
+                    const z = zMin + (zMax - zMin) * (row / (rows - 1));
+                    const direction = row % 2 === 0;  // 交替方向
+                    
+                    for (let col = 0; col < cols; col++) {
+                        const actualCol = direction ? col : (cols - 1 - col);
+                        const x = xMin + (xMax - xMin) * (actualCol / (cols - 1));
+                        
+                        // 采样该位置附近的点云高度
+                        const localHeight = samplePointCloudHeight(positions, x, z, size) + 0.5;
+                        
+                        let pointType = '普通点';
+                        let name = `巡检点${id}`;
+                        
+                        if (id === 1) {
+                            name = '起始点';
+                        } else if (row === rows - 1 && (direction ? col === cols - 1 : col === 0)) {
+                            name = '终点';
+                            pointType = '终点';
+                        } else if (Math.random() < 0.3) {
+                            pointType = '监测点';
+                            name = `监测点${Math.floor(Math.random() * 100)}`;
+                        }
+                        
+                        newWaypoints.push({
+                            id: id,
+                            name: name,
+                            coords: [x, localHeight, z],
+                            type: pointType,
+                            navId: id
+                        });
+                        id++;
+                    }
+                }
+            } else if (selectedType === 'perimeter') {
+                // 周边巡检：沿点云边界巡检
+                const pointsPerSide = Math.floor(Math.random() * 3) + 3;
+                let id = 1;
+                
+                // 四边形路线
+                const sides = [
+                    { start: [xMin, zMin], end: [xMax, zMin] },  // 下边
+                    { start: [xMax, zMin], end: [xMax, zMax] },  // 右边
+                    { start: [xMax, zMax], end: [xMin, zMax] },  // 上边
+                    { start: [xMin, zMax], end: [xMin, zMin] },  // 左边
+                ];
+                
+                sides.forEach((side, sideIdx) => {
+                    for (let i = 0; i < pointsPerSide; i++) {
+                        if (sideIdx > 0 && i === 0) continue;  // 避免重复角点
+                        
+                        const t = i / (pointsPerSide - 1);
+                        const x = side.start[0] + (side.end[0] - side.start[0]) * t;
+                        const z = side.start[1] + (side.end[1] - side.start[1]) * t;
+                        const localHeight = samplePointCloudHeight(positions, x, z, size) + 0.5;
+                        
+                        let pointType = '普通点';
+                        let name = `边界点${id}`;
+                        
+                        if (id === 1) name = '起始点';
+                        if (Math.random() < 0.25) {
+                            pointType = '监测点';
+                            name = `监测点${id}`;
+                        }
+                        
+                        newWaypoints.push({
+                            id: id,
+                            name: name,
+                            coords: [x, localHeight, z],
+                            type: pointType,
+                            navId: id
+                        });
+                        id++;
+                    }
+                });
+                
+                // 回到起点
+                newWaypoints.push({
+                    id: id,
+                    name: '终点(返回)',
+                    coords: [...newWaypoints[0].coords],
+                    type: '终点',
+                    navId: id
+                });
+            } else {
+                // Z字形密集巡检
+                const rows = Math.floor(Math.random() * 4) + 4;
+                let id = 1;
+                
+                for (let row = 0; row < rows; row++) {
+                    const z = zMin + (zMax - zMin) * (row / (rows - 1));
+                    const direction = row % 2 === 0;
+                    
+                    const x1 = direction ? xMin : xMax;
+                    const x2 = direction ? xMax : xMin;
+                    
+                    // 每行起点
+                    const h1 = samplePointCloudHeight(positions, x1, z, size) + 0.5;
+                    newWaypoints.push({
+                        id: id,
+                        name: id === 1 ? '起始点' : `转折点${id}`,
+                        coords: [x1, h1, z],
+                        type: id === 1 ? '普通点' : (Math.random() < 0.3 ? '监测点' : '普通点'),
+                        navId: id
+                    });
+                    id++;
+                    
+                    // 每行终点（非最后一行）
+                    if (row < rows - 1) {
+                        const h2 = samplePointCloudHeight(positions, x2, z, size) + 0.5;
+                        newWaypoints.push({
+                            id: id,
+                            name: `巡检点${id}`,
+                            coords: [x2, h2, z],
+                            type: Math.random() < 0.3 ? '监测点' : '普通点',
+                            navId: id
+                        });
+                        id++;
+                    }
+                }
+                
+                // 标记终点
+                const lastPoint = newWaypoints[newWaypoints.length - 1];
+                lastPoint.name = '终点';
+                lastPoint.type = '终点';
+            }
+            
+            updatePathData(newWaypoints);
+            
+            const typeNames = { 'coverage': '覆盖式', 'perimeter': '周边', 'zigzag': 'Z字形' };
+            showNotification(`已生成${typeNames[selectedType]}巡检线路，共 ${newWaypoints.length} 个点`);
+        }
+        
+        // 采样点云在指定 XZ 位置的高度
+        function samplePointCloudHeight(positions, targetX, targetZ, size) {
+            const searchRadius = Math.max(size.x, size.z) * 0.1;  // 搜索半径
+            let totalHeight = 0;
+            let count = 0;
+            
+            // 采样最近的点来估算高度
+            for (let i = 0; i < positions.length; i += 3) {
+                const x = positions[i];
+                const y = positions[i + 1];
+                const z = positions[i + 2];
+                
+                const dx = x - targetX;
+                const dz = z - targetZ;
+                const dist = Math.sqrt(dx * dx + dz * dz);
+                
+                if (dist < searchRadius) {
+                    totalHeight += y;
+                    count++;
+                }
+                
+                // 性能优化：采样足够多的点就停止
+                if (count >= 100) break;
+            }
+            
+            return count > 0 ? totalHeight / count : 0;
+        }
+
         function showNotification(message) {
             // 创建通知元素
             let notification = document.getElementById('notification');
@@ -1151,6 +1435,8 @@
         window.generateRandomPath = generateRandomPath;
         window.generateCirclePath = generateCirclePath;
         window.generateZigzagPath = generateZigzagPath;
+        window.loadRealPointCloud = loadRealPointCloud;
+        window.generatePathFromPointCloud = generatePathFromPointCloud;
 
         // ============ 初始化 ============
         init();
