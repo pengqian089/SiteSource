@@ -7,7 +7,7 @@
     "artplayer-plugin-danmuku": "^5.0.1",
     "cherry-markdown": "^0.11.0",
     "jquery": "^3.6.0",
-    "moment": "^2.29.4",
+    "moment": "^2.31.0",
     "nplayer": "^1.0.15"
   }
 }
